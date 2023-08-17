@@ -38,9 +38,6 @@ export function CurrencyInputPanel({
 }: CurrencyInputPanelProps) {
   return (
     <AtomBox position="relative" id={id} display="grid" gap="4px">
-      <AtomBox display="flex" alignItems="center" justifyContent="space-between">
-        {top}
-      </AtomBox>
       <AtomBox display="flex" flexDirection="column" flexWrap="nowrap" position="relative" zIndex="1">
         <InputStyle
           as="label"
@@ -61,6 +58,9 @@ export function CurrencyInputPanel({
             px="16px"
             pt="12px"
           >
+            <AtomBox display="flex" alignItems="center" justifyContent="space-between">
+              {top}
+            </AtomBox>
             <NumericalInput
               error={Boolean(error)}
               disabled={disabled}

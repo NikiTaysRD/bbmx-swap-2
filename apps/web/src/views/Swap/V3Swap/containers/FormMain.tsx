@@ -125,6 +125,7 @@ export function FormMain({ pricingAndSlippage, inputAmount, outputAmount, tradeL
         onCurrencySelect={handleInputSelect}
         otherCurrency={outputCurrency}
         commonBasesType={CommonBasesType.SWAP_LIMITORDER}
+        backgroundColor="#101124"
       />
       <RiskCheck currency={inputCurrency} />
       <FlipButton />
@@ -142,6 +143,7 @@ export function FormMain({ pricingAndSlippage, inputAmount, outputAmount, tradeL
         onCurrencySelect={handleOutputSelect}
         otherCurrency={outputCurrency}
         commonBasesType={CommonBasesType.SWAP_LIMITORDER}
+        backgroundColor="transparent"
       />
       <RiskCheck currency={outputCurrency} />
       <Recipient />

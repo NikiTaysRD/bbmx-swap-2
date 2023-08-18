@@ -33,7 +33,6 @@ const Menu = (props) => {
     false,
     'usCitizenConfirmModal',
   )
-  const [showPhishingWarningBanner] = usePhishingBanner()
 
   const menuItems = useMenuItems(onUSCitizenModalPresent)
 
@@ -60,7 +59,6 @@ const Menu = (props) => {
           </>
         }
         chainId={chainId}
-        banner={showPhishingWarningBanner && typeof window !== 'undefined' && <PhishingWarningBanner />}
         isDark={isDark}
         toggleTheme={toggleTheme}
         currentLang={currentLanguage.code}

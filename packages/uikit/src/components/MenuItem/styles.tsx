@@ -31,19 +31,6 @@ const StyledMenuItem = styled.a<StyledMenuItemProps>`
   opacity: ${({ $isDisabled }) => ($isDisabled ? 0.5 : 1)};
   pointer-events: ${({ $isDisabled }) => ($isDisabled ? "none" : "inherit")};
 
-  ${({ $statusColor, theme }) =>
-    $statusColor &&
-    `
-    &:after {
-      content: "";
-      border-radius: 100%;
-      background: ${theme.colors[$statusColor]};
-      height: 8px;
-      width: 8px;
-      margin-left: 12px;
-    }
-  `}
-
   ${({ $variant }) =>
     $variant === "default"
       ? `

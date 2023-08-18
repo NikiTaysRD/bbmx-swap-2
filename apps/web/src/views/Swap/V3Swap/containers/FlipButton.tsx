@@ -30,7 +30,16 @@ export const FlipButton = memo(function FlipButton() {
 
   return (
     <AutoColumn justify="space-between">
-      <AutoRow justify={isExpertMode ? 'space-between' : 'center'} style={{ padding: '0 1rem', marginTop: '1em' }}>
+      <AutoRow
+        justify={isExpertMode ? 'space-between' : 'center'}
+        style={{
+          padding: '0 1rem',
+          position: 'absolute',
+          zIndex: '10',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+        }}
+      >
         <SwapUI.SwitchButton onClick={onFlip} />
         {allowRecipient && recipient === null ? (
           <Button variant="text" id="add-recipient-button" onClick={() => onChangeRecipient('')}>

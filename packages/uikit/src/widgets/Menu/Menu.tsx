@@ -34,8 +34,13 @@ const StyledNav = styled.nav`
   border-bottom: 1px solid ${({ theme }) => theme.colors.cardBorder};
   transform: translate3d(0, 0, 0);
 
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  ${({ theme }) => theme.mediaQueries.md} {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
 `;
 
 const FixedContainer = styled.div<{ showMenu: boolean; height: number }>`
@@ -152,9 +157,6 @@ const Menu: React.FC<React.PropsWithChildren<NavProps>> = ({
                 </AtomBox>
               </Flex>
               <Flex alignItems="center" height="100%">
-                <AtomBox mr="12px" display={{ xs: "none", lg: "block" }}>
-                  <CakePrice chainId={chainId} showSkeleton={false} cakePriceUsd={cakePriceUsd} />
-                </AtomBox>
                 <Box mt="4px">
                   <LangSelector
                     currentLang={currentLang}

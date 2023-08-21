@@ -4,6 +4,8 @@ import Flex from "../../../components/Box/Flex";
 import { LogoIcon, LogoWithTextIcon } from "../../../components/Svg";
 import { MenuContext } from "../context";
 
+import BBMXLogo from "../../../../../../apps/web/public/images/logo.png";
+
 interface Props {
   href: string;
 }
@@ -16,7 +18,7 @@ const blink = keyframes`
 const StyledLink = styled("a")`
   display: flex;
   .mobile-icon {
-    width: 32px;
+    width: 130px;
     ${({ theme }) => theme.mediaQueries.lg} {
       display: none;
     }
@@ -46,8 +48,10 @@ const Logo: React.FC<React.PropsWithChildren<Props>> = ({ href }) => {
   const isAbsoluteUrl = href.startsWith("http");
   const innerLogo = (
     <>
-      <LogoIcon className="mobile-icon" />
-      <LogoWithTextIcon className="desktop-icon" />
+      <img src={BBMXLogo.src} alt="" className="mobile-icon" />
+      <img src={BBMXLogo.src} alt="" className="desktop-icon" />
+      {/* <LogoIcon className="mobile-icon" />
+      <LogoWithTextIcon className="desktop-icon" /> */}
     </>
   );
 

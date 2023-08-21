@@ -79,7 +79,7 @@ const MigrationPage: React.FC<React.PropsWithChildren> = () => {
 
   const scrollToTop = (): void => {
     window.scrollTo({
-      top: tableWrapperEl.current.offsetTop,
+      top: tableWrapperEl?.current?.offsetTop,
       behavior: 'smooth',
     })
   }
@@ -129,14 +129,14 @@ const MigrationPage: React.FC<React.PropsWithChildren> = () => {
                   <ArrowForwardIcon color="primary" />
                 </Button>
               </Link>
-              <Link href="https://docs.pancakeswap.finance/code/v3-migration/faq" external>
+              {/* <Link href="https://docs.pancakeswap.finance/code/v3-migration/faq" external>
                 <Button p="0" variant="text" scale="sm">
                   <Text color="primary" bold fontSize="16px" mr="4px">
                     {t('Need help ?')}
                   </Text>
                   <ArrowForwardIcon color="primary" />
                 </Button>
-              </Link>
+              </Link> */}
             </AutoColumn>
           </AtomBox>
 

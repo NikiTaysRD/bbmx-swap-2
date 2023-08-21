@@ -10,6 +10,9 @@ import { SwapInfo as Info, SwapInfoLabel as InfoLabel } from "./SwapInfo";
 import { TradePrice } from "./TradePrice";
 
 const SwitchIconButton = styled(IconButton)`
+  border-radius: 6px;
+  height: 44px;
+  width: 44px;
   box-shadow: inset 0px -2px 0px rgba(0, 0, 0, 0.1);
   .icon-up-down {
     display: none;

@@ -13,6 +13,7 @@ import {
   IconButton,
   HistoryIcon,
   useModal,
+  useMatchBreakpoints,
 } from '@pancakeswap/uikit'
 import { PositionDetails } from '@pancakeswap/farms'
 import { isStableSwapSupported } from '@pancakeswap/smart-router/evm'
@@ -196,73 +197,101 @@ export default function PoolListPage() {
   }, [selectedTypeIndex, stablePairsSection, t, v2Loading, v2PairsSection, v3Loading, v3PairsSection])
 
   const [onPresentTransactionsModal] = useModal(<TransactionsModal />)
-  const isMigrationSupported = useMemo(() => isV3MigrationSupported(chainId), [chainId])
+  const { isDesktop } = useMatchBreakpoints()
+
+  const StyledAppBody = styled(AppBody)`
+    div:first-child {
+      border-radius: 6px;
+    }
+  `
+
+  const StyledButtonMenu = styled(ButtonMenu)`
+    border-radius: 6px;
+
+    button {
+      border-radius: 6px;
+    }
+  `
 
   return (
     <Page>
-      {isMigrationSupported && (
-        <Flex m="24px 0" maxWidth="854px">
-          <FarmV3MigrationBanner />
-        </Flex>
-      )}
-      <AppBody
-        style={{
-          maxWidth: '854px',
-        }}
-      >
-        <AppHeader
-          title={t('Your Liquidity')}
-          subtitle={t('List of your liquidity positions')}
-          IconSlot={
-            <IconButton onClick={onPresentTransactionsModal} variant="text" scale="sm">
-              <HistoryIcon color="textSubtle" width="24px" />
-            </IconButton>
-          }
-          filter={
-            <>
-              <Flex as="label" htmlFor="hide-close-positions" alignItems="center">
-                <Checkbox
-                  id="hide-close-positions"
-                  scale="sm"
-                  name="confirmed"
-                  type="checkbox"
-                  checked={hideClosedPositions}
-                  onChange={() => setHideClosedPositions((prev) => !prev)}
-                />
-                <Text ml="8px" color="textSubtle" fontSize="14px">
-                  {t('Hide closed positions')}
-                </Text>
-              </Flex>
-
-              <ButtonMenu
-                scale="sm"
-                activeIndex={selectedTypeIndex}
-                onItemClick={(index) => setSelectedTypeIndex(index)}
-                variant="subtle"
+      <Flex flexDirection="column" justifyContent="center" alignItems="center">
+        <Flex justifyContent="space-between" alignItems="center" width="100%" pl="10px">
+          <Text fontSize="24px">Pools</Text>
+          <CardFooter style={{ textAlign: 'center', borderRadius: '6px', borderTop: 'none' }}>
+            <NextLink href="/add" passHref>
+              <Button
+                id="join-pool-button"
+                width="100%"
+                height="30px"
+                startIcon={<AddIcon color="white" />}
+                style={{
+                  borderRadius: '6px',
+                  color: 'white',
+                  backgroundColor: '#4E09F8',
+                  textTransform: 'uppercase',
+                }}
               >
-                <ButtonMenuItem>{t('All')}</ButtonMenuItem>
-                <ButtonMenuItem>V3</ButtonMenuItem>
-                <ButtonMenuItem display={isStableSwapSupported(chainId) ? 'inline-flex' : 'none'}>
-                  {t('StableSwap')}
-                </ButtonMenuItem>
-                <ButtonMenuItem>V2</ButtonMenuItem>
-              </ButtonMenu>
-            </>
-          }
-        />
-        <Body>
-          {mainSection}
-          {selectedTypeIndex === FILTER.V2 ? <FindOtherLP /> : null}
-        </Body>
-        <CardFooter style={{ textAlign: 'center' }}>
-          <NextLink href="/add" passHref>
-            <Button id="join-pool-button" width="100%" startIcon={<AddIcon color="invertedContrast" />}>
-              {t('Add Liquidity')}
-            </Button>
-          </NextLink>
-        </CardFooter>
-        <V3SubgraphHealthIndicator />
-      </AppBody>
+                {t('Add Liquidity')}
+              </Button>
+            </NextLink>
+          </CardFooter>
+        </Flex>
+        <StyledAppBody
+          style={{
+            maxWidth: '854px',
+            width: `${isDesktop && '800px'}`,
+            borderRadius: '6px',
+          }}
+        >
+          <AppHeader
+            title={t('Your Liquidity')}
+            subtitle={t('List of your liquidity positions')}
+            IconSlot={
+              <IconButton onClick={onPresentTransactionsModal} variant="text" scale="sm">
+                <HistoryIcon color="textSubtle" width="24px" />
+              </IconButton>
+            }
+            filter={
+              <>
+                <Flex as="label" htmlFor="hide-close-positions" alignItems="center">
+                  <Checkbox
+                    id="hide-close-positions"
+                    scale="sm"
+                    name="confirmed"
+                    type="checkbox"
+                    checked={hideClosedPositions}
+                    onChange={() => setHideClosedPositions((prev) => !prev)}
+                  />
+                  <Text ml="8px" color="textSubtle" fontSize="14px">
+                    {t('Hide closed positions')}
+                  </Text>
+                </Flex>
+
+                <StyledButtonMenu
+                  scale="sm"
+                  activeIndex={selectedTypeIndex}
+                  onItemClick={(index) => setSelectedTypeIndex(index)}
+                  variant="subtle"
+                >
+                  <ButtonMenuItem>{t('All')}</ButtonMenuItem>
+                  <ButtonMenuItem>V3</ButtonMenuItem>
+                  <ButtonMenuItem display={isStableSwapSupported(chainId) ? 'inline-flex' : 'none'}>
+                    {t('StableSwap')}
+                  </ButtonMenuItem>
+                  <ButtonMenuItem>V2</ButtonMenuItem>
+                </StyledButtonMenu>
+              </>
+            }
+          />
+
+          <Body>
+            {mainSection}
+            {selectedTypeIndex === FILTER.V2 ? <FindOtherLP /> : null}
+          </Body>
+          <V3SubgraphHealthIndicator />
+        </StyledAppBody>
+      </Flex>
     </Page>
   )
 }

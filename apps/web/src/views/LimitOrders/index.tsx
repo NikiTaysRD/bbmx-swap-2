@@ -379,7 +379,7 @@ const LimitOrders = () => {
                   isChartDisplayed={isChartDisplayed}
                 />
                 <Wrapper id="limit-order-page" style={{ minHeight: '412px' }}>
-                  <AutoColumn gap="sm">
+                  <AutoColumn gap="sm" position="relative">
                     <CurrencyInputPanel
                       label={independentField === Field.OUTPUT ? t('From (estimated)') : t('From')}
                       value={formattedAmounts.input}

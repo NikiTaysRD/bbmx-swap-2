@@ -218,14 +218,19 @@ export default function PoolListPage() {
       <Flex flexDirection="column" justifyContent="center" alignItems="center">
         <Flex justifyContent="space-between" alignItems="center" width="100%" pl="10px">
           <Text fontSize="24px">Pools</Text>
-          <CardFooter style={{ textAlign: 'center', borderRadius: '6px' }}>
+          <CardFooter style={{ textAlign: 'center', borderRadius: '6px', borderTop: 'none' }}>
             <NextLink href="/add" passHref>
               <Button
                 id="join-pool-button"
                 width="100%"
                 height="30px"
                 startIcon={<AddIcon color="white" />}
-                style={{ borderRadius: '6px', color: 'white', backgroundColor: '#4E09F8', textTransform: 'uppercase' }}
+                style={{
+                  borderRadius: '6px',
+                  color: 'white',
+                  backgroundColor: '#4E09F8',
+                  textTransform: 'uppercase',
+                }}
               >
                 {t('Add Liquidity')}
               </Button>

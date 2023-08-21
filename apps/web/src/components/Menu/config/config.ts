@@ -87,24 +87,24 @@ const config: (
           href: '/buy-crypto',
           status: { text: t('New'), color: 'success' },
         },
-      ],
+      ].map((item) => addMenuItemSupported(item, chainId)),
     },
-    {
-      label: t('Liquidity'),
-      href: '/liquidity',
-      icon: WalletIcon,
-      hideSubNav: true,
-    },
+    // {
+    //   label: t('Liquidity'),
+    //   href: '/liquidity',
+    //   icon: WalletIcon,
+    //   hideSubNav: true,
+    // },
     {
       label: t('Bridge'),
       icon: BridgeIcon,
       items: [
         {
-          label: t('Base'),
+          label: 'Base',
           href: 'https://bridge.base.org/deposit',
         },
         {
-          label: t('Orbiter'),
+          label: 'Orbiter',
           href: 'https://www.orbiter.finance/?source=Ethereum&dest=Base',
         },
       ],
@@ -134,19 +134,19 @@ const config: (
         // },
       ].map((item) => addMenuItemSupported(item, chainId)),
     },
-    {
-      label: t('Governance'),
-      href: '/',
-      icon: TrophyIcon,
-      fillIcon: TrophyFillIcon,
-      supportChainIds: SUPPORT_ONLY_BSC,
-    },
-    {
-      label: `${t('Info')} V3`,
-      href: '/info/v3',
-      icon: InfoIcon,
-      hideSubNav: true,
-    },
+    // {
+    //   label: t('Governance'),
+    //   href: '/governance',
+    //   icon: TrophyIcon,
+    //   fillIcon: TrophyFillIcon,
+    //   supportChainIds: SUPPORT_ONLY_BSC,
+    // },
+    // {
+    //   label: `${t('Info')} V3`,
+    //   href: '/info/v3',
+    //   icon: InfoIcon,
+    //   hideSubNav: true,
+    // },
   ].map((item) => addMenuItemSupported(item, chainId))
 
 export default config

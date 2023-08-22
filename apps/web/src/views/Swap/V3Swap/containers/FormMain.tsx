@@ -16,13 +16,13 @@ import { useCurrencyBalances } from 'state/wallet/hooks'
 import { maxAmountSpend } from 'utils/maxAmountSpend'
 import { currencyId } from 'utils/currencyId'
 
+import { useTheme } from '@pancakeswap/hooks'
 import { FormContainer } from '../components'
 import useWarningImport from '../../hooks/useWarningImport'
 import { RiskCheck } from './RiskCheck'
 import { useIsWrapping } from '../hooks'
 import { FlipButton } from './FlipButton'
 import { Recipient } from './Recipient'
-import { useTheme } from '@pancakeswap/hooks'
 
 interface Props {
   inputAmount?: CurrencyAmount<Currency>

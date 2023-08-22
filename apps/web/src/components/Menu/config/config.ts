@@ -45,11 +45,12 @@ const config: (
   chainId?: number,
 ) => ConfigMenuItemsType[] = (t, isDark, languageCode, chainId) =>
   [
-    // {
-    //   label: t('Home'),
-    //   href: homeLink?.href ?? '/',
-    //   icon: HomeIcon,
-    // },
+    {
+      label: t('Home'),
+      href: homeLink?.href ?? '/',
+      icon: HomeIcon,
+      hideSubNav: true,
+    },
     {
       label: t('Trade'),
       icon: SwapIcon,
@@ -61,10 +62,10 @@ const config: (
           label: t('Swap'),
           href: '/swap',
         },
-        {
-          label: t('Liquidity'),
-          href: '/liquidity',
-        },
+        // {
+        //   label: t('Liquidity'),
+        //   href: '/liquidity',
+        // },
         // {
         //   label: t('Perpetual'),
         //   href: getPerpetualUrl({
@@ -89,12 +90,12 @@ const config: (
         },
       ].map((item) => addMenuItemSupported(item, chainId)),
     },
-    // {
-    //   label: t('Liquidity'),
-    //   href: '/liquidity',
-    //   icon: WalletIcon,
-    //   hideSubNav: true,
-    // },
+    {
+      label: t('Liquidity'),
+      href: '/liquidity',
+      icon: WalletIcon,
+      hideSubNav: true,
+    },
     {
       label: t('Bridge'),
       icon: BridgeIcon,
@@ -134,19 +135,20 @@ const config: (
         // },
       ].map((item) => addMenuItemSupported(item, chainId)),
     },
-    // {
-    //   label: t('Governance'),
-    //   href: '/governance',
-    //   icon: TrophyIcon,
-    //   fillIcon: TrophyFillIcon,
-    //   supportChainIds: SUPPORT_ONLY_BSC,
-    // },
-    // {
-    //   label: `${t('Info')} V3`,
-    //   href: '/info/v3',
-    //   icon: InfoIcon,
-    //   hideSubNav: true,
-    // },
+    {
+      label: t('Governance'),
+      href: '/governance',
+      icon: TrophyIcon,
+      fillIcon: TrophyFillIcon,
+      supportChainIds: SUPPORT_ONLY_BSC,
+      hideSubNav: true,
+    },
+    {
+      label: `${t('Info')} V3`,
+      href: '/info/v3',
+      icon: InfoIcon,
+      hideSubNav: true,
+    },
   ].map((item) => addMenuItemSupported(item, chainId))
 
 export default config

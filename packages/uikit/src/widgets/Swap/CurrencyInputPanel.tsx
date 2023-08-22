@@ -15,11 +15,13 @@ interface CurrencyInputPanelProps extends Omit<NumericalInputProps, "onBlur"> {
   bottom?: React.ReactNode;
   showBridgeWarning?: boolean;
   backgroundColor?: string;
+  height?: number;
 }
 
-const InputStyle = styled(AtomBox)<{ backgroundColor?: string }>`
+const InputStyle = styled(AtomBox)<{ backgroundColor?: string; height?: number }>`
   background-color: ${({ theme, backgroundColor }) => backgroundColor ?? theme.colors.input};
   border: ${({ backgroundColor }) => backgroundColor === "transparent" && "1px solid white"};
+  height: ${({ height }) => height && `${height}px`};
 `;
 
 export function CurrencyInputPanel({
@@ -35,6 +37,7 @@ export function CurrencyInputPanel({
   loading,
   showBridgeWarning,
   backgroundColor,
+  height,
 }: CurrencyInputPanelProps) {
   return (
     <AtomBox position="relative" id={id} display="grid" gap="4px">
@@ -47,6 +50,7 @@ export function CurrencyInputPanel({
             error: Boolean(error),
           })}
           backgroundColor={backgroundColor}
+          height={height}
         >
           <AtomBox
             display="flex"

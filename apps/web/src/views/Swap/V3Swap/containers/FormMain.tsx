@@ -22,6 +22,7 @@ import { RiskCheck } from './RiskCheck'
 import { useIsWrapping } from '../hooks'
 import { FlipButton } from './FlipButton'
 import { Recipient } from './Recipient'
+import { useTheme } from '@pancakeswap/hooks'
 
 interface Props {
   inputAmount?: CurrencyAmount<Currency>
@@ -105,6 +106,8 @@ export function FormMain({ pricingAndSlippage, inputAmount, outputAmount, tradeL
   const inputLoading = typedValue ? !isTypingInput && tradeLoading : false
   const outputLoading = typedValue ? isTypingInput && tradeLoading : false
 
+  const { isDark } = useTheme()
+
   return (
     <FormContainer>
       <CurrencyInputPanel
@@ -125,7 +128,7 @@ export function FormMain({ pricingAndSlippage, inputAmount, outputAmount, tradeL
         onCurrencySelect={handleInputSelect}
         otherCurrency={outputCurrency}
         commonBasesType={CommonBasesType.SWAP_LIMITORDER}
-        backgroundColor="#101124"
+        backgroundColor={`${isDark && '#101124'}`}
       />
       {/* <RiskCheck currency={inputCurrency} /> */}
       <FlipButton />

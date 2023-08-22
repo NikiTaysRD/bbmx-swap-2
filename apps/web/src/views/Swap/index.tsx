@@ -19,6 +19,7 @@ import useWarningImport from './hooks/useWarningImport'
 import { V3SwapForm } from './V3Swap'
 import { StyledInputCurrencyWrapper, StyledSwapContainer } from './styles'
 import { SwapFeaturesContext } from './SwapFeaturesContext'
+import { useTheme } from '@pancakeswap/hooks'
 
 export default function Swap() {
   const { query } = useRouter()
@@ -84,6 +85,7 @@ export default function Swap() {
     [inputCurrencyId, outputCurrencyId, onCurrencySelection, warningSwapHandler],
   )
 
+  const { isDark } = useTheme()
   return (
     <Page removePadding={isChartExpanded} hideFooterOnDesktop={isChartExpanded}>
       <Flex width={['328px', '100%']} height="100%" justifyContent="center" position="relative" alignItems="flex-start">
@@ -111,7 +113,7 @@ export default function Swap() {
         <Flex flexDirection="column">
           <StyledSwapContainer $isChartExpanded={isChartExpanded}>
             <StyledInputCurrencyWrapper mt={isChartExpanded ? '24px' : '0'}>
-              <AppBody background="#1B1C30" style={{ maxWidth: 'unset' }}>
+              <AppBody background={`${isDark && '#1B1C30'}`} style={{ maxWidth: 'unset' }}>
                 <V3SwapForm />
               </AppBody>
             </StyledInputCurrencyWrapper>

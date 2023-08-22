@@ -45,12 +45,12 @@ const config: (
   chainId?: number,
 ) => ConfigMenuItemsType[] = (t, isDark, languageCode, chainId) =>
   [
-    {
-      label: t('Home'),
-      href: homeLink?.href ?? '/',
-      icon: HomeIcon,
-      hideSubNav: true,
-    },
+    // {
+    //   label: t('Home'),
+    //   href: homeLink?.href ?? '/',
+    //   icon: HomeIcon,
+    //   hideSubNav: true,
+    // },
     {
       label: t('Trade'),
       icon: SwapIcon,
@@ -110,39 +110,39 @@ const config: (
         },
       ],
     },
-    {
-      label: t('Farming'),
-      href: '/farms',
-      icon: EarnIcon,
-      fillIcon: EarnFillIcon,
-      image: '/images/decorations/pe2.png',
-      supportChainIds: SUPPORT_FARMS,
-      items: [
-        {
-          label: t('Farms'),
-          href: '/farms',
-          supportChainIds: SUPPORT_FARMS,
-        },
-        {
-          label: t('Pools'),
-          href: '/pools',
-          supportChainIds: POOL_SUPPORTED_CHAINS,
-        },
-        // {
-        //   label: t('Liquid Staking'),
-        //   href: '/liquid-staking',
-        //   supportChainIds: POOL_SUPPORTED_CHAINS,
-        // },
-      ].map((item) => addMenuItemSupported(item, chainId)),
-    },
-    {
-      label: t('Governance'),
-      href: '/governance',
-      icon: TrophyIcon,
-      fillIcon: TrophyFillIcon,
-      supportChainIds: SUPPORT_ONLY_BSC,
-      hideSubNav: true,
-    },
+    // {
+    //   label: t('Farming'),
+    //   href: '/farms',
+    //   icon: EarnIcon,
+    //   fillIcon: EarnFillIcon,
+    //   image: '/images/decorations/pe2.png',
+    //   supportChainIds: SUPPORT_FARMS,
+    //   items: [
+    //     {
+    //       label: t('Farms'),
+    //       href: '/farms',
+    //       supportChainIds: SUPPORT_FARMS,
+    //     },
+    //     {
+    //       label: t('Pools'),
+    //       href: '/pools',
+    //       supportChainIds: POOL_SUPPORTED_CHAINS,
+    //     },
+    //     // {
+    //     //   label: t('Liquid Staking'),
+    //     //   href: '/liquid-staking',
+    //     //   supportChainIds: POOL_SUPPORTED_CHAINS,
+    //     // },
+    //   ].map((item) => addMenuItemSupported(item, chainId)),
+    // },
+    // {
+    //   label: t('Governance'),
+    //   href: '/governance',
+    //   icon: TrophyIcon,
+    //   fillIcon: TrophyFillIcon,
+    //   supportChainIds: SUPPORT_ONLY_BSC,
+    //   hideSubNav: true,
+    // },
     {
       label: `${t('Info')} V3`,
       href: '/info/v3',

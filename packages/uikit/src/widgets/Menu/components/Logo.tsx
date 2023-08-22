@@ -5,6 +5,8 @@ import { LogoIcon, LogoWithTextIcon } from "../../../components/Svg";
 import { MenuContext } from "../context";
 
 import BBMXLogo from "../../../../../../apps/web/public/images/logo.png";
+import BBMXLogoBlack from "../../../../../../apps/web/public/images/logo-black.png";
+import useTheme from "../../../../../hooks/src/useTheme";
 
 interface Props {
   href: string;
@@ -46,10 +48,21 @@ const StyledLink = styled("a")`
 const Logo: React.FC<React.PropsWithChildren<Props>> = ({ href }) => {
   const { linkComponent } = useContext(MenuContext);
   const isAbsoluteUrl = href.startsWith("http");
+  const { isDark } = useTheme();
   const innerLogo = (
     <>
-      <img src={BBMXLogo.src} alt="" className="mobile-icon" />
-      <img src={BBMXLogo.src} alt="" className="desktop-icon" />
+      {isDark ? (
+        <>
+          <img src={BBMXLogo.src} alt="" className="mobile-icon" />
+          <img src={BBMXLogo.src} alt="" className="desktop-icon" />
+        </>
+      ) : (
+        <>
+          <img src={BBMXLogoBlack.src} alt="" className="mobile-icon" />
+          <img src={BBMXLogoBlack.src} alt="" className="desktop-icon" />
+        </>
+      )}
+
       {/* <LogoIcon className="mobile-icon" />
       <LogoWithTextIcon className="desktop-icon" /> */}
     </>

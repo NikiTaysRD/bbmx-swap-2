@@ -16,6 +16,8 @@ import { useCurrencyBalances } from 'state/wallet/hooks'
 import { maxAmountSpend } from 'utils/maxAmountSpend'
 import { currencyId } from 'utils/currencyId'
 
+import { useTheme } from '@pancakeswap/hooks'
+import { Flex, FlexGap, useMatchBreakpoints } from '@pancakeswap/uikit'
 import { FormContainer } from '../components'
 import useWarningImport from '../../hooks/useWarningImport'
 import { RiskCheck } from './RiskCheck'
@@ -105,50 +107,60 @@ export function FormMain({ pricingAndSlippage, inputAmount, outputAmount, tradeL
   const inputLoading = typedValue ? !isTypingInput && tradeLoading : false
   const outputLoading = typedValue ? isTypingInput && tradeLoading : false
 
+  const { isDark } = useTheme()
+
+  const { isDesktop } = useMatchBreakpoints()
   return (
     <FormContainer>
-      <CurrencyInputPanel
-        id="swap-currency-input"
-        showUSDPrice
-        showMaxButton
-        showCommonBases
-        inputLoading={!isWrapping && inputLoading}
-        currencyLoading={!loadedUrlParams}
-        label={!isTypingInput && !isWrapping ? t('From (estimated)') : t('From')}
-        value={isWrapping ? typedValue : inputValue}
-        maxAmount={maxAmountInput}
-        showQuickInputButton
-        currency={inputCurrency}
-        onUserInput={handleTypeInput}
-        onPercentInput={handlePercentInput}
-        onMax={handleMaxInput}
-        onCurrencySelect={handleInputSelect}
-        otherCurrency={outputCurrency}
-        commonBasesType={CommonBasesType.SWAP_LIMITORDER}
-        backgroundColor="#101124"
-      />
-      {/* <RiskCheck currency={inputCurrency} /> */}
-      <FlipButton />
-      <CurrencyInputPanel
-        id="swap-currency-output"
-        showUSDPrice
-        showCommonBases
-        showMaxButton={false}
-        inputLoading={!isWrapping && outputLoading}
-        currencyLoading={!loadedUrlParams}
-        label={isTypingInput && !isWrapping ? t('To (estimated)') : t('To')}
-        value={isWrapping ? typedValue : outputValue}
-        currency={outputCurrency}
-        onUserInput={handleTypeOutput}
-        onCurrencySelect={handleOutputSelect}
-        otherCurrency={outputCurrency}
-        commonBasesType={CommonBasesType.SWAP_LIMITORDER}
-        backgroundColor="transparent"
-      />
-      {/* <RiskCheck currency={outputCurrency} /> */}
-      <Recipient />
-      {pricingAndSlippage}
-      {swapCommitButton}
+      <Flex flexDirection="column" width="100%" pl={isDesktop && '15px'} pr={isDesktop && '15px'}>
+        <FlexGap gap="5px" flexDirection="column" width="100%">
+          <CurrencyInputPanel
+            id="swap-currency-input"
+            showUSDPrice
+            showMaxButton
+            showCommonBases
+            inputLoading={!isWrapping && inputLoading}
+            currencyLoading={!loadedUrlParams}
+            label={!isTypingInput && !isWrapping ? t('From (estimated)') : t('From')}
+            value={isWrapping ? typedValue : inputValue}
+            maxAmount={maxAmountInput}
+            showQuickInputButton
+            currency={inputCurrency}
+            onUserInput={handleTypeInput}
+            onPercentInput={handlePercentInput}
+            onMax={handleMaxInput}
+            onCurrencySelect={handleInputSelect}
+            otherCurrency={outputCurrency}
+            commonBasesType={CommonBasesType.SWAP_LIMITORDER}
+            backgroundColor={`${isDark && '#101124'}`}
+            height={115}
+          />
+          {/* <RiskCheck currency={inputCurrency} /> */}
+          <FlipButton />
+          <CurrencyInputPanel
+            id="swap-currency-output"
+            showUSDPrice
+            showCommonBases
+            showMaxButton={false}
+            inputLoading={!isWrapping && outputLoading}
+            currencyLoading={!loadedUrlParams}
+            label={isTypingInput && !isWrapping ? t('To (estimated)') : t('To')}
+            value={isWrapping ? typedValue : outputValue}
+            currency={outputCurrency}
+            onUserInput={handleTypeOutput}
+            onCurrencySelect={handleOutputSelect}
+            otherCurrency={outputCurrency}
+            commonBasesType={CommonBasesType.SWAP_LIMITORDER}
+            backgroundColor="transparent"
+            height={115}
+          />
+        </FlexGap>
+
+        {/* <RiskCheck currency={outputCurrency} /> */}
+        <Recipient />
+        {pricingAndSlippage}
+        {swapCommitButton}
+      </Flex>
     </FormContainer>
   )
 }

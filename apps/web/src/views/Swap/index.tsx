@@ -12,6 +12,7 @@ import { useSwapHotTokenDisplay } from 'hooks/useSwapHotTokenDisplay'
 import { useCurrency } from 'hooks/Tokens'
 import { Field } from 'state/swap/actions'
 import { useDefaultsFromURLSearch, useSingleTokenSwapInfo, useSwapState } from 'state/swap/hooks'
+import { useTheme } from '@pancakeswap/hooks'
 import Page from '../Page'
 import PriceChartContainer from './components/Chart/PriceChartContainer'
 import HotTokenList from './components/HotTokenList'
@@ -84,6 +85,7 @@ export default function Swap() {
     [inputCurrencyId, outputCurrencyId, onCurrencySelection, warningSwapHandler],
   )
 
+  const { isDark } = useTheme()
   return (
     <Page removePadding={isChartExpanded} hideFooterOnDesktop={isChartExpanded}>
       <Flex width={['328px', '100%']} height="100%" justifyContent="center" position="relative" alignItems="flex-start">
@@ -111,7 +113,7 @@ export default function Swap() {
         <Flex flexDirection="column">
           <StyledSwapContainer $isChartExpanded={isChartExpanded}>
             <StyledInputCurrencyWrapper mt={isChartExpanded ? '24px' : '0'}>
-              <AppBody background="#1B1C30" style={{ maxWidth: 'unset' }}>
+              <AppBody background={`${isDark && '#1B1C30'}`} style={{ maxWidth: 'unset' }}>
                 <V3SwapForm />
               </AppBody>
             </StyledInputCurrencyWrapper>

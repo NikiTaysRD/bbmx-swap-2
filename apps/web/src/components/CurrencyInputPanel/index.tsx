@@ -85,6 +85,7 @@ interface CurrencyInputPanelProps {
   title?: React.ReactNode
   hideBalanceComp?: boolean
   backgroundColor?: string
+  height?: number
 }
 const CurrencyInputPanel = memo(function CurrencyInputPanel({
   value,
@@ -118,6 +119,7 @@ const CurrencyInputPanel = memo(function CurrencyInputPanel({
   title,
   hideBalanceComp,
   backgroundColor,
+  height,
 }: CurrencyInputPanelProps) {
   const { address: account } = useAccount()
 
@@ -189,6 +191,7 @@ const CurrencyInputPanel = memo(function CurrencyInputPanel({
       onUserInput={handleUserInput}
       loading={inputLoading}
       backgroundColor={backgroundColor}
+      height={height}
       top={
         <>
           {title}

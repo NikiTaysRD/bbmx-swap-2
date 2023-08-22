@@ -105,12 +105,6 @@ const CurrencyInputHeader: React.FC<React.PropsWithChildren<Props>> = memo(
 
     const titleContent = (
       <Flex width="100%" alignItems="center" justifyContent="space-between" flexDirection="column">
-        <Flex flexDirection="column" alignItems="flex-start" width="100%" marginBottom={15}>
-          <Swap.CurrencyInputHeaderTitle>{title}</Swap.CurrencyInputHeaderTitle>
-        </Flex>
-        <Flex justifyContent="start" width="100%" height="17px" alignItems="center" mb="14px">
-          <Swap.CurrencyInputHeaderSubTitle>{subtitle}</Swap.CurrencyInputHeaderSubTitle>
-        </Flex>
         <Flex width="100%" justifyContent="end">
           {SUPPORTED_BUY_CRYPTO_CHAINS.includes(chainId) ? (
             <Flex alignItems="center" justifyContent="center" px="4px" mt="5px">

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { FlexGap, Grid, PageSection, useMatchBreakpoints } from '@pancakeswap/uikit'
+import { Flex, FlexGap, Grid, PageSection, useMatchBreakpoints } from '@pancakeswap/uikit'
 import { useAccount } from 'wagmi'
 import useTheme from 'hooks/useTheme'
 import Container from 'components/Layout/Container'
@@ -25,6 +25,7 @@ import ThirdIcon from '../../../public/images/home/icon-3.png'
 import FourthIcon from '../../../public/images/home/icon-4.png'
 import FifthIcon from '../../../public/images/home/icon-5.png'
 import SixthIcon from '../../../public/images/home/icon-6.png'
+import BaseLogo from '../../../public/images/home/base-logo.png'
 
 const StyledHeroSection = styled(PageSection)`
   padding-top: 16px;
@@ -74,6 +75,23 @@ const FeatureText = styled.p`
   ${({ theme }) => theme.mediaQueries.sm} {
     font-size: 64px;
   }
+`
+
+const BuildingInfo = styled(FlexGap)`
+  font-size: 40px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+
+  ${({ theme }) => theme.mediaQueries.sm} {
+    font-size: 64px;
+  }
+`
+
+const BuildingText = styled.p`
+  font-size: 20px;
+  line-height: 32px;
+
+  color: #a0a3c4;
 `
 
 const Home: React.FC<React.PropsWithChildren> = () => {
@@ -250,6 +268,39 @@ const Home: React.FC<React.PropsWithChildren> = () => {
             holders.
           </HomeCard>
         </Grid>
+      </HomePageSection>
+
+      <HomePageSection background="#1B1C30" index={3}>
+        <FlexGap
+          gap="20px"
+          flexDirection={`${isDesktop ? 'row' : 'column'}`}
+          justifyContent={`${isDesktop ? 'space-between' : 'center'}`}
+          alignItems={`${!isDesktop && 'center'}`}
+        >
+          <Flex flexDirection="column" width={`${isDesktop ? '55%' : '100%'}`} alignItems={`${!isDesktop && 'center'}`}>
+            <BuildingInfo
+              gap="10px"
+              flexDirection="column"
+              justifyContent="center"
+              mb={`${isDesktop ? '80px' : '20px'}`}
+              width={`${isDesktop ? '50%' : '60%'}`}
+            >
+              <p>BUILDING</p>
+              <FeatureText>
+                <span style={{ color: '#4E09F8' }}>BASE</span> DEFI
+              </FeatureText>
+            </BuildingInfo>
+
+            <BuildingText>
+              BBMX is contributing in Base efforts to help onboard billion users to blockchain. Building the best of
+              Ethereum and offering it at 10x cheaper cost.
+            </BuildingText>
+          </Flex>
+
+          <Flex alignItems="center" width={`${isDesktop ? '30%' : '50%'}`}>
+            <img src={BaseLogo.src} alt="" />
+          </Flex>
+        </FlexGap>
       </HomePageSection>
     </>
   )

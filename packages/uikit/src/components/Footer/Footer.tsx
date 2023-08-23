@@ -4,6 +4,10 @@ import React from "react";
 import { Box, Flex } from "../Box";
 import { Link } from "../Link";
 import {
+  Container,
+  Input,
+  List,
+  ListItem,
   StyledFooter,
   StyledIconMobileContainer,
   StyledList,
@@ -11,6 +15,8 @@ import {
   StyledSocialLinks,
   StyledText,
   StyledToolsContainer,
+  TextH,
+  TextP,
 } from "./styles";
 
 import { Button } from "../Button";
@@ -20,6 +26,7 @@ import { ArrowForwardIcon, LogoWithTextIcon } from "../Svg";
 import { ThemeSwitcher } from "../ThemeSwitcher";
 import { FooterProps } from "./types";
 import { SkeletonV2 } from "../Skeleton";
+import Logo from "../../widgets/Menu/components/Logo";
 
 const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
   items,
@@ -36,52 +43,32 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
 }) => {
   const isMounted = useIsMounted();
   return (
-    <StyledFooter
-      data-theme="dark"
-      p={["40px 16px", null, "56px 40px 32px 40px"]}
-      position="relative"
-      {...props}
-      justifyContent="center"
-    >
-      <Flex flexDirection="column" width={["100%", null, "1200px;"]}>
-        <StyledIconMobileContainer display={["block", null, "none"]}>
-          <LogoWithTextIcon width="130px" />
-        </StyledIconMobileContainer>
-        <Flex
-          order={[2, null, 1]}
-          flexDirection={["column", null, "row"]}
-          justifyContent="space-between"
-          alignItems="flex-start"
-          mb={["42px", null, "36px"]}
-        >
-          {items?.map((item) => (
-            <StyledList key={item.label}>
-              <StyledListItem>{item.label}</StyledListItem>
-              {item.items?.map(({ label, href, isHighlighted = false }) => (
-                <StyledListItem key={label}>
-                  {href ? (
-                    <Link
-                      data-theme="dark"
-                      href={href}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      color={isHighlighted ? vars.colors.warning : "text"}
-                      bold={false}
-                    >
-                      {label}
-                    </Link>
-                  ) : (
-                    <StyledText>{label}</StyledText>
-                  )}
-                </StyledListItem>
-              ))}
-            </StyledList>
-          ))}
-          <Box display={["none", null, "block"]}>
-            <LogoWithTextIcon width="160px" />
-          </Box>
+    <StyledFooter data-theme="dark" p={["40px 16px", null, "56px 40px 32px 40px"]} position="relative" {...props}>
+      <Container>
+        <Flex justifyContent="space-between" alignItems="center" mb="45px">
+          <Logo href="/" />
+          <List>
+            <ListItem>BBMXSwap</ListItem>
+            <ListItem>Docs</ListItem>
+            <ListItem>Contact Us</ListItem>
+          </List>
         </Flex>
-        <StyledSocialLinks order={[2]} pb={["42px", null, "32px"]} mb={["0", null, "32px"]} />
+
+        <Flex>
+          <Flex flexDirection="column" width="42%">
+            <TextH>KEEP UP WITH THE LATEST FROM BBMX</TextH>
+            <TextP>Subscribe to our Mirror blog.</TextP>
+
+            <Flex mb="20px">
+              <Input placeholder="Enter your email" />
+              <Button>Subscribe</Button>
+            </Flex>
+
+            <TextP>© 2023 BBMX</TextP>
+          </Flex>
+        </Flex>
+      </Container>
+      <Flex flexDirection="column" width={["100%", null, "1200px;"]}>
         <StyledToolsContainer
           data-theme="dark"
           order={[1, null, 3]}

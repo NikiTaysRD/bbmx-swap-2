@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { FlexGap, Grid, PageSection } from '@pancakeswap/uikit'
+import { FlexGap, Grid, PageSection, useMatchBreakpoints } from '@pancakeswap/uikit'
 import { useAccount } from 'wagmi'
 import useTheme from 'hooks/useTheme'
 import Container from 'components/Layout/Container'
@@ -65,11 +65,15 @@ const GradientHeader = styled.p`
 `
 
 const FeatureText = styled.p`
-  font-size: 64px;
+  font-size: 40px;
   text-transform: uppercase;
   letter-spacing: 2px;
   padding-bottom: 15px;
   border-bottom: 0.5px solid rgba(255, 255, 255, 0.3);
+
+  ${({ theme }) => theme.mediaQueries.sm} {
+    font-size: 64px;
+  }
 `
 
 const Home: React.FC<React.PropsWithChildren> = () => {
@@ -80,6 +84,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
   const HomeSectionContainerStyles = { margin: '0', width: '100%', maxWidth: '968px' }
 
   const { t } = useTranslation()
+  const { isDesktop } = useMatchBreakpoints()
 
   return (
     <>
@@ -202,8 +207,8 @@ const Home: React.FC<React.PropsWithChildren> = () => {
         </FlexGap>
 
         <Grid
-          gridTemplateColumns="1fr 1fr 1fr"
-          gridTemplateRows="1fr 1fr"
+          gridTemplateColumns={`${isDesktop ? '1fr 1fr 1fr' : '1fr'}`}
+          gridTemplateRows={`${isDesktop ? '1fr 1fr' : '1fr'}`}
           gridGap="15px"
           justifyItems="center"
           alignItems="center"

@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { PageSection } from '@pancakeswap/uikit'
+import { FlexGap, Grid, PageSection } from '@pancakeswap/uikit'
 import { useAccount } from 'wagmi'
 import useTheme from 'hooks/useTheme'
 import Container from 'components/Layout/Container'
@@ -17,6 +17,14 @@ import CakeDataRow from './components/CakeDataRow'
 import { WedgeTopLeft, InnerWedgeWrapper, OuterWedgeWrapper, WedgeTopRight } from './components/WedgeSvgs'
 import UserBanner from './components/UserBanner'
 import MultipleBanner from './components/Banners/MultipleBanner'
+import HomeCard from './components/Card'
+
+import FirstIcon from '../../../public/images/home/icon-1.png'
+import SecondIcon from '../../../public/images/home/icon-2.png'
+import ThirdIcon from '../../../public/images/home/icon-3.png'
+import FourthIcon from '../../../public/images/home/icon-4.png'
+import FifthIcon from '../../../public/images/home/icon-5.png'
+import SixthIcon from '../../../public/images/home/icon-6.png'
 
 const StyledHeroSection = styled(PageSection)`
   padding-top: 16px;
@@ -42,6 +50,28 @@ const UserBannerWrapper = styled(Container)`
   }
 `
 
+const HomePageSection = styled(PageSection)`
+  max-width: 100%;
+`
+
+const GradientHeader = styled.p`
+  font-size: 40px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  background: -webkit-linear-gradient(bottom, transparent 0%, #4e09f8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 700;
+`
+
+const FeatureText = styled.p`
+  font-size: 64px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  padding-bottom: 15px;
+  border-bottom: 0.5px solid rgba(255, 255, 255, 0.3);
+`
+
 const Home: React.FC<React.PropsWithChildren> = () => {
   const { theme } = useTheme()
   const { address: account } = useAccount()
@@ -53,7 +83,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
 
   return (
     <>
-      <style jsx global>
+      {/* <style jsx global>
         {`
           #home-1 .page-bg {
             background: linear-gradient(139.73deg, #e6fdff 0%, #f3efff 100%);
@@ -163,7 +193,59 @@ const Home: React.FC<React.PropsWithChildren> = () => {
         hasCurvedDivider={false}
       >
         <Footer />
-      </PageSection>
+      </PageSection> */}
+
+      <HomePageSection background="#101124" pt="200px" index={2}>
+        <FlexGap gap="10px" flexDirection="column" justifyContent="center" alignItems="center" mb="80px">
+          <GradientHeader>BBMX</GradientHeader>
+          <FeatureText>FULLY FEATURED</FeatureText>
+        </FlexGap>
+
+        <Grid
+          gridTemplateColumns="1fr 1fr 1fr"
+          gridTemplateRows="1fr 1fr"
+          gridGap="15px"
+          justifyItems="center"
+          alignItems="center"
+        >
+          <HomeCard header="BBMXSwap" image={FirstIcon}>
+            An advanced Dex that offers both AMM and CLMM for Base DeFi. With one of the cheapest fee structures and
+            non-inflationary liquidity incentives in the market, BBMX is built to last.
+            <br />
+            It&apos;s a community, not a business.
+          </HomeCard>
+
+          <HomeCard header="BBMX Futures" image={SecondIcon}>
+            A decentralized perpetual exchange on the Base blockchain that enables direct futures trading of top BaseGem
+            from your wallet. We are taking inspiration from GMX and trying to best it on Base.
+          </HomeCard>
+
+          <HomeCard header="Smart Stake" image={ThirdIcon}>
+            built-for-all universal staking dApp to help boost liquidity for anyone and anywhere on the Base Blockchain
+            <br />
+            Smart Stake allows anyone to create a single staking or a Farming pool at a fraction of the actual
+            development cost using the$BBMX token
+          </HomeCard>
+
+          <HomeCard header="Smart Locker" image={FourthIcon}>
+            A user-friendly and cost-effective smart contract locker, that allows easy locking of liquidity, tokens, or
+            creation of vesting contracts with just a few clicks.
+          </HomeCard>
+
+          <HomeCard header="BBMXStarter" image={FifthIcon}>
+            A state-of-the-art Launchpad created to support and nurture top-of-the-line projects on BaseChain
+            <br />
+            We will be co-partnering with top launchpads on Base to bring the best projects to the BBMX community.
+          </HomeCard>
+
+          <HomeCard header="BBMX Dao" image={SixthIcon}>
+            BBMX&apos;s very own DAO, employing an on-chain governance process using the BBMX token to oversee and
+            manage the Protocol.
+            <br />A lot of key decisions will be planned and executed with the help of our loyal community of BBMX
+            holders.
+          </HomeCard>
+        </Grid>
+      </HomePageSection>
     </>
   )
 }

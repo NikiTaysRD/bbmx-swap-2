@@ -54,6 +54,21 @@ const BuildingText = styled.p`
 
   color: #a0a3c4;
 `
+const RewardsText = styled.p`
+  color: #a0a3c4;
+  font-size: 24px;
+  line-height: 50px;
+
+  ${({ theme }) => theme.mediaQueries.sm} {
+    width: 50%;
+  }
+`
+
+const RewardsListItem = styled.p`
+  font-size: 20px;
+  line-height: 32px;
+  color: #a0a3c4;
+`
 
 const Home: React.FC<React.PropsWithChildren> = () => {
   const { isDesktop } = useMatchBreakpoints()
@@ -254,6 +269,46 @@ const Home: React.FC<React.PropsWithChildren> = () => {
           <Flex alignItems="center" width={`${isDesktop ? '30%' : '50%'}`}>
             <img src={BaseLogo.src} alt="" />
           </Flex>
+        </FlexGap>
+      </HomePageSection>
+
+      <HomePageSection background="#101124" pt="200px" index={2} hasCurvedDivider={false}>
+        <FlexGap gap="10px" flexDirection="column" justifyContent="center" alignItems="center" mb="80px">
+          <GradientHeader>HOLD BBMX &</GradientHeader>
+          <FeatureText>EARN REWARDS</FeatureText>
+        </FlexGap>
+
+        <FlexGap
+          gap="50px"
+          justifyContent="space-around"
+          alignItems="flex-start"
+          flexDirection={`${isDesktop ? 'row' : 'column'}`}
+        >
+          <RewardsText>
+            $BBMX is our utility and governance token, pivotal to the BBMX protocol. It unlocks the full potential of
+            all BBMX products and will be instrumental in guiding the protocol&apos;s growth
+          </RewardsText>
+
+          <FlexGap gap="5px" flexDirection="column" justifyContent="center">
+            <RewardsListItem>Turn off swapping fees by holding BBMX</RewardsListItem>
+            <RewardsListItem>Considerably reduce Futures trading fees</RewardsListItem>
+            <RewardsListItem>Claim a portion of protocol’s revenue via Real Yield</RewardsListItem>
+            <RewardsListItem>Unlock Smart stake using $BBMX</RewardsListItem>
+            <RewardsListItem>Get access to Tier-1 project on BBMXStarter</RewardsListItem>
+
+            <Flex alignItems="center" justifyContent="center">
+              <p style={{ fontSize: '16px', color: '#a0a3c4', lineHeight: '32px' }}>
+                Thats not it, there’s more coming as we progress
+              </p>
+            </Flex>
+          </FlexGap>
+        </FlexGap>
+      </HomePageSection>
+
+      <HomePageSection background="#101124" pt="200px" index={2} hasCurvedDivider={false}>
+        <FlexGap gap="10px" flexDirection="column" justifyContent="center" alignItems="center" mb="80px">
+          <GradientHeader>BBMX JOURNEY</GradientHeader>
+          <FeatureText>ROADMAP</FeatureText>
         </FlexGap>
       </HomePageSection>
     </>

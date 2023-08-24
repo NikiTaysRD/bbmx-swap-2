@@ -26,6 +26,7 @@ import FourthIcon from '../../../public/images/home/icon-4.png'
 import FifthIcon from '../../../public/images/home/icon-5.png'
 import SixthIcon from '../../../public/images/home/icon-6.png'
 import BaseLogo from '../../../public/images/home/base-logo.png'
+import FormSection from './components/FormSection'
 
 const StyledHeroSection = styled(PageSection)`
   padding-top: 16px;
@@ -218,7 +219,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
       >
         <Footer />
       </PageSection> */}
-
+      <FormSection />
       <HomePageSection background="#101124" pt="200px" index={2} hasCurvedDivider={false}>
         <FlexGap gap="10px" flexDirection="column" justifyContent="center" alignItems="center" mb="80px">
           <GradientHeader>BBMX</GradientHeader>

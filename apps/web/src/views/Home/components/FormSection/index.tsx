@@ -236,17 +236,17 @@ const FormSection = () => {
                 <SocialLinks>
                   <ListItem>
                     <SocialLink href="https://twitter.com/bbmxexchange" target="_blank">
-                      <i className="fab fa-twitter"></i>
+                      <i className="fab fa-twitter" />
                     </SocialLink>
                   </ListItem>
                   <ListItem>
                     <SocialLink href="https://t.me/BBMXExchange" target="_blank">
-                      <i className="fas fa-paper-plane"></i>
+                      <i className="fas fa-paper-plane" />
                     </SocialLink>
                   </ListItem>
                   <ListItem>
                     <SocialLink href="mailto:business@bbmx.exchange" target="_blank">
-                      <i className="fas fa-envelope"></i>
+                      <i className="fas fa-envelope" />
                     </SocialLink>
                   </ListItem>
                 </SocialLinks>

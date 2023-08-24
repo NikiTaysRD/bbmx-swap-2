@@ -38,7 +38,7 @@ const FeatureText = styled.p`
   padding-bottom: 15px;
   border-bottom: 0.5px solid rgba(255, 255, 255, 0.3);
 
-  font-family: 'Base Mono Bold';
+  font-weight: 700;
 
   ${({ theme }) => theme.mediaQueries.sm} {
     font-size: 64px;
@@ -63,14 +63,12 @@ const BuildingText = styled.p`
 
   color: #a0a3c4;
 
-  width: 90%;
-  font-family: 'Base Display';
+  width: 95%;
 `
 const RewardsText = styled.p`
   color: #a0a3c4;
   font-size: 24px;
   line-height: 50px;
-  font-family: 'Base Display';
 
   ${({ theme }) => theme.mediaQueries.sm} {
     width: 45%;
@@ -81,7 +79,6 @@ const RewardsListItem = styled.p`
   font-size: 20px;
   line-height: 32px;
   color: #a0a3c4;
-  font-family: 'Base Display';
 `
 
 const Home: React.FC<React.PropsWithChildren> = () => {

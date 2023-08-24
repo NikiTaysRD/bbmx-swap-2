@@ -129,8 +129,6 @@ const Paragraph = styled.p`
   line-height: 1.6;
   margin-bottom: 30px;
 
-  font-family: 'Base Display';
-
   @media (max-width: 1399.98px) {
     font-size: 34px;
     line-height: 1.5;

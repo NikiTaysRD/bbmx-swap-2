@@ -81,6 +81,7 @@ const BuildingInfo = styled(FlexGap)`
   font-size: 40px;
   text-transform: uppercase;
   letter-spacing: 2px;
+  color: white;
 
   ${({ theme }) => theme.mediaQueries.sm} {
     font-size: 64px;
@@ -218,7 +219,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
         <Footer />
       </PageSection> */}
 
-      <HomePageSection background="#101124" pt="200px" index={2}>
+      <HomePageSection background="#101124" pt="200px" index={2} hasCurvedDivider={false}>
         <FlexGap gap="10px" flexDirection="column" justifyContent="center" alignItems="center" mb="80px">
           <GradientHeader>BBMX</GradientHeader>
           <FeatureText>FULLY FEATURED</FeatureText>
@@ -270,7 +271,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
         </Grid>
       </HomePageSection>
 
-      <HomePageSection background="#1B1C30" index={3}>
+      <HomePageSection background="#1B1C30" index={3} hasCurvedDivider={false}>
         <FlexGap
           gap="20px"
           flexDirection={`${isDesktop ? 'row' : 'column'}`}

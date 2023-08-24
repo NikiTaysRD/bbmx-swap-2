@@ -9,7 +9,7 @@ interface HomeCardProps {
 
 const Card = styled.div`
   padding: 18px 30px;
-  min-height: 374px;
+  min-height: 300px;
   max-width: 414px;
   border-radius: 15px;
   transition: 0.3s all;
@@ -18,6 +18,12 @@ const Card = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.15);
   background: rgba(255, 255, 255, 0.03);
   text-align: center;
+
+  width: 110%;
+  ${({ theme }) => theme.mediaQueries.sm} {
+    width: 100%;
+    min-height: 374px;
+  }
 
   display: flex;
   flex-direction: column;
@@ -34,6 +40,7 @@ const Card = styled.div`
     font-size: 22px;
     font-weight: 500;
     margin-bottom: 15px;
+    color: white;
   }
 
   p {

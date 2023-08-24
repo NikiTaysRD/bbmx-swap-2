@@ -66,10 +66,6 @@ export const Container = styled.div`
   padding-bottom: 60px;
 `;
 
-export const List = styled.ul`
-  display: flex;
-`;
-
 export const ListItem = styled.li`
   list-style-type: none;
   margin: 0 10px;
@@ -110,19 +106,34 @@ export const Input = styled.input`
 
 export const Button = styled.button`
   width: 100%;
+  height: 36px;
   padding: 0 20px;
-  line-height: 36px;
   font-size: 12px;
   outline: none;
   cursor: pointer;
   box-shadow: none;
   border-radius: 6px;
   background: #4e09f8;
+  color: white;
+  text-transform: uppercase;
+  border: none;
 
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
     box-shadow 0.15s ease-in-out;
 
   &:hover,
   &:focus {
+    opacity: 0.9;
+  }
+`;
+
+export const SocialIcon = styled.div`
+  cursor: pointer;
+  color: white;
+  transition: 0.3s all;
+  font-size: 24px;
+
+  &:hover {
+    color: #4e09f8;
   }
 `;

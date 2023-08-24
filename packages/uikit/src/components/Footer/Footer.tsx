@@ -3,15 +3,27 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
+import Link from "next/link";
 import { Flex } from "../Box";
-import { Container, Input, List, ListItem, StyledFooter, StyledToolsContainer, TextH, TextP } from "./styles";
+import {
+  Container,
+  Input,
+  ListItem,
+  StyledFooter,
+  StyledToolsContainer,
+  TextH,
+  TextP,
+  Button,
+  SocialIcon,
+} from "./styles";
 
-import { Button } from "../Button";
 import LangSelector from "../LangSelector/LangSelector";
 import { ThemeSwitcher } from "../ThemeSwitcher";
 import { FooterProps } from "./types";
 import { SkeletonV2 } from "../Skeleton";
 import Logo from "../../widgets/Menu/components/Logo";
+import { FlexGap } from "../Layouts";
+import { Tooltip } from "react-tooltip";
 
 const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
   isDark,
@@ -27,15 +39,34 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
       <Container>
         <Flex justifyContent="space-between" alignItems="center" mb="45px">
           <Logo href="/" />
-          <List>
-            <ListItem>BBMXSwap</ListItem>
-            <ListItem>Docs</ListItem>
-            <ListItem>Contact Us</ListItem>
 
-            <FontAwesomeIcon icon={faTwitter} />
-            <FontAwesomeIcon icon={faPaperPlane} />
-            <FontAwesomeIcon icon={faEnvelope} />
-          </List>
+          <Flex alignItems="center">
+            <Flex mr="30px">
+              <ListItem>BBMXSwap</ListItem>
+              <ListItem>Docs</ListItem>
+              <ListItem>Contact Us</ListItem>
+            </Flex>
+
+            <FlexGap gap="30px">
+              <SocialIcon>
+                <Link href="https://twitter.com/bbmxexchange" target="_blank">
+                  <FontAwesomeIcon icon={faTwitter} />
+                </Link>
+              </SocialIcon>
+
+              <SocialIcon>
+                <Link href="https://t.me/BBMXExchange" target="_blank">
+                  <FontAwesomeIcon icon={faPaperPlane} />
+                </Link>
+              </SocialIcon>
+
+              <SocialIcon>
+                <Link href="mailto:business@bbmx.exchange" target="_blank">
+                  <FontAwesomeIcon icon={faEnvelope} />
+                </Link>
+              </SocialIcon>
+            </FlexGap>
+          </Flex>
         </Flex>
 
         <Flex>
@@ -44,15 +75,19 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
             <TextP>Subscribe to our Mirror blog.</TextP>
 
             <Flex mb="20px">
-              <Input placeholder="Enter your email" />
-              <Button>Subscribe</Button>
+              <Flex>
+                <Input placeholder="Enter your email" />
+              </Flex>
+
+              <Flex justifyContent="space-between" alignItems="center">
+                <Button>Subscribe</Button>
+              </Flex>
             </Flex>
 
             <TextP>© 2023 BBMX</TextP>
           </Flex>
         </Flex>
-      </Container>
-      <Flex flexDirection="column" width={["100%", null, "1200px;"]}>
+
         <StyledToolsContainer
           data-theme="dark"
           order={[1, null, 3]}
@@ -72,7 +107,7 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
             />
           </Flex>
         </StyledToolsContainer>
-      </Flex>
+      </Container>
     </StyledFooter>
   );
 };

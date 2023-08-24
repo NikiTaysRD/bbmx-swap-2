@@ -47,6 +47,8 @@ const Card = styled.div`
     font-size: 15px;
     color: #a0a3c4;
     line-height: 30px;
+
+    font-family: 'Base Display';
   }
 `
 

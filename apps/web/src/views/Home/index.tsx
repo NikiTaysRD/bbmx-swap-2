@@ -15,6 +15,12 @@ const HomePageSection = styled(PageSection)`
   max-width: 100%;
 `
 
+const WideHomePageSection = styled(HomePageSection)<{ maxWidth?: string }>`
+  & > * {
+    max-width: ${({ maxWidth }) => (maxWidth ? `${maxWidth}px` : 'unset')};
+  }
+`
+
 const GradientHeader = styled.p`
   font-size: 40px;
   text-transform: uppercase;
@@ -60,7 +66,7 @@ const RewardsText = styled.p`
   line-height: 50px;
 
   ${({ theme }) => theme.mediaQueries.sm} {
-    width: 50%;
+    width: 45%;
   }
 `
 
@@ -187,8 +193,8 @@ const Home: React.FC<React.PropsWithChildren> = () => {
         <Footer />
       </PageSection> */}
       <FormSection />
-      <HomePageSection background="#101124" pt="200px" index={2} hasCurvedDivider={false}>
-        <FlexGap gap="10px" flexDirection="column" justifyContent="center" alignItems="center" mb="80px">
+      <WideHomePageSection background="#101124" index={2} hasCurvedDivider={false}>
+        <FlexGap gap="10px" flexDirection="column" justifyContent="center" alignItems="center" mb="80px" pt="150px">
           <GradientHeader>BBMX</GradientHeader>
           <FeatureText>FULLY FEATURED</FeatureText>
         </FlexGap>
@@ -199,6 +205,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
           gridGap="15px"
           justifyItems="center"
           alignItems="center"
+          gridColumnGap="25px"
         >
           <HomeCard header="BBMXSwap" image={FirstIcon}>
             An advanced Dex that offers both AMM and CLMM for Base DeFi. With one of the cheapest fee structures and
@@ -237,9 +244,9 @@ const Home: React.FC<React.PropsWithChildren> = () => {
             holders.
           </HomeCard>
         </Grid>
-      </HomePageSection>
+      </WideHomePageSection>
 
-      <HomePageSection background="#1B1C30" index={3} hasCurvedDivider={false}>
+      <WideHomePageSection background="#1B1C30" index={3} hasCurvedDivider={false} maxWidth="1300">
         <FlexGap
           gap="20px"
           flexDirection={`${isDesktop ? 'row' : 'column'}`}
@@ -270,7 +277,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
             <img src={BaseLogo.src} alt="" />
           </Flex>
         </FlexGap>
-      </HomePageSection>
+      </WideHomePageSection>
 
       <HomePageSection background="#101124" pt="200px" index={2} hasCurvedDivider={false}>
         <FlexGap gap="10px" flexDirection="column" justifyContent="center" alignItems="center" mb="80px">

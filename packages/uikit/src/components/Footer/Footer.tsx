@@ -27,6 +27,8 @@ import { ThemeSwitcher } from "../ThemeSwitcher";
 import { FooterProps } from "./types";
 import { SkeletonV2 } from "../Skeleton";
 import Logo from "../../widgets/Menu/components/Logo";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 
 const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
   items,
@@ -66,6 +68,10 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
 
             <TextP>© 2023 BBMX</TextP>
           </Flex>
+        </Flex>
+
+        <Flex>
+          <FontAwesomeIcon icon={faCoffee} />
         </Flex>
       </Container>
       <Flex flexDirection="column" width={["100%", null, "1200px;"]}>

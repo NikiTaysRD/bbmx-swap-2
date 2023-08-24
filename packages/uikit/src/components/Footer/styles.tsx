@@ -8,7 +8,7 @@ export const StyledList = styled.ul`
   margin-bottom: 40px;
 
   ${({ theme }) => theme.mediaQueries.md} {
-    margin-bottom: 0px;
+    margin-bottom: 0;
   }
 `;
 

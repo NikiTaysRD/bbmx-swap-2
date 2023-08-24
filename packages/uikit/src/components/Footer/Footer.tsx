@@ -1,46 +1,24 @@
-import { vars } from "@pancakeswap/ui/css/vars.css";
 import { useIsMounted } from "@pancakeswap/hooks";
 import React from "react";
-import { Box, Flex } from "../Box";
-import { Link } from "../Link";
-import {
-  Container,
-  Input,
-  List,
-  ListItem,
-  StyledFooter,
-  StyledIconMobileContainer,
-  StyledList,
-  StyledListItem,
-  StyledSocialLinks,
-  StyledText,
-  StyledToolsContainer,
-  TextH,
-  TextP,
-} from "./styles";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperPlane, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { Flex } from "../Box";
+import { Container, Input, List, ListItem, StyledFooter, StyledToolsContainer, TextH, TextP } from "./styles";
 
 import { Button } from "../Button";
-import CakePrice from "../CakePrice/CakePrice";
 import LangSelector from "../LangSelector/LangSelector";
-import { ArrowForwardIcon, LogoWithTextIcon } from "../Svg";
 import { ThemeSwitcher } from "../ThemeSwitcher";
 import { FooterProps } from "./types";
 import { SkeletonV2 } from "../Skeleton";
 import Logo from "../../widgets/Menu/components/Logo";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCoffee } from "@fortawesome/free-solid-svg-icons";
 
 const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
-  items,
   isDark,
   toggleTheme,
   currentLang,
   langs,
   setLang,
-  cakePriceUsd,
-  buyCakeLabel,
-  buyCakeLink,
-  chainId,
   ...props
 }) => {
   const isMounted = useIsMounted();
@@ -53,6 +31,10 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
             <ListItem>BBMXSwap</ListItem>
             <ListItem>Docs</ListItem>
             <ListItem>Contact Us</ListItem>
+
+            <FontAwesomeIcon icon={faTwitter} />
+            <FontAwesomeIcon icon={faPaperPlane} />
+            <FontAwesomeIcon icon={faEnvelope} />
           </List>
         </Flex>
 
@@ -68,10 +50,6 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
 
             <TextP>© 2023 BBMX</TextP>
           </Flex>
-        </Flex>
-
-        <Flex>
-          <FontAwesomeIcon icon={faCoffee} />
         </Flex>
       </Container>
       <Flex flexDirection="column" width={["100%", null, "1200px;"]}>

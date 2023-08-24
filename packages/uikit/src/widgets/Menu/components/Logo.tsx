@@ -1,7 +1,6 @@
 import React, { useContext } from "react";
 import styled, { keyframes } from "styled-components";
 import Flex from "../../../components/Box/Flex";
-import { LogoIcon, LogoWithTextIcon } from "../../../components/Svg";
 import { MenuContext } from "../context";
 
 import BBMXLogo from "../../../../../../apps/web/public/images/logo.png";
@@ -62,9 +61,6 @@ const Logo: React.FC<React.PropsWithChildren<Props>> = ({ href }) => {
           <img src={BBMXLogoBlack.src} alt="" className="desktop-icon" />
         </>
       )}
-
-      {/* <LogoIcon className="mobile-icon" />
-      <LogoWithTextIcon className="desktop-icon" /> */}
     </>
   );
 

@@ -68,6 +68,22 @@ const ResetCSS = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
   }
 
+  @font-face {
+    font-family: "Base"; 
+    src: 
+        local("Base Display"),
+        url("apps/web/public/fonts/base-display-400.woff2") format("woff2");
+    font-weight: 400;
+  }
+
+  @font-face {
+    font-family: "Base";
+    src:
+            local("Base Display Bold"),
+            url("apps/web/public/fonts/base-display-bold.woff2") format("woff2");
+    font-weight: bold;
+  }
+
   /* Number */
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {

@@ -1,5 +1,5 @@
 import { StaticImageData } from 'next/image'
-import React, { Children } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 
 interface HomeCardProps {

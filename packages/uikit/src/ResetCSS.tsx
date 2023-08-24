@@ -84,6 +84,22 @@ const ResetCSS = createGlobalStyle`
     font-weight: bold;
   }
 
+  @font-face {
+    font-family: "Base";
+    src:
+            local("Base Mono"),
+            url("apps/web/public/fonts/base-mono-normal.woff2") format("woff2");
+    font-weight: 400;
+  }
+
+  @font-face {
+    font-family: "Base";
+    src:
+            local("Base Mono Bold"),
+            url("apps/web/public/fonts/base-mono-bold.woff2") format("woff2");
+    font-weight: bold;
+  }
+
   /* Number */
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button {

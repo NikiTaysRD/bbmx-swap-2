@@ -4,9 +4,9 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/fontawesome-free-regular'
 import { useCallback, useState } from 'react'
+import type SwiperCore from 'swiper'
 import HomeCard from './components/Card'
 
-import type SwiperCore from 'swiper'
 import FirstIcon from '../../../public/images/home/icon-1.png'
 import SecondIcon from '../../../public/images/home/icon-2.png'
 import ThirdIcon from '../../../public/images/home/icon-3.png'
@@ -14,8 +14,6 @@ import FourthIcon from '../../../public/images/home/icon-4.png'
 import FifthIcon from '../../../public/images/home/icon-5.png'
 import SixthIcon from '../../../public/images/home/icon-6.png'
 import BaseLogo from '../../../public/images/home/base-logo.png'
-import CheckCircle from '../../../public/images/home/check-circle.svg'
-import CheckCirclePurple from '../../../public/images/home/check-circkle-purple.svg'
 import ArrowLeft from '../../../public/images/home/arrow-left.svg'
 import ArrowRight from '../../../public/images/home/arrow-right.svg'
 import FormSection from './components/FormSection'
@@ -594,8 +592,8 @@ const Home: React.FC<React.PropsWithChildren> = () => {
             onSwiper={(swiper) => {
               setSwiperRef(swiper)
             }}
-            style={innerWidth < 1200 ? { width: innerWidth - 50 } : {}}
-            slidesPerView={innerWidth > 1200 ? 3 : 1}
+            style={window.innerWidth < 1200 ? { width: window.innerWidth - 50 } : {}}
+            slidesPerView={window.innerWidth > 1200 ? 3 : 1}
           >
             <SwiperSlide>
               <RoadmapItem className="active">

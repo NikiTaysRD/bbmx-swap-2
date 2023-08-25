@@ -31,10 +31,9 @@ export const StyledIconMobileContainer = styled(Box)`
 export const StyledToolsContainer = styled(Flex)`
   border-color: ${darkColors.cardBorder};
   border-top-width: 1px;
-  border-bottom-width: 1px;
   border-style: solid;
   padding: 24px 0;
-  margin-bottom: 24px;
+  padding-bottom: 0;
 
   ${({ theme }) => theme.mediaQueries.sm} {
     border-top-width: 0;
@@ -63,11 +62,12 @@ export const Container = styled.div`
   padding-left: 0.75rem;
   padding-right: 0.75rem;
   padding-top: 30px;
-  padding-bottom: 60px;
-`;
+  padding-bottom: 30px;
 
-export const List = styled.ul`
-  display: flex;
+  ${({ theme }) => theme.mediaQueries.sm} {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
 `;
 
 export const ListItem = styled.li`
@@ -84,6 +84,7 @@ export const ListItem = styled.li`
 export const TextH = styled.h3`
   font-size: 16px;
   text-transform: uppercase;
+  font-family: "Base Mono", sans-serif;
 
   margin-bottom: 15px;
 `;
@@ -110,19 +111,34 @@ export const Input = styled.input`
 
 export const Button = styled.button`
   width: 100%;
+  height: 36px;
   padding: 0 20px;
-  line-height: 36px;
   font-size: 12px;
   outline: none;
   cursor: pointer;
   box-shadow: none;
   border-radius: 6px;
   background: #4e09f8;
+  color: white;
+  text-transform: uppercase;
+  border: none;
 
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
     box-shadow 0.15s ease-in-out;
 
   &:hover,
   &:focus {
+    opacity: 0.9;
+  }
+`;
+
+export const SocialIcon = styled.div`
+  cursor: pointer;
+  color: white;
+  transition: 0.3s all;
+  font-size: 24px;
+
+  &:hover {
+    color: #4e09f8;
   }
 `;

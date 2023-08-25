@@ -62,11 +62,7 @@ const ResetCSS = createGlobalStyle`
   *::after {
     box-sizing: border-box;
   }
-  * {
-    font-family: 'Kanit', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+
 
   @font-face {
     font-family: "Base"; 
@@ -79,8 +75,8 @@ const ResetCSS = createGlobalStyle`
   @font-face {
     font-family: "Base";
     src:
-            local("Base Display Bold"),
-            url("apps/web/public/fonts/base-display-bold.woff2") format("woff2");
+        local("Base Display Bold"),
+        url("apps/web/public/fonts/base-display-bold.woff2") format("woff2");
     font-weight: bold;
   }
 
@@ -88,13 +84,21 @@ const ResetCSS = createGlobalStyle`
     font-family: "Base";
     src:
             local("Base Mono"),
-            url("apps/web/public/fonts/base-mono-normal.woff2") format("woff2");
+            url("apps/web/public/fonts/base-mono.woff2") format("woff2");
     font-weight: 400;
   }
 
   @font-face {
     font-family: "Base";
     src:
+            local("Base Mono Normal"),
+            url("apps/web/public/fonts/base-mono-normal.woff2") format("woff2");
+  }
+
+  * {
+    font-family: 'Base Mono', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
             local("Base Mono Bold"),
             url("apps/web/public/fonts/base-mono-bold.woff2") format("woff2");
     font-weight: bold;

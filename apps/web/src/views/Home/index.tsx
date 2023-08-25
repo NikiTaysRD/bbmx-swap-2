@@ -1,5 +1,6 @@
 import styled, { keyframes } from 'styled-components'
 import { Flex, FlexGap, Grid, PageSection, useMatchBreakpoints } from '@pancakeswap/uikit'
+import { Swiper, SwiperSlide } from 'swiper/react'
 import HomeCard from './components/Card'
 
 import FirstIcon from '../../../public/images/home/icon-1.png'
@@ -13,7 +14,6 @@ import CheckCircle from '../../../public/images/home/check-circle.svg'
 import FormSection from './components/FormSection'
 import Header from './components/Header'
 
-import { Swiper, SwiperSlide } from 'swiper/react'
 
 import 'swiper/css'
 
@@ -38,7 +38,7 @@ const GradientHeader = styled.p`
 `
 
 const FeatureText = styled.p`
-  font-size: 40px;
+  font-size: 36px;
   text-transform: uppercase;
   letter-spacing: 2px;
   padding-bottom: 15px;
@@ -64,27 +64,36 @@ const BuildingInfo = styled(FlexGap)`
 `
 
 const BuildingText = styled.p`
-  font-size: 20px;
+  font-size: 16px;
   line-height: 32px;
 
   color: #a0a3c4;
 
   width: 95%;
+
+  ${({ theme }) => theme.mediaQueries.sm} {
+    font-size: 20px;
+  }
 `
 const RewardsText = styled.p`
   color: #a0a3c4;
-  font-size: 24px;
+  font-size: 18px;
   line-height: 50px;
 
   ${({ theme }) => theme.mediaQueries.sm} {
     width: 45%;
+    font-size: 24px;
   }
 `
 
 const RewardsListItem = styled.p`
-  font-size: 20px;
+  font-size: 16px;
   line-height: 32px;
   color: #a0a3c4;
+
+  ${({ theme }) => theme.mediaQueries.sm} {
+    font-size: 20px;
+  }
 `
 
 // roadmap start
@@ -102,7 +111,6 @@ const ListItem = styled.li`
   padding-left: 24px;
 
   &:before {
-    background-image: url('path/to/your/icon.svg');
     font-family: 'Font Awesome 6 Free';
     font-weight: 900;
     font-size: 15px;
@@ -480,8 +488,8 @@ const Home: React.FC<React.PropsWithChildren> = () => {
 
         <RoadmapContainer>
           <Swiper
-            style={innerWidth < 1200 ? { width: innerWidth - 50 } : {}}
-            slidesPerView={innerWidth > 1200 ? 3 : 1}
+            style={window.innerWidth < 1200 ? { width: window.innerWidth - 50 } : {}}
+            slidesPerView={window.innerWidth > 1200 ? 3 : 1}
             onSlideChange={() => console.log('slide change')}
             onSwiper={(swiper) => console.log(swiper)}
           >
@@ -489,10 +497,10 @@ const Home: React.FC<React.PropsWithChildren> = () => {
               <RoadmapItem className="active">
                 <h4>Phase 1</h4>
                 <Poster>
-                  <span></span>
+                  <span/>
                 </Poster>
                 <div className="meter">
-                  <span></span>
+                  <span/>
                 </div>
                 <RoadmapBox>
                   <Checklist>
@@ -512,10 +520,10 @@ const Home: React.FC<React.PropsWithChildren> = () => {
               <RoadmapItem className="upcoming">
                 <h4>Phase 2</h4>
                 <Poster>
-                  <span></span>
+                  <span/>
                 </Poster>
                 <div className="meter">
-                  <span></span>
+                  <span/>
                 </div>
                 <RoadmapBox>
                   <Checklist>
@@ -535,10 +543,10 @@ const Home: React.FC<React.PropsWithChildren> = () => {
               <RoadmapItem className="upcoming last">
                 <h4>Phase 3 Mainnet launch</h4>
                 <Poster>
-                  <span></span>
+                  <span/>
                 </Poster>
                 <div className="meter">
-                  <span></span>
+                  <span/>
                 </div>
                 <RoadmapBox>
                   <Checklist>

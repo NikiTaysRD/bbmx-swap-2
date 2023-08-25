@@ -18,13 +18,13 @@ import { currencyId } from 'utils/currencyId'
 
 import { useTheme } from '@pancakeswap/hooks'
 import { Flex, FlexGap, ImportList, useMatchBreakpoints } from '@pancakeswap/uikit'
+import styled from 'styled-components'
 import { FormContainer } from '../components'
 import useWarningImport from '../../hooks/useWarningImport'
 import { RiskCheck } from './RiskCheck'
 import { useIsWrapping } from '../hooks'
 import { FlipButton } from './FlipButton'
 import { Recipient } from './Recipient'
-import styled from 'styled-components'
 
 interface Props {
   inputAmount?: CurrencyAmount<Currency>
@@ -151,16 +151,14 @@ export function FormMain({ pricingAndSlippage, inputAmount, outputAmount, tradeL
   )
 
   const isTypingInput = independentField === Field.INPUT
-  const inputValue = useMemo(() => typedValue && (isTypingInput ? typedValue : formatAmount(inputAmount) || ''), [
-    typedValue,
-    isTypingInput,
-    inputAmount,
-  ])
-  const outputValue = useMemo(() => typedValue && (isTypingInput ? formatAmount(outputAmount) || '' : typedValue), [
-    typedValue,
-    isTypingInput,
-    outputAmount,
-  ])
+  const inputValue = useMemo(
+    () => typedValue && (isTypingInput ? typedValue : formatAmount(inputAmount) || ''),
+    [typedValue, isTypingInput, inputAmount],
+  )
+  const outputValue = useMemo(
+    () => typedValue && (isTypingInput ? formatAmount(outputAmount) || '' : typedValue),
+    [typedValue, isTypingInput, outputAmount],
+  )
   const inputLoading = typedValue ? !isTypingInput && tradeLoading : false
   const outputLoading = typedValue ? isTypingInput && tradeLoading : false
 

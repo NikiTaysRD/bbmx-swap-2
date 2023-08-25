@@ -3,6 +3,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
+import {useRouter} from "next/router";
 import { Flex } from "../Box";
 import { Container, Input, List, ListItem, StyledFooter, StyledToolsContainer, TextH, TextP } from "./styles";
 
@@ -22,6 +23,7 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
   ...props
 }) => {
   const isMounted = useIsMounted();
+  const { pathname } = useRouter()
   return (
     <StyledFooter data-theme="dark" p={["40px 16px", null, "56px 40px 32px 40px"]} position="relative" {...props}>
       <Container>
@@ -58,6 +60,7 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
           order={[1, null, 3]}
           flexDirection={["column", null, "row"]}
           justifyContent="space-between"
+          style={{marginBottom: `${pathname === "/" && "0"}`}}
         >
           <Flex order={[2, null, 1]} alignItems="center">
             <SkeletonV2 variant="round" width="56px" height="32px" isDataReady={isMounted}>

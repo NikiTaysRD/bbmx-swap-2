@@ -3,10 +3,10 @@ import { AtomBox } from "@pancakeswap/ui/components/AtomBox";
 import throttle from "lodash/throttle";
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import styled from "styled-components";
+import {useRouter} from "next/router";
 import BottomNav from "../../components/BottomNav";
 import { Box } from "../../components/Box";
 import Flex from "../../components/Box/Flex";
-import CakePrice from "../../components/CakePrice/CakePrice";
 import Footer from "../../components/Footer";
 import LangSelector from "../../components/LangSelector/LangSelector";
 import MenuItems from "../../components/MenuItems/MenuItems";
@@ -137,6 +137,7 @@ const Menu: React.FC<React.PropsWithChildren<NavProps>> = ({
   const subLinksWithoutMobile = subLinks?.filter((subLink) => !subLink.isMobileOnly);
   const subLinksMobileOnly = subLinks?.filter((subLink) => subLink.isMobileOnly);
   const providerValue = useMemo(() => ({ linkComponent }), [linkComponent]);
+  const { pathname } = useRouter()
   return (
     <MenuContext.Provider value={providerValue}>
       <AtomBox
@@ -146,55 +147,63 @@ const Menu: React.FC<React.PropsWithChildren<NavProps>> = ({
           md: "100vh",
         }}
       >
-        <Wrapper>
-          <FixedContainer showMenu={showMenu} height={totalTopMenuHeight}>
-            {banner && isMounted && <TopBannerContainer height={topBannerHeight}>{banner}</TopBannerContainer>}
-            <StyledNav>
-              <Flex>
-                <Logo href={homeLink?.href ?? "/"} />
-                <AtomBox display={{ xs: "none", md: "block" }}>
-                  <MenuItems items={links} activeItem={activeItem} activeSubItem={activeSubItem} ml="24px" />
-                </AtomBox>
-              </Flex>
-              <Flex alignItems="center" height="100%">
-                <Box mt="4px">
-                  <LangSelector
-                    currentLang={currentLang}
-                    langs={langs}
-                    setLang={setLang}
-                    buttonScale="xs"
-                    color="textSubtle"
-                    hideLanguage
-                  />
-                </Box>
-                {rightSide}
-              </Flex>
-            </StyledNav>
-          </FixedContainer>
-          {subLinks ? (
-            <Flex justifyContent="space-around" overflow="hidden">
-              <SubMenuItems
-                items={subLinksWithoutMobile}
-                mt={`${totalTopMenuHeight + 1}px`}
-                activeItem={activeSubItem}
-              />
+        {pathname !== "/" ? (
+            <Wrapper>
+              <FixedContainer showMenu={showMenu} height={totalTopMenuHeight}>
+                {banner && isMounted && <TopBannerContainer height={topBannerHeight}>{banner}</TopBannerContainer>}
+                <StyledNav>
+                  <Flex>
+                    <Logo href={homeLink?.href ?? "/"} />
+                    <AtomBox display={{ xs: "none", md: "block" }}>
+                      <MenuItems items={links} activeItem={activeItem} activeSubItem={activeSubItem} ml="24px" />
+                    </AtomBox>
+                  </Flex>
+                  <Flex alignItems="center" height="100%">
+                    <Box mt="4px">
+                      <LangSelector
+                          currentLang={currentLang}
+                          langs={langs}
+                          setLang={setLang}
+                          buttonScale="xs"
+                          color="textSubtle"
+                          hideLanguage
+                      />
+                    </Box>
+                    {rightSide}
+                  </Flex>
+                </StyledNav>
+              </FixedContainer>
+              {subLinks ? (
+                  <Flex justifyContent="space-around" overflow="hidden">
+                    <SubMenuItems
+                        items={subLinksWithoutMobile}
+                        mt={`${totalTopMenuHeight + 1}px`}
+                        activeItem={activeSubItem}
+                    />
 
-              {subLinksMobileOnly && subLinksMobileOnly?.length > 0 && (
-                <SubMenuItems
-                  items={subLinksMobileOnly}
-                  mt={`${totalTopMenuHeight + 1}px`}
-                  activeItem={activeSubItem}
-                  isMobileOnly
-                />
+                    {subLinksMobileOnly && subLinksMobileOnly?.length > 0 && (
+                        <SubMenuItems
+                            items={subLinksMobileOnly}
+                            mt={`${totalTopMenuHeight + 1}px`}
+                            activeItem={activeSubItem}
+                            isMobileOnly
+                        />
+                    )}
+                  </Flex>
+              ) : (
+                  <div />
               )}
-            </Flex>
-          ) : (
-            <div />
-          )}
-          <BodyWrapper mt={!subLinks ? `${totalTopMenuHeight + 1}px` : "0"}>
-            <Inner>{children}</Inner>
-          </BodyWrapper>
-        </Wrapper>
+              <BodyWrapper mt={!subLinks ? `${totalTopMenuHeight + 1}px` : "0"}>
+                <Inner>{children}</Inner>
+              </BodyWrapper>
+            </Wrapper>
+        ) : (
+            <Wrapper>
+              <BodyWrapper mt={!subLinks ? `${totalTopMenuHeight + 1}px` : "0"}>
+                <Inner>{children}</Inner>
+              </BodyWrapper>
+            </Wrapper>
+        )}
       </AtomBox>
       <Footer
         chainId={chainId}
@@ -209,9 +218,11 @@ const Menu: React.FC<React.PropsWithChildren<NavProps>> = ({
         buyCakeLink={buyCakeLink}
         mb={[`${MOBILE_MENU_HEIGHT}px`, null, "0px"]}
       />
-      <AtomBox display={{ xs: "block", md: "none" }}>
-        <BottomNav items={links} activeItem={activeItem} activeSubItem={activeSubItem} />
-      </AtomBox>
+      {pathname !== "/" && (
+          <AtomBox display={{ xs: "block", md: "none" }}>
+            <BottomNav items={links} activeItem={activeItem} activeSubItem={activeSubItem} />
+          </AtomBox>
+      )}
     </MenuContext.Provider>
   );
 };

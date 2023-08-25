@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCheckCircle } from '@fortawesome/fontawesome-free-regular'
 import { useCallback, useState } from 'react'
 import type SwiperCore from 'swiper'
+import { baseDisplay } from 'pages/_app'
 import HomeCard from './components/Card'
 
 import FirstIcon from '../../../public/images/home/icon-1.png'
@@ -14,9 +15,6 @@ import FourthIcon from '../../../public/images/home/icon-4.png'
 import FifthIcon from '../../../public/images/home/icon-5.png'
 import SixthIcon from '../../../public/images/home/icon-6.png'
 import BaseLogo from '../../../public/images/home/base-logo.png'
-import ClockRotateLeft from '../../../public/images/home/clock-rotate-left.svg'
-import CheckCircle from '../../../public/images/home/check-circle.svg'
-import CheckCirclePurple from '../../../public/images/home/check-circkle-purple.svg'
 import ArrowLeft from '../../../public/images/home/arrow-left.svg'
 import ArrowRight from '../../../public/images/home/arrow-right.svg'
 import FormSection from './components/FormSection'
@@ -154,7 +152,7 @@ const RoadmapBox = styled.div`
   padding: 30px;
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(5px);
+  //backdrop-filter: blur(5px);
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
   /* max-width: 348px; */
 
@@ -504,7 +502,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
               </FeatureText>
             </BuildingInfo>
 
-            <BuildingText>
+            <BuildingText className={baseDisplay.className}>
               BBMX is contributing in Base efforts to help onboard billion users to blockchain. Building the best of
               Ethereum and offering it at 10x cheaper cost.
             </BuildingText>
@@ -528,13 +526,13 @@ const Home: React.FC<React.PropsWithChildren> = () => {
           alignItems="flex-start"
           flexDirection={`${isDesktop ? 'row' : 'column'}`}
         >
-          <RewardsText>
+          <RewardsText className={baseDisplay.className}>
             $BBMX is our utility and governance token, pivotal to the BBMX protocol. It unlocks the full potential of
             all BBMX products and will be instrumental in guiding the protocol&apos;s growth
           </RewardsText>
 
           <FlexGap gap="5px" flexDirection="column" justifyContent="center">
-            <RewardsListItem>
+            <RewardsListItem className={baseDisplay.className}>
               <div style={{ color: '#4E09F8' }}>
                 {/*
 // @ts-ignore */}
@@ -542,7 +540,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
               </div>
               Turn off swapping fees by holding BBMX
             </RewardsListItem>
-            <RewardsListItem>
+            <RewardsListItem className={baseDisplay.className}>
               <div style={{ color: '#4E09F8' }}>
                 {/*
 // @ts-ignore */}
@@ -550,7 +548,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
               </div>
               Considerably reduce Futures trading fees
             </RewardsListItem>
-            <RewardsListItem>
+            <RewardsListItem className={baseDisplay.className}>
               <div style={{ color: '#4E09F8' }}>
                 {/*
 // @ts-ignore */}
@@ -558,7 +556,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
               </div>
               Claim a portion of protocol’s revenue via Real Yield
             </RewardsListItem>
-            <RewardsListItem>
+            <RewardsListItem className={baseDisplay.className}>
               <div style={{ color: '#4E09F8' }}>
                 {/*
 // @ts-ignore */}
@@ -566,7 +564,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
               </div>
               Unlock Smart stake using $BBMX
             </RewardsListItem>
-            <RewardsListItem>
+            <RewardsListItem className={baseDisplay.className}>
               <div style={{ color: '#4E09F8' }}>
                 {/*
 // @ts-ignore */}
@@ -576,7 +574,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
             </RewardsListItem>
 
             <Flex alignItems="center" justifyContent="center">
-              <p style={{ fontSize: '16px', color: '#a0a3c4', lineHeight: '32px' }}>
+              <p style={{ fontSize: '16px', color: '#a0a3c4', lineHeight: '32px' }} className={baseDisplay.className}>
                 Thats not it, there’s more coming as we progress
               </p>
             </Flex>
@@ -595,19 +593,19 @@ const Home: React.FC<React.PropsWithChildren> = () => {
             onSwiper={(swiper) => {
               setSwiperRef(swiper)
             }}
-            style={innerWidth < 1200 ? { width: innerWidth - 50 } : {}}
-            slidesPerView={innerWidth > 1000 ? 3 : innerWidth < 1000 && innerWidth > 500 ? 2 : 1}
+            style={window.innerWidth < 1200 ? { width: window.innerWidth - 50 } : {}}
+            slidesPerView={window.innerWidth > 1000 ? 3 : window.innerWidth < 1000 && window.innerWidth > 500 ? 2 : 1}
           >
             <SwiperSlide>
               <RoadmapItem className="active">
-                <h4>Phase 1</h4>
+                <h4 className={baseDisplay.className}>Phase 1</h4>
                 <Poster style={{ backgroundColor: '#4e09f8' }}>
                   <CirckleCenter />
                 </Poster>
                 <div className="meter">
                   <span />
                 </div>
-                <RoadmapBox>
+                <RoadmapBox className={baseDisplay.className}>
                   <Checklist>
                     <ListItem>
                       <span style={{ color: '#4E09F8', marginRight: '7px' }}>
@@ -672,14 +670,14 @@ const Home: React.FC<React.PropsWithChildren> = () => {
 
             <SwiperSlide>
               <RoadmapItem className="upcoming">
-                <h4>Phase 2</h4>
+                <h4 className={baseDisplay.className}>Phase 2</h4>
                 <Poster style={{ backgroundColor: '#e7e7e3' }}>
                   <CirckleCenter />
                 </Poster>
                 <div className="meter">
                   <span />
                 </div>
-                <RoadmapBox>
+                <RoadmapBox className={baseDisplay.className}>
                   <Checklist>
                     <ListItem>
                       <span style={{ color: '#4E09F8', marginRight: '7px' }}>
@@ -744,14 +742,14 @@ const Home: React.FC<React.PropsWithChildren> = () => {
 
             <SwiperSlide>
               <RoadmapItem className="upcoming last">
-                <h4>Phase 3 Mainnet launch</h4>
+                <h4 className={baseDisplay.className}>Phase 3 Mainnet launch</h4>
                 <Poster style={{ backgroundColor: '#e7e7e3' }}>
                   <CirckleCenter />
                 </Poster>
                 <div className="meter">
                   <span />
                 </div>
-                <RoadmapBox>
+                <RoadmapBox className={baseDisplay.className}>
                   <Checklist>
                     <ListItem>
                       <span style={{ color: '#4E09F8', marginRight: '7px' }}>

@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react'
 import styled from 'styled-components'
 
+import { baseDisplay } from 'pages/_app'
 import BG2 from '../../../../../public/images/home/bg-2.jpg'
 import Base from '../../../../../public/images/home/base.png'
 import TwitterIcon from '../../../../../public/images/home/twitter.svg'
@@ -116,7 +117,7 @@ const Heading1 = styled.h1`
   }
 
   ${({ theme }) => theme.mediaQueries.sm} {
-    width: 50%;
+    width: 55%;
   }
 `
 
@@ -208,7 +209,7 @@ const SocialLink = styled.a`
   display: block;
   height: 24px;
   width: 24px;
-  
+
   img {
     width: 100%;
     height: 100%;
@@ -233,7 +234,7 @@ const FormSection = () => {
                 <Heading1>
                   Your portal to <HighlightSpan>Base</HighlightSpan> DeFi
                 </Heading1>
-                <Paragraph>
+                <Paragraph className={baseDisplay.className}>
                   Swap, Trade, Farm or Launch <i>anything</i> on <HighlightSpan>Base</HighlightSpan> Blockchain
                 </Paragraph>
                 <TokenSummary>

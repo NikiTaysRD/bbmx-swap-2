@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 
+import { baseDisplay } from 'pages/_app'
 import AngleDownIcon from '../../../../../public/images/home/angle-down.svg'
 import BarsIcon from '../../../../../public/images/home/bars.svg'
 
@@ -143,14 +144,14 @@ const SubMenu = styled.ol`
   justify-content: space-evenly;
 
   letter-spacing: 0 !important;
-  
+
   li {
     list-style-type: none;
-    color: rgba(255,255,255,0.75);
+    color: rgba(255, 255, 255, 0.75);
     transition: 0.3s all;
     padding: 0 20px;
     font-size: 14px;
-    
+
     a {
       display: flex;
       flex-direction: row;
@@ -158,7 +159,7 @@ const SubMenu = styled.ol`
 
       letter-spacing: 0 !important;
     }
-    
+
     &:hover {
       color: white;
     }
@@ -198,7 +199,6 @@ const BurgerButton = styled.a`
 `
 
 const NavbarMenuItem = styled.div`
-
   a {
     display: flex;
     flex-direction: column;
@@ -206,12 +206,12 @@ const NavbarMenuItem = styled.div`
     gap: 5px;
     align-items: center;
     letter-spacing: 2px;
-    
+
     img {
       height: 12px;
     }
   }
-  
+
   &:hover {
     ${SubMenu} {
       opacity: 1;
@@ -231,9 +231,11 @@ const Header = () => {
 
           <MainMenu>
             <li className="parent">
-              <NavbarMenuItem>
+              <NavbarMenuItem className={baseDisplay.className}>
                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                <a href="#">Trade <img src={AngleDownIcon.src} alt=""/></a>
+                <a href="#">
+                  Trade <img src={AngleDownIcon.src} alt="" />
+                </a>
                 <SubMenu>
                   <li>
                     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
@@ -249,12 +251,13 @@ const Header = () => {
                   </li>
                 </SubMenu>
               </NavbarMenuItem>
-
             </li>
             <li className="parent">
-              <NavbarMenuItem>
+              <NavbarMenuItem className={baseDisplay.className}>
                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                <a href="#">Earn <img src={AngleDownIcon.src} alt=""/></a>
+                <a href="#">
+                  Earn <img src={AngleDownIcon.src} alt="" />
+                </a>
                 <SubMenu>
                   <li>
                     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
@@ -272,9 +275,11 @@ const Header = () => {
               </NavbarMenuItem>
             </li>
             <li className="parent">
-              <NavbarMenuItem>
+              <NavbarMenuItem className={baseDisplay.className}>
                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                <a href="#">Bridge <img src={AngleDownIcon.src} alt=""/></a>
+                <a href="#">
+                  Bridge <img src={AngleDownIcon.src} alt="" />
+                </a>
                 <SubMenu>
                   <li>
                     <a target="_blank" rel="noopener noreferrer" href="https://bridge.base.org/deposit">
@@ -283,9 +288,9 @@ const Header = () => {
                   </li>
                   <li>
                     <a
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        href="https://www.orbiter.finance/?source=Ethereum&dest=Base"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      href="https://www.orbiter.finance/?source=Ethereum&dest=Base"
                     >
                       Orbiter
                     </a>
@@ -295,23 +300,33 @@ const Header = () => {
             </li>
             <li>
               {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-              <a href="#">BBMXStarter</a>
+              <a href="#" className={baseDisplay.className}>
+                BBMXStarter
+              </a>
             </li>
             <li>
               {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-              <a href="#">Governance</a>
+              <a href="#" className={baseDisplay.className}>
+                Governance
+              </a>
             </li>
           </MainMenu>
 
           <HeaderRight>
-            <Button href="/swap" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Coming Soon">
+            <Button
+              href="/swap"
+              data-bs-toggle="tooltip"
+              data-bs-placement="bottom"
+              title="Coming Soon"
+              className={baseDisplay.className}
+            >
               Launch App
             </Button>
           </HeaderRight>
 
           {/* eslint-disable-next-line no-script-url */}
           <BurgerButton href="javascript:void(0)" id="menu-toggle">
-            <img src={BarsIcon.src} style={{ paddingTop: '2px' }} alt=""/>
+            <img src={BarsIcon.src} style={{ paddingTop: '2px' }} alt="" />
           </BurgerButton>
         </HeaderContainer>
       </Container>

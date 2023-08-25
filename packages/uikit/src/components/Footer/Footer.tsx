@@ -79,7 +79,7 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
         </FlexGap>
 
         <Flex>
-          <Flex flexDirection="column" width={isMobile ? }>
+          <Flex flexDirection="column" width={isMobile ? "100%" : "42%"} alignItems={isMobile ? "center" : undefined}>
             <TextH>KEEP UP WITH THE LATEST FROM BBMX</TextH>
             <TextP>Subscribe to our Mirror blog.</TextP>
 

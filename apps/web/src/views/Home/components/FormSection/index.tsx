@@ -107,11 +107,16 @@ const Heading1 = styled.h1`
   line-height: 130%;
   font-weight: 700;
   letter-spacing: 3px;
+  width: 70%;
 
   @media (max-width: 1399.98px) {
     font-size: 13px;
     margin-bottom: 15px;
     margin-bottom: 25px;
+  }
+
+  ${({ theme }) => theme.mediaQueries.sm} {
+    width: 50%;
   }
 `
 

@@ -1,6 +1,8 @@
 import styled, { keyframes } from 'styled-components'
 import { Flex, FlexGap, Grid, PageSection, useMatchBreakpoints } from '@pancakeswap/uikit'
 import { Swiper, SwiperSlide } from 'swiper/react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faCheckCircle } from '@fortawesome/fontawesome-free-regular'
 import HomeCard from './components/Card'
 
 import FirstIcon from '../../../public/images/home/icon-1.png'
@@ -10,10 +12,8 @@ import FourthIcon from '../../../public/images/home/icon-4.png'
 import FifthIcon from '../../../public/images/home/icon-5.png'
 import SixthIcon from '../../../public/images/home/icon-6.png'
 import BaseLogo from '../../../public/images/home/base-logo.png'
-import CheckCircle from '../../../public/images/home/check-circle.svg'
 import FormSection from './components/FormSection'
 import Header from './components/Header'
-
 
 import 'swiper/css'
 
@@ -90,6 +90,10 @@ const RewardsListItem = styled.p`
   font-size: 16px;
   line-height: 32px;
   color: #a0a3c4;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
 
   ${({ theme }) => theme.mediaQueries.sm} {
     font-size: 20px;
@@ -246,6 +250,9 @@ const Poster = styled.div`
 const Home: React.FC<React.PropsWithChildren> = () => {
   const { isDesktop } = useMatchBreakpoints()
 
+  // @ts-ignore
+  // @ts-ignore
+  // @ts-ignore
   return (
     <>
       {/* <style jsx global>
@@ -370,7 +377,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
         <Grid
           gridTemplateColumns={`${isDesktop ? '1fr 1fr 1fr' : '1fr'}`}
           gridTemplateRows={`${isDesktop ? '1fr 1fr' : '1fr'}`}
-          gridGap="15px"
+          gridGap="35px"
           justifyItems="center"
           alignItems="center"
           gridColumnGap="25px"
@@ -426,7 +433,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
               gap="10px"
               flexDirection="column"
               justifyContent="center"
-              mb={`${isDesktop ? '80px' : '20px'}`}
+              mb={`${isDesktop ? '60px' : '20px'}`}
               width={`${isDesktop ? '55%' : '60%'}`}
             >
               <p>BUILDING</p>
@@ -465,11 +472,46 @@ const Home: React.FC<React.PropsWithChildren> = () => {
           </RewardsText>
 
           <FlexGap gap="5px" flexDirection="column" justifyContent="center">
-            <RewardsListItem>Turn off swapping fees by holding BBMX</RewardsListItem>
-            <RewardsListItem>Considerably reduce Futures trading fees</RewardsListItem>
-            <RewardsListItem>Claim a portion of protocol’s revenue via Real Yield</RewardsListItem>
-            <RewardsListItem>Unlock Smart stake using $BBMX</RewardsListItem>
-            <RewardsListItem>Get access to Tier-1 project on BBMXStarter</RewardsListItem>
+            <RewardsListItem>
+              <div style={{ color: '#4E09F8' }}>
+                {/*
+// @ts-ignore */}
+                <FontAwesomeIcon icon={faCheckCircle} />
+              </div>
+              Turn off swapping fees by holding BBMX
+            </RewardsListItem>
+            <RewardsListItem>
+              <div style={{ color: '#4E09F8' }}>
+                {/*
+// @ts-ignore */}
+                <FontAwesomeIcon icon={faCheckCircle} />
+              </div>
+              Considerably reduce Futures trading fees
+            </RewardsListItem>
+            <RewardsListItem>
+              <div style={{ color: '#4E09F8' }}>
+                {/*
+// @ts-ignore */}
+                <FontAwesomeIcon icon={faCheckCircle} />
+              </div>
+              Claim a portion of protocol’s revenue via Real Yield
+            </RewardsListItem>
+            <RewardsListItem>
+              <div style={{ color: '#4E09F8' }}>
+                {/*
+// @ts-ignore */}
+                <FontAwesomeIcon icon={faCheckCircle} />
+              </div>
+              Unlock Smart stake using $BBMX
+            </RewardsListItem>
+            <RewardsListItem>
+              <div style={{ color: '#4E09F8' }}>
+                {/*
+// @ts-ignore */}
+                <FontAwesomeIcon icon={faCheckCircle} />
+              </div>
+              Get access to Tier-1 project on BBMXStarter
+            </RewardsListItem>
 
             <Flex alignItems="center" justifyContent="center">
               <p style={{ fontSize: '16px', color: '#a0a3c4', lineHeight: '32px' }}>
@@ -497,10 +539,10 @@ const Home: React.FC<React.PropsWithChildren> = () => {
               <RoadmapItem className="active">
                 <h4>Phase 1</h4>
                 <Poster>
-                  <span/>
+                  <span />
                 </Poster>
                 <div className="meter">
-                  <span/>
+                  <span />
                 </div>
                 <RoadmapBox>
                   <Checklist>
@@ -520,10 +562,10 @@ const Home: React.FC<React.PropsWithChildren> = () => {
               <RoadmapItem className="upcoming">
                 <h4>Phase 2</h4>
                 <Poster>
-                  <span/>
+                  <span />
                 </Poster>
                 <div className="meter">
-                  <span/>
+                  <span />
                 </div>
                 <RoadmapBox>
                   <Checklist>
@@ -543,10 +585,10 @@ const Home: React.FC<React.PropsWithChildren> = () => {
               <RoadmapItem className="upcoming last">
                 <h4>Phase 3 Mainnet launch</h4>
                 <Poster>
-                  <span/>
+                  <span />
                 </Poster>
                 <div className="meter">
-                  <span/>
+                  <span />
                 </div>
                 <RoadmapBox>
                   <Checklist>

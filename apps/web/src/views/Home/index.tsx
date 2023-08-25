@@ -14,6 +14,7 @@ import FourthIcon from '../../../public/images/home/icon-4.png'
 import FifthIcon from '../../../public/images/home/icon-5.png'
 import SixthIcon from '../../../public/images/home/icon-6.png'
 import BaseLogo from '../../../public/images/home/base-logo.png'
+import ClockRotateLeft from '../../../public/images/home/clock-rotate-left.svg'
 import CheckCircle from '../../../public/images/home/check-circle.svg'
 import CheckCirclePurple from '../../../public/images/home/check-circkle-purple.svg'
 import ArrowLeft from '../../../public/images/home/arrow-left.svg'
@@ -118,7 +119,6 @@ const ListItem = styled.li`
   line-height: 30px;
   margin-bottom: 15px;
   position: relative;
-  padding-left: 24px;
 
   &:before {
     font-family: 'Font Awesome 6 Free';
@@ -156,6 +156,7 @@ const RoadmapBox = styled.div`
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(5px);
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+  /* max-width: 348px; */
 
   p {
     font-size: 15px;
@@ -595,7 +596,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
               setSwiperRef(swiper)
             }}
             style={innerWidth < 1200 ? { width: innerWidth - 50 } : {}}
-            slidesPerView={innerWidth > 1200 ? 3 : 1}
+            slidesPerView={innerWidth > 1000 ? 3 : innerWidth < 1000 && innerWidth > 500 ? 2 : 1}
           >
             <SwiperSlide>
               <RoadmapItem className="active">
@@ -608,13 +609,62 @@ const Home: React.FC<React.PropsWithChildren> = () => {
                 </div>
                 <RoadmapBox>
                   <Checklist>
-                    <ListItem>Detailed roadmap</ListItem>
-                    <ListItem>Website update</ListItem>
-                    <ListItem>Whitepaper launch</ListItem>
-                    <ListItem>BBMXSwap (Goreli testnet)</ListItem>
-                    <ListItem>BBMXSwap (Mainnet)</ListItem>
-                    <ListItem>Super Stake (Mainnet)</ListItem>
-                    <ListItem>Real yield for BBMX holders</ListItem>
+                    <ListItem>
+                      <span style={{ color: '#4E09F8', marginRight: '7px' }}>
+                        {/*
+// @ts-ignore */}
+                        <FontAwesomeIcon icon={faCheckCircle} />
+                      </span>
+                      Detailed roadmap
+                    </ListItem>
+                    <ListItem>
+                      <span style={{ color: '#4E09F8', marginRight: '7px' }}>
+                        {/*
+// @ts-ignore */}
+                        <FontAwesomeIcon icon={faCheckCircle} />
+                      </span>
+                      Website update
+                    </ListItem>
+                    <ListItem>
+                      <span style={{ color: '#4E09F8', marginRight: '7px' }}>
+                        {/*
+// @ts-ignore */}
+                        <FontAwesomeIcon icon={faCheckCircle} />
+                      </span>
+                      Whitepaper launch
+                    </ListItem>
+                    <ListItem>
+                      <span style={{ color: '#4E09F8', marginRight: '7px' }}>
+                        {/*
+// @ts-ignore */}
+                        <FontAwesomeIcon icon={faCheckCircle} />
+                      </span>
+                      BBMXSwap (Goreli testnet)
+                    </ListItem>
+                    <ListItem>
+                      <span style={{ color: '#4E09F8', marginRight: '7px' }}>
+                        {/*
+// @ts-ignore */}
+                        <FontAwesomeIcon icon={faCheckCircle} />
+                      </span>
+                      BBMXSwap (Mainnet)
+                    </ListItem>
+                    <ListItem>
+                      <span style={{ color: '#4E09F8', marginRight: '7px' }}>
+                        {/*
+// @ts-ignore */}
+                        <FontAwesomeIcon icon={faCheckCircle} />
+                      </span>
+                      Super Stake (Mainnet)
+                    </ListItem>
+                    <ListItem>
+                      <span style={{ color: '#4E09F8', marginRight: '7px' }}>
+                        {/*
+// @ts-ignore */}
+                        <FontAwesomeIcon icon={faCheckCircle} />
+                      </span>
+                      Real yield for BBMX holders
+                    </ListItem>
                   </Checklist>
                 </RoadmapBox>
               </RoadmapItem>
@@ -631,13 +681,62 @@ const Home: React.FC<React.PropsWithChildren> = () => {
                 </div>
                 <RoadmapBox>
                   <Checklist>
-                    <ListItem>BBMX Futures early access (Testnet Beta)</ListItem>
-                    <ListItem>BBMX Futures public access (Testnet Beta)</ListItem>
-                    <ListItem>BBMX Futures public access (Mainnet Beta)</ListItem>
-                    <ListItem>BBMXStarter (Launchpad)</ListItem>
-                    <ListItem>BBMX Futures New trading assets</ListItem>
-                    <ListItem>Futures Trading contest</ListItem>
-                    <ListItem>BBMX Buybacks</ListItem>
+                    <ListItem>
+                      <span style={{ color: '#4E09F8', marginRight: '7px' }}>
+                        {/*
+// @ts-ignore */}
+                        <FontAwesomeIcon icon={faCheckCircle} />
+                      </span>
+                      BBMX Futures early access (Testnet Beta)
+                    </ListItem>
+                    <ListItem>
+                      <span style={{ color: '#4E09F8', marginRight: '7px' }}>
+                        {/*
+// @ts-ignore */}
+                        <FontAwesomeIcon icon={faCheckCircle} />
+                      </span>
+                      BBMX Futures public access (Testnet Beta)
+                    </ListItem>
+                    <ListItem>
+                      <span style={{ color: '#4E09F8', marginRight: '7px' }}>
+                        {/*
+// @ts-ignore */}
+                        <FontAwesomeIcon icon={faCheckCircle} />
+                      </span>
+                      BBMX Futures public access (Mainnet Beta)
+                    </ListItem>
+                    <ListItem>
+                      <span style={{ color: '#4E09F8', marginRight: '7px' }}>
+                        {/*
+// @ts-ignore */}
+                        <FontAwesomeIcon icon={faCheckCircle} />
+                      </span>
+                      BBMXStarter (Launchpad)
+                    </ListItem>
+                    <ListItem>
+                      <span style={{ color: '#4E09F8', marginRight: '7px' }}>
+                        {/*
+// @ts-ignore */}
+                        <FontAwesomeIcon icon={faCheckCircle} />
+                      </span>
+                      BBMX Futures New trading assets
+                    </ListItem>
+                    <ListItem>
+                      <span style={{ color: '#4E09F8', marginRight: '7px' }}>
+                        {/*
+// @ts-ignore */}
+                        <FontAwesomeIcon icon={faCheckCircle} />
+                      </span>
+                      Futures Trading contest
+                    </ListItem>
+                    <ListItem>
+                      <span style={{ color: '#4E09F8', marginRight: '7px' }}>
+                        {/*
+// @ts-ignore */}
+                        <FontAwesomeIcon icon={faCheckCircle} />
+                      </span>
+                      BBMX Buybacks
+                    </ListItem>
                   </Checklist>
                 </RoadmapBox>
               </RoadmapItem>
@@ -654,7 +753,14 @@ const Home: React.FC<React.PropsWithChildren> = () => {
                 </div>
                 <RoadmapBox>
                   <Checklist>
-                    <ListItem>(Details to be announced)</ListItem>
+                    <ListItem>
+                      <span style={{ color: '#4E09F8', marginRight: '7px' }}>
+                        {/*
+// @ts-ignore */}
+                        <FontAwesomeIcon icon={faCheckCircle} />
+                      </span>
+                      (Details to be announced)
+                    </ListItem>
                   </Checklist>
                 </RoadmapBox>
               </RoadmapItem>

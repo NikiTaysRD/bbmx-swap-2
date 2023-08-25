@@ -85,6 +85,9 @@ const MainMenu = styled.ul`
   padding: 0;
   list-style: none;
 
+  display: flex;
+  align-items: center;
+
   > li {
     float: left;
     margin: 0 10px;
@@ -122,6 +125,7 @@ const MainMenu = styled.ul`
 const SubMenu = styled.ol`
   position: absolute;
   width: 220px;
+  height: 92px;
   top: 100%;
   left: 0;
   background: rgba(164, 187, 234, 0.08);
@@ -133,6 +137,23 @@ const SubMenu = styled.ol`
   transform: translateY(20px);
   transition: 0.3s all;
   z-index: -1;
+
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-evenly;
+  
+  li {
+    list-style-type: none;
+    color: rgba(255,255,255,0.75);
+    transition: 0.3s all;
+    padding: 0 20px;
+    font-size: 14px;
+    
+    &:hover {
+      color: white;
+    }
+  }
 `
 
 const HeaderRight = styled.div`
@@ -167,6 +188,17 @@ const BurgerButton = styled.a`
   }
 `
 
+const NavbarMenuItem = styled.div`
+
+  
+  &:hover {
+    ${SubMenu} {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+`
+
 const Header = () => {
   return (
     <StyledHeader>
@@ -178,60 +210,67 @@ const Header = () => {
 
           <MainMenu>
             <li className="parent">
-              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-              <a href="#">Trade</a>
-              <SubMenu>
-                <li>
-                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                  <a href="#">
-                    BBMXSwap <span>(Coming Soon)</span>
-                  </a>
-                </li>
-                <li>
-                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                  <a href="#">
-                    Futures <span>(Coming Soon)</span>
-                  </a>
-                </li>
-              </SubMenu>
+              <NavbarMenuItem>
+                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                <a href="#">Trade</a>
+                <SubMenu>
+                  <li>
+                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                    <a href="#">
+                      BBMXSwap <span>(Coming Soon)</span>
+                    </a>
+                  </li>
+                  <li>
+                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                    <a href="#">
+                      Futures <span>(Coming Soon)</span>
+                    </a>
+                  </li>
+                </SubMenu>
+              </NavbarMenuItem>
+
             </li>
             <li className="parent">
-              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-              <a href="#">Earn</a>
-              <SubMenu>
-                <li>
-                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                  <a href="#">
-                    Farms <span>(Coming Soon)</span>
-                  </a>
-                </li>
-                <li>
-                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                  <a href="#">
-                    Pools <span>(Coming Soon)</span>
-                  </a>
-                </li>
-              </SubMenu>
+              <NavbarMenuItem>
+                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                <a href="#">Earn</a>
+                <SubMenu>
+                  <li>
+                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                    <a href="#">
+                      Farms <span>(Coming Soon)</span>
+                    </a>
+                  </li>
+                  <li>
+                    {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                    <a href="#">
+                      Pools <span>(Coming Soon)</span>
+                    </a>
+                  </li>
+                </SubMenu>
+              </NavbarMenuItem>
             </li>
             <li className="parent">
-              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-              <a href="#">Bridge</a>
-              <SubMenu>
-                <li>
-                  <a target="_blank" rel="noopener noreferrer" href="https://bridge.base.org/deposit">
-                    Base
-                  </a>
-                </li>
-                <li>
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="https://www.orbiter.finance/?source=Ethereum&dest=Base"
-                  >
-                    Orbiter
-                  </a>
-                </li>
-              </SubMenu>
+              <NavbarMenuItem>
+                {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                <a href="#">Bridge</a>
+                <SubMenu>
+                  <li>
+                    <a target="_blank" rel="noopener noreferrer" href="https://bridge.base.org/deposit">
+                      Base
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href="https://www.orbiter.finance/?source=Ethereum&dest=Base"
+                    >
+                      Orbiter
+                    </a>
+                  </li>
+                </SubMenu>
+              </NavbarMenuItem>
             </li>
             <li>
               {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}

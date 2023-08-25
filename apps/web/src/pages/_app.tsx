@@ -33,8 +33,8 @@ import GlobalStyle from '../style/Global'
 
 export const baseMono = localFont({
   src: [
-    { path: '../../public/fonts/base-mono.woff2', weight: '400' },
-    { path: '../../public/fonts/base-mono-normal.woff2', weight: '700' },
+    { path: '../../public/fonts/base-mono.woff2', weight: '700' },
+    { path: '../../public/fonts/base-mono-normal.woff2', weight: '400' },
   ],
   variable: '--font-base-mono',
 })
@@ -194,7 +194,7 @@ const App = ({ Component, pageProps, className }: AppPropsWithLayout) => {
       <FixedSubgraphHealthIndicator />
       <NetworkModal pageSupportedChains={Component.chains} />
       <TransactionsDetailModal />
-      {isShowScrollToTopButton && <ScrollToTopButtonV2 />}
+      {/* {isShowScrollToTopButton && <ScrollToTopButtonV2 />} */}
     </ProductionErrorBoundary>
   )
 }

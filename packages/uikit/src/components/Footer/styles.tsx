@@ -82,8 +82,8 @@ export const ListItem = styled.li`
   margin: 0 10px;
   cursor: pointer;
   transition: 0.3s all;
-  font-family: "Base Display", sans-serif;
   font-size: 12px;
+  letter-spacing: 2px;
 
   &:hover {
     color: #4e09f8;
@@ -93,7 +93,7 @@ export const ListItem = styled.li`
 export const TextH = styled.h3`
   font-size: 16px;
   text-transform: uppercase;
-  font-family: "Base Mono", sans-serif;
+  font-weight: bold;
 
   margin-bottom: 15px;
 `;
@@ -114,7 +114,6 @@ export const Input = styled.input`
   border: none;
   background: rgba(255, 255, 255, 0.1);
   color: #fff;
-  font-family: "Base Display", sans-serif;
   outline: none;
 `;
 

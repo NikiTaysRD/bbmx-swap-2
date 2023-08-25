@@ -4,7 +4,7 @@ import { faPaperPlane, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
 import { Tooltip } from "react-tooltip";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 import { Flex } from "../Box";
 import { Container, Input, ListItem, StyledFooter, TextH, TextP, Button, SocialIcon } from "./styles";
 
@@ -12,12 +12,12 @@ import { FooterProps } from "./types";
 import Logo from "../../widgets/Menu/components/Logo";
 import { FlexGap } from "../Layouts";
 import { useMatchBreakpoints } from "../../contexts";
+import { baseDisplay, baseMono } from "../../../../../apps/web/src/pages/_app";
 
 const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({ ...props }) => {
   const { isMobile } = useMatchBreakpoints();
   const { isTablet } = useMatchBreakpoints();
 
-  const { pathname } = useRouter()
   return (
     <StyledFooter data-theme="dark" p={["40px 16px", null, "56px 40px 32px 40px"]} position="relative" {...props}>
       <Container>
@@ -28,10 +28,12 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({ ...props }) 
           flexDirection={isMobile ? "column" : "row"}
           gap="30px"
         >
-          <Logo href="/" />
+          <Flex width="106px">
+            <Logo href="/" />
+          </Flex>
 
           <FlexGap alignItems="center" flexDirection={isMobile ? "column" : "row"} gap="30px">
-            <Flex mr={isMobile ? "0" : "30px"}>
+            <Flex mr={isMobile ? "0" : "30px"} className={baseDisplay.className}>
               <div data-tooltip-id="BBMXSwap" data-tooltip-content="Coming Soon">
                 <ListItem>BBMXSwap</ListItem>
                 <Tooltip id="BBMXSwap" place="bottom" style={{ backgroundColor: "#000" }} />
@@ -73,20 +75,20 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({ ...props }) 
             width={isTablet || isMobile ? "100%" : "42%"}
             alignItems={isMobile ? "center" : undefined}
           >
-            <TextH>KEEP UP WITH THE LATEST FROM BBMX</TextH>
-            <TextP>Subscribe to our Mirror blog.</TextP>
+            <TextH className={baseMono.className}>KEEP UP WITH THE LATEST FROM BBMX</TextH>
+            <TextP className={baseDisplay.className}>Subscribe to our Mirror blog.</TextP>
 
             <Flex mb="20px" width="100%">
               <Flex width="70%">
-                <Input placeholder="Enter your email" />
+                <Input placeholder="Enter your email" className={baseDisplay.className} />
               </Flex>
 
               <Flex justifyContent="space-between" alignItems="center" width="30%">
-                <Button>Subscribe</Button>
+                <Button className={baseMono.className}>Subscribe</Button>
               </Flex>
             </Flex>
 
-            <TextP>© 2023 BBMX</TextP>
+            <TextP className={baseDisplay.className}>© 2023 BBMX</TextP>
           </Flex>
         </Flex>
       </Container>

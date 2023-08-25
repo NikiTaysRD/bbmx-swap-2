@@ -108,7 +108,7 @@ const Heading1 = styled.h1`
   line-height: 130%;
   font-weight: 700;
   letter-spacing: 3px;
-  width: 70%;
+  width: 75%;
 
   @media (max-width: 1399.98px) {
     font-size: 13px;
@@ -243,7 +243,12 @@ const FormSection = () => {
                     <i>
                       <BaseIcon src={Base.src} alt="base icon" />
                     </i>
-                    <Input type="text" value={address} onChange={({ target: { value } }) => setAddress(value)} />
+                    <Input
+                      type="text"
+                      value={address}
+                      onChange={({ target: { value } }) => setAddress(value)}
+                      readOnly
+                    />
                   </IconedDiv>
                 </TokenSummary>
                 <ButtonSet>

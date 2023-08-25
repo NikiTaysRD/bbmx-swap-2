@@ -145,12 +145,18 @@ const SubMenu = styled.ol`
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
+      align-items: flex-end;
+      color: rgba(255, 255, 255, 0.75);
 
       letter-spacing: 0 !important;
-    }
 
-    &:hover {
-      color: white;
+      &:hover {
+        color: white;
+      }
+
+      span {
+        opacity: 0.75;
+      }
     }
   }
 `

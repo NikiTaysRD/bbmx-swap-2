@@ -57,16 +57,23 @@ export const StyledFooter = styled.section`
 `;
 
 export const Container = styled.div`
-  max-width: 1140px;
   margin: 0 auto;
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
+  padding-left: 12px;
+  padding-right: 12px;
   padding-top: 30px;
   padding-bottom: 30px;
+  max-width: 540px;
 
-  ${({ theme }) => theme.mediaQueries.sm} {
-    padding-left: 12px;
-    padding-right: 12px;
+  ${({ theme }) => theme.mediaQueries.md} {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    max-width: 720px;
+  }
+
+  ${({ theme }) => theme.mediaQueries.lg} {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    max-width: 1140px;
   }
 `;
 
@@ -75,6 +82,8 @@ export const ListItem = styled.li`
   margin: 0 10px;
   cursor: pointer;
   transition: 0.3s all;
+  font-size: 12px;
+  letter-spacing: 2px;
 
   &:hover {
     color: #4e09f8;
@@ -84,7 +93,7 @@ export const ListItem = styled.li`
 export const TextH = styled.h3`
   font-size: 16px;
   text-transform: uppercase;
-  font-family: "Base Mono", sans-serif;
+  font-weight: bold;
 
   margin-bottom: 15px;
 `;
@@ -105,7 +114,6 @@ export const Input = styled.input`
   border: none;
   background: rgba(255, 255, 255, 0.1);
   color: #fff;
-  font-family: "Base Display", sans-serif;
   outline: none;
 `;
 
@@ -123,8 +131,7 @@ export const Button = styled.button`
   text-transform: uppercase;
   border: none;
 
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
-    box-shadow 0.15s ease-in-out;
+  transition: 0.3s all;
 
   &:hover,
   &:focus {

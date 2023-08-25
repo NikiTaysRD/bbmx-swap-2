@@ -194,7 +194,7 @@ const App = ({ Component, pageProps, className }: AppPropsWithLayout) => {
       <FixedSubgraphHealthIndicator />
       <NetworkModal pageSupportedChains={Component.chains} />
       <TransactionsDetailModal />
-      {isShowScrollToTopButton && <ScrollToTopButtonV2 />}
+      {/* {isShowScrollToTopButton && <ScrollToTopButtonV2 />} */}
     </ProductionErrorBoundary>
   )
 }

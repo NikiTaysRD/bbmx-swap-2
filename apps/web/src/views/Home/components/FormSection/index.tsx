@@ -40,7 +40,6 @@ const MainWrapper = styled.div`
 `
 
 const Container = styled.div`
-  max-width: 1300px;
   margin-right: auto;
   margin-left: auto;
 
@@ -215,6 +214,10 @@ const SocialLink = styled.a`
     height: 100%;
   }
 `
+
+// const Container = styled.section`
+//   max-width: 1140px;
+// `
 
 const FormSection = () => {
   const [address, setAddress] = useState('0x024BAea0ae99a05Aad4Cc7D4F423Be5c9b86Bf37')

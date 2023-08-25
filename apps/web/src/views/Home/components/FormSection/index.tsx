@@ -221,7 +221,7 @@ const FormSection = () => {
                   Your portal to <HighlightSpan>Base</HighlightSpan> DeFi
                 </Heading1>
                 <Paragraph>
-                  Swap, Trade, Farm or Launch <b>anything</b> on <HighlightSpan>Base</HighlightSpan> Blockchain
+                  Swap, Trade, Farm or Launch <i>anything</i> on <HighlightSpan>Base</HighlightSpan> Blockchain
                 </Paragraph>
                 <TokenSummary>
                   <Heading3>BBMX Smart Contract (BASE)</Heading3>

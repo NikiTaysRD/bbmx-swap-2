@@ -62,11 +62,7 @@ const ResetCSS = createGlobalStyle`
   *::after {
     box-sizing: border-box;
   }
-  * {
-    font-family: 'Kanit', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
+
 
   @font-face {
     font-family: "Base"; 
@@ -79,9 +75,15 @@ const ResetCSS = createGlobalStyle`
   @font-face {
     font-family: "Base";
     src:
-            local("Base Display Bold"),
-            url("apps/web/public/fonts/base-display-bold.woff2") format("woff2");
+        local("Base Display Bold"),
+        url("apps/web/public/fonts/base-display-bold.woff2") format("woff2");
     font-weight: bold;
+  }
+
+  * {
+    font-family: 'Kanit', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   /* Number */

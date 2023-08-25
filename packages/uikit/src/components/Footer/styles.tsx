@@ -31,10 +31,9 @@ export const StyledIconMobileContainer = styled(Box)`
 export const StyledToolsContainer = styled(Flex)`
   border-color: ${darkColors.cardBorder};
   border-top-width: 1px;
-  border-bottom-width: 1px;
   border-style: solid;
   padding: 24px 0;
-  margin-bottom: 24px;
+  padding-bottom: 0;
 
   ${({ theme }) => theme.mediaQueries.sm} {
     border-top-width: 0;
@@ -63,11 +62,12 @@ export const Container = styled.div`
   padding-left: 0.75rem;
   padding-right: 0.75rem;
   padding-top: 30px;
-  padding-bottom: 60px;
+  padding-bottom: 30px;
 
-  // ${({ theme }) => theme.mediaQueries.sm} {
-  //
-  // }
+  ${({ theme }) => theme.mediaQueries.sm} {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
 `;
 
 export const ListItem = styled.li`

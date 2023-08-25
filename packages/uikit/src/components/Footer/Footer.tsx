@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
+import { Tooltip } from "react-tooltip";
 import { Flex } from "../Box";
 import {
   Container,
@@ -23,7 +24,6 @@ import { FooterProps } from "./types";
 import { SkeletonV2 } from "../Skeleton";
 import Logo from "../../widgets/Menu/components/Logo";
 import { FlexGap } from "../Layouts";
-import { Tooltip } from "react-tooltip";
 import { useMatchBreakpoints } from "../../contexts";
 
 const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
@@ -36,6 +36,7 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
 }) => {
   const isMounted = useIsMounted();
   const { isMobile } = useMatchBreakpoints();
+  const { isTablet } = useMatchBreakpoints();
 
   return (
     <StyledFooter data-theme="dark" p={["40px 16px", null, "56px 40px 32px 40px"]} position="relative" {...props}>
@@ -51,8 +52,16 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
 
           <FlexGap alignItems="center" flexDirection={isMobile ? "column" : "row"} gap="30px">
             <Flex mr={isMobile ? "0" : "30px"}>
-              <ListItem>BBMXSwap</ListItem>
-              <ListItem>Docs</ListItem>
+              <div data-tooltip-id="BBMXSwap" data-tooltip-content="Coming Soon">
+                <ListItem>BBMXSwap</ListItem>
+                <Tooltip id="BBMXSwap" place="bottom" style={{ backgroundColor: "#000" }} />
+              </div>
+
+              <div data-tooltip-id="Docs" data-tooltip-content="Coming Soon">
+                <ListItem>Docs</ListItem>
+                <Tooltip id="Docs" place="bottom" style={{ backgroundColor: "#000" }} />
+              </div>
+
               <ListItem>Contact Us</ListItem>
             </Flex>
 
@@ -79,11 +88,11 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
         </FlexGap>
 
         <Flex>
-          <Flex flexDirection="column" width={isMobile ? "100%" : "42%"} alignItems={isMobile ? "center" : undefined}>
+          <Flex flexDirection="column" width={isTablet ? "100%" : "42%"} alignItems={isMobile ? "center" : undefined}>
             <TextH>KEEP UP WITH THE LATEST FROM BBMX</TextH>
             <TextP>Subscribe to our Mirror blog.</TextP>
 
-            <Flex mb="20px">
+            <Flex mb="20px" width="100%">
               <Flex width="100%">
                 <Input placeholder="Enter your email" />
               </Flex>

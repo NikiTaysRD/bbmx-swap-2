@@ -69,6 +69,12 @@ const Button = styled.a`
   border: none;
 
   display: inline-block;
+
+  @media (max-width: 1399.98px) {
+    padding: 0 20px;
+    line-height: 36px;
+    font-size: 12px;
+  }
 `
 
 const MainMenu = styled.ul`
@@ -130,6 +136,11 @@ const SubMenu = styled.ol`
 
 const HeaderRight = styled.div`
   margin-right: 10px;
+
+  @media (max-width: 1399.98px) {
+    margin-left: auto;
+    margin-right: 10px;
+  }
 `
 
 const HeaderContainer = styled.div`
@@ -137,6 +148,21 @@ const HeaderContainer = styled.div`
   justify-content: space-between;
   display: flex;
   width: 100%;
+`
+
+const BurgerButton = styled.a`
+  display: block;
+  width: 34px;
+  height: 34px;
+  line-height: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 3px;
+  text-align: center;
+  padding-top: 3px;
+
+  @media (min-width: 800px) {
+    display: none;
+  }
 `
 
 const Header = () => {
@@ -212,9 +238,9 @@ const Header = () => {
             </Button>
           </HeaderRight>
 
-          <a href="javascript:void(0)" id="menu-toggle">
-            <img src={BarsIcon.src} />
-          </a>
+          <BurgerButton href="javascript:void(0)" id="menu-toggle">
+            <img src={BarsIcon.src} style={{ paddingTop: '2px' }} />
+          </BurgerButton>
         </HeaderContainer>
       </Container>
     </StyledHeader>

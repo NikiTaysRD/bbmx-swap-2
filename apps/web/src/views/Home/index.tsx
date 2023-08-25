@@ -9,8 +9,13 @@ import FourthIcon from '../../../public/images/home/icon-4.png'
 import FifthIcon from '../../../public/images/home/icon-5.png'
 import SixthIcon from '../../../public/images/home/icon-6.png'
 import BaseLogo from '../../../public/images/home/base-logo.png'
+import CheckCircle from '../../../public/images/home/check-circle.svg'
 import FormSection from './components/FormSection'
 import Header from './components/Header'
+
+import { Swiper, SwiperSlide } from 'swiper/react'
+
+import 'swiper/css'
 
 const HomePageSection = styled(PageSection)`
   max-width: 100%;
@@ -86,7 +91,7 @@ const ListItem = styled.li`
   padding-left: 24px;
 
   &:before {
-    content: '\f058';
+    background-image: url('path/to/your/icon.svg');
     font-family: 'Font Awesome 6 Free';
     font-weight: 900;
     font-size: 15px;
@@ -131,7 +136,7 @@ const RoadmapBox = styled.div`
 `
 
 const RoadmapContainer = styled.div`
-  position: relative;
+  positiom: relative;
 `
 
 const barAnimation = keyframes`
@@ -174,7 +179,7 @@ const RoadmapItem = styled.div`
     height: 10px;
     position: absolute;
     left: 50%;
-    top: 42px;
+    top: 48px;
     z-index: -1;
     background-color: #4e09f8;
   }
@@ -210,7 +215,11 @@ const Poster = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 100%;
-  margin: 0 auto 60px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 60px;
+  background-color: #4e09f8;
+  box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
 `
 
 // end of roadmap
@@ -456,62 +465,77 @@ const Home: React.FC<React.PropsWithChildren> = () => {
           <GradientHeader>BBMX JOURNEY</GradientHeader>
           <FeatureText>ROADMAP</FeatureText>
         </FlexGap>
-        <RoadmapContainer>
-          <RoadmapItem className="active">
-            <h4>Phase 1</h4>
-            <Poster>
-              <span></span>
-            </Poster>
-            <div className="meter">
-              <span></span>
-            </div>
-            <RoadmapBox>
-              <Checklist>
-                <ListItem>Detailed roadmap</ListItem>
-                <ListItem>Website update</ListItem>
-                <ListItem>Whitepaper launch</ListItem>
-                <ListItem>BBMXSwap (Goreli testnet)</ListItem>
-                <ListItem>BBMXSwap (Mainnet)</ListItem>
-                <ListItem>Super Stake (Mainnet)</ListItem>
-                <ListItem>Real yield for BBMX holders</ListItem>
-              </Checklist>
-            </RoadmapBox>
-          </RoadmapItem>
 
-          <RoadmapItem className="upcoming">
-            <h4>Phase 2</h4>
-            <Poster>
-              <span></span>
-            </Poster>
-            <div className="meter">
-              <span></span>
-            </div>
-            <RoadmapBox>
-              <Checklist>
-                <ListItem>BBMX Futures early access (Testnet Beta)</ListItem>
-                <ListItem>BBMX Futures public access (Testnet Beta)</ListItem>
-                <ListItem>BBMX Futures public access (Mainnet Beta)</ListItem>
-                <ListItem>BBMXStarter (Launchpad)</ListItem>
-                <ListItem>BBMX Futures New trading assets</ListItem>
-                <ListItem>Futures Trading contest</ListItem>
-                <ListItem>BBMX Buybacks</ListItem>
-              </Checklist>
-            </RoadmapBox>
-          </RoadmapItem>
-          <RoadmapItem className="upcoming last">
-            <h4>Phase 3 Mainnet launch</h4>
-            <Poster>
-              <span></span>
-            </Poster>
-            <div className="meter">
-              <span></span>
-            </div>
-            <RoadmapBox>
-              <Checklist>
-                <ListItem>(Details to be announced)</ListItem>
-              </Checklist>
-            </RoadmapBox>
-          </RoadmapItem>
+        <RoadmapContainer>
+          <Swiper
+            style={innerWidth < 1200 ? { width: innerWidth - 50 } : {}}
+            slidesPerView={innerWidth > 1200 ? 3 : 1}
+            onSlideChange={() => console.log('slide change')}
+            onSwiper={(swiper) => console.log(swiper)}
+          >
+            <SwiperSlide>
+              <RoadmapItem className="active">
+                <h4>Phase 1</h4>
+                <Poster>
+                  <span></span>
+                </Poster>
+                <div className="meter">
+                  <span></span>
+                </div>
+                <RoadmapBox>
+                  <Checklist>
+                    <ListItem>Detailed roadmap</ListItem>
+                    <ListItem>Website update</ListItem>
+                    <ListItem>Whitepaper launch</ListItem>
+                    <ListItem>BBMXSwap (Goreli testnet)</ListItem>
+                    <ListItem>BBMXSwap (Mainnet)</ListItem>
+                    <ListItem>Super Stake (Mainnet)</ListItem>
+                    <ListItem>Real yield for BBMX holders</ListItem>
+                  </Checklist>
+                </RoadmapBox>
+              </RoadmapItem>
+            </SwiperSlide>
+
+            <SwiperSlide>
+              <RoadmapItem className="upcoming">
+                <h4>Phase 2</h4>
+                <Poster>
+                  <span></span>
+                </Poster>
+                <div className="meter">
+                  <span></span>
+                </div>
+                <RoadmapBox>
+                  <Checklist>
+                    <ListItem>BBMX Futures early access (Testnet Beta)</ListItem>
+                    <ListItem>BBMX Futures public access (Testnet Beta)</ListItem>
+                    <ListItem>BBMX Futures public access (Mainnet Beta)</ListItem>
+                    <ListItem>BBMXStarter (Launchpad)</ListItem>
+                    <ListItem>BBMX Futures New trading assets</ListItem>
+                    <ListItem>Futures Trading contest</ListItem>
+                    <ListItem>BBMX Buybacks</ListItem>
+                  </Checklist>
+                </RoadmapBox>
+              </RoadmapItem>
+            </SwiperSlide>
+
+            <SwiperSlide>
+              <RoadmapItem className="upcoming last">
+                <h4>Phase 3 Mainnet launch</h4>
+                <Poster>
+                  <span></span>
+                </Poster>
+                <div className="meter">
+                  <span></span>
+                </div>
+                <RoadmapBox>
+                  <Checklist>
+                    <ListItem>(Details to be announced)</ListItem>
+                  </Checklist>
+                </RoadmapBox>
+              </RoadmapItem>
+            </SwiperSlide>
+          </Swiper>
         </RoadmapContainer>
       </HomePageSection>
     </>

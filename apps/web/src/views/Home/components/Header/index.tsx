@@ -176,14 +176,17 @@ const Header = () => {
 
           <MainMenu>
             <li className="parent">
+              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <a href="#">Trade</a>
               <SubMenu>
                 <li>
+                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                   <a href="#">
                     BBMXSwap <span>(Coming Soon)</span>
                   </a>
                 </li>
                 <li>
+                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                   <a href="#">
                     Futures <span>(Coming Soon)</span>
                   </a>
@@ -191,14 +194,17 @@ const Header = () => {
               </SubMenu>
             </li>
             <li className="parent">
+              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <a href="#">Earn</a>
               <SubMenu>
                 <li>
+                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                   <a href="#">
                     Farms <span>(Coming Soon)</span>
                   </a>
                 </li>
                 <li>
+                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                   <a href="#">
                     Pools <span>(Coming Soon)</span>
                   </a>
@@ -206,6 +212,7 @@ const Header = () => {
               </SubMenu>
             </li>
             <li className="parent">
+              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <a href="#">Bridge</a>
               <SubMenu>
                 <li>
@@ -225,9 +232,11 @@ const Header = () => {
               </SubMenu>
             </li>
             <li>
+              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <a href="#">BBMXStarter</a>
             </li>
             <li>
+              {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
               <a href="#">Governance</a>
             </li>
           </MainMenu>
@@ -238,8 +247,9 @@ const Header = () => {
             </Button>
           </HeaderRight>
 
+          {/* eslint-disable-next-line no-script-url */}
           <BurgerButton href="javascript:void(0)" id="menu-toggle">
-            <img src={BarsIcon.src} style={{ paddingTop: '2px' }} />
+            <img src={BarsIcon.src} style={{ paddingTop: '2px' }} alt=""/>
           </BurgerButton>
         </HeaderContainer>
       </Container>

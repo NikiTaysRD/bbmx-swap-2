@@ -3,6 +3,7 @@ import { Flex, FlexGap, Grid, PageSection, useMatchBreakpoints } from '@pancakes
 import { Swiper, SwiperSlide } from 'swiper/react'
 import HomeCard from './components/Card'
 
+import type SwiperCore from 'swiper'
 import FirstIcon from '../../../public/images/home/icon-1.png'
 import SecondIcon from '../../../public/images/home/icon-2.png'
 import ThirdIcon from '../../../public/images/home/icon-3.png'
@@ -11,11 +12,14 @@ import FifthIcon from '../../../public/images/home/icon-5.png'
 import SixthIcon from '../../../public/images/home/icon-6.png'
 import BaseLogo from '../../../public/images/home/base-logo.png'
 import CheckCircle from '../../../public/images/home/check-circle.svg'
+import CheckCirclePurple from '../../../public/images/home/check-circkle-purple.svg'
+import ArrowLeft from '../../../public/images/home/arrow-left.svg'
+import ArrowRight from '../../../public/images/home/arrow-right.svg'
 import FormSection from './components/FormSection'
 import Header from './components/Header'
 
-
 import 'swiper/css'
+import { useCallback, useState } from 'react'
 
 const HomePageSection = styled(PageSection)`
   max-width: 100%;
@@ -237,14 +241,69 @@ const Poster = styled.div`
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 60px;
-  background-color: #4e09f8;
   box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+`
+
+const CirckleCenter = styled.span`
+  width: 30px;
+  height: 30px;
+  background: #fff;
+  border-radius: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+`
+
+const NavButtonsContainer = styled.div`
+  margin-top: 30px;
+  text-align: center;
+
+  @media (min-width: 800px) {
+    display: none;
+  }
+`
+
+const NavButtons = styled.div`
+  text-align: center;
+`
+
+const PrevButton = styled.div`
+  margin: 0 10px;
+  padding: 0;
+  background: none;
+  font-size: 24px;
+  color: #fff;
+  display: inline-block;
+  zoom: 1;
+
+  cursor: pointer;
+  text-align: center;
+`
+
+const NextButton = styled.div`
+  margin: 0 10px;
+  padding: 0;
+  background: none;
+  font-size: 24px;
+  color: #fff;
+  display: inline-block;
+  zoom: 1;
+
+  cursor: pointer;
+  text-align: center;
 `
 
 // end of roadmap
 
 const Home: React.FC<React.PropsWithChildren> = () => {
   const { isDesktop } = useMatchBreakpoints()
+  const [swiperRef, setSwiperRef] = useState<SwiperCore>(null)
+  console.log('====== swiperRef ', swiperRef)
+  const prevSlide = useCallback(() => swiperRef.slidePrev(), [swiperRef])
+
+  const nextSlide = useCallback(() => swiperRef.slideNext(), [swiperRef])
 
   return (
     <>
@@ -488,19 +547,20 @@ const Home: React.FC<React.PropsWithChildren> = () => {
 
         <RoadmapContainer>
           <Swiper
-            style={window.innerWidth < 1200 ? { width: window.innerWidth - 50 } : {}}
-            slidesPerView={window.innerWidth > 1200 ? 3 : 1}
-            onSlideChange={() => console.log('slide change')}
-            onSwiper={(swiper) => console.log(swiper)}
+            onSwiper={(swiper) => {
+              setSwiperRef(swiper)
+            }}
+            style={innerWidth < 1200 ? { width: innerWidth - 50 } : {}}
+            slidesPerView={innerWidth > 1200 ? 3 : 1}
           >
             <SwiperSlide>
               <RoadmapItem className="active">
                 <h4>Phase 1</h4>
-                <Poster>
-                  <span/>
+                <Poster style={{ backgroundColor: '#4e09f8' }}>
+                  <CirckleCenter />
                 </Poster>
                 <div className="meter">
-                  <span/>
+                  <span />
                 </div>
                 <RoadmapBox>
                   <Checklist>
@@ -519,11 +579,11 @@ const Home: React.FC<React.PropsWithChildren> = () => {
             <SwiperSlide>
               <RoadmapItem className="upcoming">
                 <h4>Phase 2</h4>
-                <Poster>
-                  <span/>
+                <Poster style={{ backgroundColor: '#e7e7e3' }}>
+                  <CirckleCenter />
                 </Poster>
                 <div className="meter">
-                  <span/>
+                  <span />
                 </div>
                 <RoadmapBox>
                   <Checklist>
@@ -542,11 +602,11 @@ const Home: React.FC<React.PropsWithChildren> = () => {
             <SwiperSlide>
               <RoadmapItem className="upcoming last">
                 <h4>Phase 3 Mainnet launch</h4>
-                <Poster>
-                  <span/>
+                <Poster style={{ backgroundColor: '#e7e7e3' }}>
+                  <CirckleCenter />
                 </Poster>
                 <div className="meter">
-                  <span/>
+                  <span />
                 </div>
                 <RoadmapBox>
                   <Checklist>
@@ -557,6 +617,16 @@ const Home: React.FC<React.PropsWithChildren> = () => {
             </SwiperSlide>
           </Swiper>
         </RoadmapContainer>
+        <NavButtonsContainer>
+          <NavButtons>
+            <PrevButton onClick={prevSlide}>
+              <img src={ArrowLeft.src} alt="" />
+            </PrevButton>
+            <NextButton onClick={nextSlide}>
+              <img src={ArrowRight.src} alt="" />
+            </NextButton>
+          </NavButtons>
+        </NavButtonsContainer>
       </HomePageSection>
     </>
   )

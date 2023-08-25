@@ -201,6 +201,10 @@ const NavbarMenuItem = styled.div`
     letter-spacing: 2px;
     color: white;
 
+    &:hover {
+      color: #4e09f8;
+    }
+
     img {
       height: 12px;
     }

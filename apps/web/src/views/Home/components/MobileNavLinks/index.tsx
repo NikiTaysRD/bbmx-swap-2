@@ -24,6 +24,10 @@ const LinkContent = styled.div`
   flex-direction: column;
   justify-content: space-between;
 
+  & > * {
+    color: rgba(255, 255, 255, 0.75);
+  }
+
   line-height: 44px;
   color: rgba(255, 255, 255, 0.75);
 `
@@ -33,7 +37,7 @@ const MobileNavLinks: React.FC<React.PropsWithChildren<MobileLinkProps>> = ({ li
   return (
     <>
       <LinkWrapper onClick={() => setIsClicked(!isClicked)}>
-        <p style={{ color: `${isClicked && '#4E09F8'}` }}>{linkName}</p>
+        <p style={{ color: `${isClicked ? '#4E09F8' : 'white'}` }}>{linkName}</p>
         <img src={AngleDownIcon.src} alt="" />
       </LinkWrapper>
 

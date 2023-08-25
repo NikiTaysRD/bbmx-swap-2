@@ -6,6 +6,7 @@ import { faCheckCircle } from '@fortawesome/fontawesome-free-regular'
 import { useCallback, useState } from 'react'
 import type SwiperCore from 'swiper'
 import { baseDisplay } from 'pages/_app'
+import { faClockRotateLeft, faCheckCircle as fasCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import HomeCard from './components/Card'
 
 import FirstIcon from '../../../public/images/home/icon-1.png'
@@ -611,7 +612,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
                       <span style={{ color: '#4E09F8', marginRight: '7px' }}>
                         {/*
 // @ts-ignore */}
-                        <FontAwesomeIcon icon={faCheckCircle} />
+                        <FontAwesomeIcon icon={fasCheckCircle} />
                       </span>
                       Detailed roadmap
                     </ListItem>
@@ -619,7 +620,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
                       <span style={{ color: '#4E09F8', marginRight: '7px' }}>
                         {/*
 // @ts-ignore */}
-                        <FontAwesomeIcon icon={faCheckCircle} />
+                        <FontAwesomeIcon icon={fasCheckCircle} />
                       </span>
                       Website update
                     </ListItem>
@@ -627,7 +628,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
                       <span style={{ color: '#4E09F8', marginRight: '7px' }}>
                         {/*
 // @ts-ignore */}
-                        <FontAwesomeIcon icon={faCheckCircle} />
+                        <FontAwesomeIcon icon={faClockRotateLeft} style={{ color: 'white', opacity: '0.75' }} />
                       </span>
                       Whitepaper launch
                     </ListItem>
@@ -635,7 +636,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
                       <span style={{ color: '#4E09F8', marginRight: '7px' }}>
                         {/*
 // @ts-ignore */}
-                        <FontAwesomeIcon icon={faCheckCircle} />
+                        <FontAwesomeIcon icon={faClockRotateLeft} style={{ color: 'white', opacity: '0.75' }} />
                       </span>
                       BBMXSwap (Goreli testnet)
                     </ListItem>
@@ -643,7 +644,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
                       <span style={{ color: '#4E09F8', marginRight: '7px' }}>
                         {/*
 // @ts-ignore */}
-                        <FontAwesomeIcon icon={faCheckCircle} />
+                        <FontAwesomeIcon icon={faClockRotateLeft} style={{ color: 'white', opacity: '0.75' }} />
                       </span>
                       BBMXSwap (Mainnet)
                     </ListItem>
@@ -651,7 +652,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
                       <span style={{ color: '#4E09F8', marginRight: '7px' }}>
                         {/*
 // @ts-ignore */}
-                        <FontAwesomeIcon icon={faCheckCircle} />
+                        <FontAwesomeIcon icon={faClockRotateLeft} style={{ color: 'white', opacity: '0.75' }} />
                       </span>
                       Super Stake (Mainnet)
                     </ListItem>
@@ -659,7 +660,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
                       <span style={{ color: '#4E09F8', marginRight: '7px' }}>
                         {/*
 // @ts-ignore */}
-                        <FontAwesomeIcon icon={faCheckCircle} />
+                        <FontAwesomeIcon icon={faClockRotateLeft} style={{ color: 'white', opacity: '0.75' }} />
                       </span>
                       Real yield for BBMX holders
                     </ListItem>
@@ -683,7 +684,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
                       <span style={{ color: '#4E09F8', marginRight: '7px' }}>
                         {/*
 // @ts-ignore */}
-                        <FontAwesomeIcon icon={faCheckCircle} />
+                        <FontAwesomeIcon icon={faClockRotateLeft} style={{ color: 'white', opacity: '0.75' }} />
                       </span>
                       BBMX Futures early access (Testnet Beta)
                     </ListItem>
@@ -691,7 +692,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
                       <span style={{ color: '#4E09F8', marginRight: '7px' }}>
                         {/*
 // @ts-ignore */}
-                        <FontAwesomeIcon icon={faCheckCircle} />
+                        <FontAwesomeIcon icon={faClockRotateLeft} style={{ color: 'white', opacity: '0.75' }} />
                       </span>
                       BBMX Futures public access (Testnet Beta)
                     </ListItem>
@@ -699,7 +700,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
                       <span style={{ color: '#4E09F8', marginRight: '7px' }}>
                         {/*
 // @ts-ignore */}
-                        <FontAwesomeIcon icon={faCheckCircle} />
+                        <FontAwesomeIcon icon={faClockRotateLeft} style={{ color: 'white', opacity: '0.75' }} />
                       </span>
                       BBMX Futures public access (Mainnet Beta)
                     </ListItem>
@@ -707,7 +708,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
                       <span style={{ color: '#4E09F8', marginRight: '7px' }}>
                         {/*
 // @ts-ignore */}
-                        <FontAwesomeIcon icon={faCheckCircle} />
+                        <FontAwesomeIcon icon={faClockRotateLeft} style={{ color: 'white', opacity: '0.75' }} />
                       </span>
                       BBMXStarter (Launchpad)
                     </ListItem>
@@ -715,7 +716,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
                       <span style={{ color: '#4E09F8', marginRight: '7px' }}>
                         {/*
 // @ts-ignore */}
-                        <FontAwesomeIcon icon={faCheckCircle} />
+                        <FontAwesomeIcon icon={faClockRotateLeft} style={{ color: 'white', opacity: '0.75' }} />
                       </span>
                       BBMX Futures New trading assets
                     </ListItem>
@@ -723,7 +724,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
                       <span style={{ color: '#4E09F8', marginRight: '7px' }}>
                         {/*
 // @ts-ignore */}
-                        <FontAwesomeIcon icon={faCheckCircle} />
+                        <FontAwesomeIcon icon={faClockRotateLeft} style={{ color: 'white', opacity: '0.75' }} />
                       </span>
                       Futures Trading contest
                     </ListItem>
@@ -731,7 +732,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
                       <span style={{ color: '#4E09F8', marginRight: '7px' }}>
                         {/*
 // @ts-ignore */}
-                        <FontAwesomeIcon icon={faCheckCircle} />
+                        <FontAwesomeIcon icon={faClockRotateLeft} style={{ color: 'white', opacity: '0.75' }} />
                       </span>
                       BBMX Buybacks
                     </ListItem>
@@ -755,7 +756,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
                       <span style={{ color: '#4E09F8', marginRight: '7px' }}>
                         {/*
 // @ts-ignore */}
-                        <FontAwesomeIcon icon={faCheckCircle} />
+                        <FontAwesomeIcon icon={faClockRotateLeft} style={{ color: 'white', opacity: '0.75' }} />
                       </span>
                       (Details to be announced)
                     </ListItem>

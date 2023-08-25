@@ -49,6 +49,7 @@ const FeatureText = styled.p`
   letter-spacing: 2px;
   padding-bottom: 15px;
   border-bottom: 0.5px solid rgba(255, 255, 255, 0.3);
+  color: white;
 
   font-weight: 700;
 
@@ -430,7 +431,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
       <Header />
       <FormSection />
       <WideHomePageSection background="#101124" index={2} hasCurvedDivider={false}>
-        <FlexGap gap="10px" flexDirection="column" justifyContent="center" alignItems="center" mb="80px" pt="150px">
+        <FlexGap gap="10px" flexDirection="column" justifyContent="center" alignItems="center" mb="80px" pt="100px">
           <GradientHeader>BBMX</GradientHeader>
           <FeatureText>FULLY FEATURED</FeatureText>
         </FlexGap>
@@ -495,7 +496,8 @@ const Home: React.FC<React.PropsWithChildren> = () => {
               flexDirection="column"
               justifyContent="center"
               mb={`${isDesktop ? '60px' : '20px'}`}
-              width={`${isDesktop ? '55%' : '60%'}`}
+              width={`${isDesktop ? '60%' : '80%'}`}
+              alignItems={`${!isDesktop && 'center'}`}
             >
               <p>BUILDING</p>
               <FeatureText>

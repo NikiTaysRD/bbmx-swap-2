@@ -1,8 +1,10 @@
 import styled from 'styled-components'
 
 import { baseDisplay } from 'pages/_app'
+import { Flex, Logo } from '@pancakeswap/uikit'
 import AngleDownIcon from '../../../../../public/images/home/angle-down.svg'
 import BarsIcon from '../../../../../public/images/home/bars.svg'
+import React from 'react'
 
 const StyledHeader = styled.header`
   position: absolute;
@@ -21,21 +23,21 @@ const StyledHeader = styled.header`
   }
 `
 
-const Logo = styled.a`
-  display: block;
-
-  img {
-    display: block;
-    width: auto;
-    height: 40px;
-  }
-
-  @media (max-width: 1399.98px) {
-    img {
-      height: 30px;
-    }
-  }
-`
+// const Logo = styled.a`
+//   display: block;
+//
+//   img {
+//     display: block;
+//     width: auto;
+//     height: 40px;
+//   }
+//
+//   @media (max-width: 1399.98px) {
+//     img {
+//       height: 30px;
+//     }
+//   }
+// `
 
 const Container = styled.div`
   flex: 0 0 auto;
@@ -225,9 +227,9 @@ const Header = () => {
     <StyledHeader>
       <Container>
         <HeaderContainer>
-          <Logo href="#">
-            <img src="images/logo.png" alt="Logo" />
-          </Logo>
+          <Flex width="106px">
+            <Logo href="/" />
+          </Flex>
 
           <MainMenu>
             <li className="parent">

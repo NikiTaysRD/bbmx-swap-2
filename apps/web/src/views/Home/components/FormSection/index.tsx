@@ -40,8 +40,9 @@ const MainWrapper = styled.div`
 `
 
 const Container = styled.div`
-  margin-right: auto;
-  margin-left: auto;
+  margin: 0 auto;
+  max-width: 1330px;
+  padding: 30px;
 
   @media (max-width: 575.98px) {
     width: 100%;
@@ -68,9 +69,6 @@ const Column = styled.div`
   @media (min-width: 992px) {
     width: 50%;
   }
-
-  padding-left: 15px;
-  padding-right: 15px;
 `
 
 const Input = styled.input`
@@ -209,15 +207,17 @@ const SocialLink = styled.a`
   height: 24px;
   width: 24px;
 
+  transition: 0.3s all;
+
   img {
     width: 100%;
     height: 100%;
+
+    &:hover {
+      scale: 110%;
+    }
   }
 `
-
-// const Container = styled.section`
-//   max-width: 1140px;
-// `
 
 const FormSection = () => {
   const [address, setAddress] = useState('0x024BAea0ae99a05Aad4Cc7D4F423Be5c9b86Bf37')
@@ -262,12 +262,12 @@ const FormSection = () => {
                   </ListItem>
                   <ListItem>
                     <SocialLink href="https://t.me/BBMXExchange" target="_blank">
-                      <img src={PaperPlaneIcon.src} alt="Twitter" />
+                      <img src={PaperPlaneIcon.src} alt="Telegram" />
                     </SocialLink>
                   </ListItem>
                   <ListItem>
                     <SocialLink href="mailto:business@bbmx.exchange" target="_blank">
-                      <img src={EnvelopeIcon.src} alt="Twitter" />
+                      <img src={EnvelopeIcon.src} alt="Mail" />
                     </SocialLink>
                   </ListItem>
                 </SocialLinks>

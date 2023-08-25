@@ -17,7 +17,8 @@ import { maxAmountSpend } from 'utils/maxAmountSpend'
 import { currencyId } from 'utils/currencyId'
 
 import { useTheme } from '@pancakeswap/hooks'
-import { Flex, FlexGap, useMatchBreakpoints } from '@pancakeswap/uikit'
+import { Flex, FlexGap, ImportList, useMatchBreakpoints } from '@pancakeswap/uikit'
+import styled from 'styled-components'
 import { FormContainer } from '../components'
 import useWarningImport from '../../hooks/useWarningImport'
 import { RiskCheck } from './RiskCheck'
@@ -32,6 +33,60 @@ interface Props {
   pricingAndSlippage?: ReactNode
   swapCommitButton?: ReactNode
 }
+
+const RiskWrapper = styled.div`
+  margin-top: 20px;
+  margin-top: 5px;
+  padding: 12px;
+  border-radius: 15px;
+  border: 1px solid transparent;
+  background: #101124;
+`
+
+const GasOverview = styled.div`
+  font-size: 12px;
+  cursor: pointer;
+  align-items: center !important;
+  justify-content: space-between !important;
+  display: flex !important;
+`
+
+const Estimate = styled.div`
+  font-size: 12px;
+  cursor: pointer;
+`
+
+const Gas = styled.div`
+  color: #a0a3c4;
+`
+
+const ImpactTable = styled.div`
+  padding-top: 10px;
+`
+
+const Table = styled.table`
+  width: 100%;
+  font-size: 12px;
+`
+
+const TBody = styled.tbody`
+  border-color: inherit;
+  border-style: solid;
+  border-width: 0;
+`
+
+const TR = styled.tr`
+  font-weight: 600;
+  padding: 5px 0;
+`
+
+const TH = styled.th`
+  font-weight: 600;
+`
+
+const TD = styled.td`
+  text-align: right;
+`
 
 export function FormMain({ pricingAndSlippage, inputAmount, outputAmount, tradeLoading, swapCommitButton }: Props) {
   const { account } = useWeb3React()
@@ -96,16 +151,14 @@ export function FormMain({ pricingAndSlippage, inputAmount, outputAmount, tradeL
   )
 
   const isTypingInput = independentField === Field.INPUT
-  const inputValue = useMemo(() => typedValue && (isTypingInput ? typedValue : formatAmount(inputAmount) || ''), [
-    typedValue,
-    isTypingInput,
-    inputAmount,
-  ])
-  const outputValue = useMemo(() => typedValue && (isTypingInput ? formatAmount(outputAmount) || '' : typedValue), [
-    typedValue,
-    isTypingInput,
-    outputAmount,
-  ])
+  const inputValue = useMemo(
+    () => typedValue && (isTypingInput ? typedValue : formatAmount(inputAmount) || ''),
+    [typedValue, isTypingInput, inputAmount],
+  )
+  const outputValue = useMemo(
+    () => typedValue && (isTypingInput ? formatAmount(outputAmount) || '' : typedValue),
+    [typedValue, isTypingInput, outputAmount],
+  )
   const inputLoading = typedValue ? !isTypingInput && tradeLoading : false
   const outputLoading = typedValue ? isTypingInput && tradeLoading : false
 
@@ -161,7 +214,27 @@ export function FormMain({ pricingAndSlippage, inputAmount, outputAmount, tradeL
         {/* <RiskCheck currency={outputCurrency} /> */}
         <Recipient />
         {/* {pricingAndSlippage} */}
-        <span style={{ marginTop: '40px' }}>{swapCommitButton}</span>
+
+        <RiskWrapper>
+          <GasOverview>
+            <Estimate>
+              1 ETH = 1832.52 USDT <span>(~$1827.23)</span>
+            </Estimate>
+            <Gas>~$3.34</Gas>
+          </GasOverview>
+          {/* <ImpactTable>
+            <Table>
+              <TBody>
+                <TR>
+                  <TH>Network fees:</TH>
+                  <TD>$3.30</TD>
+                </TR>
+              </TBody>
+            </Table>
+          </ImpactTable> */}
+        </RiskWrapper>
+
+        <span style={{ marginTop: '10px' }}>{swapCommitButton}</span>
       </Flex>
     </FormContainer>
   )

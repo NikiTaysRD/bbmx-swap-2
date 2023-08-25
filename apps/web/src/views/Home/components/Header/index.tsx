@@ -26,7 +26,7 @@ const Logo = styled.a`
   img {
     display: block;
     width: auto;
-    height: 36px;
+    height: 40px;
   }
 
   @media (max-width: 1399.98px) {
@@ -41,7 +41,8 @@ const Container = styled.div`
   width: 100%;
 
   @media (min-width: 992px) {
-    width: 50%;
+    display: flex;
+    justify-content: center;
   }
 
   padding-left: 15px;
@@ -148,6 +149,7 @@ const HeaderContainer = styled.div`
   justify-content: space-between;
   display: flex;
   width: 100%;
+  max-width: 1300px;
 `
 
 const BurgerButton = styled.a`

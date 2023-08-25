@@ -39,7 +39,7 @@ const MainWrapper = styled.div`
 `
 
 const Container = styled.div`
-  max-width: 1152px;
+  max-width: 1300px;
   margin-right: auto;
   margin-left: auto;
 
@@ -124,6 +124,7 @@ const BaseIcon = styled.img`
 
 const HighlightSpan = styled.span`
   color: #4e09f8;
+  font-weight: 700;
 `
 
 const Paragraph = styled.p`
@@ -193,13 +194,20 @@ const SocialLinks = styled.ul`
 `
 
 const ListItem = styled.li`
-  margin-right: 15px;
+  margin-right: 20px;
   float: left;
   list-style-type: none;
 `
 
 const SocialLink = styled.a`
   display: block;
+  height: 24px;
+  width: 24px;
+  
+  img {
+    width: 100%;
+    height: 100%;
+  }
 `
 
 const FormSection = () => {

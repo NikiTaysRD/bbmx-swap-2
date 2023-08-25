@@ -21,6 +21,12 @@ const HomePageSection = styled(PageSection)`
   max-width: 100%;
 `
 
+const WideHomePageSection = styled(HomePageSection)<{ maxWidth?: string }>`
+  & > * {
+    max-width: ${({ maxWidth }) => (maxWidth ? `${maxWidth}px` : 'unset')};
+  }
+`
+
 const GradientHeader = styled.p`
   font-size: 40px;
   text-transform: uppercase;
@@ -38,6 +44,8 @@ const FeatureText = styled.p`
   padding-bottom: 15px;
   border-bottom: 0.5px solid rgba(255, 255, 255, 0.3);
 
+  font-weight: 700;
+
   ${({ theme }) => theme.mediaQueries.sm} {
     font-size: 64px;
   }
@@ -48,6 +56,7 @@ const BuildingInfo = styled(FlexGap)`
   text-transform: uppercase;
   letter-spacing: 2px;
   color: white;
+  font-weight: 700;
 
   ${({ theme }) => theme.mediaQueries.sm} {
     font-size: 64px;
@@ -59,6 +68,8 @@ const BuildingText = styled.p`
   line-height: 32px;
 
   color: #a0a3c4;
+
+  width: 95%;
 `
 const RewardsText = styled.p`
   color: #a0a3c4;
@@ -66,7 +77,7 @@ const RewardsText = styled.p`
   line-height: 50px;
 
   ${({ theme }) => theme.mediaQueries.sm} {
-    width: 50%;
+    width: 45%;
   }
 `
 
@@ -342,8 +353,8 @@ const Home: React.FC<React.PropsWithChildren> = () => {
       </PageSection> */}
       <Header />
       <FormSection />
-      <HomePageSection background="#101124" pt="200px" index={2} hasCurvedDivider={false}>
-        <FlexGap gap="10px" flexDirection="column" justifyContent="center" alignItems="center" mb="80px">
+      <WideHomePageSection background="#101124" index={2} hasCurvedDivider={false}>
+        <FlexGap gap="10px" flexDirection="column" justifyContent="center" alignItems="center" mb="80px" pt="150px">
           <GradientHeader>BBMX</GradientHeader>
           <FeatureText>FULLY FEATURED</FeatureText>
         </FlexGap>
@@ -354,6 +365,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
           gridGap="15px"
           justifyItems="center"
           alignItems="center"
+          gridColumnGap="25px"
         >
           <HomeCard header="BBMXSwap" image={FirstIcon}>
             An advanced Dex that offers both AMM and CLMM for Base DeFi. With one of the cheapest fee structures and
@@ -392,9 +404,9 @@ const Home: React.FC<React.PropsWithChildren> = () => {
             holders.
           </HomeCard>
         </Grid>
-      </HomePageSection>
+      </WideHomePageSection>
 
-      <HomePageSection background="#1B1C30" index={3} hasCurvedDivider={false}>
+      <WideHomePageSection background="#1B1C30" index={3} hasCurvedDivider={false} maxWidth="1300">
         <FlexGap
           gap="20px"
           flexDirection={`${isDesktop ? 'row' : 'column'}`}
@@ -407,7 +419,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
               flexDirection="column"
               justifyContent="center"
               mb={`${isDesktop ? '80px' : '20px'}`}
-              width={`${isDesktop ? '50%' : '60%'}`}
+              width={`${isDesktop ? '55%' : '60%'}`}
             >
               <p>BUILDING</p>
               <FeatureText>
@@ -425,7 +437,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
             <img src={BaseLogo.src} alt="" />
           </Flex>
         </FlexGap>
-      </HomePageSection>
+      </WideHomePageSection>
 
       <HomePageSection background="#101124" pt="200px" index={2} hasCurvedDivider={false}>
         <FlexGap gap="10px" flexDirection="column" justifyContent="center" alignItems="center" mb="80px">

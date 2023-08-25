@@ -80,8 +80,22 @@ const ResetCSS = createGlobalStyle`
     font-weight: bold;
   }
 
+  @font-face {
+    font-family: "Base";
+    src:
+            local("Base Mono"),
+            url("apps/web/public/fonts/base-mono.woff2") format("woff2");
+  }
+
+  @font-face {
+    font-family: "Base";
+    src:
+            local("Base Mono Normal"),
+            url("apps/web/public/fonts/base-mono-normal.woff2") format("woff2");
+  }
+
   * {
-    font-family: 'Kanit', sans-serif;
+    font-family: 'Base Mono', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }

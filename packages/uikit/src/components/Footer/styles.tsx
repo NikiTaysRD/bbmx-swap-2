@@ -84,6 +84,7 @@ export const ListItem = styled.li`
 export const TextH = styled.h3`
   font-size: 16px;
   text-transform: uppercase;
+  font-family: "Base Mono", sans-serif;
 
   margin-bottom: 15px;
 `;

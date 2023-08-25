@@ -1,5 +1,5 @@
 const defaultTypography = {
-  fontFamily: '"Roboto Mono", monospace',
+  fontFamily: '"Base Mono", monospace',
   h1: {
     fontSize: 28,
     lineHeight: '36px',
@@ -50,7 +50,7 @@ export const PancakeSwapTheme = {
   dark: {
     typography: {
       ...defaultTypography,
-      fontFamily: "'Kanit', sans-serif",
+      fontFamily: "'Base Mono', sans-serif",
     },
     shape: { borderRadius },
     palette: {
@@ -83,7 +83,7 @@ export const PancakeSwapTheme = {
   light: {
     typography: {
       ...defaultTypography,
-      fontFamily: "'Kanit', sans-serif",
+      fontFamily: "'Base Mono', sans-serif",
     },
     shape: { borderRadius },
     palette: {

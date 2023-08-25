@@ -57,16 +57,23 @@ export const StyledFooter = styled.section`
 `;
 
 export const Container = styled.div`
-  max-width: 1140px;
   margin: 0 auto;
-  padding-left: 0.75rem;
-  padding-right: 0.75rem;
+  padding-left: 12px;
+  padding-right: 12px;
   padding-top: 30px;
   padding-bottom: 30px;
+  max-width: 540px;
 
-  ${({ theme }) => theme.mediaQueries.sm} {
-    padding-left: 12px;
-    padding-right: 12px;
+  ${({ theme }) => theme.mediaQueries.md} {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    max-width: 720px;
+  }
+
+  ${({ theme }) => theme.mediaQueries.lg} {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    max-width: 1140px;
   }
 `;
 
@@ -75,6 +82,8 @@ export const ListItem = styled.li`
   margin: 0 10px;
   cursor: pointer;
   transition: 0.3s all;
+  font-family: "Base Display", sans-serif;
+  font-size: 12px;
 
   &:hover {
     color: #4e09f8;
@@ -123,8 +132,7 @@ export const Button = styled.button`
   text-transform: uppercase;
   border: none;
 
-  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
-    box-shadow 0.15s ease-in-out;
+  transition: 0.3s all;
 
   &:hover,
   &:focus {

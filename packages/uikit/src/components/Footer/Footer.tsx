@@ -1,4 +1,3 @@
-import { useIsMounted } from "@pancakeswap/hooks";
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPaperPlane, faEnvelope } from "@fortawesome/free-solid-svg-icons";
@@ -6,35 +5,14 @@ import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
 import { Tooltip } from "react-tooltip";
 import { Flex } from "../Box";
-import {
-  Container,
-  Input,
-  ListItem,
-  StyledFooter,
-  StyledToolsContainer,
-  TextH,
-  TextP,
-  Button,
-  SocialIcon,
-} from "./styles";
+import { Container, Input, ListItem, StyledFooter, TextH, TextP, Button, SocialIcon } from "./styles";
 
-import LangSelector from "../LangSelector/LangSelector";
-import { ThemeSwitcher } from "../ThemeSwitcher";
 import { FooterProps } from "./types";
-import { SkeletonV2 } from "../Skeleton";
 import Logo from "../../widgets/Menu/components/Logo";
 import { FlexGap } from "../Layouts";
 import { useMatchBreakpoints } from "../../contexts";
 
-const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
-  isDark,
-  toggleTheme,
-  currentLang,
-  langs,
-  setLang,
-  ...props
-}) => {
-  const isMounted = useIsMounted();
+const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({ ...props }) => {
   const { isMobile } = useMatchBreakpoints();
   const { isTablet } = useMatchBreakpoints();
 
@@ -88,16 +66,20 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
         </FlexGap>
 
         <Flex>
-          <Flex flexDirection="column" width={isTablet ? "100%" : "42%"} alignItems={isMobile ? "center" : undefined}>
+          <Flex
+            flexDirection="column"
+            width={isTablet || isMobile ? "100%" : "42%"}
+            alignItems={isMobile ? "center" : undefined}
+          >
             <TextH>KEEP UP WITH THE LATEST FROM BBMX</TextH>
             <TextP>Subscribe to our Mirror blog.</TextP>
 
             <Flex mb="20px" width="100%">
-              <Flex width="100%">
+              <Flex width="70%">
                 <Input placeholder="Enter your email" />
               </Flex>
 
-              <Flex justifyContent="space-between" alignItems="center">
+              <Flex justifyContent="space-between" alignItems="center" width="30%">
                 <Button>Subscribe</Button>
               </Flex>
             </Flex>
@@ -105,26 +87,6 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
             <TextP>© 2023 BBMX</TextP>
           </Flex>
         </Flex>
-
-        <StyledToolsContainer
-          data-theme="dark"
-          order={[1, null, 3]}
-          flexDirection={["column", null, "row"]}
-          justifyContent="space-between"
-        >
-          <Flex order={[2, null, 1]} alignItems="center">
-            <SkeletonV2 variant="round" width="56px" height="32px" isDataReady={isMounted}>
-              <ThemeSwitcher isDark={isDark} toggleTheme={toggleTheme} />
-            </SkeletonV2>
-            <LangSelector
-              currentLang={currentLang}
-              langs={langs}
-              setLang={setLang}
-              color="textSubtle"
-              dropdownPosition="top-right"
-            />
-          </Flex>
-        </StyledToolsContainer>
       </Container>
     </StyledFooter>
   );

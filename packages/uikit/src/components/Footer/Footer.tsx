@@ -4,6 +4,7 @@ import { faPaperPlane, faEnvelope } from "@fortawesome/free-solid-svg-icons";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
 import { Tooltip } from "react-tooltip";
+import {useRouter} from "next/router";
 import { Flex } from "../Box";
 import { Container, Input, ListItem, StyledFooter, TextH, TextP, Button, SocialIcon } from "./styles";
 
@@ -16,6 +17,7 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({ ...props }) 
   const { isMobile } = useMatchBreakpoints();
   const { isTablet } = useMatchBreakpoints();
 
+  const { pathname } = useRouter()
   return (
     <StyledFooter data-theme="dark" p={["40px 16px", null, "56px 40px 32px 40px"]} position="relative" {...props}>
       <Container>

@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@fortawesome/fontawesome-free-regular':
+        specifier: ^5.0.13
+        version: 5.0.13
       '@svgr/webpack':
         specifier: ^8.0.1
         version: 8.0.1
@@ -5702,11 +5705,24 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
+  /@fortawesome/fontawesome-common-types@0.1.7:
+    resolution: {integrity: sha512-ego8jRVSHfq/iq4KRZJKQeUAdi3ZjGNrqw4oPN3fNdvTBnLCSntwVCnc37bsAJP9UB8MhrTfPnZYxkv2vpS4pg==}
+    engines: {node: '>=6'}
+    dev: false
+
   /@fortawesome/fontawesome-common-types@6.4.2:
     resolution: {integrity: sha512-1DgP7f+XQIJbLFCTX1V2QnxVmpLdKdzzo2k8EmvDOePfchaIGQ9eCHj2up3/jNEbZuBqel5OxiaOJf37TWauRA==}
     engines: {node: '>=6'}
     requiresBuild: true
     dev: true
+
+  /@fortawesome/fontawesome-free-regular@5.0.13:
+    resolution: {integrity: sha512-36lz9Idww1L4QaaTcv7GZiOeIP9emJFDUsedvRovI10kmwyd6rN0PKkIjnq0FB4foLhX4Rou8vnbCCmjtqiLug==}
+    engines: {node: '>=6'}
+    deprecated: This package is deprecated. See https://git.io/fNCzJ for information about upgrading.
+    dependencies:
+      '@fortawesome/fontawesome-common-types': 0.1.7
+    dev: false
 
   /@fortawesome/fontawesome-svg-core@6.4.2:
     resolution: {integrity: sha512-gjYDSKv3TrM2sLTOKBc5rH9ckje8Wrwgx1CxAPbN5N3Fm4prfi7NsJVWd1jklp7i5uSCVwhZS5qlhMXqLrpAIg==}

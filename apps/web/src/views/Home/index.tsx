@@ -49,6 +49,7 @@ const FeatureText = styled.p`
   letter-spacing: 2px;
   padding-bottom: 15px;
   border-bottom: 0.5px solid rgba(255, 255, 255, 0.3);
+  color: white;
 
   font-weight: 700;
 

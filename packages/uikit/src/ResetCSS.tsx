@@ -85,6 +85,7 @@ const ResetCSS = createGlobalStyle`
     src:
             local("Base Mono"),
             url("apps/web/public/fonts/base-mono.woff2") format("woff2");
+    font-weight: 400;
   }
 
   @font-face {
@@ -98,6 +99,9 @@ const ResetCSS = createGlobalStyle`
     font-family: 'Base Mono', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+            local("Base Mono Bold"),
+            url("apps/web/public/fonts/base-mono-bold.woff2") format("woff2");
+    font-weight: bold;
   }
 
   /* Number */

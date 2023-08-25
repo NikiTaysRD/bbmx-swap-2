@@ -75,6 +75,7 @@
     "node": "18.16.0"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free-regular": "^5.0.13",
     "@svgr/webpack": "^8.0.1",
     "crypto": "^1.0.1",
     "encoding": "^0.1.13",

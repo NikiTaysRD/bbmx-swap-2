@@ -75,8 +75,9 @@ const CurrencyInputHeader: React.FC<React.PropsWithChildren<Props>> = memo(
       ...(isMobile && { manualVisible: mobileTooltipShow }),
     })
 
-    const { isChartSupported, isChartDisplayed, setIsChartDisplayed, isHotTokenSupported } =
-      useContext(SwapFeaturesContext)
+    const { isChartSupported, isChartDisplayed, setIsChartDisplayed, isHotTokenSupported } = useContext(
+      SwapFeaturesContext,
+    )
     const [expertMode] = useExpertMode()
     const [isRoutingSettingChange] = useRoutingSettingChanged()
     const toggleChartDisplayed = () => {
@@ -106,81 +107,9 @@ const CurrencyInputHeader: React.FC<React.PropsWithChildren<Props>> = memo(
     const titleContent = (
       <Flex width="100%" alignItems="center" justifyContent="space-between" flexDirection="column">
         <Flex width="100%" justifyContent="end">
-          {SUPPORTED_BUY_CRYPTO_CHAINS.includes(chainId) ? (
-            <Flex alignItems="center" justifyContent="center" px="4px" mt="5px">
-              <TooltipText
-                ref={buyCryptoTargetRef}
-                onClick={() => setMobileTooltipShow(false)}
-                display="flex"
-                style={{ justifyContent: 'center' }}
-              >
-                <InternalLink href="/buy-crypto">
-                  <Image src={BuyCryptoIcon} alt="#" style={{ justifyContent: 'center' }} />
-                </InternalLink>
-              </TooltipText>
-              {buyCryptoTooltipVisible && (!isMobile || mobileTooltipShow) && buyCryptoTooltip}
-            </Flex>
-          ) : null}
-          {isChartSupported && setIsChartDisplayed && (
-            <ColoredIconButton
-              onClick={() => {
-                if (!isChartDisplayed && isSwapHotTokenDisplay) {
-                  setIsSwapHotTokenDisplay(false)
-                }
-                toggleChartDisplayed()
-              }}
-              variant="text"
-              scale="sm"
-            >
-              {isChartDisplayed ? (
-                <ChartDisableIcon color="textSubtle" />
-              ) : (
-                <ChartIcon width="24px" color="textSubtle" />
-              )}
-            </ColoredIconButton>
-          )}
-          {isHotTokenSupported && (
-            <ColoredIconButton
-              variant="text"
-              scale="sm"
-              onClick={() => {
-                if (!isSwapHotTokenDisplay && isChartDisplayed) {
-                  toggleChartDisplayed()
-                }
-                setIsSwapHotTokenDisplay(!isSwapHotTokenDisplay)
-              }}
-            >
-              {isSwapHotTokenDisplay ? (
-                <HotDisableIcon color="textSubtle" width="24px" />
-              ) : (
-                <>
-                  <TooltipText
-                    ref={targetRef}
-                    onClick={() => setMobileTooltipShow(false)}
-                    display="flex"
-                    style={{ justifyContent: 'center' }}
-                  >
-                    <HotIcon color="textSubtle" width="24px" />
-                  </TooltipText>
-                  {tooltipVisible && (!isMobile || mobileTooltipShow) && tooltip}
-                </>
-              )}
-            </ColoredIconButton>
-          )}
           <NotificationDot show={expertMode || isRoutingSettingChange}>
             <GlobalSettings color="textSubtle" mr="0" mode={SettingsMode.SWAP_LIQUIDITY} />
           </NotificationDot>
-          <IconButton onClick={onPresentTransactionsModal} variant="text" scale="sm">
-            <HistoryIcon color="textSubtle" width="24px" />
-          </IconButton>
-          <IconButton variant="text" scale="sm" onClick={onRefreshPrice}>
-            <RefreshIcon
-              disabled={!hasAmount}
-              color="textSubtle"
-              width="27px"
-              duration={CHAIN_REFRESH_TIME[chainId] ? CHAIN_REFRESH_TIME[chainId] / 1000 : undefined}
-            />
-          </IconButton>
         </Flex>
       </Flex>
     )

@@ -2,9 +2,10 @@ import styled from 'styled-components'
 
 import { baseDisplay } from 'pages/_app'
 import { Flex, Logo } from '@pancakeswap/uikit'
+import { useState } from 'react'
+import MobileNavLinks from 'views/Home/components/MobileNavLinks'
 import AngleDownIcon from '../../../../../public/images/home/angle-down.svg'
 import BarsIcon from '../../../../../public/images/home/bars.svg'
-import React from 'react'
 
 const StyledHeader = styled.header`
   position: absolute;
@@ -22,22 +23,6 @@ const StyledHeader = styled.header`
     padding-top: 15px;
   }
 `
-
-// const Logo = styled.a`
-//   display: block;
-//
-//   img {
-//     display: block;
-//     width: auto;
-//     height: 40px;
-//   }
-//
-//   @media (max-width: 1399.98px) {
-//     img {
-//       height: 30px;
-//     }
-//   }
-// `
 
 const Container = styled.div`
   flex: 0 0 auto;
@@ -89,11 +74,13 @@ const MainMenu = styled.ul`
 
   display: flex;
   align-items: baseline;
+  color: white;
 
   > li {
     float: left;
     margin: 0 10px;
     position: relative;
+    color: white;
 
     &.parent::before {
       background: url(${AngleDownIcon.src}) no-repeat 0 0;
@@ -185,7 +172,7 @@ const HeaderContainer = styled.div`
   max-width: 1300px;
 `
 
-const BurgerButton = styled.a`
+const BurgerButton = styled.b`
   display: block;
   width: 34px;
   height: 34px;
@@ -198,9 +185,13 @@ const BurgerButton = styled.a`
   @media (min-width: 800px) {
     display: none;
   }
+
+  position: relative;
 `
 
 const NavbarMenuItem = styled.div`
+  color: white;
+
   a {
     display: flex;
     flex-direction: column;
@@ -208,6 +199,7 @@ const NavbarMenuItem = styled.div`
     gap: 5px;
     align-items: center;
     letter-spacing: 2px;
+    color: white;
 
     img {
       height: 12px;
@@ -222,7 +214,36 @@ const NavbarMenuItem = styled.div`
   }
 `
 
+const MobileNavbarContainer = styled.div`
+  position: absolute;
+  top: 120%;
+  left: 0;
+
+  padding: 0 20px;
+  background: #1b1c30;
+  backdrop-filter: blur(15px);
+  border-radius: 10px;
+
+  width: 100%;
+  min-height: 200px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`
+const MobileNavbarWrapper = styled.div`
+  width: 85%;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 12px;
+  letter-spacing: 1px;
+  line-height: 40px;
+`
+
 const Header = () => {
+  const [mobileNavbarOpen, setMobileNavbarOpen] = useState<boolean>(false)
+
   return (
     <StyledHeader>
       <Container>
@@ -242,13 +263,13 @@ const Header = () => {
                   <li>
                     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                     <a href="#">
-                      BBMXSwap <span>(Coming Soon)</span>
+                      BBMXSwap <span style={{ fontSize: '10px' }}>(Coming Soon)</span>
                     </a>
                   </li>
                   <li>
                     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                     <a href="#">
-                      Futures <span>(Coming Soon)</span>
+                      Futures <span style={{ fontSize: '10px' }}>(Coming Soon)</span>
                     </a>
                   </li>
                 </SubMenu>
@@ -264,13 +285,13 @@ const Header = () => {
                   <li>
                     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                     <a href="#">
-                      Farms <span>(Coming Soon)</span>
+                      Farms <span style={{ fontSize: '10px' }}>(Coming Soon)</span>
                     </a>
                   </li>
                   <li>
                     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                     <a href="#">
-                      Pools <span>(Coming Soon)</span>
+                      Pools <span style={{ fontSize: '10px' }}>(Coming Soon)</span>
                     </a>
                   </li>
                 </SubMenu>
@@ -327,9 +348,53 @@ const Header = () => {
           </HeaderRight>
 
           {/* eslint-disable-next-line no-script-url */}
-          <BurgerButton href="javascript:void(0)" id="menu-toggle">
+          <BurgerButton id="menu-toggle" onClick={() => setMobileNavbarOpen(!mobileNavbarOpen)}>
             <img src={BarsIcon.src} style={{ paddingTop: '2px' }} alt="" />
           </BurgerButton>
+
+          {mobileNavbarOpen && (
+            <MobileNavbarContainer>
+              <MobileNavbarWrapper>
+                <MobileNavLinks linkName="Trade">
+                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                  <a href="#">
+                    BBMXSwap <span style={{ fontSize: '10px' }}>(Coming Soon)</span>
+                  </a>
+
+                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                  <a href="#">
+                    Futures <span style={{ fontSize: '10px' }}>(Coming Soon)</span>
+                  </a>
+                </MobileNavLinks>
+                <MobileNavLinks linkName="Earn">
+                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                  <a href="#">
+                    Farms <span style={{ fontSize: '10px' }}>(Coming Soon)</span>
+                  </a>
+
+                  {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
+                  <a href="#">
+                    Pools <span style={{ fontSize: '10px' }}>(Coming Soon)</span>
+                  </a>
+                </MobileNavLinks>
+                <MobileNavLinks linkName="Bridge">
+                  <a target="_blank" rel="noopener noreferrer" href="https://bridge.base.org/deposit">
+                    Base
+                  </a>
+
+                  <a
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    href="https://www.orbiter.finance/?source=Ethereum&dest=Base"
+                  >
+                    Orbiter
+                  </a>
+                </MobileNavLinks>
+                <p className={baseDisplay.className}>BBMXStarter</p>
+                <p className={baseDisplay.className}>Governance</p>
+              </MobileNavbarWrapper>
+            </MobileNavbarContainer>
+          )}
         </HeaderContainer>
       </Container>
     </StyledHeader>

@@ -7,8 +7,6 @@ import MobileNavLinks from 'views/Home/components/MobileNavLinks'
 import AngleDownIcon from '../../../../../public/images/home/angle-down.svg'
 import BarsIcon from '../../../../../public/images/home/bars.svg'
 
-// console.log('dsfsdf')
-
 const StyledHeader = styled.header`
   position: absolute;
   width: 100%;

@@ -21,7 +21,6 @@ import { Flex, FlexGap, ImportList, useMatchBreakpoints } from '@pancakeswap/uik
 import styled from 'styled-components'
 import { FormContainer } from '../components'
 import useWarningImport from '../../hooks/useWarningImport'
-import { RiskCheck } from './RiskCheck'
 import { useIsWrapping } from '../hooks'
 import { FlipButton } from './FlipButton'
 import { Recipient } from './Recipient'

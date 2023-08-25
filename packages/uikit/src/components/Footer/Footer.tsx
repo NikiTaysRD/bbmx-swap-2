@@ -24,6 +24,7 @@ import { SkeletonV2 } from "../Skeleton";
 import Logo from "../../widgets/Menu/components/Logo";
 import { FlexGap } from "../Layouts";
 import { Tooltip } from "react-tooltip";
+import { useMatchBreakpoints } from "../../contexts";
 
 const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
   isDark,
@@ -34,14 +35,22 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
   ...props
 }) => {
   const isMounted = useIsMounted();
+  const { isMobile } = useMatchBreakpoints();
+
   return (
     <StyledFooter data-theme="dark" p={["40px 16px", null, "56px 40px 32px 40px"]} position="relative" {...props}>
       <Container>
-        <Flex justifyContent="space-between" alignItems="center" mb="45px">
+        <FlexGap
+          justifyContent="space-between"
+          alignItems="center"
+          mb="45px"
+          flexDirection={isMobile ? "column" : "row"}
+          gap="30px"
+        >
           <Logo href="/" />
 
-          <Flex alignItems="center">
-            <Flex mr="30px">
+          <FlexGap alignItems="center" flexDirection={isMobile ? "column" : "row"} gap="30px">
+            <Flex mr={isMobile ? "0" : "30px"}>
               <ListItem>BBMXSwap</ListItem>
               <ListItem>Docs</ListItem>
               <ListItem>Contact Us</ListItem>
@@ -66,16 +75,16 @@ const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
                 </Link>
               </SocialIcon>
             </FlexGap>
-          </Flex>
-        </Flex>
+          </FlexGap>
+        </FlexGap>
 
         <Flex>
-          <Flex flexDirection="column" width="42%">
+          <Flex flexDirection="column" width={isMobile ? }>
             <TextH>KEEP UP WITH THE LATEST FROM BBMX</TextH>
             <TextP>Subscribe to our Mirror blog.</TextP>
 
             <Flex mb="20px">
-              <Flex>
+              <Flex width="100%">
                 <Input placeholder="Enter your email" />
               </Flex>
 

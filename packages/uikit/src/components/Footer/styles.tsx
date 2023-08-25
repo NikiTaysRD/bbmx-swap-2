@@ -64,6 +64,10 @@ export const Container = styled.div`
   padding-right: 0.75rem;
   padding-top: 30px;
   padding-bottom: 60px;
+
+  // ${({ theme }) => theme.mediaQueries.sm} {
+  //
+  // }
 `;
 
 export const ListItem = styled.li`

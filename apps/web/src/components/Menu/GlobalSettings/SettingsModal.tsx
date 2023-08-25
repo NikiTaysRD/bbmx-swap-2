@@ -62,27 +62,25 @@ const ScrollableContainer = styled(Flex)`
   }
 `
 
-export const withCustomOnDismiss =
-  (Component) =>
-  ({
-    onDismiss,
-    customOnDismiss,
-    mode,
-    ...props
-  }: {
-    onDismiss?: () => void
-    customOnDismiss: () => void
-    mode: SettingsMode
-  }) => {
-    const handleDismiss = useCallback(() => {
-      onDismiss?.()
-      if (customOnDismiss) {
-        customOnDismiss()
-      }
-    }, [customOnDismiss, onDismiss])
+export const withCustomOnDismiss = (Component) => ({
+  onDismiss,
+  customOnDismiss,
+  mode,
+  ...props
+}: {
+  onDismiss?: () => void
+  customOnDismiss: () => void
+  mode: SettingsMode
+}) => {
+  const handleDismiss = useCallback(() => {
+    onDismiss?.()
+    if (customOnDismiss) {
+      customOnDismiss()
+    }
+  }, [customOnDismiss, onDismiss])
 
-    return <Component {...props} mode={mode} onDismiss={handleDismiss} />
-  }
+  return <Component {...props} mode={mode} onDismiss={handleDismiss} />
+}
 
 const SettingsModal: React.FC<React.PropsWithChildren<InjectedModalProps>> = ({ onDismiss, mode }) => {
   const [showConfirmExpertModal, setShowConfirmExpertModal] = useState(false)
@@ -118,8 +116,15 @@ const SettingsModal: React.FC<React.PropsWithChildren<InjectedModalProps>> = ({ 
   }
 
   return (
-    <Modal title={t('Settings')} headerBackground="gradientCardHeader" onDismiss={onDismiss}>
+    <Modal title={'Transaction Settings'} headerBackground="gradientCardHeader" onDismiss={onDismiss}>
       <ScrollableContainer>
+        {mode === SettingsMode.SWAP_LIQUIDITY && (
+          <>
+            <Flex pt="3px" flexDirection="column">
+              <TransactionSettings />
+            </Flex>
+          </>
+        )}
         {mode === SettingsMode.GLOBAL && (
           <>
             <Flex pb="24px" flexDirection="column">
@@ -168,45 +173,6 @@ const SettingsModal: React.FC<React.PropsWithChildren<InjectedModalProps>> = ({ 
                 </>
               )}
             </Flex>
-          </>
-        )}
-        {mode === SettingsMode.SWAP_LIQUIDITY && (
-          <>
-            <Flex pt="3px" flexDirection="column">
-              <PreTitle>{t('Swaps & Liquidity')}</PreTitle>
-              <Flex justifyContent="space-between" alignItems="center" mb="24px">
-                {chainId === ChainId.BSC && <GasSettings />}
-              </Flex>
-              <TransactionSettings />
-            </Flex>
-            <Flex justifyContent="space-between" alignItems="center" mb="24px">
-              <Flex alignItems="center">
-                <Text>{t('Expert Mode')}</Text>
-                <QuestionHelper
-                  text={t('Bypasses confirmation modals and allows high slippage trades. Use at your own risk.')}
-                  placement="top"
-                  ml="4px"
-                />
-              </Flex>
-              <Toggle
-                id="toggle-expert-mode-button"
-                scale="md"
-                checked={expertMode}
-                onChange={handleExpertModeToggle}
-              />
-            </Flex>
-            <Flex justifyContent="space-between" alignItems="center" mb="24px">
-              <Flex alignItems="center">
-                <Text>{t('Flippy sounds')}</Text>
-                <QuestionHelper
-                  text={t('Fun sounds to make a truly immersive pancake-flipping trading experience')}
-                  placement="top"
-                  ml="4px"
-                />
-              </Flex>
-              <PancakeToggle checked={audioPlay} onChange={() => setAudioMode((s) => !s)} scale="md" />
-            </Flex>
-            <RoutingSettingsButton />
           </>
         )}
       </ScrollableContainer>

@@ -1,6 +1,7 @@
 import { StaticImageData } from 'next/image'
 import React from 'react'
 import styled from 'styled-components'
+import { baseDisplay } from 'pages/_app'
 
 interface HomeCardProps {
   image: StaticImageData
@@ -56,7 +57,7 @@ const HomeCard: React.FC<React.PropsWithChildren<HomeCardProps>> = ({ image, hea
       <Card>
         <img src={image.src} alt="" />
         <span>{header}</span>
-        <p>{children}</p>
+        <p className={baseDisplay.className}>{children}</p>
       </Card>
     </>
   )

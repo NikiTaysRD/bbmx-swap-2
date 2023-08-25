@@ -38,7 +38,7 @@ const Card = styled.div`
 
   span {
     font-size: 22px;
-    font-weight: 500;
+    font-weight: 700;
     margin-bottom: 15px;
     color: white;
   }

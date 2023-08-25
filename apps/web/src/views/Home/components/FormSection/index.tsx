@@ -3,6 +3,9 @@ import styled from 'styled-components'
 
 import BG2 from '../../../../../public/images/home/bg-2.jpg'
 import Base from '../../../../../public/images/home/base.png'
+import TwitterIcon from '../../../../../public/images/home/twitter.svg'
+import EnvelopeIcon from '../../../../../public/images/home/envelope.svg'
+import PaperPlaneIcon from '../../../../../public/images/home/paper-plane.svg'
 
 const Banner = styled.section`
   position: relative;
@@ -36,7 +39,7 @@ const MainWrapper = styled.div`
 `
 
 const Container = styled.div`
-  max-width: 1152px;
+  max-width: 1300px;
   margin-right: auto;
   margin-left: auto;
 
@@ -121,6 +124,7 @@ const BaseIcon = styled.img`
 
 const HighlightSpan = styled.span`
   color: #4e09f8;
+  font-weight: 700;
 `
 
 const Paragraph = styled.p`
@@ -190,12 +194,20 @@ const SocialLinks = styled.ul`
 `
 
 const ListItem = styled.li`
-  margin-right: 15px;
+  margin-right: 20px;
   float: left;
+  list-style-type: none;
 `
 
 const SocialLink = styled.a`
   display: block;
+  height: 24px;
+  width: 24px;
+  
+  img {
+    width: 100%;
+    height: 100%;
+  }
 `
 
 const FormSection = () => {
@@ -217,7 +229,7 @@ const FormSection = () => {
                   Your portal to <HighlightSpan>Base</HighlightSpan> DeFi
                 </Heading1>
                 <Paragraph>
-                  Swap, Trade, Farm or Launch <b>anything</b> on <HighlightSpan>Base</HighlightSpan> Blockchain
+                  Swap, Trade, Farm or Launch <i>anything</i> on <HighlightSpan>Base</HighlightSpan> Blockchain
                 </Paragraph>
                 <TokenSummary>
                   <Heading3>BBMX Smart Contract (BASE)</Heading3>
@@ -236,17 +248,17 @@ const FormSection = () => {
                 <SocialLinks>
                   <ListItem>
                     <SocialLink href="https://twitter.com/bbmxexchange" target="_blank">
-                      <i className="fab fa-twitter" />
+                      <img src={TwitterIcon.src} alt="Twitter" />
                     </SocialLink>
                   </ListItem>
                   <ListItem>
                     <SocialLink href="https://t.me/BBMXExchange" target="_blank">
-                      <i className="fas fa-paper-plane" />
+                      <img src={PaperPlaneIcon.src} alt="Twitter" />
                     </SocialLink>
                   </ListItem>
                   <ListItem>
                     <SocialLink href="mailto:business@bbmx.exchange" target="_blank">
-                      <i className="fas fa-envelope" />
+                      <img src={EnvelopeIcon.src} alt="Twitter" />
                     </SocialLink>
                   </ListItem>
                 </SocialLinks>

@@ -61,7 +61,6 @@ const Button = styled.a`
   color: #fff;
 
   border-radius: 6px;
-  color: #fff;
   font-weight: 400;
   text-transform: uppercase;
   outline: none;
@@ -86,7 +85,7 @@ const MainMenu = styled.ul`
   list-style: none;
 
   display: flex;
-  align-items: center;
+  align-items: baseline;
 
   > li {
     float: left;
@@ -142,6 +141,8 @@ const SubMenu = styled.ol`
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-evenly;
+
+  letter-spacing: 0 !important;
   
   li {
     list-style-type: none;
@@ -149,6 +150,14 @@ const SubMenu = styled.ol`
     transition: 0.3s all;
     padding: 0 20px;
     font-size: 14px;
+    
+    a {
+      display: flex;
+      flex-direction: row;
+      justify-content: flex-start;
+
+      letter-spacing: 0 !important;
+    }
     
     &:hover {
       color: white;
@@ -190,6 +199,18 @@ const BurgerButton = styled.a`
 
 const NavbarMenuItem = styled.div`
 
+  a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    align-items: center;
+    letter-spacing: 2px;
+    
+    img {
+      height: 12px;
+    }
+  }
   
   &:hover {
     ${SubMenu} {
@@ -212,7 +233,7 @@ const Header = () => {
             <li className="parent">
               <NavbarMenuItem>
                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                <a href="#">Trade</a>
+                <a href="#">Trade <img src={AngleDownIcon.src} alt=""/></a>
                 <SubMenu>
                   <li>
                     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
@@ -233,7 +254,7 @@ const Header = () => {
             <li className="parent">
               <NavbarMenuItem>
                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                <a href="#">Earn</a>
+                <a href="#">Earn <img src={AngleDownIcon.src} alt=""/></a>
                 <SubMenu>
                   <li>
                     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
@@ -253,7 +274,7 @@ const Header = () => {
             <li className="parent">
               <NavbarMenuItem>
                 {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
-                <a href="#">Bridge</a>
+                <a href="#">Bridge <img src={AngleDownIcon.src} alt=""/></a>
                 <SubMenu>
                   <li>
                     <a target="_blank" rel="noopener noreferrer" href="https://bridge.base.org/deposit">
@@ -283,7 +304,7 @@ const Header = () => {
           </MainMenu>
 
           <HeaderRight>
-            <Button href="#" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Coming Soon">
+            <Button href="/swap" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Coming Soon">
               Launch App
             </Button>
           </HeaderRight>

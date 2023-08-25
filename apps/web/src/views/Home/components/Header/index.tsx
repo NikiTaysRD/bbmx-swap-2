@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-import { baseDisplay } from 'pages/_app'
+import { baseDisplay, baseMono } from 'pages/_app'
 import { Flex, Logo } from '@pancakeswap/uikit'
 import { useState } from 'react'
 import MobileNavLinks from 'views/Home/components/MobileNavLinks'
@@ -145,12 +145,18 @@ const SubMenu = styled.ol`
       display: flex;
       flex-direction: row;
       justify-content: flex-start;
+      align-items: flex-end;
+      color: rgba(255, 255, 255, 0.75);
 
       letter-spacing: 0 !important;
-    }
 
-    &:hover {
-      color: white;
+      &:hover {
+        color: white;
+      }
+
+      span {
+        opacity: 0.75;
+      }
     }
   }
 `
@@ -263,7 +269,7 @@ const Header = () => {
                 <a href="#">
                   Trade <img src={AngleDownIcon.src} alt="" />
                 </a>
-                <SubMenu>
+                <SubMenu className={baseMono.className} style={{ fontSize: '14px' }}>
                   <li>
                     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                     <a href="#">
@@ -285,7 +291,7 @@ const Header = () => {
                 <a href="#">
                   Earn <img src={AngleDownIcon.src} alt="" />
                 </a>
-                <SubMenu>
+                <SubMenu className={baseMono.className} style={{ fontSize: '14px' }}>
                   <li>
                     {/* eslint-disable-next-line jsx-a11y/anchor-is-valid */}
                     <a href="#">
@@ -307,7 +313,7 @@ const Header = () => {
                 <a href="#">
                   Bridge <img src={AngleDownIcon.src} alt="" />
                 </a>
-                <SubMenu>
+                <SubMenu className={baseMono.className} style={{ fontSize: '14px' }}>
                   <li>
                     <a target="_blank" rel="noopener noreferrer" href="https://bridge.base.org/deposit">
                       Base

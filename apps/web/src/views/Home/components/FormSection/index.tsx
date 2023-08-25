@@ -108,6 +108,7 @@ const Heading1 = styled.h1`
   font-weight: 700;
   letter-spacing: 3px;
   width: 75%;
+  color: white;
 
   @media (max-width: 1399.98px) {
     font-size: 13px;
@@ -155,6 +156,7 @@ const TokenSummary = styled.div`
   border-radius: 10px;
   padding: 25px;
   margin-bottom: 20px;
+  color: white;
 
   @media (max-width: 1399.98px) {
     padding: 18px;

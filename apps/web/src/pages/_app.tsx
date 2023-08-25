@@ -23,12 +23,29 @@ import { PageMeta } from 'components/Layout/Page'
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistor, useStore } from 'state'
 import { usePollBlockNumber } from 'state/block/hooks'
+import localFont from 'next/font/local'
 import { Blocklist, Updaters } from '..'
 import { SEO } from '../../next-seo.config'
 import { SentryErrorBoundary } from '../components/ErrorBoundary'
 import Menu from '../components/Menu'
 import Providers from '../Providers'
 import GlobalStyle from '../style/Global'
+
+export const baseMono = localFont({
+  src: [
+    { path: '../../public/fonts/base-mono.woff2', weight: '700' },
+    { path: '../../public/fonts/base-mono-normal.woff2', weight: '400' },
+  ],
+  variable: '--font-base-mono',
+})
+
+export const baseDisplay = localFont({
+  src: [
+    { path: '../../public/fonts/base-display-400.woff2', weight: '400' },
+    { path: '../../public/fonts/base-display-bold.woff2', weight: '700' },
+  ],
+  variable: '--font-base-display',
+})
 
 const EasterEgg = dynamic(() => import('components/EasterEgg'), { ssr: false })
 
@@ -94,7 +111,7 @@ function MyApp(props: AppProps<{ initialReduxState: any }>) {
           <GlobalCheckClaimStatus excludeLocations={[]} />
           <PersistGate loading={null} persistor={persistor}>
             <Updaters />
-            <App {...props} />
+            <App {...props} className={baseMono.className} />
           </PersistGate>
         </Blocklist>
       </Providers>
@@ -148,11 +165,12 @@ type NextPageWithLayout = NextPage & {
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
+  className: string
 }
 
 const ProductionErrorBoundary = process.env.NODE_ENV === 'production' ? SentryErrorBoundary : Fragment
 
-const App = ({ Component, pageProps }: AppPropsWithLayout) => {
+const App = ({ Component, pageProps, className }: AppPropsWithLayout) => {
   if (Component.pure) {
     return <Component {...pageProps} />
   }
@@ -165,9 +183,11 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   return (
     <ProductionErrorBoundary>
       <ShowMenu>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        <main className={className}>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </main>
       </ShowMenu>
       <EasterEgg iterations={2} />
       <ToastListener />

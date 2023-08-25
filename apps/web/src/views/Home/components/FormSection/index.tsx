@@ -3,6 +3,9 @@ import styled from 'styled-components'
 
 import BG2 from '../../../../../public/images/home/bg-2.jpg'
 import Base from '../../../../../public/images/home/base.png'
+import TwitterIcon from '../../../../../public/images/home/twitter.svg'
+import EnvelopeIcon from '../../../../../public/images/home/envelope.svg'
+import PaperPlaneIcon from '../../../../../public/images/home/paper-plane.svg'
 
 const Banner = styled.section`
   position: relative;
@@ -192,6 +195,7 @@ const SocialLinks = styled.ul`
 const ListItem = styled.li`
   margin-right: 15px;
   float: left;
+  list-style-type: none;
 `
 
 const SocialLink = styled.a`
@@ -236,17 +240,17 @@ const FormSection = () => {
                 <SocialLinks>
                   <ListItem>
                     <SocialLink href="https://twitter.com/bbmxexchange" target="_blank">
-                      <i className="fab fa-twitter" />
+                      <img src={TwitterIcon.src} alt="Twitter" />
                     </SocialLink>
                   </ListItem>
                   <ListItem>
                     <SocialLink href="https://t.me/BBMXExchange" target="_blank">
-                      <i className="fas fa-paper-plane" />
+                      <img src={PaperPlaneIcon.src} alt="Twitter" />
                     </SocialLink>
                   </ListItem>
                   <ListItem>
                     <SocialLink href="mailto:business@bbmx.exchange" target="_blank">
-                      <i className="fas fa-envelope" />
+                      <img src={EnvelopeIcon.src} alt="Twitter" />
                     </SocialLink>
                   </ListItem>
                 </SocialLinks>

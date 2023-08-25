@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import { Flex, FlexGap, Grid, PageSection, useMatchBreakpoints } from '@pancakeswap/uikit'
 import HomeCard from './components/Card'
 
@@ -10,6 +10,7 @@ import FifthIcon from '../../../public/images/home/icon-5.png'
 import SixthIcon from '../../../public/images/home/icon-6.png'
 import BaseLogo from '../../../public/images/home/base-logo.png'
 import FormSection from './components/FormSection'
+import Header from './components/Header'
 
 const HomePageSection = styled(PageSection)`
   max-width: 100%;
@@ -69,6 +70,150 @@ const RewardsListItem = styled.p`
   line-height: 32px;
   color: #a0a3c4;
 `
+
+// roadmap start
+
+const Checklist = styled.ul`
+  list-style: none;
+  position: relative;
+`
+
+const ListItem = styled.li`
+  font-size: 16px;
+  line-height: 30px;
+  margin-bottom: 15px;
+  position: relative;
+  padding-left: 24px;
+
+  &:before {
+    content: '\f058';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 15px;
+    position: absolute;
+    left: 0;
+    top: 1px;
+  }
+
+  &.check:before {
+    color: #4e09f8;
+  }
+
+  &.pending:before {
+    content: '\f1da';
+    opacity: 0.75;
+  }
+
+  @media (max-width: 1680px) {
+    font-size: 15px;
+    margin-bottom: 12px;
+  }
+
+  @media (max-width: 1399.98px) {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+`
+
+const RoadmapBox = styled.div`
+  margin: 0 20px;
+  padding: 30px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(5px);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+
+  p {
+    font-size: 15px;
+    color: #a0a3c4;
+    line-height: 30px;
+  }
+`
+
+const RoadmapContainer = styled.div`
+  position: relative;
+`
+
+const barAnimation = keyframes`
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 50px 50px;
+    }
+`
+
+const RoadmapItem = styled.div`
+  position: relative;
+  color: #fff;
+
+  &.active h4,
+  &.upcoming h4 {
+    text-align: center;
+    font-style: normal;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 100%;
+    margin-bottom: 10px;
+    color: #4e09f8;
+  }
+
+  & .poster span {
+    width: 30px;
+    height: 30px;
+    background: #fff;
+    border-radius: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  & .meter {
+    width: 100%;
+    height: 10px;
+    position: absolute;
+    left: 50%;
+    top: 42px;
+    z-index: -1;
+    background-color: #4e09f8;
+  }
+
+  &.active .poster {
+    background-color: #4e09f8;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+  }
+
+  &.upcoming .poster {
+    background: #e7e7e3;
+  }
+
+  &.active .meter {
+    background: linear-gradient(135deg, #4e09f8 25%, #7f4ff3 25%, #7f4ff3 50%, #4e09f8 50%, #4e09f8 75%, #7f4ff3 75%);
+    background-size: 25px 25px;
+    animation: ${barAnimation} 3s linear infinite;
+  }
+
+  &.upcoming .meter {
+    background: linear-gradient(135deg, #fff 25%, #e7e7e3 25%, #e7e7e3 50%, #fff 50%, #fff 75%, #e7e7e3 75%);
+    background-size: 25px 25px;
+    animation: ${barAnimation} 3s linear infinite;
+  }
+
+  &.last .meter {
+    display: none;
+  }
+`
+
+const Poster = styled.div`
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 100%;
+  margin: 0 auto 60px;
+`
+
+// end of roadmap
 
 const Home: React.FC<React.PropsWithChildren> = () => {
   const { isDesktop } = useMatchBreakpoints()
@@ -186,6 +331,7 @@ const Home: React.FC<React.PropsWithChildren> = () => {
       >
         <Footer />
       </PageSection> */}
+      <Header />
       <FormSection />
       <HomePageSection background="#101124" pt="200px" index={2} hasCurvedDivider={false}>
         <FlexGap gap="10px" flexDirection="column" justifyContent="center" alignItems="center" mb="80px">
@@ -305,11 +451,68 @@ const Home: React.FC<React.PropsWithChildren> = () => {
         </FlexGap>
       </HomePageSection>
 
-      <HomePageSection background="#101124" pt="200px" index={2} hasCurvedDivider={false}>
+      <HomePageSection background="#101124" pt="200px" index={3} hasCurvedDivider={false}>
         <FlexGap gap="10px" flexDirection="column" justifyContent="center" alignItems="center" mb="80px">
           <GradientHeader>BBMX JOURNEY</GradientHeader>
           <FeatureText>ROADMAP</FeatureText>
         </FlexGap>
+        <RoadmapContainer>
+          <RoadmapItem className="active">
+            <h4>Phase 1</h4>
+            <Poster>
+              <span></span>
+            </Poster>
+            <div className="meter">
+              <span></span>
+            </div>
+            <RoadmapBox>
+              <Checklist>
+                <ListItem>Detailed roadmap</ListItem>
+                <ListItem>Website update</ListItem>
+                <ListItem>Whitepaper launch</ListItem>
+                <ListItem>BBMXSwap (Goreli testnet)</ListItem>
+                <ListItem>BBMXSwap (Mainnet)</ListItem>
+                <ListItem>Super Stake (Mainnet)</ListItem>
+                <ListItem>Real yield for BBMX holders</ListItem>
+              </Checklist>
+            </RoadmapBox>
+          </RoadmapItem>
+
+          <RoadmapItem className="upcoming">
+            <h4>Phase 2</h4>
+            <Poster>
+              <span></span>
+            </Poster>
+            <div className="meter">
+              <span></span>
+            </div>
+            <RoadmapBox>
+              <Checklist>
+                <ListItem>BBMX Futures early access (Testnet Beta)</ListItem>
+                <ListItem>BBMX Futures public access (Testnet Beta)</ListItem>
+                <ListItem>BBMX Futures public access (Mainnet Beta)</ListItem>
+                <ListItem>BBMXStarter (Launchpad)</ListItem>
+                <ListItem>BBMX Futures New trading assets</ListItem>
+                <ListItem>Futures Trading contest</ListItem>
+                <ListItem>BBMX Buybacks</ListItem>
+              </Checklist>
+            </RoadmapBox>
+          </RoadmapItem>
+          <RoadmapItem className="upcoming last">
+            <h4>Phase 3 Mainnet launch</h4>
+            <Poster>
+              <span></span>
+            </Poster>
+            <div className="meter">
+              <span></span>
+            </div>
+            <RoadmapBox>
+              <Checklist>
+                <ListItem>(Details to be announced)</ListItem>
+              </Checklist>
+            </RoadmapBox>
+          </RoadmapItem>
+        </RoadmapContainer>
       </HomePageSection>
     </>
   )

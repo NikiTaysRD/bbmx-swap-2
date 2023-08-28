@@ -16,7 +16,6 @@ import {
   useMatchBreakpoints,
 } from '@pancakeswap/uikit'
 import { PositionDetails } from '@pancakeswap/farms'
-import { isStableSwapSupported } from '@pancakeswap/smart-router/evm'
 import NextLink from 'next/link'
 import styled from 'styled-components'
 import { AppBody, AppHeader } from 'components/App'
@@ -68,8 +67,7 @@ export const StableContextProvider = (props: { pair: LPStablePair; account: stri
 enum FILTER {
   ALL = 0,
   V3 = 1,
-  STABLE = 2,
-  V2 = 3,
+  V2 = 2,
 }
 
 const hideClosePositionAtom = atomWithStorageWithErrorCatch('pcs:hide-close-position', false)
@@ -188,7 +186,7 @@ export default function PoolListPage() {
       )
     } else {
       // Order should be v3, stable, v2
-      const sections = [v3PairsSection, stablePairsSection, v2PairsSection]
+      const sections = [v3PairsSection, v2PairsSection]
 
       resultSection = selectedTypeIndex ? sections.filter((_, index) => selectedTypeIndex === index + 1) : sections
     }
@@ -216,9 +214,9 @@ export default function PoolListPage() {
   return (
     <Page>
       <Flex flexDirection="column" justifyContent="center" alignItems="center">
-        <Flex justifyContent="space-between" alignItems="center" width="100%" pl="10px">
+        <Flex justifyContent="space-between" alignItems="center" width="100%">
           <Text fontSize="24px">Pools</Text>
-          <CardFooter style={{ textAlign: 'center', borderRadius: '6px', borderTop: 'none' }}>
+          <CardFooter style={{ textAlign: 'center', borderRadius: '6px', borderTop: 'none', paddingRight: '0' }}>
             <NextLink href="/add" passHref>
               <Button
                 id="join-pool-button"
@@ -276,9 +274,6 @@ export default function PoolListPage() {
                 >
                   <ButtonMenuItem>{t('All')}</ButtonMenuItem>
                   <ButtonMenuItem>V3</ButtonMenuItem>
-                  <ButtonMenuItem display={isStableSwapSupported(chainId) ? 'inline-flex' : 'none'}>
-                    {t('StableSwap')}
-                  </ButtonMenuItem>
                   <ButtonMenuItem>V2</ButtonMenuItem>
                 </StyledButtonMenu>
               </>

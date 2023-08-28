@@ -2,7 +2,7 @@ import { farmsV3ConfigChainMap } from '@pancakeswap/farms/constants/v3'
 import { useTranslation } from '@pancakeswap/localization'
 import { ChainId, Currency } from '@pancakeswap/sdk'
 import { AtomBox } from '@pancakeswap/ui'
-import { AutoColumn, Button, CircleLoader, Text } from '@pancakeswap/uikit'
+import { AutoColumn, Button, CircleLoader, FlexGap, Text } from '@pancakeswap/uikit'
 import tryParseAmount from '@pancakeswap/utils/tryParseAmount'
 import { FeeAmount } from '@pancakeswap/v3-sdk'
 import { PairState, useV2Pair } from 'hooks/usePairs'
@@ -13,8 +13,8 @@ import { useEffect, useMemo, useState } from 'react'
 import HideShowSelectorSection from 'views/AddLiquidityV3/components/HideShowSelectorSection'
 import { HandleFeePoolSelectFn, SELECTOR_TYPE } from 'views/AddLiquidityV3/types'
 import { useActiveChainId } from 'hooks/useActiveChainId'
+import { baseDisplay } from 'pages/_app'
 import { FeeOption } from './FeeOption'
-import { FeeTierPercentageBadge } from './FeeTierPercentageBadge'
 import { FEE_AMOUNT_DETAIL, SelectContainer } from './shared'
 
 const FEE_TIERS = [FeeAmount.LOWEST, FeeAmount.LOW, FeeAmount.MEDIUM, FeeAmount.HIGH]
@@ -169,20 +169,20 @@ export default function FeeSelector({
       heading={
         feeAmount ? (
           <AutoColumn gap="8px">
-            <Text>
-              V3 LP - {FEE_AMOUNT_DETAIL[feeAmount].label}% {t('fee tier')}
+            <Text className={baseDisplay.className}>
+              {FEE_AMOUNT_DETAIL[feeAmount].label}% {t('fee tier')}
             </Text>
-            {distributions && (
-              <FeeTierPercentageBadge
-                distributions={distributions}
-                feeAmount={feeAmount}
-                poolState={poolsByFeeTier[feeAmount]}
-              />
-            )}
+            {/* {distributions && ( */}
+            {/*  <FeeTierPercentageBadge */}
+            {/*    distributions={distributions} */}
+            {/*    feeAmount={feeAmount} */}
+            {/*    poolState={poolsByFeeTier[feeAmount]} */}
+            {/*  /> */}
+            {/* )} */}
           </AutoColumn>
         ) : (
           <>
-            <Text>V3 LP</Text>
+            <Text className={baseDisplay.className}>V3 LP</Text>
             {isLoading && <CircleLoader />}
           </>
         )
@@ -215,11 +215,31 @@ export default function FeeSelector({
                 using state instead of replacing url to /v2 here
                 avoid pages keep in v2 when user change the tokens in selection
               */}
-              <Button variant="text" onClick={handleSelectV2}>
-                <Text color="textSubtle" bold>
-                  {t('Add V2 Liquidity')}
+              <FlexGap gap="10px" alignItems="center">
+                <Button
+                  scale="sm"
+                  variant="text"
+                  onClick={handleSelectV2}
+                  style={{
+                    background: 'rgba(78,9,248,0.1)',
+                    borderRadius: '6px',
+                    letterSpacing: '0.5px',
+                    fontSize: '13px',
+                  }}
+                >
+                  <Text color="textSubtle" bold style={{ color: '#4E09F8' }} className={baseDisplay.className}>
+                    Add
+                  </Text>
+                </Button>
+                <Text
+                  color="textSubtle"
+                  bold
+                  style={{ color: '#a0a3c4', fontSize: '13px' }}
+                  className={baseDisplay.className}
+                >
+                  {t('V2 Liquidity')}
                 </Text>
-              </Button>
+              </FlexGap>
             </AtomBox>
           )}
         </>

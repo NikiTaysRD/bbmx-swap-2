@@ -25,6 +25,7 @@ interface Props {
   filter?: React.ReactNode
   shouldCenter?: boolean
   borderHidden?: boolean
+  justifyHeader?: string
 }
 
 const AppHeaderContainer = styled(Flex)<{ borderHidden?: boolean }>`
@@ -58,6 +59,7 @@ const AppHeader: React.FC<React.PropsWithChildren<Props>> = ({
   filter,
   shouldCenter = false,
   borderHidden = false,
+  justifyHeader,
 }) => {
   const [expertMode] = useExpertMode()
 
@@ -78,7 +80,7 @@ const AppHeader: React.FC<React.PropsWithChildren<Props>> = ({
           ))}
         <Flex pr={backTo && shouldCenter ? '48px' : ''} flexDirection="column" width="100%" marginTop="4px">
           <Flex mb="8px" alignItems="center" flexWrap="wrap" justifyContent="space-between" style={{ gap: '16px' }}>
-            <Flex flex={1} justifyContent={shouldCenter ? 'center' : ''}>
+            <Flex flex={1} justifyContent={shouldCenter ? 'center' : justifyHeader && justifyHeader}>
               {typeof title === 'string' ? <Heading as="h2">{title}</Heading> : title}
               {helper && <QuestionHelper text={helper} ml="4px" placement="top" />}
             </Flex>

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useCallback, useMemo, ReactNode } from 'react'
+import { useCallback, useMemo, ReactNode, useState } from 'react'
 import { useTranslation } from '@pancakeswap/localization'
 import { useWeb3React } from '@pancakeswap/wagmi'
 import { Currency, CurrencyAmount, Percent } from '@pancakeswap/sdk'
@@ -31,6 +31,7 @@ interface Props {
   tradeLoading?: boolean
   pricingAndSlippage?: ReactNode
   swapCommitButton?: ReactNode
+  isShowMarket?: boolean
 }
 
 const RiskWrapper = styled.div`
@@ -66,6 +67,8 @@ const ImpactTable = styled.div`
 const Table = styled.table`
   width: 100%;
   font-size: 12px;
+  caption-side: bottom;
+  border-collapse: collapse;
 `
 
 const TBody = styled.tbody`
@@ -75,19 +78,148 @@ const TBody = styled.tbody`
 `
 
 const TR = styled.tr`
-  font-weight: 600;
-  padding: 5px 0;
+  width: 100%;
+  font-size: 12px;
+  transition: 0.3s all;
+  -webkit-transition: 0.3s all;
+  -moz-transition: 0.3s all;
 `
 
 const TH = styled.th`
   font-weight: 600;
+  font-size: 11px;
+  line-height: 18px;
+  padding: 5px 0;
+  text-align: left;
+  transition: 0.3s all;
+  -webkit-transition: 0.3s all;
+  -moz-transition: 0.3s all;
 `
 
 const TD = styled.td`
   text-align: right;
 `
 
-export function FormMain({ pricingAndSlippage, inputAmount, outputAmount, tradeLoading, swapCommitButton }: Props) {
+// app field buy
+const AppFieldBuy = styled.div`
+  display: block;
+  background: #101124;
+  margin-top: 5px;
+  padding: 12px;
+  border-radius: 15px;
+  border: 1px solid transparent;
+`
+
+const AppFieldHeading = styled.h4`
+  font-size: 11px;
+  color: #a0a3c4;
+  font-weight: 600;
+  margin-bottom: 5px;
+  align-items: center !important;
+  justify-content: space-between !important;
+  display: flex !important;
+`
+
+const HeadingSpan = styled.h4`
+  margin-left: 10px;
+  font-size: 11px;
+  color: #a0a3c4;
+  font-weight: 600;
+  margin-bottom: 5px;
+`
+
+const HeadingB = styled.b`
+  cursor: pointer;
+  font-weight: 500;
+  color: #03d1cf;
+`
+
+const SwapField = styled.div`
+  align-items: center !important;
+  justify-content: space-between !important;
+  display: flex !important;
+`
+
+const SwapItem = styled.div`
+  padding: 0 10px;
+  line-height: 44px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: 0.3s all;
+  -webkit-transition: 0.3s all;
+`
+
+const SwapImg = styled.img`
+  height: 24px;
+  margin-right: 8px;
+  position: relative;
+  top: -1px;
+  padding: 0 10px;
+  line-height: 44px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 10px;
+`
+
+const SwapSpan = styled.span`
+  display: inline-block;
+  margin-right: 5px;
+  padding: 0 10px;
+  line-height: 44px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 10px;
+`
+
+const EnterField = styled.div`
+  display: inline-block;
+  margin-right: 5px;
+  padding: 0 10px;
+  line-height: 44px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: 10px;
+`
+
+const MarketField = styled.input`
+  background: none;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-family: 'Base Mono';
+  font-weight: 600;
+  font-size: 22px;
+  width: 300px;
+  line-height: 44px;
+  text-align: right;
+`
+
+const Highlights = styled.div`
+  font-size: 11px;
+  color: #a0a3c4;
+  margin-left: 10px;
+  align-items: center !important;
+  justify-content: space-between !important;
+  display: flex !important;
+`
+
+// end app field buy
+
+export function FormMain({
+  pricingAndSlippage,
+  isShowMarket,
+  inputAmount,
+  outputAmount,
+  tradeLoading,
+  swapCommitButton,
+}: Props) {
+  const [isOpenedRiskTable, setIsOpenedRiskTable] = useState(false)
+
   const { account } = useWeb3React()
   const { t } = useTranslation()
   const warningSwapHandler = useWarningImport()
@@ -150,14 +282,16 @@ export function FormMain({ pricingAndSlippage, inputAmount, outputAmount, tradeL
   )
 
   const isTypingInput = independentField === Field.INPUT
-  const inputValue = useMemo(
-    () => typedValue && (isTypingInput ? typedValue : formatAmount(inputAmount) || ''),
-    [typedValue, isTypingInput, inputAmount],
-  )
-  const outputValue = useMemo(
-    () => typedValue && (isTypingInput ? formatAmount(outputAmount) || '' : typedValue),
-    [typedValue, isTypingInput, outputAmount],
-  )
+  const inputValue = useMemo(() => typedValue && (isTypingInput ? typedValue : formatAmount(inputAmount) || ''), [
+    typedValue,
+    isTypingInput,
+    inputAmount,
+  ])
+  const outputValue = useMemo(() => typedValue && (isTypingInput ? formatAmount(outputAmount) || '' : typedValue), [
+    typedValue,
+    isTypingInput,
+    outputAmount,
+  ])
   const inputLoading = typedValue ? !isTypingInput && tradeLoading : false
   const outputLoading = typedValue ? isTypingInput && tradeLoading : false
 
@@ -214,24 +348,58 @@ export function FormMain({ pricingAndSlippage, inputAmount, outputAmount, tradeL
         <Recipient />
         {/* {pricingAndSlippage} */}
 
-        <RiskWrapper>
-          <GasOverview>
-            <Estimate>
-              1 ETH = 1832.52 USDT <span>(~$1827.23)</span>
-            </Estimate>
-            <Gas>~$3.34</Gas>
-          </GasOverview>
-          {/* <ImpactTable>
-            <Table>
-              <TBody>
-                <TR>
-                  <TH>Network fees:</TH>
-                  <TD>$3.30</TD>
-                </TR>
-              </TBody>
-            </Table>
-          </ImpactTable> */}
-        </RiskWrapper>
+        {isShowMarket ? (
+          <RiskWrapper>
+            <GasOverview onClick={() => setIsOpenedRiskTable((isOpened) => !isOpened)}>
+              <Estimate>
+                1 ETH = 1832.52 USDT <span>(~$1827.23)</span>
+              </Estimate>
+              <Gas>~$3.34</Gas>
+            </GasOverview>
+            <ImpactTable style={{ display: isOpenedRiskTable ? '' : 'none' }}>
+              <Table>
+                <TBody>
+                  <TR>
+                    <TH>Network fees:</TH>
+                    <TD>$3.30</TD>
+                  </TR>
+                  <TR>
+                    <TH>Price Impact:</TH>
+                    <TD>-0.051%</TD>
+                  </TR>
+                  <TR>
+                    <TH>Minimum output:</TH>
+                    <TD>329.471 USDT</TD>
+                  </TR>
+                  <TR>
+                    <TH>Expected output:</TH>
+                    <TD>333.47 USDT</TD>
+                  </TR>
+                </TBody>
+              </Table>
+            </ImpactTable>
+          </RiskWrapper>
+        ) : (
+          <AppFieldBuy>
+            <AppFieldHeading>
+              <HeadingSpan>Limit Price</HeadingSpan>
+              <HeadingB> Market</HeadingB>
+            </AppFieldHeading>
+            <SwapField>
+              <SwapItem>
+                <SwapImg />
+                <SwapSpan>ETH</SwapSpan>
+              </SwapItem>
+              <EnterField>
+                <MarketField type="text" value="1900" />
+              </EnterField>
+            </SwapField>
+            <Highlights>
+              <div>Ethereum</div>
+              <div>24.2% above market</div>
+            </Highlights>
+          </AppFieldBuy>
+        )}
 
         <span style={{ marginTop: '10px' }}>{swapCommitButton}</span>
       </Flex>

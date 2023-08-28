@@ -3,20 +3,15 @@ import { FeeAmount } from '@pancakeswap/v3-sdk'
 import { LightTertiaryCard } from 'components/Card'
 import { PoolState } from 'hooks/v3/types'
 import { useFeeTierDistribution } from 'hooks/v3/useFeeTierDistribution'
-import styled, { css } from 'styled-components'
+import styled from 'styled-components'
 
-import { FeeTierPercentageBadge } from './FeeTierPercentageBadge'
+import { baseDisplay } from 'pages/_app'
 import { FEE_AMOUNT_DETAIL } from './shared'
 
 const FeeOptionContainer = styled.div<{ active: boolean }>`
   cursor: pointer;
   height: 100%;
   animation: ${promotedGradient} 4s ease infinite;
-  ${({ active }) =>
-    active &&
-    css`
-      background-image: ${({ theme }) => theme.colors.gradientBold};
-    `}
   border-radius: 16px;
   padding: 2px 2px 4px 2px;
   &:hover {
@@ -34,6 +29,13 @@ interface FeeOptionProps {
   isLoading?: boolean
 }
 
+const StyledFeeOptionCard = styled(LightTertiaryCard)<{ active: boolean }>`
+  background: none;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-color: ${({ active }) => active && '#4E09F8'};
+  color: ${({ active }) => active && 'white'};
+`
+
 export function FeeOption({
   feeAmount,
   active,
@@ -45,18 +47,22 @@ export function FeeOption({
 }: FeeOptionProps) {
   return (
     <FeeOptionContainer active={active} onClick={onClick}>
-      <LightTertiaryCard active={active} padding={['4px', '4px', '8px']} height="100%">
+      <StyledFeeOptionCard active={active} padding={['4px', '4px', '8px']} height="100%">
         <AutoColumn gap="sm" justify="flex-start" height="100%" justifyItems="center">
-          <Text textAlign="center">
-            {FEE_AMOUNT_DETAIL[feeAmount].label}% {feeAmount === largestUsageFeeTier && '🔥'}
+          <Text
+            textAlign="center"
+            color={`${active ? 'white' : '#a0a3c4'}`}
+            fontSize="15px"
+            className={baseDisplay.className}
+          >
+            {FEE_AMOUNT_DETAIL[feeAmount].label}%
           </Text>
-          {isLoading ? (
-            <Skeleton width="100%" height={16} />
-          ) : distributions ? (
-            <FeeTierPercentageBadge distributions={distributions} feeAmount={feeAmount} poolState={poolState} />
-          ) : null}
+          <Text textAlign="center" fontSize="11px" className={baseDisplay.className}>
+            9% Pick
+          </Text>
+          {isLoading ? <Skeleton width="100%" height={16} /> : null}
         </AutoColumn>
-      </LightTertiaryCard>
+      </StyledFeeOptionCard>
     </FeeOptionContainer>
   )
 }

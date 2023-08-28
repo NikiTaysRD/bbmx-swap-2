@@ -3,7 +3,11 @@ import { FC, useCallback } from 'react'
 
 import CurrencyInputHeader from '../../components/CurrencyInputHeader'
 
-export const FormHeader: FC<{ refreshDisabled: boolean; onRefresh: () => void }> = ({ refreshDisabled, onRefresh }) => {
+export const FormHeader: FC<{
+  refreshDisabled: boolean
+  onRefresh: () => void
+  setIsShowMarket?: (param: boolean) => void
+}> = ({ refreshDisabled, setIsShowMarket, onRefresh }) => {
   const { t } = useTranslation()
 
   const handleRefresh = useCallback(() => {
@@ -13,5 +17,13 @@ export const FormHeader: FC<{ refreshDisabled: boolean; onRefresh: () => void }>
     onRefresh()
   }, [onRefresh, refreshDisabled])
 
-  return <CurrencyInputHeader title="" subtitle="" hasAmount={!refreshDisabled} onRefreshPrice={handleRefresh} />
+  return (
+    <CurrencyInputHeader
+      setIsShowMarket={setIsShowMarket}
+      title=""
+      subtitle=""
+      hasAmount={!refreshDisabled}
+      onRefreshPrice={handleRefresh}
+    />
+  )
 }

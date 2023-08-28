@@ -1,7 +1,7 @@
 import { Flex, IconButton, CogIcon, useModal } from '@pancakeswap/uikit'
-import SettingsModal from './SettingsModal'
 import styled from 'styled-components'
 import { useState } from 'react'
+import SettingsModal from './SettingsModal'
 
 type Props = {
   color?: string
@@ -21,7 +21,7 @@ const SlippageContainer = styled.div`
   padding: 15px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   z-index: 99999;
-  display: '';
+  content: '';
 `
 
 const Heading3 = styled.h3`
@@ -132,7 +132,7 @@ const GlobalSettings = ({ color, mr = '8px', mode, onClick }: Props) => {
   return (
     <Flex>
       <IconButton
-        onClick={() => setIsShow((isShow) => !isShow)}
+        onClick={() => setIsShow(!isShow)}
         variant="text"
         scale="sm"
         mr={mr}

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { inputContainerVariants } from "./SwapWidget.css";
 
 import { NumericalInput, NumericalInputProps } from "./NumericalInput";
-import { Text } from "../../components";
+import { Flex, Text } from "../../components";
 
 type ZapStyle = "noZap" | "zap";
 
@@ -55,27 +55,31 @@ export function CurrencyInputPanel({
           <AtomBox
             display="flex"
             flexDirection="row"
+            alignItems="flex-end"
             flexWrap="nowrap"
             color="text"
             fontSize="12px"
             lineHeight="16px"
             px="16px"
-            pt="12px"
+            style={{ height: "70%" }}
           >
             <AtomBox display="flex" alignItems="center" justifyContent="space-between">
               {top}
             </AtomBox>
-            <NumericalInput
-              error={Boolean(error)}
-              disabled={disabled}
-              loading={loading}
-              className="token-amount-input"
-              value={value}
-              onBlur={onInputBlur}
-              onUserInput={(val) => {
-                onUserInput(val);
-              }}
-            />
+
+            <Flex height="100%" width="100%" alignItems="center">
+              <NumericalInput
+                error={Boolean(error)}
+                disabled={disabled}
+                loading={loading}
+                className="token-amount-input"
+                value={value}
+                onBlur={onInputBlur}
+                onUserInput={(val) => {
+                  onUserInput(val);
+                }}
+              />
+            </Flex>
           </AtomBox>
           {bottom}
         </InputStyle>

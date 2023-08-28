@@ -27,23 +27,20 @@ import styled from 'styled-components'
 import { atom, useAtom } from 'jotai'
 
 import { useCurrency } from 'hooks/Tokens'
-import useStableConfig, { StableConfigContext } from 'views/Swap/hooks/useStableConfig'
-import AddStableLiquidity from 'views/AddLiquidity/AddStableLiquidity'
+import useStableConfig from 'views/Swap/hooks/useStableConfig'
 import AddLiquidity from 'views/AddLiquidity'
 import { usePreviousValue } from '@pancakeswap/hooks'
 import { getAddress } from 'viem'
 
 import noop from 'lodash/noop'
 import { useActiveChainId } from 'hooks/useActiveChainId'
+import { baseDisplay } from 'pages/_app'
 import FeeSelector from './formViews/V3FormView/components/FeeSelector'
 
 import V3FormView from './formViews/V3FormView'
 import { HandleFeePoolSelectFn, SELECTOR_TYPE } from './types'
-import { StableV3Selector } from './components/StableV3Selector'
-import StableFormView from './formViews/StableFormView'
 import { V2Selector } from './components/V2Selector'
 import V2FormView from './formViews/V2FormView'
-import { AprCalculator } from './components/AprCalculator'
 import { useCurrencyParams } from './hooks/useCurrencyParams'
 
 export const BodyWrapper = styled(Card)`
@@ -214,9 +211,7 @@ export function UniversalAddLiquidity({
 
     // if fee selection from url, don't change the selector type to avoid keep selecting stable when url changes, e.g. toggle rate
     if (feeAmountFromUrl) return
-    if (stableConfig.stableSwapConfig) {
-      setSelectorType(SELECTOR_TYPE.STABLE)
-    } else {
+    if (!stableConfig.stableSwapConfig) {
       setSelectorType(preferredSelectType || isV2 ? SELECTOR_TYPE.V2 : SELECTOR_TYPE.V3)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -262,8 +257,10 @@ export function UniversalAddLiquidity({
       <CardBody>
         <ResponsiveTwoColumns>
           <AutoColumn alignSelf="stretch">
-            <PreTitle mb="8px">{t('Choose Token Pair')}</PreTitle>
-            <FlexGap gap="4px" width="100%" mb="8px" alignItems="center">
+            <PreTitle color="white" textTransform="capitalize" lineHeight="20px" fontSize="14px">
+              {t('Select Pair')}
+            </PreTitle>
+            <FlexGap gap="30px" width="100%" mb="8px" alignItems="center">
               <CurrencySelect
                 id="add-liquidity-select-tokena"
                 selectedCurrency={baseCurrency}
@@ -272,7 +269,6 @@ export function UniversalAddLiquidity({
                 commonBasesType={CommonBasesType.LIQUIDITY}
                 hideBalance
               />
-              <AddIcon color="textSubtle" />
               <CurrencySelect
                 id="add-liquidity-select-tokenb"
                 selectedCurrency={quoteCurrency}
@@ -283,17 +279,17 @@ export function UniversalAddLiquidity({
               />
             </FlexGap>
             <DynamicSection disabled={!baseCurrency || !currencyB}>
-              {!isV2 &&
-                stableConfig.stableSwapConfig &&
-                [SELECTOR_TYPE.STABLE, SELECTOR_TYPE.V3].includes(selectorType) && (
-                  <StableV3Selector
-                    currencyA={baseCurrency ?? undefined}
-                    currencyB={quoteCurrency ?? undefined}
-                    feeAmount={feeAmount}
-                    selectorType={selectorType}
-                    handleFeePoolSelect={handleFeePoolSelect}
-                  />
-                )}
+              {/* {!isV2 && */}
+              {/*  stableConfig.stableSwapConfig && */}
+              {/*  [SELECTOR_TYPE.STABLE, SELECTOR_TYPE.V3].includes(selectorType) && ( */}
+              {/*    <StableV3Selector */}
+              {/*      currencyA={baseCurrency ?? undefined} */}
+              {/*      currencyB={quoteCurrency ?? undefined} */}
+              {/*      feeAmount={feeAmount} */}
+              {/*      selectorType={selectorType} */}
+              {/*      handleFeePoolSelect={handleFeePoolSelect} */}
+              {/*    /> */}
+              {/*  )} */}
 
               {((isV2 && selectorType !== SELECTOR_TYPE.V3) || selectorType === SELECTOR_TYPE.V2) && (
                 <V2Selector
@@ -317,13 +313,13 @@ export function UniversalAddLiquidity({
               )}
             </DynamicSection>
           </AutoColumn>
-          {selectorType === SELECTOR_TYPE.STABLE && (
-            <StableConfigContext.Provider value={stableConfig}>
-              <AddStableLiquidity currencyA={baseCurrency} currencyB={quoteCurrency}>
-                {(props) => <StableFormView {...props} stableLpFee={stableConfig?.stableSwapConfig?.stableLpFee} />}
-              </AddStableLiquidity>
-            </StableConfigContext.Provider>
-          )}
+          {/* {selectorType === SELECTOR_TYPE.STABLE && ( */}
+          {/*  <StableConfigContext.Provider value={stableConfig}> */}
+          {/*    <AddStableLiquidity currencyA={baseCurrency} currencyB={quoteCurrency}> */}
+          {/*      {(props) => <StableFormView {...props} stableLpFee={stableConfig?.stableSwapConfig?.stableLpFee} />} */}
+          {/*    </AddStableLiquidity> */}
+          {/*  </StableConfigContext.Provider> */}
+          {/* )} */}
           {selectorType === SELECTOR_TYPE.V3 && (
             <V3FormView
               feeAmount={feeAmount}
@@ -375,16 +371,17 @@ export function AddLiquidityV3Layout({
         <AppHeader
           title={title}
           backTo="/liquidity"
+          justifyHeader="center"
           IconSlot={
             <>
-              {selectType === SELECTOR_TYPE.V3 && (
-                <AprCalculator
-                  showQuestion
-                  baseCurrency={baseCurrency}
-                  quoteCurrency={quoteCurrency}
-                  feeAmount={feeAmount}
-                />
-              )}
+              {/* {selectType === SELECTOR_TYPE.V3 && ( */}
+              {/*  <AprCalculator */}
+              {/*    showQuestion */}
+              {/*    baseCurrency={baseCurrency} */}
+              {/*    quoteCurrency={quoteCurrency} */}
+              {/*    feeAmount={feeAmount} */}
+              {/*  /> */}
+              {/* )} */}
               {showRefreshButton && (
                 <IconButton variant="text" scale="sm">
                   <RefreshIcon onClick={handleRefresh || noop} color="textSubtle" height={24} width={24} />

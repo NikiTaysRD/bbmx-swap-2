@@ -1,5 +1,6 @@
 import { ColumnCenter, Text } from '@pancakeswap/uikit'
 import { ReactNode } from 'react'
+import { baseDisplay } from 'pages/_app'
 
 // TODO: merge with uikit
 export function InfoBox({ message, icon }: { message?: ReactNode; icon: ReactNode }) {
@@ -7,7 +8,7 @@ export function InfoBox({ message, icon }: { message?: ReactNode; icon: ReactNod
     <ColumnCenter style={{ height: '100%', justifyContent: 'center' }}>
       {icon}
       {message && (
-        <Text pt="4px" textAlign="center" fontSize="20px" bold>
+        <Text pt="4px" textAlign="center" fontSize="15px" bold className={baseDisplay.className}>
           {message}
         </Text>
       )}

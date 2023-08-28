@@ -16,7 +16,6 @@ import { baseDisplay, baseMono } from "../../../../../apps/web/src/pages/_app";
 const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({ ...props }) => {
   const { isMobile } = useMatchBreakpoints();
   const { isTablet } = useMatchBreakpoints();
-  // console.log("haha");
 
   return (
     <StyledFooter data-theme="dark" p={["40px 16px", null, "56px 40px 32px 40px"]} position="relative" {...props}>

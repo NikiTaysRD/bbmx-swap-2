@@ -151,7 +151,7 @@ const GlobalSettings = ({ color, mr = '8px', mode, onClick }: Props) => {
             </SField>
             <AutoBtn>
               <AutoBtnInput type="checkbox" id="auto" />
-              <AutoBtnLabel for="auto">Auto</AutoBtnLabel>
+              <AutoBtnLabel htmlFor="auto">Auto</AutoBtnLabel>
             </AutoBtn>
           </SlippageField>
         </SlippageSet>

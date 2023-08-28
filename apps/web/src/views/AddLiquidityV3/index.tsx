@@ -7,7 +7,6 @@ import {
   AutoColumn,
   CardBody,
   Card,
-  AddIcon,
   PreTitle,
   DynamicSection,
   RefreshIcon,
@@ -34,7 +33,6 @@ import { getAddress } from 'viem'
 
 import noop from 'lodash/noop'
 import { useActiveChainId } from 'hooks/useActiveChainId'
-import { baseDisplay } from 'pages/_app'
 import FeeSelector from './formViews/V3FormView/components/FeeSelector'
 
 import V3FormView from './formViews/V3FormView'
@@ -367,7 +365,7 @@ export function AddLiquidityV3Layout({
 
   return (
     <Page>
-      <BodyWrapper>
+      <BodyWrapper background="#1B1C30" borderBackground="none">
         <AppHeader
           title={title}
           backTo="/liquidity"

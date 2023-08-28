@@ -25,6 +25,7 @@ import { StablePair } from 'views/AddLiquidity/AddStableLiquidity/hooks/useStabl
 
 import { FiatLogo } from 'components/Logo/CurrencyLogo'
 import { useAccount } from 'wagmi'
+import { baseDisplay } from 'pages/_app'
 import { useCurrencyBalance } from '../../state/wallet/hooks'
 import CurrencySearchModal from '../SearchModal/CurrencySearchModal'
 import { CurrencyLogo, DoubleCurrencyLogo } from '../Logo'
@@ -39,7 +40,7 @@ const InputRow = styled.div<{ selected: boolean }>`
   padding: ${({ selected }) => (selected ? '0.75rem 0.5rem 0.75rem 1rem' : '0.75rem 0.75rem 0.75rem 1rem')};
 `
 const CurrencySelectButton = styled(Button).attrs({ variant: 'text', scale: 'sm' })<{ zapStyle?: ZapStyle }>`
-  padding: 0px;
+  padding: 0;
 
   ${({ zapStyle, theme }) =>
     zapStyle &&
@@ -260,12 +261,13 @@ const CurrencyInputPanel = memo(function CurrencyInputPanel({
               <Text
                 onClick={!disabled && onMax}
                 color="textSubtle"
-                fontSize="12px"
+                fontSize="11px"
                 ellipsis
                 title={
                   !hideBalance && !!currency ? t('Balance: %balance%', { balance: balance ?? t('Loading') }) : ' -'
                 }
                 style={{ display: 'inline', cursor: 'pointer' }}
+                className={baseDisplay.className}
               >
                 {!hideBalance && !!currency
                   ? balance?.replace('.', '')?.length > 12

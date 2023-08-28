@@ -21,7 +21,6 @@ const SlippageContainer = styled.div`
   padding: 15px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   z-index: 99999;
-  display: '';
 `
 
 const Heading3 = styled.h3`
@@ -126,13 +125,12 @@ const FieldMinSpan = styled.span`
 `
 
 const GlobalSettings = ({ color, mr = '8px', mode, onClick }: Props) => {
-  const [onPresentSettingsModal] = useModal(<SettingsModal mode={mode} />)
   const [isShow, setIsShow] = useState(false)
 
   return (
     <Flex>
       <IconButton
-        onClick={() => setIsShow((isShow) => !isShow)}
+        onClick={() => setIsShow(!isShow)}
         variant="text"
         scale="sm"
         mr={mr}

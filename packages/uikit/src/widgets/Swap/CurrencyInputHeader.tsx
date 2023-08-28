@@ -6,11 +6,12 @@ import { Text } from "../../components/Text";
 interface Props {
   title: ReactNode;
   subtitle: ReactNode;
+  withBorder?: boolean;
 }
 
-export const CurrencyInputHeader = memo(({ title, subtitle }: Props) => {
+export const CurrencyInputHeader = memo(({ title, subtitle, withBorder = true }: Props) => {
   return (
-    <AtomBox width="100%" alignItems="center" flexDirection="column" padding="24px" borderBottom="1">
+    <AtomBox width="100%" alignItems="center" flexDirection="column" padding="24px">
       <AtomBox display="flex" width="100%" alignItems="center" justifyContent="space-between">
         {title}
       </AtomBox>

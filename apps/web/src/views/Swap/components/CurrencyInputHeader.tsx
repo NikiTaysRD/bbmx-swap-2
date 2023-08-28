@@ -33,6 +33,25 @@ import { SettingsMode } from '../../../components/Menu/GlobalSettings/types'
 import { SwapFeaturesContext } from '../SwapFeaturesContext'
 import BuyCryptoIcon from '../../../../public/images/moneyBangs.svg'
 
+const AppMenuList = styled.ul`
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  padding-top: 8px;
+`
+
+const AppMenuItem = styled.li`
+  color: #fff;
+  float: left;
+  margin-right: 15px;
+  /* color: #a0a3c4; */
+  transition: 0.3s all;
+  -webkit-transition: 0.3s all;
+  -moz-transition: 0.3s all;
+  cursor: pointer;
+  font-weight: 500;
+`
+
 interface Props {
   title: string | ReactElement
   subtitle: string
@@ -41,6 +60,7 @@ interface Props {
   isChartDisplayed?: boolean
   hasAmount: boolean
   onRefreshPrice: () => void
+  setIsShowMarket?: (isShwo: boolean) => void
 }
 
 const SUPPORTED_BUY_CRYPTO_CHAINS = [1, 56]
@@ -54,7 +74,7 @@ const ColoredIconButton = styled(IconButton)`
 const mobileShowOnceTokenHighlightAtom = atomWithStorageWithErrorCatch('pcs::mobileShowOnceTokenHighlightV2', true)
 
 const CurrencyInputHeader: React.FC<React.PropsWithChildren<Props>> = memo(
-  ({ subtitle, title, hasAmount, onRefreshPrice }) => {
+  ({ subtitle, title, hasAmount, onRefreshPrice, setIsShowMarket }) => {
     const { t } = useTranslation()
     const { chainId } = useActiveChainId()
     const [mobileTooltipShowOnce, setMobileTooltipShowOnce] = useAtom(mobileShowOnceTokenHighlightAtom)
@@ -106,7 +126,13 @@ const CurrencyInputHeader: React.FC<React.PropsWithChildren<Props>> = memo(
 
     const titleContent = (
       <Flex width="100%" alignItems="center" justifyContent="space-between" flexDirection="column">
-        <Flex width="100%" justifyContent="end">
+        <Flex width="100%" justifyContent={setIsShowMarket ? 'space-between' : 'end'}>
+          {setIsShowMarket ? (
+            <AppMenuList>
+              <AppMenuItem onClick={() => setIsShowMarket(true)}>Market</AppMenuItem>
+              <AppMenuItem onClick={() => setIsShowMarket(false)}>Limit</AppMenuItem>
+            </AppMenuList>
+          ) : null}
           <NotificationDot show={expertMode || isRoutingSettingChange}>
             <GlobalSettings color="textSubtle" mr="0" mode={SettingsMode.SWAP_LIQUIDITY} />
           </NotificationDot>
@@ -114,7 +140,7 @@ const CurrencyInputHeader: React.FC<React.PropsWithChildren<Props>> = memo(
       </Flex>
     )
 
-    return <Swap.CurrencyInputHeader title={titleContent} subtitle={<></>} />
+    return <Swap.CurrencyInputHeader title={titleContent} withBorder={false} subtitle={<></>} />
   },
 )
 

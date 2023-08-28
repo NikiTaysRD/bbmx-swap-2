@@ -1,6 +1,6 @@
 import { SmartRouter } from '@pancakeswap/smart-router/evm'
 import throttle from 'lodash/throttle'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { Box } from '@pancakeswap/uikit'
 
 import { shouldShowMMLiquidityError } from 'views/Swap/MMLinkPools/utils/exchange'
@@ -21,6 +21,8 @@ import { MMCommitButton } from './containers/MMCommitButton'
 import { useSwapBestTrade } from './hooks'
 
 export function V3SwapForm() {
+  const [isShowMarket, setIsShowMarket] = useState(false)
+
   const { isLoading, trade, refresh, syncing, isStale, error } = useSwapBestTrade()
   const mm = useDerivedBestTradeWithMM(trade)
   const throttledHandleRefresh = useMemo(
@@ -40,12 +42,17 @@ export function V3SwapForm() {
 
   return (
     <>
-      <FormHeader onRefresh={throttledHandleRefresh} refreshDisabled={!tradeLoaded || syncing || !isStale} />
+      <FormHeader
+        onRefresh={throttledHandleRefresh}
+        refreshDisabled={!tradeLoaded || syncing || !isStale}
+        setIsShowMarket={setIsShowMarket}
+      />
       <FormMain
         tradeLoading={mm.isMMBetter ? false : !tradeLoaded}
         pricingAndSlippage={<PricingAndSlippage priceLoading={isLoading} price={price} showSlippage={!mm.isMMBetter} />}
         inputAmount={finalTrade?.inputAmount}
         outputAmount={finalTrade?.outputAmount}
+        isShowMarket={isShowMarket}
         swapCommitButton={
           mm?.isMMBetter ? (
             <MMCommitButton {...mm} />

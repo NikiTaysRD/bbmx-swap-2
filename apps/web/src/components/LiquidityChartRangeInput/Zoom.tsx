@@ -120,14 +120,14 @@ export default function Zoom({
           cursor: 'pointer',
         }}
       >
-        <ZoomInIcon width={24} onClick={zoomIn} color="primary" />
+        <ZoomInIcon width={24} onClick={zoomIn} color="white" />
       </Box>
       <Box
         style={{
           cursor: 'pointer',
         }}
       >
-        <ZoomOutIcon width={24} onClick={zoomOut} color="primary" />
+        <ZoomOutIcon width={24} onClick={zoomOut} color="white" />
       </Box>
     </Wrapper>
   )

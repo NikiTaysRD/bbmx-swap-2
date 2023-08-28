@@ -8,17 +8,14 @@ import {
   Flex,
   Tag,
   ButtonMenu,
-  ButtonMenuItem,
-  Checkbox,
-  IconButton,
-  HistoryIcon,
   useModal,
   useMatchBreakpoints,
+  FlexGap,
 } from '@pancakeswap/uikit'
 import { PositionDetails } from '@pancakeswap/farms'
 import NextLink from 'next/link'
 import styled from 'styled-components'
-import { AppBody, AppHeader } from 'components/App'
+import { AppBody } from 'components/App'
 import { useV3Positions } from 'hooks/v3/useV3Positions'
 import { CHAIN_IDS } from 'utils/wagmi'
 import PositionListItem from 'views/AddLiquidityV3/formViews/V3FormView/components/PoolListItem'
@@ -35,7 +32,6 @@ import useStableConfig, {
 import { useMemo, useState } from 'react'
 import { V2PairCard } from 'views/AddLiquidityV3/components/V2PairCard'
 import { StablePairCard } from 'views/AddLiquidityV3/components/StablePairCard'
-import FarmV3MigrationBanner from 'views/Home/components/Banners/FarmV3MigrationBanner'
 import TransactionsModal from 'components/App/Transactions/TransactionsModal'
 import { LiquidityCardRow } from 'components/LiquidityCardRow'
 import atomWithStorageWithErrorCatch from 'utils/atomWithStorageWithErrorCatch'
@@ -43,10 +39,15 @@ import { useAtom } from 'jotai'
 import { FindOtherLP } from '@pancakeswap/uikit/src/widgets/Liquidity'
 import { V3SubgraphHealthIndicator } from 'components/SubgraphHealthIndicator'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
-import { isV3MigrationSupported } from 'utils/isV3MigrationSupported'
+import LiquidityBox from '@pancakeswap/uikit/src/components/Svg/Icons/LiquidityBox'
+import { baseDisplay } from 'pages/_app'
 
 const Body = styled(CardBody)`
-  background-color: ${({ theme }) => theme.colors.dropdownDeep};
+  background-color: #1b1c30;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `
 
 export const StableContextProvider = (props: { pair: LPStablePair; account: string }) => {
@@ -180,9 +181,17 @@ export default function PoolListPage() {
       )
     } else if (!v2PairsSection && !stablePairsSection && !v3PairsSection) {
       resultSection = (
-        <Text color="textSubtle" textAlign="center">
-          {t('No liquidity found.')}
-        </Text>
+        <FlexGap gap="5px" justifyContent="center" flexDirection="column">
+          <LiquidityBox />
+          <Text
+            color="textSubtle"
+            textAlign="center"
+            style={{ color: '#a0a3c4', fontSize: '15px', lineHeight: '160%' }}
+            className={baseDisplay.className}
+          >
+            {t('Your active liquidity positions will \n appear here.')}
+          </Text>
+        </FlexGap>
       )
     } else {
       // Order should be v3, stable, v2
@@ -198,6 +207,8 @@ export default function PoolListPage() {
   const { isDesktop } = useMatchBreakpoints()
 
   const StyledAppBody = styled(AppBody)`
+    height: 191px;
+    background: none;
     div:first-child {
       border-radius: 6px;
     }
@@ -215,8 +226,18 @@ export default function PoolListPage() {
     <Page>
       <Flex flexDirection="column" justifyContent="center" alignItems="center">
         <Flex justifyContent="space-between" alignItems="center" width="100%">
-          <Text fontSize="24px">Pools</Text>
-          <CardFooter style={{ textAlign: 'center', borderRadius: '6px', borderTop: 'none', paddingRight: '0' }}>
+          <Text fontSize="24px" fontWeight="bold">
+            Pools
+          </Text>
+          <CardFooter
+            style={{
+              textAlign: 'center',
+              borderRadius: '6px',
+              borderTop: 'none',
+              paddingRight: '0',
+              fontWeight: '400',
+            }}
+          >
             <NextLink href="/add" passHref>
               <Button
                 id="join-pool-button"
@@ -242,43 +263,43 @@ export default function PoolListPage() {
             borderRadius: '6px',
           }}
         >
-          <AppHeader
-            title={t('Your Liquidity')}
-            subtitle={t('List of your liquidity positions')}
-            IconSlot={
-              <IconButton onClick={onPresentTransactionsModal} variant="text" scale="sm">
-                <HistoryIcon color="textSubtle" width="24px" />
-              </IconButton>
-            }
-            filter={
-              <>
-                <Flex as="label" htmlFor="hide-close-positions" alignItems="center">
-                  <Checkbox
-                    id="hide-close-positions"
-                    scale="sm"
-                    name="confirmed"
-                    type="checkbox"
-                    checked={hideClosedPositions}
-                    onChange={() => setHideClosedPositions((prev) => !prev)}
-                  />
-                  <Text ml="8px" color="textSubtle" fontSize="14px">
-                    {t('Hide closed positions')}
-                  </Text>
-                </Flex>
+          {/* <AppHeader */}
+          {/*  title={t('Your Liquidity')} */}
+          {/*  subtitle={t('List of your liquidity positions')} */}
+          {/*  IconSlot={ */}
+          {/*    <IconButton onClick={onPresentTransactionsModal} variant="text" scale="sm"> */}
+          {/*      <HistoryIcon color="textSubtle" width="24px" /> */}
+          {/*    </IconButton> */}
+          {/*  } */}
+          {/*  filter={ */}
+          {/*    <> */}
+          {/*      <Flex as="label" htmlFor="hide-close-positions" alignItems="center"> */}
+          {/*        <Checkbox */}
+          {/*          id="hide-close-positions" */}
+          {/*          scale="sm" */}
+          {/*          name="confirmed" */}
+          {/*          type="checkbox" */}
+          {/*          checked={hideClosedPositions} */}
+          {/*          onChange={() => setHideClosedPositions((prev) => !prev)} */}
+          {/*        /> */}
+          {/*        <Text ml="8px" color="textSubtle" fontSize="14px"> */}
+          {/*          {t('Hide closed positions')} */}
+          {/*        </Text> */}
+          {/*      </Flex> */}
 
-                <StyledButtonMenu
-                  scale="sm"
-                  activeIndex={selectedTypeIndex}
-                  onItemClick={(index) => setSelectedTypeIndex(index)}
-                  variant="subtle"
-                >
-                  <ButtonMenuItem>{t('All')}</ButtonMenuItem>
-                  <ButtonMenuItem>V3</ButtonMenuItem>
-                  <ButtonMenuItem>V2</ButtonMenuItem>
-                </StyledButtonMenu>
-              </>
-            }
-          />
+          {/*      <StyledButtonMenu */}
+          {/*        scale="sm" */}
+          {/*        activeIndex={selectedTypeIndex} */}
+          {/*        onItemClick={(index) => setSelectedTypeIndex(index)} */}
+          {/*        variant="subtle" */}
+          {/*      > */}
+          {/*        <ButtonMenuItem>{t('All')}</ButtonMenuItem> */}
+          {/*        <ButtonMenuItem>V3</ButtonMenuItem> */}
+          {/*        <ButtonMenuItem>V2</ButtonMenuItem> */}
+          {/*      </StyledButtonMenu> */}
+          {/*    </> */}
+          {/*  } */}
+          {/* /> */}
 
           <Body>
             {mainSection}

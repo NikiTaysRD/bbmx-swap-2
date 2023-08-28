@@ -17,7 +17,7 @@ const DropDownHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0px 16px;
+  padding: 0 16px;
   box-shadow: ${({ theme }) => theme.shadows.inset};
   border: 1px solid ${({ theme }) => theme.colors.inputSecondary};
   border-radius: 6px;
@@ -94,7 +94,7 @@ export const CurrencySelect = ({
             ) : (
               <Flex alignItems="center" justifyContent="space-between">
                 <CurrencyLogo currency={selectedCurrency} size="24px" style={{ marginRight: '8px' }} />
-                <Text id="pair" bold className={baseDisplay.className}>
+                <Text id="pair" bold className={baseDisplay.className} fontWeight="400">
                   {selectedCurrency && selectedCurrency.symbol && selectedCurrency.symbol.length > 20
                     ? `${selectedCurrency.symbol.slice(0, 4)}...${selectedCurrency.symbol.slice(
                         selectedCurrency.symbol.length - 5,

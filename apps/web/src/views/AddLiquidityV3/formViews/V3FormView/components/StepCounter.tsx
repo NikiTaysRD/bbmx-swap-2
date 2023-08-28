@@ -99,7 +99,7 @@ const StepCounter = ({
         width="100%"
         onFocus={handleOnFocus}
         onBlur={handleOnBlur}
-        style={{ fontSize: '12px' }}
+        style={{ fontSize: '12px', color: '#a0a3c4' }}
         className={baseDisplay.className}
       >
         {title}

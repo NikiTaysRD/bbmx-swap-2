@@ -33,7 +33,6 @@ import { ApprovalState, useApproveCallback } from 'hooks/useApproveCallback'
 
 import { useTransactionAdder } from 'state/transactions/hooks'
 import { useV3NFTPositionManagerContract } from 'hooks/useContract'
-import { useRouter } from 'next/router'
 import { useIsTransactionUnsupported, useIsTransactionWarning } from 'hooks/Trades'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { useTranslation } from '@pancakeswap/localization'
@@ -51,7 +50,7 @@ import { getViemClients } from 'utils/viem'
 import { calculateGasMargin } from 'utils'
 
 import { ZoomLevels, ZOOM_LEVELS } from 'components/LiquidityChartRangeInput/types'
-import { baseDisplay } from 'pages/_app'
+import { baseDisplay, baseMono } from 'pages/_app'
 import RangeSelector from './components/RangeSelector'
 import { PositionPreview } from './components/PositionPreview'
 import LockedDeposit from './components/LockedDeposit'
@@ -80,6 +79,7 @@ export const MediumOnly = styled.div`
   ${({ theme }) => theme.mediaQueries.md} {
     display: initial;
   }
+  font-size: 14px;
 `
 
 export const RightContainer = styled(AutoColumn)`
@@ -102,14 +102,16 @@ interface V3FormViewPropsType {
   feeAmount: number
 }
 
-export default function V3FormView({
-  feeAmount,
-  baseCurrency,
-  quoteCurrency,
-  currencyIdA,
-  currencyIdB,
-}: V3FormViewPropsType) {
-  const router = useRouter()
+const StyledMediumOnly = styled(MediumOnly)`
+  button {
+    background: #4e09f8;
+    border-radius: 6px;
+    opacity: 0.85;
+    color: white;
+  }
+`
+
+export default function V3FormView({ feeAmount, baseCurrency, quoteCurrency }: V3FormViewPropsType) {
   const { data: signer } = useWalletClient()
   const { sendTransactionAsync } = useSendTransaction()
   const [attemptingTxn, setAttemptingTxn] = useState<boolean>(false) // clicked confirm
@@ -684,7 +686,7 @@ export default function V3FormView({
               </Message>
             ) : null}
           </DynamicSection>
-          <MediumOnly>{buttons}</MediumOnly>
+          <StyledMediumOnly className={baseMono.className}>{buttons}</StyledMediumOnly>
         </AutoColumn>
       </RightContainer>
     </>

@@ -33,12 +33,16 @@ const Footer = styled.div`
   text-align: center;
 `
 const StyledModalContainer = styled(ModalContainer)`
-  width: 100%;
-  min-width: 320px;
-  max-width: 420px !important;
+  min-height: auto;
+  max-width: auto;
+  width: auto;
   min-height: calc(var(--vh, 1vh) * 90);
   ${({ theme }) => theme.mediaQueries.md} {
-    min-height: auto;
+    width: 100%;
+    min-width: 320px;
+    width: 520px;
+    max-width: 520px !important;
+    min-height: 520px;
   }
 `
 
@@ -50,6 +54,13 @@ const StyledModalBody = styled(ModalBody)`
   &::-webkit-scrollbar {
     display: none;
   }
+`
+
+const ModalHeading = styled.h3`
+  font-size: 18px;
+  line-height: 30px;
+  font-weight: 700;
+  font-family: 'Base Mono';
 `
 
 export interface CurrencySearchModalProps extends InjectedModalProps {
@@ -153,12 +164,12 @@ export default function CurrencySearchModal({
       }}
       ref={wrapperRef}
     >
-      <ModalHeader>
-        <ModalTitle>
-          {config[modalView].onBack && <ModalBackButton onBack={config[modalView].onBack} />}
-          <Heading>{config[modalView].title}</Heading>
+      <ModalHeader style={{ paddingRight: '20px', paddingLeft: '20px', border: '0px' }}>
+        <ModalTitle style={{ justifyContent: 'space-between' }}>
+          <ModalBackButton onBack={config[modalView].onBack} />
+          <ModalHeading>{config[modalView].title}</ModalHeading>
+          <span style={{ width: '24px' }}></span>
         </ModalTitle>
-        <ModalCloseButton onDismiss={onDismiss} />
       </ModalHeader>
       <StyledModalBody>
         {modalView === CurrencyModalView.search ? (

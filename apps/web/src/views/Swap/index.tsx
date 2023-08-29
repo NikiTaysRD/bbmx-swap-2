@@ -20,8 +20,9 @@ import { SwapFeaturesContext } from './SwapFeaturesContext'
 export default function Swap() {
   const { query } = useRouter()
   const { isDesktop } = useMatchBreakpoints()
-  const { isChartExpanded, isChartDisplayed, setIsChartDisplayed, isHotTokenSupported } =
-    useContext(SwapFeaturesContext)
+  const { isChartExpanded, isChartDisplayed, setIsChartDisplayed, isHotTokenSupported } = useContext(
+    SwapFeaturesContext,
+  )
   const [isSwapHotTokenDisplay, setIsSwapHotTokenDisplay] = useSwapHotTokenDisplay()
   const { t } = useTranslation()
   const [firstTime, setFirstTime] = useState(true)
@@ -94,9 +95,11 @@ export default function Swap() {
         <Flex flexDirection="column">
           <StyledSwapContainer $isChartExpanded={isChartExpanded}>
             <StyledInputCurrencyWrapper mt={isChartExpanded ? '24px' : '0'}>
-              <AppBody style={{ maxWidth: 'unset' }}>
-                <V3SwapForm />
-              </AppBody>
+              <div style={{ backgroundColor: '#1b1c30' }}>
+                <AppBody style={{ maxWidth: 'unset', minWidth: isDesktop ? '520px' : 'unset' }}>
+                  <V3SwapForm />
+                </AppBody>
+              </div>
             </StyledInputCurrencyWrapper>
           </StyledSwapContainer>
         </Flex>

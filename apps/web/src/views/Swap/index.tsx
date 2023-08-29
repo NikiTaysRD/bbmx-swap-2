@@ -96,7 +96,7 @@ export default function Swap() {
           <StyledSwapContainer $isChartExpanded={isChartExpanded}>
             <StyledInputCurrencyWrapper mt={isChartExpanded ? '24px' : '0'}>
               <div style={{ backgroundColor: '#1b1c30' }}>
-                <AppBody style={{ maxWidth: 'unset', minWidth: isDesktop ? '520px' : 'unset' }}>
+                <AppBody style={{ maxWidth: isDesktop ? 'unset' : '', minWidth: isDesktop ? '520px' : '' }}>
                   <V3SwapForm />
                 </AppBody>
               </div>

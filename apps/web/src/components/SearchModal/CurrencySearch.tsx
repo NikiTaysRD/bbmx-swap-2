@@ -2,6 +2,9 @@
 import { Currency, Token } from '@pancakeswap/sdk'
 import { Box, Input, Text, useMatchBreakpoints, AutoColumn, Column } from '@pancakeswap/uikit'
 import { KeyboardEvent, RefObject, useCallback, useMemo, useRef, useState, useEffect } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons'
+import styled from 'styled-components'
 import { useTranslation } from '@pancakeswap/localization'
 import { useDebounce, useSortedTokensByQuery } from '@pancakeswap/hooks'
 import useNativeCurrency from 'hooks/useNativeCurrency'
@@ -20,6 +23,20 @@ import useTokenComparator from './sorting'
 import { getSwapSound } from './swapSound'
 
 import ImportRow from './ImportRow'
+
+const SearchInput = styled.input`
+  line-height: 44px;
+  padding: 0 15px 0 40px;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  font-size: 14px;
+  background: none;
+  outline: none;
+  box-shadow: none;
+  width: 100%;
+  font-family: 'Base Display', sans-serif;
+`
 
 interface CurrencySearchProps {
   selectedCurrency?: Currency | null
@@ -188,16 +205,7 @@ function CurrencySearch({
 
   const getCurrencyListRows = useCallback(() => {
     if (searchToken && !searchTokenIsAdded && !hasFilteredInactiveTokens) {
-      return (
-        <Column style={{ padding: '20px 0', height: '100%' }}>
-          <ImportRow
-            onCurrencySelect={handleCurrencySelect}
-            token={searchToken}
-            showImportView={showImportView}
-            setImportToken={setImportToken}
-          />
-        </Column>
-      )
+      return null
     }
 
     return Boolean(filteredSortedTokens?.length) || hasFilteredInactiveTokens ? (
@@ -220,7 +228,7 @@ function CurrencySearch({
         />
       </Box>
     ) : (
-      <Column style={{ padding: '20px', height: '100%' }}>
+      <Column style={{ padding: '25px', height: '100%' }}>
         <Text color="textSubtle" textAlign="center" mb="20px">
           {t('No results found.')}
         </Text>
@@ -250,10 +258,21 @@ function CurrencySearch({
       <AutoColumn gap="16px">
         {showSearchInput && (
           <Row>
-            <Input
+            <FontAwesomeIcon
+              icon={faMagnifyingGlass}
+              style={{
+                color: '#a0a3c4',
+                fontSize: '12px',
+                position: 'absolute',
+                left: '40px',
+                top: '98px',
+                transform: 'translateY(-50%)',
+              }}
+            />
+            <SearchInput
               id="token-search-input"
               placeholder={t(onRampFlow ? 'Search name' : 'Search name or paste address')}
-              scale="lg"
+              // scale="lg"
               autoComplete="off"
               value={searchQuery}
               ref={inputRef as RefObject<HTMLInputElement>}

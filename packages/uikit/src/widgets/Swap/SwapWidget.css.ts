@@ -144,6 +144,7 @@ export const pageVariants = recipe({
     }),
     style({
       backgroundSize: "auto",
+      minHeight: "100vh",
     }),
     responsiveStyle({
       sm: {

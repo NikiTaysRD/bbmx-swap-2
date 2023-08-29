@@ -95,8 +95,14 @@ export default function Swap() {
         <Flex flexDirection="column">
           <StyledSwapContainer $isChartExpanded={isChartExpanded}>
             <StyledInputCurrencyWrapper mt={isChartExpanded ? '24px' : '0'}>
-              <div style={{ backgroundColor: '#1b1c30' }}>
-                <AppBody style={{ maxWidth: isDesktop ? 'unset' : '', minWidth: isDesktop ? '520px' : '' }}>
+              <div style={{ backgroundColor: '#1b1c30', borderRadius: '22px', minWidth: isDesktop ? '' : '95%' }}>
+                <AppBody
+                  style={{
+                    maxWidth: isDesktop ? 'unset' : '',
+                    minWidth: isDesktop ? '520px' : '',
+                    background: 'rgb(27, 28, 48)',
+                  }}
+                >
                   <V3SwapForm />
                 </AppBody>
               </div>

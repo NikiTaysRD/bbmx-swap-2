@@ -91,13 +91,16 @@ const TH = styled.th`
   line-height: 18px;
   padding: 5px 0;
   text-align: left;
+  letter-spacing: normal;
   transition: 0.3s all;
   -webkit-transition: 0.3s all;
   -moz-transition: 0.3s all;
 `
 
 const TD = styled.td`
+  font-size: 11px;
   text-align: right;
+  letter-spacing: normal;
 `
 
 // app field buy
@@ -155,8 +158,7 @@ const SwapImg = styled.img`
   height: 24px;
   margin-right: 8px;
   position: relative;
-  top: -1px;
-  padding: 0 10px;
+  top: 5px;
   line-height: 44px;
   font-size: 16px;
   font-weight: 500;
@@ -166,8 +168,7 @@ const SwapImg = styled.img`
 
 const SwapSpan = styled.span`
   display: inline-block;
-  margin-right: 5px;
-  padding: 0 10px;
+
   line-height: 44px;
   font-size: 16px;
   font-weight: 500;
@@ -178,7 +179,7 @@ const SwapSpan = styled.span`
 const EnterField = styled.div`
   display: inline-block;
   margin-right: 5px;
-  padding: 0 10px;
+  /* padding: 0 10px; */
   line-height: 44px;
   font-size: 16px;
   font-weight: 500;
@@ -194,7 +195,7 @@ const MarketField = styled.input`
   font-family: 'Base Mono';
   font-weight: 600;
   font-size: 22px;
-  width: 300px;
+  max-width: 100px;
   line-height: 44px;
   text-align: right;
 `
@@ -387,7 +388,7 @@ export function FormMain({
             </AppFieldHeading>
             <SwapField>
               <SwapItem>
-                <SwapImg />
+                <SwapImg src="https://pancakeswap.finance/images/tokens/0x2170Ed0880ac9A755fd29B2688956BD959F933F8.png" />
                 <SwapSpan>ETH</SwapSpan>
               </SwapItem>
               <EnterField>

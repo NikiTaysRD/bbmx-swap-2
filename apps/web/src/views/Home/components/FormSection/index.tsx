@@ -10,7 +10,7 @@ import PaperPlaneIcon from '../../../../../public/images/home/paper-plane.svg'
 
 const Banner = styled.section`
   position: relative;
-  min-height: 100vh;
+  //min-height: 100vh;
   background: url(${BG2.src}) no-repeat 0 0;
   background-size: cover;
 

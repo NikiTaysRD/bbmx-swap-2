@@ -482,7 +482,6 @@ const Home: React.FC<React.PropsWithChildren> = () => {
           </HomeCard>
         </Grid>
       </WideHomePageSection>
-
       <WideHomePageSection background="#1B1C30" index={3} hasCurvedDivider={false} maxWidth="1300">
         <FlexGap
           gap="20px"
@@ -516,7 +515,6 @@ const Home: React.FC<React.PropsWithChildren> = () => {
           </Flex>
         </FlexGap>
       </WideHomePageSection>
-
       <HomePageSection background="#101124" pt="200px" index={2} hasCurvedDivider={false}>
         <FlexGap gap="10px" flexDirection="column" justifyContent="center" alignItems="center" mb="80px">
           <GradientHeader>HOLD BBMX &</GradientHeader>
@@ -584,7 +582,6 @@ const Home: React.FC<React.PropsWithChildren> = () => {
           </FlexGap>
         </FlexGap>
       </HomePageSection>
-
       <HomePageSection background="#101124" pt="200px" index={3} hasCurvedDivider={false}>
         <FlexGap gap="10px" flexDirection="column" justifyContent="center" alignItems="center" mb="80px">
           <GradientHeader>BBMX JOURNEY</GradientHeader>

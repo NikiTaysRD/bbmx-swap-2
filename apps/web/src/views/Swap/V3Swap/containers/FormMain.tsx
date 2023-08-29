@@ -300,7 +300,7 @@ export function FormMain({
   const { isDesktop } = useMatchBreakpoints()
   return (
     <FormContainer>
-      <Flex flexDirection="column" width="100%" pl={isDesktop && '15px'} pr={isDesktop && '15px'}>
+      <Flex flexDirection="column" width="100%" pl={isDesktop && '14px'} pr={isDesktop && '14px'}>
         <FlexGap gap="5px" flexDirection="column" width="100%">
           <CurrencyInputPanel
             id="swap-currency-input"

@@ -55,31 +55,33 @@ export const ModalCloseButton: React.FC<React.PropsWithChildren<{ onDismiss: Mod
 
 export const ModalBackButton: React.FC<React.PropsWithChildren<{ onBack: ModalProps["onBack"] }>> = ({ onBack }) => {
   return (
-    <IconButton variant="text" onClick={onBack} area-label="go back" mr="8px">
-      <ArrowBackIcon color="primary" />
+    <IconButton variant="text" onClick={onBack} area-label="go back" mr="8px" scale="xs">
+      <ArrowBackIcon color="white" />
     </IconButton>
   );
 };
 
 export const ModalContainer = styled(MotionBox)`
+  top: 108px;
   overflow: hidden;
-  background: ${({ theme }) => theme.modal.background};
+  background-color: #1b1c30;
   box-shadow: 0px 20px 36px -8px rgba(14, 14, 44, 0.1), 0px 1px 1px rgba(0, 0, 0, 0.05);
   border: 1px solid ${({ theme }) => theme.colors.cardBorder};
-  border-radius: 32px 32px 0px 0px;
-  width: 100%;
+  border-radius: 12px;
   max-height: calc(var(--vh, 1vh) * 100);
   z-index: ${({ theme }) => theme.zIndices.modal};
   position: absolute;
   bottom: 0;
-  max-width: none !important;
+  /* max-width: none !important; */
   min-height: 300px;
+  max-height: 500px;
 
   ${({ theme }) => theme.mediaQueries.md} {
-    width: auto;
-    position: auto;
-    bottom: auto;
-    border-radius: 32px;
-    max-height: 100vh;
+    /* top: auto; */
+    /* width: auto; */
+    /* position: auto; */
+    /* bottom: auto; */
+    border-radius: 12px;
+    /* max-height: 100vh; */
   }
 `;

@@ -75,10 +75,6 @@ const Inner = styled.div`
   transition: margin-top 0.2s, margin-left 0.2s cubic-bezier(0.4, 0, 0.2, 1);
   transform: translate3d(0, 0, 0);
   max-width: 100%;
-
-  main > div {
-    min-height: 100vh;
-  }
 `;
 
 const Item = styled.div`

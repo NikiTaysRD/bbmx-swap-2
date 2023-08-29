@@ -70,7 +70,13 @@ const Menu: React.FC<React.PropsWithChildren<NavProps>> = ({
 
   return (
     <MenuContext.Provider value={providerValue}>
-      <AtomBox asChild>
+      <AtomBox
+        asChild
+        minHeight={{
+          xs: "auto",
+          md: "100vh",
+        }}
+      >
         {pathname !== "/" ? (
           <Wrapper>
             <FixedContainer showMenu={showMenu} height={totalTopMenuHeight}>

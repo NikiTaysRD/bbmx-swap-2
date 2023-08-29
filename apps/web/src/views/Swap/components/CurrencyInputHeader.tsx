@@ -61,6 +61,7 @@ interface Props {
   hasAmount: boolean
   onRefreshPrice: () => void
   setIsShowMarket?: (isShwo: boolean) => void
+  isShowMarket?: boolean
 }
 
 const SUPPORTED_BUY_CRYPTO_CHAINS = [1, 56]
@@ -74,7 +75,7 @@ const ColoredIconButton = styled(IconButton)`
 const mobileShowOnceTokenHighlightAtom = atomWithStorageWithErrorCatch('pcs::mobileShowOnceTokenHighlightV2', true)
 
 const CurrencyInputHeader: React.FC<React.PropsWithChildren<Props>> = memo(
-  ({ subtitle, title, hasAmount, onRefreshPrice, setIsShowMarket }) => {
+  ({ subtitle, title, hasAmount, onRefreshPrice, setIsShowMarket, isShowMarket }) => {
     const { t } = useTranslation()
     const { chainId } = useActiveChainId()
     const [mobileTooltipShowOnce, setMobileTooltipShowOnce] = useAtom(mobileShowOnceTokenHighlightAtom)
@@ -130,10 +131,12 @@ const CurrencyInputHeader: React.FC<React.PropsWithChildren<Props>> = memo(
           {setIsShowMarket ? (
             <AppMenuList>
               <AppMenuItem onClick={() => setIsShowMarket(true)}>
-                <Text style={{ fontWeight: '600', fontSize: '14px' }}>Market</Text>
+                <Text style={{ fontWeight: '600', fontSize: '14px', color: !isShowMarket ? '#a0a3c4' : '' }}>
+                  Market
+                </Text>
               </AppMenuItem>
               <AppMenuItem onClick={() => setIsShowMarket(false)}>
-                <Text style={{ fontWeight: '600', fontSize: '14px' }}>Limit</Text>
+                <Text style={{ fontWeight: '600', fontSize: '14px', color: isShowMarket ? '#a0a3c4' : '' }}>Limit</Text>
               </AppMenuItem>
             </AppMenuList>
           ) : null}

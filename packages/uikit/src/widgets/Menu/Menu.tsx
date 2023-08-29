@@ -58,7 +58,7 @@ const Menu: React.FC<React.PropsWithChildren<NavProps>> = ({ linkComponent = "a"
         asChild
         minHeight={{
           xs: "auto",
-          md: "auto",
+          md: "100vh",
         }}
       >
         {pathname !== "/" ? (

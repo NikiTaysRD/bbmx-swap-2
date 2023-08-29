@@ -46,6 +46,7 @@ export function V3SwapForm() {
         onRefresh={throttledHandleRefresh}
         refreshDisabled={!tradeLoaded || syncing || !isStale}
         setIsShowMarket={setIsShowMarket}
+        isShowMarket={isShowMarket}
       />
       <FormMain
         tradeLoading={mm.isMMBetter ? false : !tradeLoaded}

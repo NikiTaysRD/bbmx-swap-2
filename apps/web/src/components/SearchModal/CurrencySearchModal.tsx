@@ -168,7 +168,7 @@ export default function CurrencySearchModal({
         <ModalTitle style={{ justifyContent: 'space-between' }}>
           <ModalBackButton onBack={config[modalView].onBack} />
           <ModalHeading>{config[modalView].title}</ModalHeading>
-          <span style={{ width: '24px' }}></span>
+          <span style={{ width: '24px' }} />
         </ModalTitle>
       </ModalHeader>
       <StyledModalBody>

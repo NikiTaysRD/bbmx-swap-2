@@ -91,13 +91,16 @@ const TH = styled.th`
   line-height: 18px;
   padding: 5px 0;
   text-align: left;
+  letter-spacing: normal;
   transition: 0.3s all;
   -webkit-transition: 0.3s all;
   -moz-transition: 0.3s all;
 `
 
 const TD = styled.td`
+  font-size: 11px;
   text-align: right;
+  letter-spacing: normal;
 `
 
 // app field buy
@@ -194,7 +197,7 @@ const MarketField = styled.input`
   font-family: 'Base Mono';
   font-weight: 600;
   font-size: 22px;
-  width: 300px;
+  max-width: 100px;
   line-height: 44px;
   text-align: right;
 `

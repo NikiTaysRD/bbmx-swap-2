@@ -11,15 +11,16 @@ import { CommonBasesType } from './types'
 const ButtonWrapper = styled.div`
   display: inline-block;
   vertical-align: top;
-  margin-right: 10px;
+  margin-right: 3px;
 `
 
 const BaseWrapper = styled.div<{ disable?: boolean }>`
   border: 1px solid ${({ theme, disable }) => (disable ? 'transparent' : theme.colors.dropdown)};
   border-radius: 10px;
   display: flex;
-  padding: 6px;
+  padding: 0px;
   align-items: center;
+
   :hover {
     cursor: ${({ disable }) => !disable && 'pointer'};
     background-color: ${({ theme, disable }) => !disable && theme.colors.background};
@@ -41,6 +42,20 @@ const RowWrapper = styled.div`
   }
 `
 
+const ContentWrapper = styled.span`
+  display: block;
+  font-size: 13px;
+  text-transform: uppercase;
+  font-weight: 500;
+  cursor: pointer;
+  line-height: 44px;
+  padding: 0 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
+  transition: 0.3s all;
+  -webkit-transition: 0.3s all;
+`
+
 export default function CommonBases({
   chainId,
   onSelect,
@@ -58,12 +73,6 @@ export default function CommonBases({
 
   return (
     <AutoColumn gap="md">
-      <AutoRow>
-        <Text fontSize="14px">{pinTokenDescText}</Text>
-        {commonBasesType === CommonBasesType.LIQUIDITY && (
-          <QuestionHelper text={t('These tokens are commonly paired with other tokens.')} ml="4px" />
-        )}
-      </AutoRow>
       <RowWrapper>
         <ButtonWrapper>
           <BaseWrapper
@@ -74,8 +83,13 @@ export default function CommonBases({
             }}
             disable={selectedCurrency?.isNative}
           >
-            <CurrencyLogo currency={native} style={{ marginRight: 8 }} />
-            <Text>{native?.symbol}</Text>
+            <ContentWrapper>
+              <CurrencyLogo
+                currency={native}
+                style={{ marginRight: 8, borderRadius: '50%', position: 'relative', top: '6px' }}
+              />
+              {native?.symbol}
+            </ContentWrapper>
           </BaseWrapper>
         </ButtonWrapper>
         {(chainId ? SUGGESTED_BASES[chainId] || [] : []).map((token: Token) => {
@@ -83,8 +97,13 @@ export default function CommonBases({
           return (
             <ButtonWrapper key={`buttonBase#${token.address}`}>
               <BaseWrapper onClick={() => !selected && onSelect(token)} disable={selected}>
-                <CurrencyLogo currency={token} style={{ marginRight: 8, borderRadius: '50%' }} />
-                <Text>{token.symbol}</Text>
+                <ContentWrapper>
+                  <CurrencyLogo
+                    currency={token}
+                    style={{ marginRight: 8, borderRadius: '50%', position: 'relative', top: '6px' }}
+                  />
+                  {token.symbol}
+                </ContentWrapper>
               </BaseWrapper>
             </ButtonWrapper>
           )

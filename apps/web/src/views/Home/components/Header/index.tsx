@@ -249,6 +249,7 @@ const MobileNavbarWrapper = styled.div`
   font-size: 12px;
   letter-spacing: 1px;
   line-height: 40px;
+  color: white;
 `
 
 const Header = () => {

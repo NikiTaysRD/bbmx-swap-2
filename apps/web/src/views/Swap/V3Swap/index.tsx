@@ -21,7 +21,7 @@ import { MMCommitButton } from './containers/MMCommitButton'
 import { useSwapBestTrade } from './hooks'
 
 export function V3SwapForm() {
-  const [isShowMarket, setIsShowMarket] = useState(false)
+  const [isShowMarket, setIsShowMarket] = useState(true)
 
   const { isLoading, trade, refresh, syncing, isStale, error } = useSwapBestTrade()
   const mm = useDerivedBestTradeWithMM(trade)
@@ -46,6 +46,7 @@ export function V3SwapForm() {
         onRefresh={throttledHandleRefresh}
         refreshDisabled={!tradeLoaded || syncing || !isStale}
         setIsShowMarket={setIsShowMarket}
+        isShowMarket={isShowMarket}
       />
       <FormMain
         tradeLoading={mm.isMMBetter ? false : !tradeLoaded}

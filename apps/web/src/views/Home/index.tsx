@@ -44,7 +44,7 @@ const GradientHeader = styled.p`
 `
 
 const FeatureText = styled.p`
-  font-size: 36px;
+  font-size: 30px;
   text-transform: uppercase;
   letter-spacing: 2px;
   padding-bottom: 15px;

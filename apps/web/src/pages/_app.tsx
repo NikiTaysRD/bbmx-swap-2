@@ -1,5 +1,5 @@
 import '@pancakeswap/ui/css/reset.css'
-import { ResetCSS, ScrollToTopButtonV2, ToastListener } from '@pancakeswap/uikit'
+import { ResetCSS, ToastListener } from '@pancakeswap/uikit'
 import BigNumber from 'bignumber.js'
 import GlobalCheckClaimStatus from 'components/GlobalCheckClaimStatus'
 import { NetworkModal } from 'components/NetworkModal'
@@ -14,7 +14,6 @@ import useThemeCookie from 'hooks/useThemeCookie'
 import useUserAgent from 'hooks/useUserAgent'
 import { NextPage } from 'next'
 import type { AppProps } from 'next/app'
-import dynamic from 'next/dynamic'
 import Head from 'next/head'
 import Script from 'next/script'
 import { Fragment } from 'react'
@@ -24,6 +23,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { persistor, useStore } from 'state'
 import { usePollBlockNumber } from 'state/block/hooks'
 import localFont from 'next/font/local'
+import useTheme from 'hooks/useTheme'
 import { Blocklist, Updaters } from '..'
 import { SEO } from '../../next-seo.config'
 import { SentryErrorBoundary } from '../components/ErrorBoundary'
@@ -47,7 +47,7 @@ export const baseDisplay = localFont({
   variable: '--font-base-display',
 })
 
-const EasterEgg = dynamic(() => import('components/EasterEgg'), { ssr: false })
+// const EasterEgg = dynamic(() => import('components/EasterEgg'), { ssr: false })
 
 // This config is required for number formatting
 BigNumber.config({
@@ -79,6 +79,9 @@ function MPGlobalHooks() {
 function MyApp(props: AppProps<{ initialReduxState: any }>) {
   const { pageProps, Component } = props
   const store = useStore(pageProps.initialReduxState)
+
+  const { setTheme } = useTheme()
+  setTheme('dark')
 
   return (
     <>
@@ -178,7 +181,7 @@ const App = ({ Component, pageProps, className }: AppPropsWithLayout) => {
   // Use the layout defined at the page level, if available
   const Layout = Component.Layout || Fragment
   const ShowMenu = Component.mp ? Fragment : Menu
-  const isShowScrollToTopButton = Component.isShowScrollToTopButton || true
+  // const isShowScrollToTopButton = Component.isShowScrollToTopButton || true
 
   return (
     <ProductionErrorBoundary>

@@ -263,9 +263,9 @@ function CurrencySearch({
               style={{
                 color: '#a0a3c4',
                 fontSize: '12px',
-                position: 'relative',
-                left: '30px',
-                top: '15%',
+                position: 'absolute',
+                left: '40px',
+                top: '98px',
                 transform: 'translateY(-50%)',
               }}
             />

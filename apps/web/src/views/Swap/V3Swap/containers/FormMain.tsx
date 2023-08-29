@@ -158,8 +158,7 @@ const SwapImg = styled.img`
   height: 24px;
   margin-right: 8px;
   position: relative;
-  top: -1px;
-  padding: 0 10px;
+  top: 5px;
   line-height: 44px;
   font-size: 16px;
   font-weight: 500;
@@ -169,8 +168,7 @@ const SwapImg = styled.img`
 
 const SwapSpan = styled.span`
   display: inline-block;
-  margin-right: 5px;
-  padding: 0 10px;
+
   line-height: 44px;
   font-size: 16px;
   font-weight: 500;
@@ -181,7 +179,7 @@ const SwapSpan = styled.span`
 const EnterField = styled.div`
   display: inline-block;
   margin-right: 5px;
-  padding: 0 10px;
+  /* padding: 0 10px; */
   line-height: 44px;
   font-size: 16px;
   font-weight: 500;
@@ -390,7 +388,7 @@ export function FormMain({
             </AppFieldHeading>
             <SwapField>
               <SwapItem>
-                <SwapImg />
+                <SwapImg src="https://pancakeswap.finance/images/tokens/0x2170Ed0880ac9A755fd29B2688956BD959F933F8.png" />
                 <SwapSpan>ETH</SwapSpan>
               </SwapItem>
               <EnterField>

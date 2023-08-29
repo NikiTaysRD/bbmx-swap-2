@@ -33,7 +33,7 @@ const StyledBalanceText = styled(Text)`
 `
 
 const FixedContentRow = styled.div`
-  padding: 4px 20px;
+  padding: 4px 24px;
   height: 56px;
   display: grid;
   grid-gap: 16px;
@@ -45,7 +45,7 @@ function Balance({ balance }: { balance: CurrencyAmount<Currency> }) {
 }
 
 const MenuItem = styled(RowBetween)<{ disabled: boolean; selected: boolean }>`
-  padding: 4px 20px;
+  padding: 4px 36px;
   height: 56px;
   display: grid;
   grid-template-columns: auto minmax(auto, 1fr) minmax(0, 72px);
@@ -56,6 +56,20 @@ const MenuItem = styled(RowBetween)<{ disabled: boolean; selected: boolean }>`
     background-color: ${({ theme, disabled }) => !disabled && theme.colors.background};
   }
   opacity: ${({ disabled, selected }) => (disabled || selected ? 0.5 : 1)};
+`
+
+const TokenBalance = styled.div``
+
+const TokenHeading = styled.h3`
+  font-size: 16px;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-family: 'Kanit, sans-serif';
+`
+
+const TokenSpan = styled.span`
+  color: #a0a3c4;
+  font-size: 13px;
 `
 
 function CurrencyRow({
@@ -94,9 +108,9 @@ function CurrencyRow({
       selected={otherSelected}
     >
       {mode === 'onramp-input' ? (
-        <FiatLogo currency={currency} size="24px" />
+        <FiatLogo currency={currency} size="44px" />
       ) : (
-        <CurrencyLogo currency={currency} size="24px" />
+        <CurrencyLogo currency={currency} size="44px" />
       )}
 
       <Column>
@@ -106,7 +120,12 @@ function CurrencyRow({
         </Text>
       </Column>
       <RowFixed style={{ justifySelf: 'flex-end' }}>
-        {balance ? <Balance balance={balance} /> : account && !onRampFlow ? <CircleLoader /> : <ArrowForwardIcon />}
+        {/* {balance ? <Balance balance={balance} /> : account && !onRampFlow ? <CircleLoader /> : <ArrowForwardIcon />} */}
+        {/* <Balance balance={balance} /> */}
+        <TokenBalance>
+          <TokenHeading>100</TokenHeading>
+          <TokenSpan>$100</TokenSpan>
+        </TokenBalance>
       </RowFixed>
     </MenuItem>
   )
@@ -180,36 +199,36 @@ export default function CurrencyList({
 
       const showImport = index > currencies.length
 
-      if (index === breakIndex || !data) {
-        return (
-          <FixedContentRow style={style}>
-            <LightGreyCard padding="8px 12px" borderRadius="8px">
-              <RowBetween>
-                <Text small>{t('Expanded results from inactive Token Lists')}</Text>
-                <QuestionHelper
-                  text={t(
-                    "Tokens from inactive lists. Import specific tokens below or click 'Manage' to activate more lists.",
-                  )}
-                  ml="4px"
-                />
-              </RowBetween>
-            </LightGreyCard>
-          </FixedContentRow>
-        )
-      }
+      // if (index === breakIndex || !data) {
+      //   return (
+      //     <FixedContentRow style={style}>
+      //       <LightGreyCard padding="8px 12px" borderRadius="8px">
+      //         <RowBetween>
+      //           <Text small>{t('Expanded results from inactive Token Lists')}</Text>
+      //           <QuestionHelper
+      //             text={t(
+      //               "Tokens from inactive lists. Import specific tokens below or click 'Manage' to activate more lists.",
+      //             )}
+      //             ml="4px"
+      //           />
+      //         </RowBetween>
+      //       </LightGreyCard>
+      //     </FixedContentRow>
+      //   )
+      // }
 
-      if (showImport && token) {
-        return (
-          <ImportRow
-            onCurrencySelect={handleSelect}
-            style={style}
-            token={token}
-            showImportView={showImportView}
-            setImportToken={setImportToken}
-            dim
-          />
-        )
-      }
+      // if (showImport && token) {
+      //   return (
+      //     <ImportRow
+      //       onCurrencySelect={handleSelect}
+      //       style={style}
+      //       token={token}
+      //       showImportView={showImportView}
+      //       setImportToken={setImportToken}
+      //       dim
+      //     />
+      //   )
+      // }
       return (
         <CurrencyRow
           style={style}

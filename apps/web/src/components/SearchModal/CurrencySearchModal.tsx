@@ -164,7 +164,9 @@ export default function CurrencySearchModal({
       }}
       ref={wrapperRef}
     >
-      <ModalHeader style={{ paddingRight: '20px', paddingLeft: '20px', border: '0px' }}>
+      <ModalHeader
+        style={{ paddingRight: '20px', paddingLeft: '20px', paddingTop: '20px', paddingBottom: '0', border: '0px' }}
+      >
         <ModalTitle style={{ justifyContent: 'space-between' }}>
           <ModalBackButton onBack={config[modalView].onBack} />
           <ModalHeading>{config[modalView].title}</ModalHeading>

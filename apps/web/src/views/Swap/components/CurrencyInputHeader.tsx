@@ -129,8 +129,12 @@ const CurrencyInputHeader: React.FC<React.PropsWithChildren<Props>> = memo(
         <Flex width="100%" justifyContent={setIsShowMarket ? 'space-between' : 'end'}>
           {setIsShowMarket ? (
             <AppMenuList>
-              <AppMenuItem onClick={() => setIsShowMarket(true)}>Market</AppMenuItem>
-              <AppMenuItem onClick={() => setIsShowMarket(false)}>Limit</AppMenuItem>
+              <AppMenuItem onClick={() => setIsShowMarket(true)}>
+                <Text style={{ fontWeight: '600', fontSize: '14px' }}>Market</Text>
+              </AppMenuItem>
+              <AppMenuItem onClick={() => setIsShowMarket(false)}>
+                <Text style={{ fontWeight: '600', fontSize: '14px' }}>Limit</Text>
+              </AppMenuItem>
             </AppMenuList>
           ) : null}
           <NotificationDot show={expertMode || isRoutingSettingChange}>

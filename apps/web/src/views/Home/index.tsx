@@ -312,9 +312,6 @@ const Home: React.FC<React.PropsWithChildren> = () => {
 
   const nextSlide = useCallback(() => swiperRef.slideNext(), [swiperRef])
 
-  // @ts-ignore
-  // @ts-ignore
-  // @ts-ignore
   return (
     <>
       {/* <style jsx global>

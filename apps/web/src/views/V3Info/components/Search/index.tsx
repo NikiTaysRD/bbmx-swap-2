@@ -61,7 +61,7 @@ const Menu = styled.div`
 
 const Blackout = styled.div`
   position: absolute;
-  //min-height: 100vh;
+  min-height: 100vh;
   width: 100vw;
   z-index: 104;
   background-color: black;

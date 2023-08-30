@@ -30,12 +30,27 @@ import base from "../../../../../apps/web/public/images/base.png";
 import AngleDown from "../../../../../apps/web/public/images/home/angle-down.svg";
 import { Button } from "../../components/Footer/styles";
 import { useMatchBreakpoints } from "../../contexts";
+import UserMenu from "../../../../../apps/web/src/components/Menu/UserMenu";
+import { useIsMounted } from "../../../../hooks";
+import { Button } from "../../components/Footer/styles";
 
 export const Header: React.FC = () => {
   const { isMobile } = useMatchBreakpoints();
   const { isDesktop } = useMatchBreakpoints();
   const [openDropdown, setOpenDropdown] = useState<string>("");
   const [openBurger, setOpenBurger] = useState<boolean>(false);
+
+  useEffect(() => {
+    if (openBurger) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [openBurger]);
 
   const toggleDropdown = (dropdownId: string) => {
     setOpenDropdown(openDropdown === dropdownId ? "" : dropdownId);
@@ -131,6 +146,8 @@ export const Header: React.FC = () => {
             <Button className={baseMono.className}>{isMobile ? "CONNECT" : "CONNECT WALLET"}</Button>
           </Flex>
 
+          {/* <UserMenu /> */}
+
           <Flex
             ref={buttonRef}
             onClick={() => toggleDropdown("burgerDropdown")}
@@ -140,11 +157,7 @@ export const Header: React.FC = () => {
               <FontAwesomeIcon icon={faEllipsis} />
             </Burger>
             {openDropdown === "burgerDropdown" && (
-              <Dropdown
-                style={{ left: "-110px", width: "180px" }}
-                open={openDropdown === "burgerDropdown"}
-                ref={dropdownRef}
-              >
+              <Dropdown style={{ left: "-110px" }} open={openDropdown === "burgerDropdown"} ref={dropdownRef}>
                 <DropdownLink>
                   <Link
                     href="https://twitter.com/bbmxexchange"
@@ -191,11 +204,21 @@ export const Header: React.FC = () => {
       {openBurger && (
         <BurgerNavList>
           <FlexGap className={baseMono.className} alignItems="left" flexDirection="column" style={{ fontSize: "18px" }}>
-            <BurgerItem>Home</BurgerItem>
-            <BurgerItem>Trade</BurgerItem>
-            <BurgerItem>Liquidity</BurgerItem>
-            <BurgerItem>Farming</BurgerItem>
-            <BurgerItem>Governance</BurgerItem>
+            <BurgerItem>
+              <Link href="/">Home</Link>
+            </BurgerItem>
+            <BurgerItem>
+              <Link href="/swap">Trade</Link>
+            </BurgerItem>
+            <BurgerItem>
+              <Link href="/liquidity">Liquidity</Link>
+            </BurgerItem>
+            <BurgerItem>
+              <Link href="/farming">Farming</Link>
+            </BurgerItem>
+            <BurgerItem>
+              <Link href="/governance">Governance</Link>
+            </BurgerItem>
           </FlexGap>
         </BurgerNavList>
       )}

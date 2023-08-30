@@ -124,13 +124,13 @@ export const Dropdown = styled.div<DropdownProps>`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 12px 0;
+  padding: 12px 12px;
   border-radius: 6px;
   background: rgba(27, 28, 48, 0.8);
   backdrop-filter: blur(10px);
   left: 0;
   top: 37px;
-  width: 120%;
+  width: auto;
 
   transform-origin: top;
   ${(props) =>
@@ -139,6 +139,10 @@ export const Dropdown = styled.div<DropdownProps>`
           animation: ${slideDown} 0.2s ease forwards;
         `
       : "none"}
+
+  ${({ theme }) => theme.mediaQueries.md} {
+    width: 120%;
+  }
 `;
 
 export const DropdownLink = styled.div`
@@ -172,9 +176,21 @@ export const BurgerMenu = styled.div`
 `;
 
 export const BurgerNavList = styled.div`
-  background-color: #1b1c30;
   height: 100vh;
-  padding: 30px 30px;
+  padding: 0 30px;
+  width: 100%;
+
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transform: translateY(-100%);
+  transition: transform 0.3s ease;
+
+  &.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0%);
+  }
 `;
 
 export const BurgerItem = styled.div`

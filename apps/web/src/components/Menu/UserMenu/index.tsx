@@ -114,10 +114,14 @@ const UserMenu = () => {
   return (
     <ConnectWalletButton scale="sm">
       <Box display={['none', , , 'block']}>
-        <Trans>Connect Wallet</Trans>
+        <p style={{ fontSize: '12px', lineHeight: '36px' }}>
+          <Trans>Connect Wallet</Trans>
+        </p>
       </Box>
       <Box display={['block', , , 'none']}>
-        <Trans>Connect</Trans>
+        <p style={{ fontSize: '12px', lineHeight: '36px' }}>
+          <Trans>Connect</Trans>
+        </p>
       </Box>
     </ConnectWalletButton>
   )

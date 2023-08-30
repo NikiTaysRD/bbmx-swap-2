@@ -15,9 +15,9 @@ export const ModalHeader = styled.div<{ background?: string }>`
   display: flex;
   padding: 12px 24px;
 
-  ${({ theme }) => theme.mediaQueries.md} {
+  /* ${({ theme }) => theme.mediaQueries.md} {
     background: ${({ background }) => background || "transparent"};
-  }
+  } */
 `;
 
 export const ModalTitle = styled(Flex)`
@@ -68,13 +68,14 @@ export const ModalContainer = styled(MotionBox)`
   box-shadow: 0px 20px 36px -8px rgba(14, 14, 44, 0.1), 0px 1px 1px rgba(0, 0, 0, 0.05);
   border: 1px solid ${({ theme }) => theme.colors.cardBorder};
   border-radius: 12px;
-  max-height: calc(var(--vh, 1vh) * 100);
+  max-height: calc(var(--vh, 1vh) * 90);
   z-index: ${({ theme }) => theme.zIndices.modal};
   position: absolute;
   bottom: 0;
   /* max-width: none !important; */
   min-height: 300px;
-  max-height: 500px;
+  max-height: fit-content;
+  //max-height: 500px;
 
   ${({ theme }) => theme.mediaQueries.md} {
     /* top: auto; */

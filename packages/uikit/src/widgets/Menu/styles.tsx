@@ -99,10 +99,10 @@ export const Base = styled.div`
   align-items: center;
 
   cursor: pointer;
-  padding: 10px 10px;
+  padding: 8px 10px;
 
   ${({ theme }) => theme.mediaQueries.md} {
-    padding: 6px 10px;
+    padding: 5px 10px;
   }
 `;
 
@@ -141,7 +141,7 @@ export const Dropdown = styled.div<DropdownProps>`
       : "none"}
 
   ${({ theme }) => theme.mediaQueries.md} {
-    width: 120%;
+    width: 180px;
   }
 `;
 
@@ -162,7 +162,7 @@ export const DropdownLink = styled.div`
 export const Burger = styled.div`
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 6px;
-  padding: 12px;
+  padding: 10px;
 `;
 
 export const Text = styled.p`
@@ -170,27 +170,19 @@ export const Text = styled.p`
 `;
 
 export const BurgerMenu = styled.div`
-  padding: 8px;
+  padding: 6px;
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 3px;
+
+  ${({ theme }) => theme.mediaQueries.md} {
+    padding: 8px;
+  }
 `;
 
 export const BurgerNavList = styled.div`
   height: 100vh;
   padding: 0 30px;
   width: 100%;
-
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
-  transform: translateY(-100%);
-  transition: transform 0.3s ease;
-
-  &.open {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0%);
-  }
 `;
 
 export const BurgerItem = styled.div`

@@ -6,8 +6,6 @@ import { faBars, faEllipsis, faEnvelope, faPaperPlane } from "@fortawesome/free-
 import Link from "next/link";
 import Flex from "../../components/Box/Flex";
 import favicon from "../../../../../apps/web/public/images/favicon.png";
-import arb from "../../../../../apps/web/public/images/arb.svg";
-import eth from "../../../../../apps/web/public/images/eth.png";
 import Logo from "./components/Logo";
 import FlexGap from "../../components/Layouts/FlexGap";
 import { baseDisplay, baseMono } from "../../../../../apps/web/src/pages/_app";
@@ -28,11 +26,8 @@ import {
 import bOnly from "../../../../../apps/web/public/favicon.ico";
 import base from "../../../../../apps/web/public/images/base.png";
 import AngleDown from "../../../../../apps/web/public/images/home/angle-down.svg";
-import { Button } from "../../components/Footer/styles";
 import { useMatchBreakpoints } from "../../contexts";
 import UserMenu from "../../../../../apps/web/src/components/Menu/UserMenu";
-import { useIsMounted } from "../../../../hooks";
-import { Button } from "../../components/Footer/styles";
 
 export const Header: React.FC = () => {
   const { isMobile } = useMatchBreakpoints();
@@ -127,13 +122,13 @@ export const Header: React.FC = () => {
               <Image src={AngleDown} alt="" width={8} height={8.8} />
             </Base>
             {openDropdown === "baseDropdown" && (
-              <Dropdown open={openDropdown === "baseDropdown"} ref={dropdownRef}>
+              <Dropdown open={openDropdown === "baseDropdown"} ref={dropdownRef} style={{ width: "170px" }}>
                 <DropdownLink>
-                  <Image src={eth} alt="" height={24} />
+                  <Image src={base} alt="" width={24} />
                   Ethereum
                 </DropdownLink>
                 <DropdownLink>
-                  <Image src={arb} alt="" width={24} height={24} />
+                  <Image src={base} alt="" width={24} />
                   Goerli
                 </DropdownLink>
               </Dropdown>
@@ -142,11 +137,7 @@ export const Header: React.FC = () => {
 
           {/* <NetworkSwitcher /> */}
 
-          <Flex>
-            <Button className={baseMono.className}>{isMobile ? "CONNECT" : "CONNECT WALLET"}</Button>
-          </Flex>
-
-          {/* <UserMenu /> */}
+          <UserMenu />
 
           <Flex
             ref={buttonRef}

@@ -246,7 +246,7 @@ function RoutingSettings() {
           <PreTitle mb="24px">{t('Liquidity source')}</PreTitle>
           <Flex justifyContent="space-between" alignItems="center" mb="24px">
             <Flex alignItems="center">
-              <Text>PancakeSwap V3</Text>
+              <Text>BBMXSwap V3</Text>
               <QuestionHelper
                 text={
                   <Flex>
@@ -270,7 +270,7 @@ function RoutingSettings() {
           </Flex>
           <Flex justifyContent="space-between" alignItems="center" mb="24px">
             <Flex alignItems="center">
-              <Text>PancakeSwap V2</Text>
+              <Text>BBMXSwap V2</Text>
               <QuestionHelper
                 text={
                   <Flex flexDirection="column">
@@ -295,34 +295,7 @@ function RoutingSettings() {
           </Flex>
           <Flex justifyContent="space-between" alignItems="center" mb="24px">
             <Flex alignItems="center">
-              <Text>PancakeSwap {t('StableSwap')}</Text>
-              <QuestionHelper
-                text={
-                  <Flex flexDirection="column">
-                    <Text mr="5px">
-                      {t(
-                        'StableSwap provides higher efficiency for stable or pegged assets and lower fees for trades.',
-                      )}
-                    </Text>
-                  </Flex>
-                }
-                placement="top"
-                ml="4px"
-              />
-            </Flex>
-            <PancakeToggle
-              disabled={isStableSwapByDefault && onlyOneAMMSourceEnabled}
-              id="stable-swap-toggle"
-              scale="md"
-              checked={isStableSwapByDefault}
-              onChange={() => {
-                setIsStableSwapByDefault((s) => !s)
-              }}
-            />
-          </Flex>
-          <Flex justifyContent="space-between" alignItems="center" mb="24px">
-            <Flex alignItems="center">
-              <Text>{`PancakeSwap ${t('MM Linked Pool')}`}</Text>
+              <Text>{`BBMXSwap ${t('MM Linked Pool')}`}</Text>
               <QuestionHelper
                 text={
                   <Flex flexDirection="column">

@@ -8,7 +8,7 @@ import isEmpty from 'lodash/isEmpty'
 import TransactionRow from './TransactionRow'
 import { chains } from '../../../utils/wagmi'
 
-const TransactionsContainer = styled(Box)`
+const TransactionsContainer = styled((props) => <Box {...props} />)`
   max-height: 300px;
   overflow-y: auto;
 `

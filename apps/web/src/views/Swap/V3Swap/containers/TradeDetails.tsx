@@ -119,9 +119,10 @@ export const TradeDetails = memo(function TradeDetails({ loaded, trade }: Props)
   const slippageAdjustedAmounts = useSlippageAdjustedAmounts(trade)
   const isWrapping = useIsWrapping()
   const { priceImpactWithoutFee, lpFeeAmount } = useMemo(() => computeTradePriceBreakdown(trade), [trade])
-  const hasStablePool = useMemo(() => trade?.routes.some((route) => route.pools.some(SmartRouter.isStablePool)), [
-    trade,
-  ])
+  const hasStablePool = useMemo(
+    () => trade?.routes.some((route) => route.pools.some(SmartRouter.isStablePool)),
+    [trade],
+  )
 
   if (isWrapping || !loaded || !trade) {
     return null

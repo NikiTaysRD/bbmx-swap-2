@@ -53,7 +53,7 @@ const Checkbox = styled.input.attrs({ type: "checkbox" })<CheckboxProps>`
 
   &:checked {
     border: 0;
-    background-color: ${({ theme }) => theme.colors.success};
+    background-color: #4e09f8;
     &:after {
       border-color: white;
     }

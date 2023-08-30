@@ -38,7 +38,7 @@ export const Header: React.FC = () => {
   const toggleDropdown = (dropdownId: string) => {
     setOpenDropdown(openDropdown === dropdownId ? "" : dropdownId);
   };
-  console.log("isDesktop", isDesktop);
+
   return (
     <>
       <StyledNav>
@@ -47,11 +47,21 @@ export const Header: React.FC = () => {
 
           {isDesktop && (
             <FlexGap gap="16px" className={baseDisplay.className} alignItems="center" ml="25px">
-              <Item>Home</Item>
-              <Item>Trade</Item>
-              <Item>Liquidity</Item>
-              <Item>Farming</Item>
-              <Item>Governance</Item>
+              <Item>
+                <Link href="/">Home</Link>
+              </Item>
+              <Item>
+                <Link href="/swap">Trade</Link>
+              </Item>
+              <Item>
+                <Link href="/liquidity">Liquidity</Link>
+              </Item>
+              <Item>
+                <Link href="/farming">Farming</Link>
+              </Item>
+              <Item>
+                <Link href="/garming">Governance</Link>
+              </Item>
             </FlexGap>
           )}
         </Flex>

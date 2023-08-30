@@ -3,14 +3,30 @@ import { AtomBox } from "@pancakeswap/ui/components/AtomBox";
 import throttle from "lodash/throttle";
 import React, { useEffect, useRef, useState, useMemo } from "react";
 import { useRouter } from "next/router";
-import { MENU_HEIGHT, TOP_BANNER_HEIGHT, TOP_BANNER_HEIGHT_MOBILE } from "./config";
+import { MENU_HEIGHT, MOBILE_MENU_HEIGHT, TOP_BANNER_HEIGHT, TOP_BANNER_HEIGHT_MOBILE } from "./config";
 import { MenuContext } from "./context";
 import { NavProps } from "./types";
-import { BodyWrapper, FixedContainer, Inner, TopBannerContainer, Wrapper, Text } from "./styles";
+import { BodyWrapper, FixedContainer, Inner, TopBannerContainer, Wrapper } from "./styles";
 import { Header } from "./Header";
 import { useMatchBreakpoints } from "../../contexts";
+import Footer from "../../components/Footer";
 
-const Menu: React.FC<React.PropsWithChildren<NavProps>> = ({ linkComponent = "a", banner, subLinks, children }) => {
+const Menu: React.FC<React.PropsWithChildren<NavProps>> = ({
+  linkComponent = "a",
+  banner,
+  isDark,
+  toggleTheme,
+  currentLang,
+  setLang,
+  cakePriceUsd,
+  subLinks,
+  footerLinks,
+  langs,
+  buyCakeLabel,
+  buyCakeLink,
+  children,
+  chainId,
+}) => {
   const isMounted = useIsMounted();
   const { isMobile } = useMatchBreakpoints();
   const [showMenu, setShowMenu] = useState(true);
@@ -80,6 +96,19 @@ const Menu: React.FC<React.PropsWithChildren<NavProps>> = ({ linkComponent = "a"
           </Wrapper>
         )}
       </AtomBox>
+      <Footer
+        chainId={chainId}
+        items={footerLinks}
+        isDark={isDark}
+        toggleTheme={toggleTheme}
+        langs={langs}
+        setLang={setLang}
+        currentLang={currentLang}
+        cakePriceUsd={cakePriceUsd}
+        buyCakeLabel={buyCakeLabel}
+        buyCakeLink={buyCakeLink}
+        mb={[`${MOBILE_MENU_HEIGHT}px`, null, "0px"]}
+      />
     </MenuContext.Provider>
   );
 };

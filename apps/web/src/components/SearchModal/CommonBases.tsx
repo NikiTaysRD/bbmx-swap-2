@@ -72,7 +72,7 @@ export default function CommonBases({
   const pinTokenDescText = commonBasesType === CommonBasesType.SWAP_LIMITORDER ? t('Common tokens') : t('Common bases')
 
   return (
-    <AutoColumn gap="md">
+    <AutoColumn gap="md" style={{ borderBottom: '1px solid rgba(255,255,255,0.1)', paddingBottom: '10px' }}>
       <RowWrapper>
         <ButtonWrapper>
           <BaseWrapper

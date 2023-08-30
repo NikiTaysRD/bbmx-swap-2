@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { faTwitter } from "@fortawesome/free-brands-svg-icons";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -6,6 +6,8 @@ import { faBars, faEllipsis, faEnvelope, faPaperPlane } from "@fortawesome/free-
 import Link from "next/link";
 import Flex from "../../components/Box/Flex";
 import favicon from "../../../../../apps/web/public/images/favicon.png";
+import arb from "../../../../../apps/web/public/images/arb.svg";
+import eth from "../../../../../apps/web/public/images/eth.png";
 import Logo from "./components/Logo";
 import FlexGap from "../../components/Layouts/FlexGap";
 import { baseDisplay, baseMono } from "../../../../../apps/web/src/pages/_app";
@@ -41,11 +43,33 @@ export const Header: React.FC = () => {
     setOpenDropdown(openDropdown === dropdownId ? "" : dropdownId);
   };
 
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLDivElement>(null);
+  const baseButtonRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current?.contains(event.target as Node) === false &&
+        buttonRef.current?.contains(event.target as Node) === false &&
+        baseButtonRef.current?.contains(event.target as Node) === false
+      ) {
+        setOpenDropdown("");
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <>
       <StyledNav>
         <Flex>
-          <Flex width="84px">{isMobile ? <Image alt="" src={favicon} width={24} /> : <Logo href="/" />}</Flex>
+          <Flex width="106px">{isMobile ? <Image alt="" src={favicon} width={24} /> : <Logo href="/" />}</Flex>
 
           {isDesktop && (
             <FlexGap gap="16px" className={baseDisplay.className} alignItems="center" ml="25px">
@@ -62,7 +86,7 @@ export const Header: React.FC = () => {
                 <Link href="/farming">Farming</Link>
               </Item>
               <Item>
-                <Link href="/garming">Governance</Link>
+                <Link href="/governance">Governance</Link>
               </Item>
             </FlexGap>
           )}
@@ -84,25 +108,47 @@ export const Header: React.FC = () => {
           )}
 
           <BaseWrap>
-            <Base onClick={() => toggleDropdown("baseDropdown")}>
+            <Base onClick={() => toggleDropdown("baseDropdown")} ref={baseButtonRef}>
               <Image src={base.src} alt="" width={18} height={18} />
               {!isMobile && <Base>Base</Base>}
               <Image src={AngleDown} alt="" width={8} height={8.8} />
             </Base>
-            {/* {openDropdown === "baseDropdown" && ( */}
-            {/*   <Dropdown open={openDropdown === "baseDropdown"}> */}
-            {/*     <DropdownLink>Linea</DropdownLink> */}
-            {/*     <DropdownLink>Polygon</DropdownLink> */}
-            {/*   </Dropdown> */}
-            {/* )} */}
+            {openDropdown === "baseDropdown" && (
+              <Dropdown open={openDropdown === "baseDropdown"} ref={dropdownRef}>
+                <DropdownLink>
+                  <Image src={eth} alt="" height={24} />
+                  Ethereum
+                </DropdownLink>
+                <DropdownLink>
+                  <Image src={arb} alt="" width={24} height={24} />
+                  Goerli
+                </DropdownLink>
+              </Dropdown>
+            )}
           </BaseWrap>
 
           <Flex onClick={() => toggleDropdown("burgerDropdown")} style={{ position: "relative", cursor: "pointer" }}>
+
+          {/* <NetworkSwitcher /> */}
+
+          <Flex>
+            <Button className={baseMono.className}>{isMobile ? "CONNECT" : "CONNECT WALLET"}</Button>
+          </Flex>
+
+          <Flex
+            ref={buttonRef}
+            onClick={() => toggleDropdown("burgerDropdown")}
+            style={{ position: "relative", cursor: "pointer" }}
+          >
             <Burger style={{ fontWeight: "700" }}>
               <FontAwesomeIcon icon={faEllipsis} />
             </Burger>
             {openDropdown === "burgerDropdown" && (
-              <Dropdown style={{ left: "-110px", width: "180px" }} open={openDropdown === "burgerDropdown"}>
+              <Dropdown
+                style={{ left: "-110px", width: "180px" }}
+                open={openDropdown === "burgerDropdown"}
+                ref={dropdownRef}
+              >
                 <DropdownLink>
                   <Link
                     href="https://twitter.com/bbmxexchange"

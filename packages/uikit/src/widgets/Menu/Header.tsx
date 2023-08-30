@@ -30,7 +30,6 @@ import base from "../../../../../apps/web/public/images/base.png";
 import AngleDown from "../../../../../apps/web/public/images/home/angle-down.svg";
 import { Button } from "../../components/Footer/styles";
 import { useMatchBreakpoints } from "../../contexts";
-// import { NetworkSwitcher } from "../../../../../apps/web/src/components/NetworkSwitcher";
 
 export const Header: React.FC = () => {
   const { isMobile } = useMatchBreakpoints();

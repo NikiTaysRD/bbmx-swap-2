@@ -5,7 +5,6 @@ import {
   InjectedModalProps,
   Modal,
   ExpertModal,
-  PancakeToggle,
   QuestionHelper,
   Text,
   ThemeSwitcher,
@@ -33,7 +32,6 @@ import {
   useUserExpertModeAcknowledgement,
 } from '@pancakeswap/utils/user'
 import { useSubgraphHealthIndicatorManager, useUserUsernameVisibility } from 'state/user/hooks'
-import { useUserTokenRisk } from 'state/user/hooks/useUserTokenRisk'
 import {
   useOnlyOneAMMSourceEnabled,
   useUserSplitRouteEnable,
@@ -45,8 +43,7 @@ import {
 import { AtomBox } from '@pancakeswap/ui'
 import { useMMLinkedPoolByDefault } from 'state/user/mmLinkedPool'
 import styled from 'styled-components'
-import { TOKEN_RISK } from 'components/AccessRisk'
-import AccessRiskTooltips from 'components/AccessRisk/AccessRiskTooltips'
+import { baseDisplay } from 'pages/_app'
 import GasSettings from './GasSettings'
 import TransactionSettings from './TransactionSettings'
 import { SettingsMode } from './types'
@@ -234,6 +231,7 @@ function RoutingSettings() {
           </Button>
         )
       }
+      className={baseDisplay.className}
     >
       <AutoColumn
         width={{
@@ -243,7 +241,9 @@ function RoutingSettings() {
         gap="16px"
       >
         <AtomBox>
-          <PreTitle mb="24px">{t('Liquidity source')}</PreTitle>
+          <PreTitle mb="24px" color="white" textTransform="capitalize">
+            {t('Liquidity source')}
+          </PreTitle>
           <Flex justifyContent="space-between" alignItems="center" mb="24px">
             <Flex alignItems="center">
               <Text>BBMXSwap V3</Text>
@@ -327,7 +327,9 @@ function RoutingSettings() {
           )}
         </AtomBox>
         <AtomBox>
-          <PreTitle mb="24px">{t('Routing preference')}</PreTitle>
+          <PreTitle mb="24px" color="white" textTransform="capitalize">
+            {t('Routing preference')}
+          </PreTitle>
           <AutoRow alignItems="center" mb="24px">
             <RowFixed as="label" gap="16px">
               <Checkbox

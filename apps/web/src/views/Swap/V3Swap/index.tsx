@@ -70,7 +70,7 @@ export function V3SwapForm() {
         }
       />
 
-      <BuyCryptoLink currency={insufficientFundCurrency} />
+      {/* <BuyCryptoLink currency={insufficientFundCurrency} /> */}
 
       {(shouldShowMMLiquidityError(mm?.mmOrderBookTrade?.inputError) || mm?.mmRFQTrade?.error) && !trade && (
         <Box mt="5px">

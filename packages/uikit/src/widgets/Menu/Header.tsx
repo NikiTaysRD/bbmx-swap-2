@@ -73,8 +73,6 @@ export const Header: React.FC = () => {
     };
   }, []);
 
-  console.log("hehe");
-
   return (
     <>
       <StyledNav>

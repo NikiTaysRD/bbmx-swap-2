@@ -31,6 +31,7 @@ import AngleDown from "../../../../../apps/web/public/images/home/angle-down.svg
 import { useMatchBreakpoints } from "../../contexts";
 import UserMenu from "../../../../../apps/web/src/components/Menu/UserMenu";
 import { useIsMounted } from "../../../../hooks";
+import { Button } from "../../components";
 
 export const Header: React.FC = () => {
   const { isMobile } = useMatchBreakpoints();
@@ -126,8 +127,6 @@ export const Header: React.FC = () => {
               </Dropdown>
             )}
           </BaseWrap>
-
-          <Flex onClick={() => toggleDropdown("burgerDropdown")} style={{ position: "relative", cursor: "pointer" }}>
 
           {/* <NetworkSwitcher /> */}
 

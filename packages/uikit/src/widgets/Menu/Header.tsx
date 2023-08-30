@@ -28,14 +28,16 @@ import {
 import bOnly from "../../../../../apps/web/public/favicon.ico";
 import base from "../../../../../apps/web/public/images/base.png";
 import AngleDown from "../../../../../apps/web/public/images/home/angle-down.svg";
-import { Button } from "../../components/Footer/styles";
 import { useMatchBreakpoints } from "../../contexts";
+import UserMenu from "../../../../../apps/web/src/components/Menu/UserMenu";
+import { useIsMounted } from "../../../../hooks";
 
 export const Header: React.FC = () => {
   const { isMobile } = useMatchBreakpoints();
   const { isDesktop } = useMatchBreakpoints();
   const [openDropdown, setOpenDropdown] = useState<string>("");
   const [openBurger, setOpenBurger] = useState<boolean>(false);
+  const isMounted = useIsMounted();
 
   const toggleDropdown = (dropdownId: string) => {
     setOpenDropdown(openDropdown === dropdownId ? "" : dropdownId);
@@ -124,6 +126,8 @@ export const Header: React.FC = () => {
               </Dropdown>
             )}
           </BaseWrap>
+
+          <Flex onClick={() => toggleDropdown("burgerDropdown")} style={{ position: "relative", cursor: "pointer" }}>
 
           {/* <NetworkSwitcher /> */}
 

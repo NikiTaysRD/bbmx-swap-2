@@ -53,9 +53,9 @@ export const SwapModalFooter = memo(function SwapModalFooter({
     <>
       <SwapModalFooterContainer>
         <RowBetween align="center">
-          <Text fontSize="14px">{t('Price')}</Text>
+          <Text fontSize="13px">{t('Price')}</Text>
           <Text
-            fontSize="14px"
+            fontSize="13px"
             style={{
               justifyContent: 'center',
               alignItems: 'center',
@@ -66,74 +66,39 @@ export const SwapModalFooter = memo(function SwapModalFooter({
           >
             {formatExecutionPrice(executionPrice, inputAmount, outputAmount, showInverted)}
             <StyledBalanceMaxMini onClick={() => setShowInverted(!showInverted)}>
-              <AutoRenewIcon width="14px" />
+              <AutoRenewIcon width="12px" />
             </StyledBalanceMaxMini>
           </Text>
         </RowBetween>
 
         <RowBetween>
           <RowFixed>
-            <Text fontSize="14px">
+            <Text fontSize="13px">
               {tradeType === TradeType.EXACT_INPUT ? t('Minimum received') : t('Maximum sold')}
             </Text>
-            <QuestionHelper
-              text={t(
-                'Your transaction will revert if there is a large, unfavorable price movement before it is confirmed.',
-              )}
-              ml="4px"
-              placement="top"
-            />
           </RowFixed>
           <RowFixed>
-            <Text fontSize="14px">
+            <Text fontSize="13px">
               {tradeType === TradeType.EXACT_INPUT
                 ? formatAmount(slippageAdjustedAmounts[Field.OUTPUT], 4) ?? '-'
                 : formatAmount(slippageAdjustedAmounts[Field.INPUT], 4) ?? '-'}
             </Text>
-            <Text fontSize="14px" marginLeft="4px">
+            <Text fontSize="13px" marginLeft="4px">
               {tradeType === TradeType.EXACT_INPUT ? outputAmount.currency.symbol : inputAmount.currency.symbol}
             </Text>
           </RowFixed>
         </RowBetween>
         <RowBetween>
           <RowFixed>
-            <Text fontSize="14px">{t('Price Impact')}</Text>
-            <QuestionHelper
-              text={t('The difference between the market price and your price due to trade size.')}
-              ml="4px"
-              placement="top"
-            />
+            <Text fontSize="13px">{t('Price Impact')}</Text>
           </RowFixed>
           <FormattedPriceImpact priceImpact={priceImpactWithoutFee} />
         </RowBetween>
         <RowBetween>
           <RowFixed>
-            <Text fontSize="14px">{t('Trading Fee')}</Text>
-            <QuestionHelper
-              text={
-                <>
-                  <Text>
-                    {t(
-                      'Fee ranging from 0.1% to 0.01% depending on the pool fee tier. You can check the fee tier by clicking the magnifier icon under the “Route” section.',
-                    )}
-                  </Text>
-                  <Text mt="12px">
-                    <Link
-                      style={{ display: 'inline' }}
-                      ml="4px"
-                      external
-                      href="https://docs.pancakeswap.finance/products/pancakeswap-exchange/faq#what-will-be-the-trading-fee-breakdown-for-v3-exchange"
-                    >
-                      {t('Fee Breakdown and Tokenomics')}
-                    </Link>
-                  </Text>
-                </>
-              }
-              ml="4px"
-              placement="top"
-            />
+            <Text fontSize="13px">{t('Trading Fee')}</Text>
           </RowFixed>
-          <Text fontSize="14px" textAlign="right">
+          <Text fontSize="13px" textAlign="right">
             {realizedLPFee ? `${formatAmount(realizedLPFee, 6)} ${inputAmount.currency.symbol}` : '-'}
           </Text>
         </RowBetween>

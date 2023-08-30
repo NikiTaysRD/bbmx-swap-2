@@ -97,8 +97,6 @@ export const Header: React.FC = () => {
             {/* )} */}
           </BaseWrap>
 
-          {isMounted && <UserMenu />}
-
           <Flex onClick={() => toggleDropdown("burgerDropdown")} style={{ position: "relative", cursor: "pointer" }}>
             <Burger style={{ fontWeight: "700" }}>
               <FontAwesomeIcon icon={faEllipsis} />

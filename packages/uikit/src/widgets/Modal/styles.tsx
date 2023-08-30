@@ -15,9 +15,9 @@ export const ModalHeader = styled.div<{ background?: string }>`
   display: flex;
   padding: 12px 24px;
 
-  ${({ theme }) => theme.mediaQueries.md} {
+  /* ${({ theme }) => theme.mediaQueries.md} {
     background: ${({ background }) => background || "transparent"};
-  }
+  } */
 `;
 
 export const ModalTitle = styled(Flex)`
@@ -74,7 +74,7 @@ export const ModalContainer = styled(MotionBox)`
   bottom: 0;
   /* max-width: none !important; */
   min-height: 300px;
-  max-height: 500px;
+  max-height: fit-content;
 
   ${({ theme }) => theme.mediaQueries.md} {
     /* top: auto; */

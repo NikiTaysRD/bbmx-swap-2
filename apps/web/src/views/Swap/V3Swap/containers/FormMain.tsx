@@ -32,76 +32,8 @@ interface Props {
   pricingAndSlippage?: ReactNode
   swapCommitButton?: ReactNode
   isShowMarket?: boolean
+  tradeDetailsComponent?: ReactNode
 }
-
-const RiskWrapper = styled.div`
-  margin-top: 20px;
-  margin-top: 5px;
-  padding: 12px;
-  border-radius: 15px;
-  border: 1px solid transparent;
-  background: #101124;
-`
-
-const GasOverview = styled.div`
-  font-size: 12px;
-  cursor: pointer;
-  align-items: center !important;
-  justify-content: space-between !important;
-  display: flex !important;
-`
-
-const Estimate = styled.div`
-  font-size: 12px;
-  cursor: pointer;
-`
-
-const Gas = styled.div`
-  color: #a0a3c4;
-`
-
-const ImpactTable = styled.div`
-  padding-top: 10px;
-`
-
-const Table = styled.table`
-  width: 100%;
-  font-size: 12px;
-  caption-side: bottom;
-  border-collapse: collapse;
-`
-
-const TBody = styled.tbody`
-  border-color: inherit;
-  border-style: solid;
-  border-width: 0;
-`
-
-const TR = styled.tr`
-  width: 100%;
-  font-size: 12px;
-  transition: 0.3s all;
-  -webkit-transition: 0.3s all;
-  -moz-transition: 0.3s all;
-`
-
-const TH = styled.th`
-  font-weight: 600;
-  font-size: 11px;
-  line-height: 18px;
-  padding: 5px 0;
-  text-align: left;
-  letter-spacing: normal;
-  transition: 0.3s all;
-  -webkit-transition: 0.3s all;
-  -moz-transition: 0.3s all;
-`
-
-const TD = styled.td`
-  font-size: 11px;
-  text-align: right;
-  letter-spacing: normal;
-`
 
 // app field buy
 const AppFieldBuy = styled.div`
@@ -213,14 +145,13 @@ const Highlights = styled.div`
 
 export function FormMain({
   pricingAndSlippage,
+  tradeDetailsComponent,
   isShowMarket,
   inputAmount,
   outputAmount,
   tradeLoading,
   swapCommitButton,
 }: Props) {
-  const [isOpenedRiskTable, setIsOpenedRiskTable] = useState(false)
-
   const { account } = useWeb3React()
   const { t } = useTranslation()
   const warningSwapHandler = useWarningImport()
@@ -350,36 +281,7 @@ export function FormMain({
         {/* {pricingAndSlippage} */}
 
         {isShowMarket ? (
-          <RiskWrapper>
-            <GasOverview onClick={() => setIsOpenedRiskTable((isOpened) => !isOpened)}>
-              <Estimate>
-                1 ETH = 1832.52 USDT <span>(~$1827.23)</span>
-              </Estimate>
-              <Gas>~$3.34</Gas>
-            </GasOverview>
-            <ImpactTable style={{ display: isOpenedRiskTable ? '' : 'none' }}>
-              <Table>
-                <TBody>
-                  <TR>
-                    <TH>Network fees:</TH>
-                    <TD>$3.30</TD>
-                  </TR>
-                  <TR>
-                    <TH>Price Impact:</TH>
-                    <TD>-0.051%</TD>
-                  </TR>
-                  <TR>
-                    <TH>Minimum output:</TH>
-                    <TD>329.471 USDT</TD>
-                  </TR>
-                  <TR>
-                    <TH>Expected output:</TH>
-                    <TD>333.47 USDT</TD>
-                  </TR>
-                </TBody>
-              </Table>
-            </ImpactTable>
-          </RiskWrapper>
+          tradeDetailsComponent
         ) : (
           <AppFieldBuy>
             <AppFieldHeading>

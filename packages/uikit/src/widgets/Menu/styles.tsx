@@ -59,7 +59,7 @@ export const Inner = styled.div`
 `;
 
 export const Item = styled.div`
-  font-size: 18px;
+  font-size: 12px;
   letter-spacing: 1px;
   cursor: pointer;
   transition: 0.3s all;
@@ -68,9 +68,9 @@ export const Item = styled.div`
     color: #4e09f8;
   }
 
-  ${({ theme }) => theme.mediaQueries.md} {
-    font-size: 10px;
-  }
+  // ${({ theme }) => theme.mediaQueries.md} {
+  //   font-size: 10px;
+  // }
 `;
 
 export const Price = styled.span`
@@ -133,9 +133,13 @@ export const Dropdown = styled.div<DropdownProps>`
 `;
 
 export const DropdownLink = styled.div`
+  display: flex;
+  gap: 8px;
+  align-items: center;
   padding: 15px;
   font-size: 15px;
   transition: 0.3s all;
+  cursor: pointer;
 
   &:hover {
     background-color: rgba(78, 9, 248, 0.05);

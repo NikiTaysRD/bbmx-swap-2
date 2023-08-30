@@ -79,12 +79,12 @@ const Menu: React.FC<React.PropsWithChildren<NavProps>> = ({
       >
         {pathname !== "/" ? (
           <Wrapper>
-            <FixedContainer showMenu={showMenu} height={totalTopMenuHeight}>
-              {banner && isMounted && <TopBannerContainer height={topBannerHeight}>{banner}</TopBannerContainer>}
-              <Header />
-            </FixedContainer>
+            {/* <FixedContainer showMenu={showMenu} height={totalTopMenuHeight}> */}
+            {/*   {banner && isMounted && <TopBannerContainer height={topBannerHeight}>{banner}</TopBannerContainer>} */}
+            {/*   /!* <Header /> *!/ */}
+            {/* </FixedContainer> */}
 
-            <BodyWrapper mt={`${totalTopMenuHeight + 1}px`}>
+            <BodyWrapper>
               <Inner>{children}</Inner>
             </BodyWrapper>
           </Wrapper>

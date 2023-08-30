@@ -14,13 +14,22 @@ export const StyledNav = styled.nav`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: ${MENU_HEIGHT}px;
-  background-color: #101124;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.cardBorder};
+  //height: ${MENU_HEIGHT}px;
+  background-color: transparent;
+  //border-bottom: 1px solid ${({ theme }) => theme.colors.cardBorder};
   transform: translate3d(0, 0, 0);
+  margin-bottom: 80px;
+  max-width: 1200px;
+  z-index: 2;
 
   padding-left: 15px;
   padding-right: 15px;
+  padding-top: 15px;
+
+  ${({ theme }) => theme.mediaQueries.lg} {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
 
   ${({ theme }) => theme.mediaQueries.md} {
     padding-left: 60px;
@@ -59,7 +68,7 @@ export const Inner = styled.div`
 `;
 
 export const Item = styled.div`
-  font-size: 18px;
+  font-size: 12px;
   letter-spacing: 1px;
   cursor: pointer;
   transition: 0.3s all;
@@ -68,9 +77,9 @@ export const Item = styled.div`
     color: #4e09f8;
   }
 
-  ${({ theme }) => theme.mediaQueries.md} {
-    font-size: 10px;
-  }
+  // ${({ theme }) => theme.mediaQueries.md} {
+  //   font-size: 10px;
+  // }
 `;
 
 export const Price = styled.span`
@@ -133,9 +142,13 @@ export const Dropdown = styled.div<DropdownProps>`
 `;
 
 export const DropdownLink = styled.div`
+  display: flex;
+  gap: 8px;
+  align-items: center;
   padding: 15px;
   font-size: 15px;
   transition: 0.3s all;
+  cursor: pointer;
 
   &:hover {
     background-color: rgba(78, 9, 248, 0.05);

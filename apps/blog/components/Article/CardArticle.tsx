@@ -20,9 +20,9 @@ const StyledArticle = styled(Flex)`
   border-bottom: ${({ theme }) => `2px solid ${theme.colors.cardBorder}`};
 
   ${({ theme }) => theme.mediaQueries.xxl} {
-    padding: 32px 0;
-    margin: 0 32px;
-    border-bottom: ${({ theme }) => `1px solid ${theme.colors.cardBorder}`};
+    // padding: 32px 0;
+    // margin: 0 32px;
+    // border-bottom: ${({ theme }) => `1px solid ${theme.colors.cardBorder}`};
   }
 `
 

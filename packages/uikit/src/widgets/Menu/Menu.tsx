@@ -6,10 +6,9 @@ import { useRouter } from "next/router";
 import { MENU_HEIGHT, MOBILE_MENU_HEIGHT, TOP_BANNER_HEIGHT, TOP_BANNER_HEIGHT_MOBILE } from "./config";
 import { MenuContext } from "./context";
 import { NavProps } from "./types";
-import { BodyWrapper, FixedContainer, Inner, TopBannerContainer, Wrapper } from "./styles";
-import { Header } from "./Header";
 import { useMatchBreakpoints } from "../../contexts";
 import Footer from "../../components/Footer";
+import { BodyWrapper, Inner, Wrapper } from "./styles";
 
 const Menu: React.FC<React.PropsWithChildren<NavProps>> = ({
   linkComponent = "a",

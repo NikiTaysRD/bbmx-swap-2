@@ -5,7 +5,6 @@ import {
   InjectedModalProps,
   Modal,
   ExpertModal,
-  PancakeToggle,
   QuestionHelper,
   Text,
   ThemeSwitcher,
@@ -33,7 +32,6 @@ import {
   useUserExpertModeAcknowledgement,
 } from '@pancakeswap/utils/user'
 import { useSubgraphHealthIndicatorManager, useUserUsernameVisibility } from 'state/user/hooks'
-import { useUserTokenRisk } from 'state/user/hooks/useUserTokenRisk'
 import {
   useOnlyOneAMMSourceEnabled,
   useUserSplitRouteEnable,
@@ -45,8 +43,7 @@ import {
 import { AtomBox } from '@pancakeswap/ui'
 import { useMMLinkedPoolByDefault } from 'state/user/mmLinkedPool'
 import styled from 'styled-components'
-import { TOKEN_RISK } from 'components/AccessRisk'
-import AccessRiskTooltips from 'components/AccessRisk/AccessRiskTooltips'
+import { baseDisplay } from 'pages/_app'
 import GasSettings from './GasSettings'
 import TransactionSettings from './TransactionSettings'
 import { SettingsMode } from './types'
@@ -234,6 +231,7 @@ function RoutingSettings() {
           </Button>
         )
       }
+      className={baseDisplay.className}
     >
       <AutoColumn
         width={{
@@ -243,10 +241,12 @@ function RoutingSettings() {
         gap="16px"
       >
         <AtomBox>
-          <PreTitle mb="24px">{t('Liquidity source')}</PreTitle>
+          <PreTitle mb="24px" color="white" textTransform="capitalize">
+            {t('Liquidity source')}
+          </PreTitle>
           <Flex justifyContent="space-between" alignItems="center" mb="24px">
             <Flex alignItems="center">
-              <Text>PancakeSwap V3</Text>
+              <Text>BBMXSwap V3</Text>
               <QuestionHelper
                 text={
                   <Flex>
@@ -270,7 +270,7 @@ function RoutingSettings() {
           </Flex>
           <Flex justifyContent="space-between" alignItems="center" mb="24px">
             <Flex alignItems="center">
-              <Text>PancakeSwap V2</Text>
+              <Text>BBMXSwap V2</Text>
               <QuestionHelper
                 text={
                   <Flex flexDirection="column">
@@ -295,34 +295,7 @@ function RoutingSettings() {
           </Flex>
           <Flex justifyContent="space-between" alignItems="center" mb="24px">
             <Flex alignItems="center">
-              <Text>PancakeSwap {t('StableSwap')}</Text>
-              <QuestionHelper
-                text={
-                  <Flex flexDirection="column">
-                    <Text mr="5px">
-                      {t(
-                        'StableSwap provides higher efficiency for stable or pegged assets and lower fees for trades.',
-                      )}
-                    </Text>
-                  </Flex>
-                }
-                placement="top"
-                ml="4px"
-              />
-            </Flex>
-            <PancakeToggle
-              disabled={isStableSwapByDefault && onlyOneAMMSourceEnabled}
-              id="stable-swap-toggle"
-              scale="md"
-              checked={isStableSwapByDefault}
-              onChange={() => {
-                setIsStableSwapByDefault((s) => !s)
-              }}
-            />
-          </Flex>
-          <Flex justifyContent="space-between" alignItems="center" mb="24px">
-            <Flex alignItems="center">
-              <Text>{`PancakeSwap ${t('MM Linked Pool')}`}</Text>
+              <Text>{`BBMXSwap ${t('MM Linked Pool')}`}</Text>
               <QuestionHelper
                 text={
                   <Flex flexDirection="column">
@@ -354,7 +327,9 @@ function RoutingSettings() {
           )}
         </AtomBox>
         <AtomBox>
-          <PreTitle mb="24px">{t('Routing preference')}</PreTitle>
+          <PreTitle mb="24px" color="white" textTransform="capitalize">
+            {t('Routing preference')}
+          </PreTitle>
           <AutoRow alignItems="center" mb="24px">
             <RowFixed as="label" gap="16px">
               <Checkbox

@@ -4,7 +4,7 @@ import { Button, Text, Link, HelpIcon, Message, MessageText } from '@pancakeswap
 import { ChainId } from '@pancakeswap/sdk'
 import { useSwitchNetwork } from 'hooks/useSwitchNetwork'
 
-const StyledLink = styled(Link)`
+const StyledLink = styled((props) => <Link {...props} />)`
   width: 100%;
   &:hover {
     text-decoration: initial;

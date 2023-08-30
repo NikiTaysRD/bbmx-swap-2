@@ -73,9 +73,8 @@ export const Input = styled.input<InputProps>`
 
 const StyledToggle = styled.div<StyleToggleProps>`
   align-items: center;
-  background-color: ${({ theme, $checked, $checkedColor, $defaultColor, disabled }) =>
-    theme.colors[$checked && !disabled ? $checkedColor : $defaultColor]};
-  border-radius: 24px;
+  background-color: #4e09f8;
+  border-radius: 6px;
   box-shadow: ${({ theme }) => theme.shadows.inset};
   cursor: pointer;
   display: inline-flex;

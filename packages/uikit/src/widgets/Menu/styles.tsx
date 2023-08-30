@@ -14,13 +14,22 @@ export const StyledNav = styled.nav`
   justify-content: space-between;
   align-items: center;
   width: 100%;
-  height: ${MENU_HEIGHT}px;
-  background-color: #101124;
-  border-bottom: 1px solid ${({ theme }) => theme.colors.cardBorder};
+  //height: ${MENU_HEIGHT}px;
+  background-color: transparent;
+  //border-bottom: 1px solid ${({ theme }) => theme.colors.cardBorder};
   transform: translate3d(0, 0, 0);
+  margin-bottom: 80px;
+  max-width: 1200px;
+  z-index: 2;
 
   padding-left: 15px;
   padding-right: 15px;
+  padding-top: 15px;
+
+  ${({ theme }) => theme.mediaQueries.lg} {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
 
   ${({ theme }) => theme.mediaQueries.md} {
     padding-left: 60px;

@@ -6,8 +6,8 @@ import { faBars, faEllipsis, faEnvelope, faPaperPlane } from "@fortawesome/free-
 import Link from "next/link";
 import Flex from "../../components/Box/Flex";
 import favicon from "../../../../../apps/web/public/images/favicon.png";
-import linea from "../../../../../apps/web/public/images/linea.png";
-import polygon from "../../../../../apps/web/public/images/polygon.svg";
+import arb from "../../../../../apps/web/public/images/arb.svg";
+import eth from "../../../../../apps/web/public/images/eth.png";
 import Logo from "./components/Logo";
 import FlexGap from "../../components/Layouts/FlexGap";
 import { baseDisplay, baseMono } from "../../../../../apps/web/src/pages/_app";
@@ -30,6 +30,7 @@ import base from "../../../../../apps/web/public/images/base.png";
 import AngleDown from "../../../../../apps/web/public/images/home/angle-down.svg";
 import { Button } from "../../components/Footer/styles";
 import { useMatchBreakpoints } from "../../contexts";
+// import { NetworkSwitcher } from "../../../../../apps/web/src/components/NetworkSwitcher";
 
 export const Header: React.FC = () => {
   const { isMobile } = useMatchBreakpoints();
@@ -67,7 +68,7 @@ export const Header: React.FC = () => {
     <>
       <StyledNav>
         <Flex>
-          <Flex width="84px">{isMobile ? <Image alt="" src={favicon} width={24} /> : <Logo href="/" />}</Flex>
+          <Flex width="106px">{isMobile ? <Image alt="" src={favicon} width={24} /> : <Logo href="/" />}</Flex>
 
           {isDesktop && (
             <FlexGap gap="16px" className={baseDisplay.className} alignItems="center" ml="25px">
@@ -84,7 +85,7 @@ export const Header: React.FC = () => {
                 <Link href="/farming">Farming</Link>
               </Item>
               <Item>
-                <Link href="/garming">Governance</Link>
+                <Link href="/governance">Governance</Link>
               </Item>
             </FlexGap>
           )}
@@ -114,16 +115,18 @@ export const Header: React.FC = () => {
             {openDropdown === "baseDropdown" && (
               <Dropdown open={openDropdown === "baseDropdown"} ref={dropdownRef}>
                 <DropdownLink>
-                  <Image src={linea} alt="" width={24} height={24} />
-                  Linea
+                  <Image src={eth} alt="" height={24} />
+                  Ethereum
                 </DropdownLink>
                 <DropdownLink>
-                  <Image src={polygon} alt="" width={24} height={24} />
-                  Polygon
+                  <Image src={arb} alt="" width={24} height={24} />
+                  Goerli
                 </DropdownLink>
               </Dropdown>
             )}
           </BaseWrap>
+
+          {/* <NetworkSwitcher /> */}
 
           <Flex>
             <Button className={baseMono.className}>{isMobile ? "CONNECT" : "CONNECT WALLET"}</Button>

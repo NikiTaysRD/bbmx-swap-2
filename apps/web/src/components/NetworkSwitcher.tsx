@@ -22,27 +22,23 @@ import { useSwitchNetwork } from 'hooks/useSwitchNetwork'
 import { useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { chains } from 'utils/wagmi'
-import Image from 'next/image'
 import { ASSET_CDN } from 'config/constants/endpoints'
 
+import { baseMono } from 'pages/_app'
 import { ChainLogo } from './Logo/ChainLogo'
 
-const AptosChain = {
-  id: 1,
-  name: 'Aptos',
-}
-
 const NetworkSelect = ({ switchNetwork, chainId }) => {
-  const { t } = useTranslation()
+  // const { t } = useTranslation()
 
   return (
     <>
-      <Box px="16px" py="8px">
-        <Text color="textSubtle">{t('Select a Network')}</Text>
-      </Box>
-      <UserMenuDivider />
+      {/* <Box px="16px" py="8px"> */}
+      {/*   <Text color="textSubtle">{t('Select a Network')}</Text> */}
+      {/* </Box> */}
+      {/* <UserMenuDivider /> */}
       {chains
-        .filter((chain) => !('testnet' in chain && chain.testnet) || chain.id === chainId)
+        .filter((chain) => chain.name === 'Goerli' || chain.name === 'Ethereum')
+        // .filter((chain) => !('testnet' in chain && chain.testnet) || chain.id === chainId)
         .map((chain) => (
           <UserMenuItem
             key={chain.id}
@@ -55,24 +51,6 @@ const NetworkSelect = ({ switchNetwork, chainId }) => {
             </Text>
           </UserMenuItem>
         ))}
-      <UserMenuItem
-        key={`aptos-${AptosChain.id}`}
-        style={{ justifyContent: 'flex-start' }}
-        as="a"
-        target="_blank"
-        href="https://aptos.pancakeswap.finance/swap"
-      >
-        <Image
-          src="https://aptos.pancakeswap.finance/images/apt.png"
-          width={24}
-          height={24}
-          unoptimized
-          alt={`chain-aptos-${AptosChain.id}`}
-        />{' '}
-        <Text color="text" pl="12px">
-          {AptosChain.name}
-        </Text>
-      </UserMenuItem>
     </>
   )
 }
@@ -113,9 +91,7 @@ const WrongNetworkSelect = ({ switchNetwork, chainId }) => {
       {chain && (
         <UserMenuItem ref={ref1} onClick={() => setSessionChainId(chain.id)} style={{ justifyContent: 'flex-start' }}>
           <ChainLogo chainId={chain.id} />
-          <Text color="secondary" bold pl="12px">
-            {chain.name}
-          </Text>
+          <Flex className={baseMono.className}>{chain.name}</Flex>
         </UserMenuItem>
       )}
       <Box px="16px" pt="8px">

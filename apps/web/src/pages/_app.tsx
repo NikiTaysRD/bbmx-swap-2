@@ -16,7 +16,7 @@ import { NextPage } from 'next'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import Script from 'next/script'
-import { Fragment } from 'react'
+import { Fragment, useEffect } from 'react'
 import { DefaultSeo } from 'next-seo'
 import { PageMeta } from 'components/Layout/Page'
 import { PersistGate } from 'redux-persist/integration/react'
@@ -81,7 +81,10 @@ function MyApp(props: AppProps<{ initialReduxState: any }>) {
   const store = useStore(pageProps.initialReduxState)
 
   const { setTheme } = useTheme()
-  setTheme('dark')
+
+  useEffect(() => {
+    setTheme('dark')
+  }, [])
 
   return (
     <>

@@ -232,14 +232,10 @@ export function FormMain({
 
   const value = isWrapping ? typedValue : inputValue
 
-  const amountInDollar = useStablecoinPriceAmount(
-    inputCurrency ? inputCurrency : undefined,
-    Number.isFinite(+value) ? +value : undefined,
-    {
-      hideIfPriceImpactTooHigh: true,
-      enabled: Number.isFinite(+value),
-    },
-  )
+  const amountInDollar = useStablecoinPriceAmount(inputCurrency, Number.isFinite(+value) ? +value : undefined, {
+    hideIfPriceImpactTooHigh: true,
+    enabled: Number.isFinite(+value),
+  })
 
   const outputValue = useMemo(() => typedValue && (isTypingInput ? formatAmount(outputAmount) || '' : typedValue), [
     typedValue,

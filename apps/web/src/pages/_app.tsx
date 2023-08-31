@@ -82,12 +82,10 @@ function MyApp(props: AppProps<{ initialReduxState: any }>) {
   const store = useStore(pageProps.initialReduxState)
 
   const { setTheme } = useTheme()
-  const { resolvedTheme } = useNextTheme()
 
   useEffect(() => {
-    console.log('====== theme ', resolvedTheme)
     setTheme('dark')
-  }, [resolvedTheme])
+  }, [])
 
   return (
     <>

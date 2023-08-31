@@ -15,10 +15,12 @@ import { MMTradeInfo } from 'views/Swap/MMLinkPools/hooks'
 import { RoutesBreakdown } from '../components'
 import { useSlippageAdjustedAmounts, useIsWrapping } from '../hooks'
 import { computeTradePriceBreakdown } from '../utils/exchange'
+import { formatNumber } from '@pancakeswap/utils/formatBalance'
 
 interface Props {
   loaded: boolean
   trade?: SmartRouterTrade<TradeType> | null
+  amountInDollar: number
 }
 
 const RiskWrapper = styled.div`
@@ -113,7 +115,7 @@ export function MMTradeDetail({ loaded, mmTrade }: { loaded: boolean; mmTrade?: 
   )
 }
 
-export const TradeDetails = memo(function TradeDetails({ loaded, trade }: Props) {
+export const TradeDetails = memo(function TradeDetails({ loaded, trade, amountInDollar }: Props) {
   const [isOpenedRiskTable, setIsOpenedRiskTable] = useState(false)
 
   const slippageAdjustedAmounts = useSlippageAdjustedAmounts(trade)
@@ -135,7 +137,7 @@ export const TradeDetails = memo(function TradeDetails({ loaded, trade }: Props)
         <Estimate>
           {`${formatAmount(slippageAdjustedAmounts[Field.INPUT], 4)} ${inputAmount.currency.symbol}`} ={' '}
           {`${formatAmount(slippageAdjustedAmounts[Field.OUTPUT], 4)} ${outputAmount.currency.symbol}`}{' '}
-          <span>(~$1827.23)</span>
+          <span>(~${formatNumber(amountInDollar)})</span>
         </Estimate>
         <Gas>~$3.34</Gas>
       </GasOverview>

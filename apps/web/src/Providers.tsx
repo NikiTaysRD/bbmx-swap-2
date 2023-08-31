@@ -30,7 +30,7 @@ const Providers: React.FC<React.PropsWithChildren<{ store: Store; children: Reac
     <QueryClientProvider client={queryClient}>
       <WagmiConfig config={wagmiConfig}>
         <Provider store={store}>
-          <NextThemeProvider>
+          <NextThemeProvider forcedTheme="dark">
             <StyledUIKitProvider>
               <LanguageProvider>
                 <SWRConfig

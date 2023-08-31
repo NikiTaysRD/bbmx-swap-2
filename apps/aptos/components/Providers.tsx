@@ -8,7 +8,7 @@ import { client } from '../client'
 const StyledUIKitProvider: React.FC<React.PropsWithChildren> = ({ children, ...props }) => {
   const { resolvedTheme } = useNextTheme()
   return (
-    <UIKitProvider theme={resolvedTheme === 'dark' ? dark : light} {...props}>
+    <UIKitProvider theme={resolvedTheme === 'dark' ? dark : dark} {...props}>
       {children}
     </UIKitProvider>
   )
@@ -17,7 +17,7 @@ const StyledUIKitProvider: React.FC<React.PropsWithChildren> = ({ children, ...p
 const Providers: React.FC<React.PropsWithChildren<{ children: React.ReactNode }>> = ({ children }) => {
   return (
     <AwgmiConfig client={client}>
-      <NextThemeProvider>
+      <NextThemeProvider forcedTheme="dark">
         <StyledUIKitProvider>
           <LanguageProvider>
             <SWRConfig>

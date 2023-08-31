@@ -25,18 +25,23 @@ import {
 } from '@pancakeswap/utils/user'
 import styled from 'styled-components'
 
-export const withCustomOnDismiss =
-  (Component) =>
-  ({ onDismiss, customOnDismiss, ...props }: { onDismiss?: () => void; customOnDismiss: () => void }) => {
-    const handleDismiss = useCallback(() => {
-      onDismiss?.()
-      if (customOnDismiss) {
-        customOnDismiss()
-      }
-    }, [customOnDismiss, onDismiss])
+export const withCustomOnDismiss = (Component) => ({
+  onDismiss,
+  customOnDismiss,
+  ...props
+}: {
+  onDismiss?: () => void
+  customOnDismiss: () => void
+}) => {
+  const handleDismiss = useCallback(() => {
+    onDismiss?.()
+    if (customOnDismiss) {
+      customOnDismiss()
+    }
+  }, [customOnDismiss, onDismiss])
 
-    return <Component {...props} onDismiss={handleDismiss} />
-  }
+  return <Component {...props} onDismiss={handleDismiss} />
+}
 
 const ScrollableContainer = styled(Flex)`
   flex-direction: column;
@@ -188,7 +193,7 @@ export const SettingsModal: React.FC<React.PropsWithChildren<InjectedModalProps>
   const [showConfirmExpertModal, setShowConfirmExpertModal] = useState(false)
   const [showExpertModeAcknowledgement, setShowExpertModeAcknowledgement] = useUserExpertModeAcknowledgement()
 
-  const isDark = resolvedTheme === 'dark'
+  const isDark = true
 
   const handleExpertModeToggle = () => {
     if (expertMode || !showExpertModeAcknowledgement) {

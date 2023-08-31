@@ -15,13 +15,14 @@ import ConnectWalletButton from 'components/ConnectWalletButton'
 import Trans from 'components/Trans'
 import { useActiveChainId } from 'hooks/useActiveChainId'
 import useAuth from 'hooks/useAuth'
-import NextLink from 'next/link'
-import { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState, useCallback } from 'react'
 import { useProfile } from 'state/profile/hooks'
 import { usePendingTransactions } from 'state/transactions/hooks'
 import { useAccount } from 'wagmi'
 import { useDomainNameForAddress } from 'hooks/useDomain'
 import useAirdropModalStatus from 'components/GlobalCheckClaimStatus/hooks/useAirdropModalStatus'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faWallet } from '@fortawesome/free-solid-svg-icons'
 import ProfileUserMenuItem from './ProfileUserMenuItem'
 import WalletModal, { WalletView } from './WalletModal'
 import WalletUserMenuItem from './WalletUserMenuItem'
@@ -115,6 +116,7 @@ const UserMenu = () => {
     <ConnectWalletButton scale="sm">
       <Box display={['none', , , 'block']}>
         <p style={{ fontSize: '12px', lineHeight: '36px' }}>
+          <FontAwesomeIcon icon={faWallet} style={{ marginRight: '6px', fontSize: '10px' }} />
           <Trans>Connect Wallet</Trans>
         </p>
       </Box>

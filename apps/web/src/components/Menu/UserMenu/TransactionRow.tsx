@@ -14,7 +14,7 @@ interface TransactionRowProps {
   onDismiss: () => void
 }
 
-const TxnIcon = styled(Flex)`
+const TxnIcon = styled((props) => <Flex {...props} />)`
   align-items: center;
   flex: none;
   width: 24px;

@@ -51,14 +51,11 @@ export function V3SwapForm() {
       <FormMain
         tradeLoading={mm.isMMBetter ? false : !tradeLoaded}
         pricingAndSlippage={<PricingAndSlippage priceLoading={isLoading} price={price} showSlippage={!mm.isMMBetter} />}
-        tradeDetailsComponent={
-          mm.isMMBetter ? (
-            <MMTradeDetail loaded={!mm.mmOrderBookTrade.isLoading} mmTrade={mm.mmTradeInfo} />
-          ) : (
-            <TradeDetails loaded={tradeLoaded} trade={trade} />
-          )
-        }
+        isMMBetter={mm.isMMBetter}
         inputAmount={finalTrade?.inputAmount}
+        loaded={!mm.mmOrderBookTrade.isLoading}
+        trade={trade}
+        mmTrade={mm.mmTradeInfo}
         outputAmount={finalTrade?.outputAmount}
         isShowMarket={isShowMarket}
         swapCommitButton={

@@ -2,9 +2,12 @@
 import { useCallback, useMemo, ReactNode, useState } from 'react'
 import { useTranslation } from '@pancakeswap/localization'
 import { useWeb3React } from '@pancakeswap/wagmi'
-import { Currency, CurrencyAmount, Percent } from '@pancakeswap/sdk'
+import { Currency, CurrencyAmount, Percent, TradeType } from '@pancakeswap/sdk'
 import replaceBrowserHistory from '@pancakeswap/utils/replaceBrowserHistory'
 import { formatAmount } from '@pancakeswap/utils/formatFractions'
+import { useStablecoinPriceAmount } from 'hooks/useBUSDPrice'
+import { MMTradeInfo } from 'views/Swap/MMLinkPools/hooks'
+import { SmartRouterTrade } from '@pancakeswap/smart-router/dist/evm/index'
 
 import { useSwapActionHandlers } from 'state/swap/useSwapActionHandlers'
 import CurrencyInputPanel from 'components/CurrencyInputPanel'
@@ -24,6 +27,7 @@ import useWarningImport from '../../hooks/useWarningImport'
 import { useIsWrapping } from '../hooks'
 import { FlipButton } from './FlipButton'
 import { Recipient } from './Recipient'
+import { MMTradeDetail, TradeDetails } from './TradeDetails'
 
 interface Props {
   inputAmount?: CurrencyAmount<Currency>
@@ -32,7 +36,10 @@ interface Props {
   pricingAndSlippage?: ReactNode
   swapCommitButton?: ReactNode
   isShowMarket?: boolean
-  tradeDetailsComponent?: ReactNode
+  loaded: boolean
+  mmTrade?: MMTradeInfo
+  trade?: SmartRouterTrade<TradeType> | null
+  isMMBetter: boolean
 }
 
 // app field buy
@@ -145,12 +152,15 @@ const Highlights = styled.div`
 
 export function FormMain({
   pricingAndSlippage,
-  tradeDetailsComponent,
   isShowMarket,
   inputAmount,
   outputAmount,
   tradeLoading,
   swapCommitButton,
+  loaded,
+  mmTrade,
+  trade,
+  isMMBetter,
 }: Props) {
   const { account } = useWeb3React()
   const { t } = useTranslation()
@@ -219,6 +229,14 @@ export function FormMain({
     isTypingInput,
     inputAmount,
   ])
+
+  const value = isWrapping ? typedValue : inputValue
+
+  const amountInDollar = useStablecoinPriceAmount(inputCurrency, Number.isFinite(+value) ? +value : undefined, {
+    hideIfPriceImpactTooHigh: true,
+    enabled: Number.isFinite(+value),
+  })
+
   const outputValue = useMemo(() => typedValue && (isTypingInput ? formatAmount(outputAmount) || '' : typedValue), [
     typedValue,
     isTypingInput,
@@ -281,7 +299,11 @@ export function FormMain({
         {/* {pricingAndSlippage} */}
 
         {isShowMarket ? (
-          tradeDetailsComponent
+          isMMBetter ? (
+            <MMTradeDetail loaded={loaded} mmTrade={mmTrade} />
+          ) : (
+            <TradeDetails loaded={loaded} trade={trade} amountInDollar={amountInDollar} />
+          )
         ) : (
           <AppFieldBuy>
             <AppFieldHeading>

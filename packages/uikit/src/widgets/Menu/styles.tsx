@@ -99,10 +99,10 @@ export const Base = styled.div`
   align-items: center;
 
   cursor: pointer;
-  padding: 10px 10px;
+  padding: 8px 10px;
 
   ${({ theme }) => theme.mediaQueries.md} {
-    padding: 6px 10px;
+    padding: 5px 10px;
   }
 `;
 
@@ -124,13 +124,13 @@ export const Dropdown = styled.div<DropdownProps>`
   display: flex;
   flex-direction: column;
   gap: 10px;
-  padding: 12px 0;
+  padding: 12px 12px;
   border-radius: 6px;
   background: rgba(27, 28, 48, 0.8);
   backdrop-filter: blur(10px);
   left: 0;
   top: 37px;
-  width: 120%;
+  width: auto;
 
   transform-origin: top;
   ${(props) =>
@@ -139,6 +139,10 @@ export const Dropdown = styled.div<DropdownProps>`
           animation: ${slideDown} 0.2s ease forwards;
         `
       : "none"}
+
+  ${({ theme }) => theme.mediaQueries.md} {
+    width: 180px;
+  }
 `;
 
 export const DropdownLink = styled.div`
@@ -158,7 +162,7 @@ export const DropdownLink = styled.div`
 export const Burger = styled.div`
   background-color: rgba(255, 255, 255, 0.1);
   border-radius: 6px;
-  padding: 12px;
+  padding: 10px;
 `;
 
 export const Text = styled.p`
@@ -166,15 +170,19 @@ export const Text = styled.p`
 `;
 
 export const BurgerMenu = styled.div`
-  padding: 8px;
+  padding: 6px;
   border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 3px;
+
+  ${({ theme }) => theme.mediaQueries.md} {
+    padding: 8px;
+  }
 `;
 
 export const BurgerNavList = styled.div`
-  background-color: #1b1c30;
   height: 100vh;
-  padding: 30px 30px;
+  padding: 0 30px;
+  width: 100%;
 `;
 
 export const BurgerItem = styled.div`

@@ -8,7 +8,7 @@ import { client } from '../client'
 const StyledUIKitProvider: React.FC<React.PropsWithChildren> = ({ children, ...props }) => {
   const { resolvedTheme } = useNextTheme()
   return (
-    <UIKitProvider theme={resolvedTheme === 'dark' ? dark : light} {...props}>
+    <UIKitProvider theme={resolvedTheme === 'dark' ? dark : dark} {...props}>
       {children}
     </UIKitProvider>
   )

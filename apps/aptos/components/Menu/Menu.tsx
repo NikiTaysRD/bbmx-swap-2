@@ -50,7 +50,7 @@ export const Menu = ({ children }: { children: ReactNode }) => {
 
   const { data: cakePrice } = useCakePrice()
 
-  const isDark = resolvedTheme === 'dark'
+  const isDark = true
 
   const toggleTheme = useMemo(() => {
     return () => setTheme(isDark ? 'light' : 'dark')

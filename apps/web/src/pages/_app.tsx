@@ -3,6 +3,7 @@ import { ResetCSS, ToastListener } from '@pancakeswap/uikit'
 import BigNumber from 'bignumber.js'
 import GlobalCheckClaimStatus from 'components/GlobalCheckClaimStatus'
 import { NetworkModal } from 'components/NetworkModal'
+import { useTheme as useNextTheme } from 'next-themes'
 import { FixedSubgraphHealthIndicator } from 'components/SubgraphHealthIndicator/FixedSubgraphHealthIndicator'
 import TransactionsDetailModal from 'components/TransactionDetailModal'
 import { useAccountEventListener } from 'hooks/useAccountEventListener'
@@ -80,12 +81,13 @@ function MyApp(props: AppProps<{ initialReduxState: any }>) {
   const { pageProps, Component } = props
   const store = useStore(pageProps.initialReduxState)
 
-  const { setTheme, isDark } = useTheme()
+  const { setTheme } = useTheme()
+  const { resolvedTheme } = useNextTheme()
 
   useEffect(() => {
-    console.log('====== theme ', isDark)
+    console.log('====== theme ', resolvedTheme)
     setTheme('dark')
-  }, [isDark])
+  }, [resolvedTheme])
 
   return (
     <>

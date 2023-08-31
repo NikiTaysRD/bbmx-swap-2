@@ -6,6 +6,7 @@ import { useMemo, memo, useState } from 'react'
 import styled from 'styled-components'
 import { formatAmount } from '@pancakeswap/utils/formatFractions'
 import FormattedPriceImpact from 'views/Swap/components/FormattedPriceImpact'
+import { formatNumber } from '@pancakeswap/utils/formatBalance'
 
 import { AdvancedSwapDetails, TradeSummary } from 'views/Swap/components/AdvancedSwapDetails'
 import { AdvancedDetailsFooter } from 'views/Swap/components/AdvancedSwapDetailsDropdown'
@@ -15,7 +16,6 @@ import { MMTradeInfo } from 'views/Swap/MMLinkPools/hooks'
 import { RoutesBreakdown } from '../components'
 import { useSlippageAdjustedAmounts, useIsWrapping } from '../hooks'
 import { computeTradePriceBreakdown } from '../utils/exchange'
-import { formatNumber } from '@pancakeswap/utils/formatBalance'
 
 interface Props {
   loaded: boolean

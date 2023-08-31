@@ -45,6 +45,7 @@ const Menu = styled.div<{ isOpen: boolean }>`
   pointer-events: auto;
   width: 280px;
   visibility: visible;
+  transform: translate(-50px, 50px) !important;
   z-index: 1001;
 
   ${({ isOpen }) =>

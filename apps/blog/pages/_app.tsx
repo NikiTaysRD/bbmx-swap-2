@@ -60,7 +60,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="theme-color" content="#1FC7D4" />
       </Head>
       <DefaultSeo {...SEO} />
-      <NextThemeProvider>
+      <NextThemeProvider forcedTheme="dark">
         <StyledThemeProvider>
           <LanguageProvider>
             <ModalProvider>

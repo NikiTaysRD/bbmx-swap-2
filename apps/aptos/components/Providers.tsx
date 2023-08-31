@@ -17,7 +17,7 @@ const StyledUIKitProvider: React.FC<React.PropsWithChildren> = ({ children, ...p
 const Providers: React.FC<React.PropsWithChildren<{ children: React.ReactNode }>> = ({ children }) => {
   return (
     <AwgmiConfig client={client}>
-      <NextThemeProvider>
+      <NextThemeProvider forcedTheme="dark">
         <StyledUIKitProvider>
           <LanguageProvider>
             <SWRConfig>

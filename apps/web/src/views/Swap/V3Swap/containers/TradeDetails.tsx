@@ -6,6 +6,7 @@ import { useMemo, memo, useState } from 'react'
 import styled from 'styled-components'
 import { formatAmount } from '@pancakeswap/utils/formatFractions'
 import FormattedPriceImpact from 'views/Swap/components/FormattedPriceImpact'
+import { formatNumber } from '@pancakeswap/utils/formatBalance'
 
 import { AdvancedSwapDetails, TradeSummary } from 'views/Swap/components/AdvancedSwapDetails'
 import { AdvancedDetailsFooter } from 'views/Swap/components/AdvancedSwapDetailsDropdown'
@@ -19,6 +20,7 @@ import { computeTradePriceBreakdown } from '../utils/exchange'
 interface Props {
   loaded: boolean
   trade?: SmartRouterTrade<TradeType> | null
+  amountInDollar: number
 }
 
 const RiskWrapper = styled.div`
@@ -113,16 +115,15 @@ export function MMTradeDetail({ loaded, mmTrade }: { loaded: boolean; mmTrade?: 
   )
 }
 
-export const TradeDetails = memo(function TradeDetails({ loaded, trade }: Props) {
+export const TradeDetails = memo(function TradeDetails({ loaded, trade, amountInDollar }: Props) {
   const [isOpenedRiskTable, setIsOpenedRiskTable] = useState(false)
 
   const slippageAdjustedAmounts = useSlippageAdjustedAmounts(trade)
   const isWrapping = useIsWrapping()
   const { priceImpactWithoutFee, lpFeeAmount } = useMemo(() => computeTradePriceBreakdown(trade), [trade])
-  const hasStablePool = useMemo(
-    () => trade?.routes.some((route) => route.pools.some(SmartRouter.isStablePool)),
-    [trade],
-  )
+  const hasStablePool = useMemo(() => trade?.routes.some((route) => route.pools.some(SmartRouter.isStablePool)), [
+    trade,
+  ])
 
   if (isWrapping || !loaded || !trade) {
     return null
@@ -130,26 +131,13 @@ export const TradeDetails = memo(function TradeDetails({ loaded, trade }: Props)
 
   const { inputAmount, outputAmount, tradeType, routes } = trade
 
-  return false ? (
-    <AdvancedDetailsFooter show={loaded}>
-      <AutoColumn gap="0px">
-        <TradeSummary
-          slippageAdjustedAmounts={slippageAdjustedAmounts}
-          inputAmount={inputAmount}
-          outputAmount={outputAmount}
-          tradeType={tradeType}
-          priceImpactWithoutFee={priceImpactWithoutFee}
-          realizedLPFee={lpFeeAmount}
-          hasStablePair={hasStablePool}
-        />
-        <RoutesBreakdown routes={routes} />
-      </AutoColumn>
-    </AdvancedDetailsFooter>
-  ) : (
+  return (
     <RiskWrapper>
       <GasOverview onClick={() => setIsOpenedRiskTable(!isOpenedRiskTable)}>
         <Estimate>
-          ${inputAmount.currency.symbol} = ${outputAmount.currency.symbol} <span>(~$1827.23)</span>
+          {`${formatAmount(slippageAdjustedAmounts[Field.INPUT], 4)} ${inputAmount.currency.symbol}`} ={' '}
+          {`${formatAmount(slippageAdjustedAmounts[Field.OUTPUT], 4)} ${outputAmount.currency.symbol}`}{' '}
+          <span>(~${formatNumber(amountInDollar)})</span>
         </Estimate>
         <Gas>~$3.34</Gas>
       </GasOverview>
@@ -178,6 +166,7 @@ export const TradeDetails = memo(function TradeDetails({ loaded, trade }: Props)
               <TH>Trading fee:</TH>
               <TD>{`${formatAmount(lpFeeAmount, 4)} ${inputAmount.currency.symbol}`}</TD>
             </TR>
+            <RoutesBreakdown routes={routes} />
           </TBody>
         </Table>
       </ImpactTable>

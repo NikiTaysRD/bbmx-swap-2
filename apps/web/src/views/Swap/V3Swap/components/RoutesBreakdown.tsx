@@ -12,8 +12,30 @@ interface Props {
   routes?: Route[]
 }
 
-const RouteInfoContainer = styled(RowBetween)`
-  padding: 4px 24px 0;
+const TR = styled.tr`
+  width: 100%;
+  font-size: 12px;
+  transition: 0.3s all;
+  -webkit-transition: 0.3s all;
+  -moz-transition: 0.3s all;
+`
+
+const TH = styled.th`
+  font-weight: 600;
+  font-size: 11px;
+  line-height: 18px;
+  padding: 5px 0;
+  text-align: left;
+  letter-spacing: normal;
+  transition: 0.3s all;
+  -webkit-transition: 0.3s all;
+  -moz-transition: 0.3s all;
+`
+
+const TD = styled.td`
+  font-size: 11px;
+  text-align: right;
+  letter-spacing: normal;
 `
 
 export const RoutesBreakdown = memo(function RoutesBreakdown({ routes = [] }: Props) {
@@ -27,35 +49,28 @@ export const RoutesBreakdown = memo(function RoutesBreakdown({ routes = [] }: Pr
   const count = routes.length
 
   return (
-    <>
-      <RouteInfoContainer>
-        <span style={{ display: 'flex', alignItems: 'center' }}>
-          <Text fontSize="14px" color="textSubtle">
-            {t('Route')}
-          </Text>
-          <QuestionHelper
-            text={t(
-              'Route is automatically calculated based on your routing preference to achieve the best price for your trade.',
-            )}
-            ml="4px"
-            placement="top-start"
-          />
-        </span>
+    <TR>
+      <TH>
+        <Text fontSize="11px">Route:</Text>
+      </TH>
+      <TD>
         <Box onClick={routeDisplayModal.onOpen} role="button">
           <span style={{ display: 'flex', alignItems: 'center' }}>
             {count > 1 ? (
-              <Text fontSize="14px">{t('%count% Separate Routes', { count })}</Text>
+              <Text fontSize="11px" color="#FFFFFF">
+                {t('%count% Separate Routes', { count })}
+              </Text>
             ) : (
               <RouteComp route={routes[0]} />
             )}
-            <IconButton ml="8px" variant="text" color="textSubtle" scale="xs">
-              <SearchIcon width="16px" height="16px" color="textSubtle" />
+            <IconButton ml="8px" variant="text" color="#FFFFFF" scale="xs">
+              <SearchIcon width="16px" height="16px" color="#FFFFFF" />
             </IconButton>
           </span>
         </Box>
         <RouteDisplayModal {...routeDisplayModal} routes={routes} />
-      </RouteInfoContainer>
-    </>
+      </TD>
+    </TR>
   )
 })
 

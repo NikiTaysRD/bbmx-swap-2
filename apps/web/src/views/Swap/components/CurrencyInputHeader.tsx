@@ -96,9 +96,8 @@ const CurrencyInputHeader: React.FC<React.PropsWithChildren<Props>> = memo(
       ...(isMobile && { manualVisible: mobileTooltipShow }),
     })
 
-    const { isChartSupported, isChartDisplayed, setIsChartDisplayed, isHotTokenSupported } = useContext(
-      SwapFeaturesContext,
-    )
+    const { isChartSupported, isChartDisplayed, setIsChartDisplayed, isHotTokenSupported } =
+      useContext(SwapFeaturesContext)
     const [expertMode] = useExpertMode()
     const [isRoutingSettingChange] = useRoutingSettingChanged()
     const toggleChartDisplayed = () => {
@@ -141,6 +140,24 @@ const CurrencyInputHeader: React.FC<React.PropsWithChildren<Props>> = memo(
             </AppMenuList>
           ) : null}
           <NotificationDot show={expertMode || isRoutingSettingChange}>
+            {isChartSupported && setIsChartDisplayed && (
+              <ColoredIconButton
+                onClick={() => {
+                  if (!isChartDisplayed && isSwapHotTokenDisplay) {
+                    setIsSwapHotTokenDisplay(false)
+                  }
+                  toggleChartDisplayed()
+                }}
+                variant="text"
+                scale="sm"
+              >
+                {isChartDisplayed ? (
+                  <ChartDisableIcon color="textSubtle" />
+                ) : (
+                  <ChartIcon width="24px" color="textSubtle" />
+                )}
+              </ColoredIconButton>
+            )}
             <GlobalSettings color="textSubtle" mr="0" mode={SettingsMode.SWAP_LIQUIDITY} />
           </NotificationDot>
         </Flex>

@@ -158,7 +158,7 @@ export default function Swap() {
                 <AppBody
                   style={{
                     maxWidth: isDesktop ? 'unset' : '',
-                    minWidth: isDesktop && isChartDisplayed ? '450px' : '520px',
+                    minWidth: isDesktop ? (isChartDisplayed ? '450px' : '520px') : '100%',
                     background: 'rgb(27, 28, 48)',
                   }}
                 >

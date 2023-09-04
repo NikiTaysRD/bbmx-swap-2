@@ -1,7 +1,10 @@
-import { Flex, IconButton, CogIcon, useModal } from '@pancakeswap/uikit'
+import { Flex, IconButton, CogIcon, Toggle, QuestionHelper, Text, ExpertModal, useModal } from '@pancakeswap/uikit'
 import styled from 'styled-components'
 import { useState } from 'react'
-import SettingsModal from './SettingsModal'
+import { useExpertMode, useUserExpertModeAcknowledgement } from '@pancakeswap/utils/user/expertMode'
+import useTranslation from '@pancakeswap/localization/src/useTranslation'
+import { useSwapActionHandlers } from 'state/swap/useSwapActionHandlers'
+import { RoutingSettingsButton } from './SettingsModal'
 
 type Props = {
   color?: string
@@ -100,7 +103,6 @@ const FieldMin = styled.div`
 `
 
 const FieldMinInput = styled.input`
-  padding-right: 80px;
   line-height: 44px;
   padding: 0 40px 0 15px;
   color: #fff;
@@ -126,6 +128,29 @@ const FieldMinSpan = styled.span`
 
 const GlobalSettings = ({ color, mr = '8px', mode, onClick }: Props) => {
   const [isShow, setIsShow] = useState(false)
+  const [showConfirmExpertModal, setShowConfirmExpertModal] = useState(false)
+  const [expertMode, setExpertMode] = useExpertMode()
+  const [showExpertModeAcknowledgement, setShowExpertModeAcknowledgement] = useUserExpertModeAcknowledgement()
+  const { onChangeRecipient } = useSwapActionHandlers()
+
+  const { t } = useTranslation()
+  const [ExportModalWindow] = useModal(
+    <ExpertModal
+      setShowConfirmExpertModal={setShowConfirmExpertModal}
+      toggleExpertMode={() => setExpertMode((s) => !s)}
+      setShowExpertModeAcknowledgement={setShowExpertModeAcknowledgement}
+    />,
+  )
+
+  const handleExpertModeToggle = () => {
+    if (expertMode || !showExpertModeAcknowledgement) {
+      onChangeRecipient(null)
+      setExpertMode((s) => !s)
+    } else {
+      setShowConfirmExpertModal(true)
+      ExportModalWindow()
+    }
+  }
 
   return (
     <Flex>
@@ -162,6 +187,18 @@ const GlobalSettings = ({ color, mr = '8px', mode, onClick }: Props) => {
             </FieldMin>
           </SlippageField>
         </SlippageSet>
+        <Flex justifyContent="space-between" alignItems="center" mb="24px">
+          <Flex alignItems="center">
+            <Text>{t('Expert Mode')}</Text>
+            <QuestionHelper
+              text={t('Bypasses confirmation modals and allows high slippage trades. Use at your own risk.')}
+              placement="top"
+              ml="4px"
+            />
+          </Flex>
+          <Toggle id="toggle-expert-mode-button" scale="md" checked={expertMode} onChange={handleExpertModeToggle} />
+        </Flex>
+        <RoutingSettingsButton />
       </SlippageContainer>
     </Flex>
   )

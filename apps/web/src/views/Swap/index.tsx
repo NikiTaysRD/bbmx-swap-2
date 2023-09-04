@@ -1,6 +1,6 @@
 import { useTranslation } from '@pancakeswap/localization'
 import { Currency } from '@pancakeswap/sdk'
-import { Flex, Modal, ModalV2, useMatchBreakpoints } from '@pancakeswap/uikit'
+import { BottomDrawer, Flex, Modal, ModalV2, useMatchBreakpoints } from '@pancakeswap/uikit'
 import replaceBrowserHistory from '@pancakeswap/utils/replaceBrowserHistory'
 import { AppBody } from 'components/App'
 import { useRouter } from 'next/router'
@@ -9,7 +9,9 @@ import { useSwapActionHandlers } from 'state/swap/useSwapActionHandlers'
 import { currencyId } from 'utils/currencyId'
 import { useSwapHotTokenDisplay } from 'hooks/useSwapHotTokenDisplay'
 import { Field } from 'state/swap/actions'
-import { useDefaultsFromURLSearch, useSwapState } from 'state/swap/hooks'
+import { useDefaultsFromURLSearch, useSingleTokenSwapInfo, useSwapState } from 'state/swap/hooks'
+import PriceChartContainer from 'views/Swap/components/Chart/PriceChartContainer'
+import { useCurrency } from 'hooks/Tokens'
 import Page from '../Page'
 import HotTokenList from './components/HotTokenList'
 import useWarningImport from './hooks/useWarningImport'
@@ -20,9 +22,14 @@ import { SwapFeaturesContext } from './SwapFeaturesContext'
 export default function Swap() {
   const { query } = useRouter()
   const { isDesktop } = useMatchBreakpoints()
-  const { isChartExpanded, isChartDisplayed, setIsChartDisplayed, isHotTokenSupported } = useContext(
-    SwapFeaturesContext,
-  )
+  const {
+    isChartExpanded,
+    isChartDisplayed,
+    setIsChartDisplayed,
+    setIsChartExpanded,
+    isHotTokenSupported,
+    isChartSupported,
+  } = useContext(SwapFeaturesContext)
   const [isSwapHotTokenDisplay, setIsSwapHotTokenDisplay] = useSwapHotTokenDisplay()
   const { t } = useTranslation()
   const [firstTime, setFirstTime] = useState(true)
@@ -38,16 +45,20 @@ export default function Swap() {
       setIsSwapHotTokenDisplay(true)
 
       if (!isSwapHotTokenDisplay && isChartDisplayed) {
-        toggleChartDisplayed()
+        setIsChartDisplayed((currentIsChartDisplayed) => !currentIsChartDisplayed)
       }
     }
-  }, [firstTime, isChartDisplayed, isSwapHotTokenDisplay, query, setIsSwapHotTokenDisplay, toggleChartDisplayed])
+  }, [firstTime, isChartDisplayed, isSwapHotTokenDisplay, query, setIsSwapHotTokenDisplay, setIsChartDisplayed])
 
   // swap state & price data
+
   const {
     [Field.INPUT]: { currencyId: inputCurrencyId },
     [Field.OUTPUT]: { currencyId: outputCurrencyId },
   } = useSwapState()
+
+  const inputCurrency = useCurrency(inputCurrencyId)
+  const outputCurrency = useCurrency(outputCurrencyId)
 
   const warningSwapHandler = useWarningImport()
   useDefaultsFromURLSearch()
@@ -68,9 +79,57 @@ export default function Swap() {
     [inputCurrencyId, outputCurrencyId, onCurrencySelection, warningSwapHandler],
   )
 
+  const singleTokenPrice = useSingleTokenSwapInfo(inputCurrencyId, inputCurrency, outputCurrencyId, outputCurrency)
+
+  // swap state & price data
+
+  const currencies: { [field in Field]?: Currency } = {
+    [Field.INPUT]: inputCurrency ?? undefined,
+    [Field.OUTPUT]: outputCurrency ?? undefined,
+  }
+
   return (
     <Page removePadding={isChartExpanded} hideFooterOnDesktop={isChartExpanded}>
-      <Flex width={['328px', '100%']} height="100%" justifyContent="center" position="relative" alignItems="flex-start">
+      <Flex
+        width={['328px', '100%']}
+        height="100%"
+        justifyContent="center"
+        position="relative"
+        alignItems="flex-start"
+        pb={isChartDisplayed && '50px'}
+      >
+        {isDesktop && isChartSupported && (
+          <PriceChartContainer
+            inputCurrencyId={inputCurrencyId}
+            inputCurrency={currencies[Field.INPUT]}
+            outputCurrencyId={outputCurrencyId}
+            outputCurrency={currencies[Field.OUTPUT]}
+            isChartExpanded={isChartExpanded}
+            setIsChartExpanded={setIsChartExpanded}
+            isChartDisplayed={isChartDisplayed}
+            currentSwapPrice={singleTokenPrice}
+          />
+        )}
+        {!isDesktop && isChartSupported && (
+          <BottomDrawer
+            content={
+              <PriceChartContainer
+                inputCurrencyId={inputCurrencyId}
+                inputCurrency={currencies[Field.INPUT]}
+                outputCurrencyId={outputCurrencyId}
+                outputCurrency={currencies[Field.OUTPUT]}
+                isChartExpanded={isChartExpanded}
+                setIsChartExpanded={setIsChartExpanded}
+                isChartDisplayed={isChartDisplayed}
+                currentSwapPrice={singleTokenPrice}
+                isFullWidthContainer
+                isMobile
+              />
+            }
+            isOpen={isChartDisplayed}
+            setIsOpen={setIsChartDisplayed}
+          />
+        )}
         {isDesktop && isSwapHotTokenDisplay && isHotTokenSupported && (
           <HotTokenList handleOutputSelect={handleOutputSelect} />
         )}
@@ -99,7 +158,7 @@ export default function Swap() {
                 <AppBody
                   style={{
                     maxWidth: isDesktop ? 'unset' : '',
-                    minWidth: isDesktop ? '520px' : '',
+                    minWidth: isDesktop ? (isChartDisplayed ? '450px' : '520px') : '100%',
                     background: 'rgb(27, 28, 48)',
                   }}
                 >

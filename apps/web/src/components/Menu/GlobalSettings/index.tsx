@@ -1,4 +1,4 @@
-import { Flex, IconButton, CogIcon, Toggle, QuestionHelper, Text, ExpertModal } from '@pancakeswap/uikit'
+import { Flex, IconButton, CogIcon, Toggle, QuestionHelper, Text, ExpertModal, useModal } from '@pancakeswap/uikit'
 import styled from 'styled-components'
 import { useState } from 'react'
 import { useExpertMode, useUserExpertModeAcknowledgement } from '@pancakeswap/utils/user/expertMode'
@@ -103,7 +103,6 @@ const FieldMin = styled.div`
 `
 
 const FieldMinInput = styled.input`
-  padding-right: 80px;
   line-height: 44px;
   padding: 0 40px 0 15px;
   color: #fff;
@@ -135,16 +134,13 @@ const GlobalSettings = ({ color, mr = '8px', mode, onClick }: Props) => {
   const { onChangeRecipient } = useSwapActionHandlers()
 
   const { t } = useTranslation()
-
-  if (showConfirmExpertModal) {
-    return (
-      <ExpertModal
-        setShowConfirmExpertModal={setShowConfirmExpertModal}
-        toggleExpertMode={() => setExpertMode((s) => !s)}
-        setShowExpertModeAcknowledgement={setShowExpertModeAcknowledgement}
-      />
-    )
-  }
+  const [ExportModalWindow] = useModal(
+    <ExpertModal
+      setShowConfirmExpertModal={setShowConfirmExpertModal}
+      toggleExpertMode={() => setExpertMode((s) => !s)}
+      setShowExpertModeAcknowledgement={setShowExpertModeAcknowledgement}
+    />,
+  )
 
   const handleExpertModeToggle = () => {
     if (expertMode || !showExpertModeAcknowledgement) {
@@ -152,6 +148,7 @@ const GlobalSettings = ({ color, mr = '8px', mode, onClick }: Props) => {
       setExpertMode((s) => !s)
     } else {
       setShowConfirmExpertModal(true)
+      ExportModalWindow()
     }
   }
 

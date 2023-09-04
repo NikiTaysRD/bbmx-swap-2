@@ -10,14 +10,14 @@ import { currencyId } from 'utils/currencyId'
 import { useSwapHotTokenDisplay } from 'hooks/useSwapHotTokenDisplay'
 import { Field } from 'state/swap/actions'
 import { useDefaultsFromURLSearch, useSingleTokenSwapInfo, useSwapState } from 'state/swap/hooks'
+import PriceChartContainer from 'views/Swap/components/Chart/PriceChartContainer'
+import { useCurrency } from 'hooks/Tokens'
 import Page from '../Page'
 import HotTokenList from './components/HotTokenList'
 import useWarningImport from './hooks/useWarningImport'
 import { V3SwapForm } from './V3Swap'
 import { StyledInputCurrencyWrapper, StyledSwapContainer } from './styles'
 import { SwapFeaturesContext } from './SwapFeaturesContext'
-import PriceChartContainer from 'views/Swap/components/Chart/PriceChartContainer'
-import { useCurrency } from 'hooks/Tokens'
 
 export default function Swap() {
   const { query } = useRouter()

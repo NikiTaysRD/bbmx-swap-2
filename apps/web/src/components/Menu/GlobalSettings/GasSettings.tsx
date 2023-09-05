@@ -2,6 +2,7 @@ import { Flex, Button, Text, QuestionHelper } from '@pancakeswap/uikit'
 import { useTranslation } from '@pancakeswap/localization'
 import { useGasPriceManager } from 'state/user/hooks'
 import { GAS_PRICE_GWEI, GAS_PRICE } from 'state/types'
+import { baseDisplay } from 'pages/_app'
 
 const GasSettings = () => {
   const { t } = useTranslation()
@@ -10,6 +11,9 @@ const GasSettings = () => {
   return (
     <Flex flexDirection="column">
       <Flex mb="12px" alignItems="center">
+        <Text fontSize="16px" className={baseDisplay.className}>
+          Default Transaction Speed (GWEI)
+        </Text>
         <QuestionHelper
           text={
             <Flex flexDirection="column">
@@ -35,7 +39,7 @@ const GasSettings = () => {
           }}
           variant={gasPrice === GAS_PRICE_GWEI.rpcDefault ? 'primary' : 'tertiary'}
         >
-          {t('Default')}
+          <Text fontSize="10px">{t('Default')}</Text>
         </Button>
         <Button
           mt="4px"
@@ -46,7 +50,7 @@ const GasSettings = () => {
           }}
           variant={gasPrice === GAS_PRICE_GWEI.default ? 'primary' : 'tertiary'}
         >
-          {t('Standard (%gasPrice%)', { gasPrice: GAS_PRICE.default })}
+          <Text fontSize="10px"> {t('(%gasPrice%)', { gasPrice: GAS_PRICE.default })}</Text>
         </Button>
         <Button
           mt="4px"
@@ -57,7 +61,7 @@ const GasSettings = () => {
           }}
           variant={gasPrice === GAS_PRICE_GWEI.fast ? 'primary' : 'tertiary'}
         >
-          {t('Fast (%gasPrice%)', { gasPrice: GAS_PRICE.fast })}
+          <Text fontSize="10px"> {t('(%gasPrice%)', { gasPrice: GAS_PRICE.fast })}</Text>
         </Button>
         <Button
           mr="4px"
@@ -68,7 +72,7 @@ const GasSettings = () => {
           }}
           variant={gasPrice === GAS_PRICE_GWEI.instant ? 'primary' : 'tertiary'}
         >
-          {t('Instant (%gasPrice%)', { gasPrice: GAS_PRICE.instant })}
+          <Text fontSize="10px"> {t('(%gasPrice%)', { gasPrice: GAS_PRICE.instant })}</Text>
         </Button>
       </Flex>
     </Flex>

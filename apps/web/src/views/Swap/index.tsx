@@ -18,6 +18,7 @@ import useWarningImport from './hooks/useWarningImport'
 import { V3SwapForm } from './V3Swap'
 import { StyledInputCurrencyWrapper, StyledSwapContainer } from './styles'
 import { SwapFeaturesContext } from './SwapFeaturesContext'
+import LimitOrderTable from 'views/LimitOrders/components/LimitOrderTable'
 
 export default function Swap() {
   const { query } = useRouter()
@@ -33,6 +34,7 @@ export default function Swap() {
   const [isSwapHotTokenDisplay, setIsSwapHotTokenDisplay] = useSwapHotTokenDisplay()
   const { t } = useTranslation()
   const [firstTime, setFirstTime] = useState(true)
+  const [isLimitOpened, setIsLimitOpened] = useState(false)
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const toggleChartDisplayed = () => {
@@ -152,7 +154,7 @@ export default function Swap() {
           </Modal>
         </ModalV2>
         <Flex flexDirection="column">
-          <StyledSwapContainer $isChartExpanded={isChartExpanded}>
+          <StyledSwapContainer $isChartExpanded={isChartExpanded} justifyContent="center">
             <StyledInputCurrencyWrapper mt={isChartExpanded ? '24px' : '0'}>
               <div style={{ backgroundColor: '#1b1c30', borderRadius: '22px', minWidth: isDesktop ? '' : '95%' }}>
                 <AppBody
@@ -162,11 +164,17 @@ export default function Swap() {
                     background: 'rgb(27, 28, 48)',
                   }}
                 >
-                  <V3SwapForm />
+                  <V3SwapForm setIsLimitOpened={() => setIsLimitOpened(!isLimitOpened)} />
                 </AppBody>
               </div>
             </StyledInputCurrencyWrapper>
           </StyledSwapContainer>
+
+          {isLimitOpened && (
+            <Flex mt="24px" width="100%">
+              <LimitOrderTable isCompact={!isDesktop} />
+            </Flex>
+          )}
         </Flex>
       </Flex>
     </Page>

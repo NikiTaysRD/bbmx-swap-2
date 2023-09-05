@@ -20,7 +20,7 @@ import {
 import { MMCommitButton } from './containers/MMCommitButton'
 import { useSwapBestTrade } from './hooks'
 
-export function V3SwapForm() {
+export function V3SwapForm({ setIsLimitOpened }) {
   const [isShowMarket, setIsShowMarket] = useState(true)
 
   const { isLoading, trade, refresh, syncing, isStale, error } = useSwapBestTrade()
@@ -47,6 +47,7 @@ export function V3SwapForm() {
         refreshDisabled={!tradeLoaded || syncing || !isStale}
         setIsShowMarket={setIsShowMarket}
         isShowMarket={isShowMarket}
+        setIsLimitOpened={setIsLimitOpened}
       />
       <FormMain
         tradeLoading={mm.isMMBetter ? false : !tradeLoaded}

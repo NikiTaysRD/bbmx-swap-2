@@ -8,7 +8,8 @@ export const FormHeader: FC<{
   onRefresh: () => void
   setIsShowMarket?: (param: boolean) => void
   isShowMarket?: boolean
-}> = ({ refreshDisabled, setIsShowMarket, onRefresh, isShowMarket }) => {
+  setIsLimitOpened?: () => void
+}> = ({ refreshDisabled, setIsShowMarket, onRefresh, isShowMarket, setIsLimitOpened }) => {
   const { t } = useTranslation()
 
   const handleRefresh = useCallback(() => {
@@ -26,6 +27,7 @@ export const FormHeader: FC<{
       subtitle=""
       hasAmount={!refreshDisabled}
       onRefreshPrice={handleRefresh}
+      setIsLimitOpened={setIsLimitOpened}
     />
   )
 }

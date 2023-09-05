@@ -259,6 +259,7 @@ const GlobalSettings = ({ color, mr = '8px', mode, onClick }: Props) => {
                   <SFieldInput
                     value={slippageInput}
                     type="number"
+                    min={0}
                     onBlur={() => {
                       parseCustomSlippage((userSlippageTolerance / 100).toFixed(2))
                     }}

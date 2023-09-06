@@ -9,8 +9,8 @@ import {
   useModal,
   FlexGap,
 } from '@pancakeswap/uikit'
-import styled from 'styled-components'
-import { useState } from 'react'
+import styled, { css } from 'styled-components'
+import { useContext, useState } from 'react'
 import { useExpertMode, useUserExpertModeAcknowledgement } from '@pancakeswap/utils/user/expertMode'
 import useTranslation from '@pancakeswap/localization/src/useTranslation'
 import { useSwapActionHandlers } from 'state/swap/useSwapActionHandlers'
@@ -18,6 +18,7 @@ import GasSettings from 'components/Menu/GlobalSettings/GasSettings'
 import { useUserTransactionTTL } from 'state/user/hooks'
 import { useUserSlippage } from '@pancakeswap/utils/user/slippage'
 import { escapeRegExp } from 'utils'
+import { SwapFeaturesContext } from 'views/Swap/SwapFeaturesContext'
 import { RoutingSettingsButton } from './SettingsModal'
 
 type Props = {
@@ -29,7 +30,7 @@ type Props = {
   reducedTop?: boolean
 }
 
-const SlippageContainer = styled.div<{ isSwap?: boolean; reducedTop?: boolean }>`
+const SlippageContainer = styled.div<{ isSwap?: boolean; reducedTop?: boolean; isChartOpen?: boolean }>`
   width: 300px;
   position: absolute;
   top: ${({ isSwap, reducedTop }) => (isSwap ? (reducedTop ? '7%' : '15%') : '100%')};
@@ -38,6 +39,14 @@ const SlippageContainer = styled.div<{ isSwap?: boolean; reducedTop?: boolean }>
   ${({ theme }) => theme.mediaQueries.sm} {
     left: ${({ isSwap }) => (isSwap ? `50%` : '')};
   }
+
+  ${(props) =>
+    props.isChartOpen &&
+    css`
+      left: 75% !important;
+      top: 10% !important;
+    `}
+
   right: -20px;
   background: #101124;
   border-radius: 6px;
@@ -243,6 +252,8 @@ const GlobalSettings = ({ color, mr = '8px', mode, onClick, isSwap, reducedTop }
     }
   }
 
+  const { isChartDisplayed } = useContext(SwapFeaturesContext)
+
   return (
     <Flex>
       {!isSwap && (
@@ -257,7 +268,12 @@ const GlobalSettings = ({ color, mr = '8px', mode, onClick, isSwap, reducedTop }
         </IconButton>
       )}
 
-      <SlippageContainer style={{ display: isShow ? '' : 'none' }} isSwap={isSwap} reducedTop={reducedTop}>
+      <SlippageContainer
+        style={{ display: isShow ? '' : 'none' }}
+        isSwap={isSwap}
+        reducedTop={reducedTop}
+        isChartOpen={isChartDisplayed}
+      >
         <Heading3>Transaction Settings</Heading3>
         <GasSettings />
         <SlippageSet>

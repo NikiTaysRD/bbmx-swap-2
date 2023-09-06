@@ -7,6 +7,7 @@ import Link from "next/link";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
 import Flex from "../../components/Box/Flex";
+// @ts-ignore
 import favicon from "../../../../../apps/web/public/images/favicon.png";
 import Logo from "./components/Logo";
 import FlexGap from "../../components/Layouts/FlexGap";
@@ -25,7 +26,9 @@ import {
   StyledNav,
   Text,
 } from "./styles";
+// @ts-ignore
 import bOnly from "../../../../../apps/web/public/favicon.ico";
+// @ts-ignore
 import base from "../../../../../apps/web/public/images/base.png";
 import AngleDown from "../../../../../apps/web/public/images/home/angle-down.svg";
 import { useMatchBreakpoints } from "../../contexts";

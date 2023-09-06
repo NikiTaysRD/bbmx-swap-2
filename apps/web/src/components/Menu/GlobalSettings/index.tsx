@@ -32,7 +32,11 @@ const SlippageContainer = styled.div<{ isSwap: boolean }>`
   width: 300px;
   position: absolute;
   top: ${({ isSwap }) => (isSwap ? `15%` : '100%')};
-  left: ${({ isSwap }) => (isSwap ? `50%` : '')};
+  left: ${({ isSwap }) => (isSwap ? `15%` : '')};
+
+  ${({ theme }) => theme.mediaQueries.sm} {
+    left: ${({ isSwap }) => (isSwap ? `50%` : '')};
+  }
   right: -20px;
   background: #101124;
   border-radius: 6px;

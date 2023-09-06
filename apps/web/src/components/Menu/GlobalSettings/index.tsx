@@ -271,7 +271,7 @@ const GlobalSettings = ({ color, mr = '8px', mode, onClick }: Props) => {
                   />
                   <SFieldSpan>%</SFieldSpan>
                 </SField>
-                <AutoBtn>
+                <AutoBtn onClick={() => parseCustomSlippage('0.5')}>
                   <AutoBtnInput type="checkbox" id="auto" />
                   <AutoBtnLabel htmlFor="auto">Auto</AutoBtnLabel>
                 </AutoBtn>

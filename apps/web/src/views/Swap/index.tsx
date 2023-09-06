@@ -38,6 +38,7 @@ export default function Swap() {
   const [firstTime, setFirstTime] = useState(true)
   const [isLimitOpened, setIsLimitOpened] = useState(false)
   const [isSettingsOpened, setIsSettingsOpened] = useState(false)
+  const [isReducedTop, setIsReducedTop] = useState(false)
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const toggleChartDisplayed = () => {
@@ -168,13 +169,22 @@ export default function Swap() {
                   }}
                 >
                   <V3SwapForm
-                    setIsLimitOpened={() => setIsLimitOpened(!isLimitOpened)}
+                    setIsLimitOpened={() => {
+                      setIsLimitOpened(!isLimitOpened)
+                      setIsReducedTop(!isReducedTop)
+                    }}
                     setIsSettingsOpened={() => setIsSettingsOpened(!isSettingsOpened)}
                     isSwap
                   />
                 </AppBody>
                 {isSettingsOpened && (
-                  <GlobalSettings color="textSubtle" mr="0" mode={SettingsMode.SWAP_LIQUIDITY} isSwap />
+                  <GlobalSettings
+                    color="textSubtle"
+                    mr="0"
+                    mode={SettingsMode.SWAP_LIQUIDITY}
+                    isSwap
+                    reducedTop={isReducedTop}
+                  />
                 )}
               </div>
             </StyledInputCurrencyWrapper>

@@ -26,12 +26,13 @@ type Props = {
   mode?: string
   onClick?: () => void
   isSwap?: boolean
+  reducedTop?: boolean
 }
 
-const SlippageContainer = styled.div<{ isSwap: boolean }>`
+const SlippageContainer = styled.div<{ isSwap?: boolean; reducedTop?: boolean }>`
   width: 300px;
   position: absolute;
-  top: ${({ isSwap }) => (isSwap ? `15%` : '100%')};
+  top: ${({ isSwap, reducedTop }) => (isSwap ? (reducedTop ? '7%' : '15%') : '100%')};
   left: ${({ isSwap }) => (isSwap ? `15%` : '')};
 
   ${({ theme }) => theme.mediaQueries.sm} {
@@ -159,7 +160,7 @@ enum DeadlineError {
 const inputRegex = RegExp(`^\\d*(?:\\\\[.])?\\d*$`) // match escaped "." characters via in a non-capturing group
 const THREE_DAYS_IN_SECONDS = 60 * 60 * 24 * 3
 
-const GlobalSettings = ({ color, mr = '8px', mode, onClick, isSwap }: Props) => {
+const GlobalSettings = ({ color, mr = '8px', mode, onClick, isSwap, reducedTop }: Props) => {
   const [isShow, setIsShow] = useState(isSwap)
   const [showConfirmExpertModal, setShowConfirmExpertModal] = useState(false)
   const [expertMode, setExpertMode] = useExpertMode()
@@ -256,7 +257,7 @@ const GlobalSettings = ({ color, mr = '8px', mode, onClick, isSwap }: Props) => 
         </IconButton>
       )}
 
-      <SlippageContainer style={{ display: isShow ? '' : 'none' }} isSwap={isSwap}>
+      <SlippageContainer style={{ display: isShow ? '' : 'none' }} isSwap={isSwap} reducedTop={reducedTop}>
         <Heading3>Transaction Settings</Heading3>
         <GasSettings />
         <SlippageSet>

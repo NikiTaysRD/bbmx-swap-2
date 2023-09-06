@@ -4,7 +4,10 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faEllipsis, faEnvelope, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 import Flex from "../../components/Box/Flex";
+// @ts-ignore
 import favicon from "../../../../../apps/web/public/images/favicon.png";
 import Logo from "./components/Logo";
 import FlexGap from "../../components/Layouts/FlexGap";
@@ -23,7 +26,9 @@ import {
   StyledNav,
   Text,
 } from "./styles";
+// @ts-ignore
 import bOnly from "../../../../../apps/web/public/favicon.ico";
+// @ts-ignore
 import base from "../../../../../apps/web/public/images/base.png";
 import AngleDown from "../../../../../apps/web/public/images/home/angle-down.svg";
 import { useMatchBreakpoints } from "../../contexts";
@@ -34,6 +39,17 @@ export const Header: React.FC = () => {
   const { isDesktop } = useMatchBreakpoints();
   const [openDropdown, setOpenDropdown] = useState<string>("");
   const [openBurger, setOpenBurger] = useState<boolean>(false);
+
+  const { data } = useQuery({
+    queryKey: ["tokenPrice"],
+    queryFn: async () => {
+      const res = await axios.get(
+        "https://api.dexscreener.com/latest/dex/search/?q=0xff0b183c467049cfe744ee9d4898f264d277874d"
+      );
+      return res.data;
+    },
+    refetchInterval: 60000,
+  });
 
   useEffect(() => {
     if (openBurger) {
@@ -111,7 +127,7 @@ export const Header: React.FC = () => {
           {!isMobile && (
             <Flex alignItems="center">
               <Image src={bOnly.src} alt="" width={35} height={35} />
-              <Price>$0.0046</Price>
+              <Price>${data?.pairs[0]?.priceUsd}</Price>
             </Flex>
           )}
 

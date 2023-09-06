@@ -1,4 +1,3 @@
-import { useTranslation } from '@pancakeswap/localization'
 import { FC, useCallback } from 'react'
 
 import CurrencyInputHeader from '../../components/CurrencyInputHeader'
@@ -9,9 +8,9 @@ export const FormHeader: FC<{
   setIsShowMarket?: (param: boolean) => void
   isShowMarket?: boolean
   setIsLimitOpened?: () => void
-}> = ({ refreshDisabled, setIsShowMarket, onRefresh, isShowMarket, setIsLimitOpened }) => {
-  const { t } = useTranslation()
-
+  setIsSettingsOpened?: () => void
+  isSwap?: boolean
+}> = ({ refreshDisabled, setIsShowMarket, onRefresh, isShowMarket, setIsLimitOpened, setIsSettingsOpened, isSwap }) => {
   const handleRefresh = useCallback(() => {
     if (refreshDisabled) {
       return
@@ -28,6 +27,8 @@ export const FormHeader: FC<{
       hasAmount={!refreshDisabled}
       onRefreshPrice={handleRefresh}
       setIsLimitOpened={setIsLimitOpened}
+      setIsSettingsOpened={setIsSettingsOpened}
+      isSwap={isSwap}
     />
   )
 }

@@ -13,6 +13,8 @@ import { useDefaultsFromURLSearch, useSingleTokenSwapInfo, useSwapState } from '
 import PriceChartContainer from 'views/Swap/components/Chart/PriceChartContainer'
 import { useCurrency } from 'hooks/Tokens'
 import LimitOrderTable from 'views/LimitOrders/components/LimitOrderTable'
+import { SettingsMode } from 'components/Menu/GlobalSettings/types'
+import GlobalSettings from 'components/Menu/GlobalSettings'
 import Page from '../Page'
 import HotTokenList from './components/HotTokenList'
 import useWarningImport from './hooks/useWarningImport'
@@ -35,6 +37,8 @@ export default function Swap() {
   const { t } = useTranslation()
   const [firstTime, setFirstTime] = useState(true)
   const [isLimitOpened, setIsLimitOpened] = useState(false)
+  const [isSettingsOpened, setIsSettingsOpened] = useState(false)
+  const [isReducedTop, setIsReducedTop] = useState(false)
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const toggleChartDisplayed = () => {
@@ -164,8 +168,24 @@ export default function Swap() {
                     background: 'rgb(27, 28, 48)',
                   }}
                 >
-                  <V3SwapForm setIsLimitOpened={() => setIsLimitOpened(!isLimitOpened)} />
+                  <V3SwapForm
+                    setIsLimitOpened={() => {
+                      setIsLimitOpened(!isLimitOpened)
+                      setIsReducedTop(!isReducedTop)
+                    }}
+                    setIsSettingsOpened={() => setIsSettingsOpened(!isSettingsOpened)}
+                    isSwap
+                  />
                 </AppBody>
+                {isSettingsOpened && (
+                  <GlobalSettings
+                    color="textSubtle"
+                    mr="0"
+                    mode={SettingsMode.SWAP_LIQUIDITY}
+                    isSwap
+                    reducedTop={isReducedTop}
+                  />
+                )}
               </div>
             </StyledInputCurrencyWrapper>
           </StyledSwapContainer>

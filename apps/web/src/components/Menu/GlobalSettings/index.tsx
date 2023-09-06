@@ -25,12 +25,14 @@ type Props = {
   mr?: string
   mode?: string
   onClick?: () => void
+  isSwap?: boolean
 }
 
-const SlippageContainer = styled.div`
+const SlippageContainer = styled.div<{ isSwap: boolean }>`
   width: 300px;
   position: absolute;
-  top: 100%;
+  top: ${({ isSwap }) => (isSwap ? `15%` : '100%')};
+  left: ${({ isSwap }) => (isSwap ? `50%` : '')};
   right: -20px;
   background: #101124;
   border-radius: 6px;
@@ -153,8 +155,8 @@ enum DeadlineError {
 const inputRegex = RegExp(`^\\d*(?:\\\\[.])?\\d*$`) // match escaped "." characters via in a non-capturing group
 const THREE_DAYS_IN_SECONDS = 60 * 60 * 24 * 3
 
-const GlobalSettings = ({ color, mr = '8px', mode, onClick }: Props) => {
-  const [isShow, setIsShow] = useState(false)
+const GlobalSettings = ({ color, mr = '8px', mode, onClick, isSwap }: Props) => {
+  const [isShow, setIsShow] = useState(isSwap)
   const [showConfirmExpertModal, setShowConfirmExpertModal] = useState(false)
   const [expertMode, setExpertMode] = useExpertMode()
   const [showExpertModeAcknowledgement, setShowExpertModeAcknowledgement] = useUserExpertModeAcknowledgement()
@@ -238,18 +240,21 @@ const GlobalSettings = ({ color, mr = '8px', mode, onClick }: Props) => {
 
   return (
     <Flex>
-      <IconButton
-        onClick={() => setIsShow(!isShow)}
-        variant="text"
-        scale="sm"
-        mr={mr}
-        id={`open-settings-dialog-button-${mode}`}
-      >
-        <CogIcon height={24} width={24} color={color || 'textSubtle'} />
-      </IconButton>
-      <SlippageContainer style={{ display: isShow ? '' : 'none' }}>
+      {!isSwap && (
+        <IconButton
+          onClick={() => setIsShow(!isShow)}
+          variant="text"
+          scale="sm"
+          mr={mr}
+          id={`open-settings-dialog-button-${mode}`}
+        >
+          <CogIcon height={24} width={24} color={color || 'textSubtle'} />
+        </IconButton>
+      )}
+
+      <SlippageContainer style={{ display: isShow ? '' : 'none' }} isSwap={isSwap}>
         <Heading3>Transaction Settings</Heading3>
-        {/* <GasSettings /> */}
+        <GasSettings />
         <SlippageSet>
           <SlippageTitle>Slippage tolerance</SlippageTitle>
           <SlippageField>

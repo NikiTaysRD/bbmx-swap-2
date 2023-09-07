@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useCallback, useMemo, ReactNode, useState } from 'react'
+import { useCallback, useMemo, ReactNode } from 'react'
 import { useTranslation } from '@pancakeswap/localization'
 import { useWeb3React } from '@pancakeswap/wagmi'
 import { Currency, CurrencyAmount, Percent, TradeType } from '@pancakeswap/sdk'
@@ -20,8 +20,9 @@ import { maxAmountSpend } from 'utils/maxAmountSpend'
 import { currencyId } from 'utils/currencyId'
 
 import { useTheme } from '@pancakeswap/hooks'
-import { Flex, FlexGap, ImportList, useMatchBreakpoints } from '@pancakeswap/uikit'
+import { Flex, FlexGap, useMatchBreakpoints } from '@pancakeswap/uikit'
 import styled from 'styled-components'
+import { CurrencyLogo } from 'components/Logo'
 import { FormContainer } from '../components'
 import useWarningImport from '../../hooks/useWarningImport'
 import { useIsWrapping } from '../hooks'
@@ -91,6 +92,11 @@ const SwapItem = styled.div`
   border-radius: 10px;
   transition: 0.3s all;
   -webkit-transition: 0.3s all;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 5px;
 `
 
 const SwapImg = styled.img`
@@ -110,7 +116,7 @@ const SwapSpan = styled.span`
 
   line-height: 44px;
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   cursor: pointer;
   border-radius: 10px;
 `
@@ -224,11 +230,10 @@ export function FormMain({
   )
 
   const isTypingInput = independentField === Field.INPUT
-  const inputValue = useMemo(() => typedValue && (isTypingInput ? typedValue : formatAmount(inputAmount) || ''), [
-    typedValue,
-    isTypingInput,
-    inputAmount,
-  ])
+  const inputValue = useMemo(
+    () => typedValue && (isTypingInput ? typedValue : formatAmount(inputAmount) || ''),
+    [typedValue, isTypingInput, inputAmount],
+  )
 
   const value = isWrapping ? typedValue : inputValue
 
@@ -237,11 +242,10 @@ export function FormMain({
     enabled: Number.isFinite(+value),
   })
 
-  const outputValue = useMemo(() => typedValue && (isTypingInput ? formatAmount(outputAmount) || '' : typedValue), [
-    typedValue,
-    isTypingInput,
-    outputAmount,
-  ])
+  const outputValue = useMemo(
+    () => typedValue && (isTypingInput ? formatAmount(outputAmount) || '' : typedValue),
+    [typedValue, isTypingInput, outputAmount],
+  )
   const inputLoading = typedValue ? !isTypingInput && tradeLoading : false
   const outputLoading = typedValue ? isTypingInput && tradeLoading : false
 
@@ -312,15 +316,15 @@ export function FormMain({
             </AppFieldHeading>
             <SwapField>
               <SwapItem>
-                <SwapImg src="https://pancakeswap.finance/images/tokens/0x2170Ed0880ac9A755fd29B2688956BD959F933F8.png" />
-                <SwapSpan>ETH</SwapSpan>
+                <CurrencyLogo currency={inputCurrency} />
+                <SwapSpan>{inputCurrency.symbol}</SwapSpan>
               </SwapItem>
               <EnterField>
                 <MarketField type="text" value="1900" />
               </EnterField>
             </SwapField>
             <Highlights>
-              <div>Ethereum</div>
+              <div>{inputCurrency.name}</div>
               <div>24.2% above market</div>
             </Highlights>
           </AppFieldBuy>

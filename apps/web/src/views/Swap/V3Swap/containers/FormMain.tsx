@@ -320,7 +320,7 @@ export function FormMain({
                 <SwapSpan>{inputCurrency.symbol}</SwapSpan>
               </SwapItem>
               <EnterField>
-                <MarketField type="text" value="1900" />
+                <MarketField type="text" value={outputValue && inputValue ? (Number(outputValue) / Number(inputValue)).toFixed(3): 0} />
               </EnterField>
             </SwapField>
             <Highlights>

@@ -34,9 +34,8 @@ const Footer = styled.div`
 `
 const StyledModalContainer = styled(ModalContainer)`
   min-height: auto;
-  max-width: auto;
   width: auto;
-  min-height: calc(var(--vh, 1vh) * 90);
+  //min-height: calc(var(--vh, 1vh) * 90);
   ${({ theme }) => theme.mediaQueries.md} {
     width: 100%;
     min-width: 320px;

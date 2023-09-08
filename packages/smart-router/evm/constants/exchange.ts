@@ -14,6 +14,7 @@ import {
   zksyncTokens,
   zkSyncTestnetTokens,
   lineaTestnetTokens,
+  baseTestnetTokens
 } from '@pancakeswap/tokens'
 
 import { ChainMap, ChainTokenList } from '../types'
@@ -30,6 +31,7 @@ export const SMART_ROUTER_ADDRESSES = {
   [ChainId.ZKSYNC]: '0xf8b59f3c3Ab33200ec80a8A58b2aA5F5D2a8944C',
   [ChainId.ZKSYNC_TESTNET]: '0x4DC9186c6C5F7dd430c7b6D8D513076637902241',
   [ChainId.LINEA_TESTNET]: '0x21d809FB4052bb1807cfe2418bA638d72F4aEf87',
+  [ChainId.BASE_TESTNET]: '0x259d8905Df683d4500e443D57571B09709fa9cff',
 } as const satisfies Record<ChainId, string>
 
 export const V2_ROUTER_ADDRESS: ChainMap<string> = {
@@ -44,6 +46,7 @@ export const V2_ROUTER_ADDRESS: ChainMap<string> = {
   [ChainId.ZKSYNC]: '0x5aEaF2883FBf30f3D62471154eDa3C0c1b05942d',
   [ChainId.ZKSYNC_TESTNET]: '0xA0Fbd5d1474950bc9417FB00f9d4e2ee0385c560',
   [ChainId.LINEA_TESTNET]: '0xD7A304138D50C125733d1fE8a2041199E4944Aa1',
+  [ChainId.BASE_TESTNET]: '0x2d08e3E1E47637FBC1AC715dcA4A48E00a7448cd',
 }
 
 export const STABLE_SWAP_INFO_ADDRESS: ChainMap<string> = {
@@ -58,6 +61,7 @@ export const STABLE_SWAP_INFO_ADDRESS: ChainMap<string> = {
   [ChainId.ZKSYNC]: '',
   [ChainId.ZKSYNC_TESTNET]: '',
   [ChainId.LINEA_TESTNET]: '',
+  [ChainId.BASE_TESTNET]: '',
 }
 
 // used to construct intermediary pairs for trading
@@ -81,6 +85,7 @@ export const BASES_TO_CHECK_TRADES_AGAINST: ChainTokenList = {
   [ChainId.ZKSYNC]: [zksyncTokens.usdc, zksyncTokens.weth],
   [ChainId.ZKSYNC_TESTNET]: [zkSyncTestnetTokens.usdc, zkSyncTestnetTokens.weth],
   [ChainId.LINEA_TESTNET]: [lineaTestnetTokens.usdc, lineaTestnetTokens.weth],
+  [ChainId.BASE_TESTNET]: [baseTestnetTokens.usdc, baseTestnetTokens.weth],
 }
 
 /**

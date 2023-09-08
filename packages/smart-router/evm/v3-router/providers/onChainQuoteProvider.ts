@@ -46,6 +46,7 @@ const BLOCK_CONFLICT_TOLERANCE = {
   [ChainId.ZKSYNC]: 3,
   [ChainId.ZKSYNC_TESTNET]: 3,
   [ChainId.LINEA_TESTNET]: 3,
+  [ChainId.BASE_TESTNET]: 5,
 } as const satisfies Record<ChainId, number>
 
 type V3Inputs = [string, string]

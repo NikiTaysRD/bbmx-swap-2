@@ -29,6 +29,7 @@ const SUCCESS_RATE_CONFIG = {
   [ChainId.ZKSYNC]: 0.1,
   [ChainId.ZKSYNC_TESTNET]: 0.1,
   [ChainId.LINEA_TESTNET]: 0.1,
+  [ChainId.BASE_TESTNET]: 0.1,
 } as const satisfies Record<ChainId, number>
 
 // Normally we expect to get quotes from within the same block

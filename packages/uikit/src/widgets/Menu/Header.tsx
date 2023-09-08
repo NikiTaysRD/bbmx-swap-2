@@ -6,6 +6,7 @@ import { faBars, faEllipsis, faEnvelope, faPaperPlane } from "@fortawesome/free-
 import Link from "next/link";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
+import { NetworkSwitcher } from "components/NetworkSwitcher";
 import Flex from "../../components/Box/Flex";
 // @ts-ignore
 import favicon from "../../../../../apps/web/public/images/favicon.png";
@@ -131,7 +132,7 @@ export const Header: React.FC = () => {
             </Flex>
           )}
 
-          <BaseWrap>
+          {/* <BaseWrap>
             <Base onClick={() => toggleDropdown("baseDropdown")} ref={baseButtonRef}>
               <Image src={base.src} alt="" width={18} height={18} />
               {!isMobile && <Base>Base</Base>}
@@ -149,9 +150,9 @@ export const Header: React.FC = () => {
                 </DropdownLink>
               </Dropdown>
             )}
-          </BaseWrap>
+          </BaseWrap> */}
 
-          {/* <NetworkSwitcher /> */}
+          <NetworkSwitcher />
 
           <UserMenu />
 

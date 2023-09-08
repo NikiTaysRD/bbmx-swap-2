@@ -136,9 +136,9 @@ export default function Swap() {
             setIsOpen={setIsChartDisplayed}
           />
         )}
-        {isDesktop && isSwapHotTokenDisplay && isHotTokenSupported && (
-          <HotTokenList handleOutputSelect={handleOutputSelect} />
-        )}
+        {/* {isDesktop && isSwapHotTokenDisplay && isHotTokenSupported && ( */}
+        {/*  <HotTokenList handleOutputSelect={handleOutputSelect} /> */}
+        {/* )} */}
         <ModalV2
           isOpen={!isDesktop && isSwapHotTokenDisplay && isHotTokenSupported}
           onDismiss={() => setIsSwapHotTokenDisplay(false)}

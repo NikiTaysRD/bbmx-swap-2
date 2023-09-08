@@ -82,6 +82,40 @@ export const Item = styled.div`
   // }
 `;
 
+export const DotItem = styled(Item)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+  p {
+    width: 100%;
+    height: 50%;
+  }
+
+  position: relative;
+`;
+
+export const DesktopHiddenItems = styled.div`
+  position: absolute;
+  background: rgba(27, 28, 48, 0.8);
+
+  color: white;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  padding: 20px;
+
+  gap: 10px;
+
+  top: 100%;
+  left: 30%;
+  width: 300px;
+  min-height: 200px;
+`;
+
 export const Price = styled.span`
   font-size: 12px;
 `;

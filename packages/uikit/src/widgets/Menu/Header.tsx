@@ -20,6 +20,8 @@ import {
   BurgerItem,
   BurgerMenu,
   BurgerNavList,
+  DesktopHiddenItems,
+  DotItem,
   Dropdown,
   DropdownLink,
   Item,
@@ -36,10 +38,25 @@ import { useMatchBreakpoints } from "../../contexts";
 import UserMenu from "../../../../../apps/web/src/components/Menu/UserMenu";
 
 export const Header: React.FC = () => {
-  const { isMobile } = useMatchBreakpoints();
-  const { isDesktop } = useMatchBreakpoints();
+  const { isDesktop, isMobile } = useMatchBreakpoints();
   const [openDropdown, setOpenDropdown] = useState<string>("");
   const [openBurger, setOpenBurger] = useState<boolean>(false);
+  const [showDropdownItemsDesktop, setDropdownItemsDesktop] = useState<boolean>(false);
+  const [showHiddenDesktopItems, setShowHiddenDesktopItems] = useState<boolean>(false);
+
+  useEffect(() => {
+    function handleResize() {
+      const windowWidth = window.innerWidth;
+      setDropdownItemsDesktop(windowWidth > 967 && windowWidth < 1025);
+    }
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const { data } = useQuery({
     queryKey: ["tokenPrice"],
@@ -96,25 +113,59 @@ export const Header: React.FC = () => {
         <Flex>
           <Flex width="106px">{isMobile ? <Image alt="" src={favicon} width={24} /> : <Logo href="/" />}</Flex>
 
-          {isDesktop && (
-            <FlexGap gap="16px" className={baseDisplay.className} alignItems="center" ml="25px">
-              <Item>
-                <Link href="/">Home</Link>
-              </Item>
-              <Item>
-                <Link href="/swap">Trade</Link>
-              </Item>
-              <Item>
-                <Link href="/liquidity">Liquidity</Link>
-              </Item>
-              <Item>
-                <Link href="/farming">Farming</Link>
-              </Item>
-              <Item>
-                <Link href="/governance">Governance</Link>
-              </Item>
-            </FlexGap>
-          )}
+          {isDesktop ? (
+            !showDropdownItemsDesktop ? (
+              <FlexGap gap="16px" className={baseDisplay.className} alignItems="center" ml="25px">
+                <Item>
+                  <Link href="/">Home</Link>
+                </Item>
+                <Item>
+                  <Link href="/swap">Trade</Link>
+                </Item>
+                <Item>
+                  <Link href="/liquidity">Liquidity</Link>
+                </Item>
+                <Item>
+                  <Link href="/farming">Farming</Link>
+                </Item>
+                <Item>
+                  <Link href="/governance">Governance</Link>
+                </Item>
+                <Item>
+                  <Link href="/pools">Pools</Link>
+                </Item>
+              </FlexGap>
+            ) : (
+              <FlexGap gap="16px" className={baseDisplay.className} alignItems="center" ml="25px">
+                <Item>
+                  <Link href="/">Home</Link>
+                </Item>
+                <Item>
+                  <Link href="/swap">Trade</Link>
+                </Item>
+                <Item>
+                  <Link href="/liquidity">Liquidity</Link>
+                </Item>
+                <DotItem onClick={() => setShowHiddenDesktopItems(!showHiddenDesktopItems)}>
+                  <p>...</p>
+                </DotItem>
+
+                {showHiddenDesktopItems && (
+                  <DesktopHiddenItems>
+                    <Item>
+                      <Link href="/farming">Farming</Link>
+                    </Item>
+                    <Item>
+                      <Link href="/governance">Governance</Link>
+                    </Item>
+                    <Item>
+                      <Link href="/pools">Pools</Link>
+                    </Item>
+                  </DesktopHiddenItems>
+                )}
+              </FlexGap>
+            )
+          ) : null}
         </Flex>
 
         <FlexGap

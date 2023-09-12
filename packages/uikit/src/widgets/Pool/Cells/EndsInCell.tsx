@@ -7,7 +7,7 @@ import { Flex } from "../../../components/Box";
 import { Text } from "../../../components/Text";
 import { DeserializedPool } from "../types";
 import { useTooltip } from "../../../hooks";
-import { TimerIcon } from "../../../components/Svg";
+import { baseDisplay } from "../../../../../../apps/web/src/pages/_app";
 
 interface EndsInCellProps<T> {
   pool: DeserializedPool<T>;
@@ -66,7 +66,14 @@ export function TimeCountdownDisplay({
 
   return (
     <Flex alignItems="center">
-      <Text color="textSubtle" small>
+      <Text
+        color="white"
+        textAlign="left"
+        fontSize="16px"
+        lineHeight="160%"
+        className={baseDisplay.className}
+        fontWeight={600}
+      >
         {poolTimeRemaining > 0
           ? endTimeObject?.totalDays
             ? endTimeObject?.totalDays === 1
@@ -75,10 +82,10 @@ export function TimeCountdownDisplay({
             : t("< 1 day")
           : t("%days% days", { days: 0 })}
       </Text>
-      <span ref={endTimeTargetRef}>
-        <TimerIcon ml="4px" color="primary" />
-        {endTimeTooltipVisible && endTimeTooltip}
-      </span>
+      {/* <span ref={endTimeTargetRef}> */}
+      {/*  <TimerIcon ml="4px" color="primary" /> */}
+      {/*  {endTimeTooltipVisible && endTimeTooltip} */}
+      {/* </span> */}
     </Flex>
   );
 }
@@ -91,9 +98,16 @@ export function EndsInCell<T>({ pool, getNow }: EndsInCellProps<T>) {
     isFinished || !endTimestamp ? <Text>-</Text> : <TimeCountdownDisplay timestamp={endTimestamp} getNow={getNow} />;
 
   return (
-    <BaseCell role="cell" flex={["1 0 50px", "1 0 50px", "2 0 100px", "2 0 100px", "1 0 120px"]}>
+    <BaseCell role="cell" flex={["1 0 150px"]}>
       <CellContent>
-        <Text fontSize="12px" color="textSubtle" textAlign="left">
+        <Text
+          color="#a0a3c4"
+          textAlign="left"
+          fontSize="13px"
+          lineHeight="160%"
+          letterSpacing="0.75px"
+          className={baseDisplay.className}
+        >
           {t("Ends in")}
         </Text>
         {countdown}

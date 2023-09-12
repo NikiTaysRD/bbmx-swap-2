@@ -10,10 +10,11 @@ export const BaseCell = styled(Flex)`
 
 export const CellContent = styled(Flex)`
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   max-height: 40px;
   min-width: 40px;
   ${Text} {
     line-height: 1;
   }
+  gap: 5px;
 `;

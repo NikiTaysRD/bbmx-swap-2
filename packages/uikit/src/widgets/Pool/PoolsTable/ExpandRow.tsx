@@ -5,9 +5,13 @@ import { ExpandActionCell } from "../Cells/ExpandActionCell";
 import useMatchBreakpoints from "../../../contexts/MatchBreakpoints/useMatchBreakpoints";
 
 const StyledRow = styled.div`
-  background-color: transparent;
   display: flex;
   cursor: pointer;
+  background: #1b1c30;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const ExpandRow: React.FC<

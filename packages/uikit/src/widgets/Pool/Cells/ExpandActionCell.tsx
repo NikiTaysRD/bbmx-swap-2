@@ -1,25 +1,40 @@
 import styled from "styled-components";
-import { useTranslation } from "@pancakeswap/localization";
 
-import { Text, ChevronDownIcon } from "../../../components";
+import { ChevronDownIcon } from "../../../components";
 import { BaseCell } from "./BaseCell";
 
 interface ExpandActionCellProps {
   expanded: boolean;
-  isFullLayout: boolean;
+  isFullLayout?: boolean;
 }
 
 const StyledCell = styled(BaseCell)`
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: center;
   align-items: center;
   flex: 1;
   padding-right: 12px;
-  padding-left: 0px;
+  padding-left: 0;
+
   ${({ theme }) => theme.mediaQueries.md} {
-    flex: 0 0 120px;
-    padding-right: 32px;
-    padding-left: 8px;
+    flex: 0 0 50px;
+    margin-right: 30px;
+    padding-right: 0;
+  }
+
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  font-size: 18px;
+  text-align: center;
+  cursor: pointer;
+  margin-left: auto;
+  border-radius: 12px;
+  background: rgb(16, 17, 36);
+
+  svg {
+    height: 30px;
+    width: 100%;
   }
 `;
 
@@ -28,18 +43,9 @@ const ArrowIcon = styled((props) => <ChevronDownIcon {...props} />)`
   height: 24px;
 `;
 
-export const ExpandActionCell: React.FC<React.PropsWithChildren<ExpandActionCellProps>> = ({
-  expanded,
-  isFullLayout,
-}) => {
-  const { t } = useTranslation();
+export const ExpandActionCell: React.FC<React.PropsWithChildren<ExpandActionCellProps>> = ({ expanded }) => {
   return (
     <StyledCell role="cell">
-      {isFullLayout && (
-        <Text color="primary" bold>
-          {expanded ? t("Hide") : t("Details")}
-        </Text>
-      )}
       <ArrowIcon color="primary" toggled={expanded} />
     </StyledCell>
   );

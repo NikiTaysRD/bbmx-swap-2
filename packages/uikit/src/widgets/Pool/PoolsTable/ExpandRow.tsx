@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useDelayedUnmount } from "@pancakeswap/hooks";
 import { ExpandActionCell } from "../Cells/ExpandActionCell";
 import useMatchBreakpoints from "../../../contexts/MatchBreakpoints/useMatchBreakpoints";
+import { Flex } from "../../../components";
 
 const StyledRow = styled.div`
   display: flex;
@@ -36,10 +37,14 @@ export const ExpandRow: React.FC<
   return (
     <>
       <StyledRow role="row" onClick={toggleExpanded}>
-        {children}
-        <ExpandActionCell expanded={expanded} isFullLayout={isTablet || isDesktop} />
+        <Flex width="100%" flexDirection="column">
+          <Flex flexDirection="row" alignItems="center">
+            {children}
+            <ExpandActionCell expanded={expanded} isFullLayout={isTablet || isDesktop} />
+          </Flex>
+          {shouldRenderActionPanel && panel}
+        </Flex>
       </StyledRow>
-      {shouldRenderActionPanel && panel}
     </>
   );
 });

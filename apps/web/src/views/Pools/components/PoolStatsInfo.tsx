@@ -1,4 +1,4 @@
-import { Flex, LinkExternal, Skeleton, Text, Pool, ScanLink } from '@pancakeswap/uikit'
+import { Flex, LinkExternal, Text, Pool, ScanLink, FlexGap } from '@pancakeswap/uikit'
 import AddToWalletButton, { AddToWalletTextOptions } from 'components/AddToWallet/AddToWalletButton'
 import { useTranslation } from '@pancakeswap/localization'
 import { Token } from '@pancakeswap/sdk'
@@ -12,8 +12,10 @@ import { getPoolBlockInfo } from 'views/Pools/helpers'
 import { useActiveChainId } from 'hooks/useActiveChainId'
 import { getBlockExploreLink } from 'utils'
 import { getTokenInfoPath } from 'state/info/utils'
+import { baseDisplay } from 'pages/_app'
+import styled from 'styled-components'
 import MaxStakeRow from './MaxStakeRow'
-import { AprInfo, DurationAvg, PerformanceFee, TotalLocked } from './Stat'
+import { DurationAvg, PerformanceFee, TotalLocked } from './Stat'
 
 interface ExpandedFooterProps {
   pool: Pool.DeserializedPool<Token>
@@ -21,6 +23,34 @@ interface ExpandedFooterProps {
   showTotalStaked?: boolean
   alignLinksToRight?: boolean
 }
+
+const StyledLinkExternal = styled(LinkExternal)`
+  font-size: 12px;
+
+  ${({ theme }) => theme.mediaQueries.md} {
+    font-size: 14px;
+  }
+
+  line-height: 160%;
+  transition: 0.3s all;
+  &:hover {
+    color: #4e09f8;
+  }
+`
+
+const StyledScanLink = styled(ScanLink)`
+  font-size: 12px;
+
+  ${({ theme }) => theme.mediaQueries.md} {
+    font-size: 14px;
+  }
+  line-height: 160%;
+  transition: 0.3s all;
+
+  &:hover {
+    color: #4e09f8;
+  }
+`
 
 const PoolStatsInfo: React.FC<React.PropsWithChildren<ExpandedFooterProps>> = ({
   pool,
@@ -81,7 +111,7 @@ const PoolStatsInfo: React.FC<React.PropsWithChildren<ExpandedFooterProps>> = ({
           </Text>
         </Flex>
       )}
-      {!vaultKey && <AprInfo pool={pool} stakedBalance={stakedBalance} />}
+      {/* {!vaultKey && <AprInfo pool={pool} stakedBalance={stakedBalance} />} */}
       {showTotalStaked && (
         <Pool.TotalStaked
           totalStaked={vaultKey ? totalCakeInVault : totalStaked}
@@ -103,47 +133,56 @@ const PoolStatsInfo: React.FC<React.PropsWithChildren<ExpandedFooterProps>> = ({
           endTimestamp={endTimestamp}
         />
       )}
-      {shouldShowBlockCountdown && (
-        <Flex mb="2px" justifyContent="space-between" alignItems="center">
-          <Text small>{hasPoolStarted ? t('Ends in') : t('Starts in')}:</Text>
-          {timeRemaining || timeUntilStart ? (
-            <Pool.TimeCountdownDisplay timestamp={hasPoolStarted ? endTimestamp : startTimestamp} />
-          ) : (
-            <Skeleton width="54px" height="21px" />
-          )}
-        </Flex>
-      )}
       {vaultKey && <PerformanceFee userData={userData} performanceFeeAsDecimal={performanceFeeAsDecimal} />}
-      <Flex mb="2px" justifyContent={alignLinksToRight ? 'flex-end' : 'flex-start'}>
-        <LinkExternal href={tokenInfoPath} bold={false} small>
-          {t('See Token Info')}
-        </LinkExternal>
-      </Flex>
-      {!vaultKey && (
-        <Flex mb="2px" justifyContent={alignLinksToRight ? 'flex-end' : 'flex-start'}>
-          <LinkExternal href={earningToken.projectLink} bold={false} small>
-            {t('View Project Site')}
-          </LinkExternal>
-        </Flex>
-      )}
-      {vaultKey && (
-        <Flex mb="2px" justifyContent={alignLinksToRight ? 'flex-end' : 'flex-start'}>
-          <LinkExternal href="https://docs.pancakeswap.finance/products/syrup-pool/new-cake-pool" bold={false} small>
-            {t('View Tutorial')}
-          </LinkExternal>
-        </Flex>
-      )}
-      {poolContractAddress && (
-        <Flex mb="2px" justifyContent={alignLinksToRight ? 'flex-end' : 'flex-start'}>
-          <ScanLink
-            href={getBlockExploreLink(vaultKey ? cakeVaultContractAddress : poolContractAddress, 'address', chainId)}
+      <FlexGap gap="10px" width="100%" justifyContent="space-around">
+        <Flex mb="2px" justifyContent="center" width="33.3%" borderRight="1px solid rgba(255,255,255,0.15)">
+          <StyledLinkExternal
+            href={tokenInfoPath}
             bold={false}
             small
+            showExternalIcon={false}
+            color="#a0a3c4"
+            className={baseDisplay.className}
           >
-            {t('View Contract')}
-          </ScanLink>
+            {t('See Token Info')}
+          </StyledLinkExternal>
         </Flex>
-      )}
+        {!vaultKey && (
+          <Flex mb="2px" justifyContent="center" width="33.3%" borderRight="1px solid rgba(255,255,255,0.15)">
+            <StyledLinkExternal
+              href={earningToken.projectLink}
+              bold={false}
+              small
+              showExternalIcon={false}
+              color="#a0a3c4"
+              className={baseDisplay.className}
+            >
+              {t('View Project Site')}
+            </StyledLinkExternal>
+          </Flex>
+        )}
+        {poolContractAddress && (
+          <Flex mb="2px" justifyContent="center" width="33.3%" borderRight="1px solid rgba(255,255,255,0.15)">
+            <StyledScanLink
+              href={getBlockExploreLink(vaultKey ? cakeVaultContractAddress : poolContractAddress, 'address', chainId)}
+              bold={false}
+              small
+              showIcons={false}
+              color="#a0a3c4"
+              className={baseDisplay.className}
+            >
+              {t('View Contract')}
+            </StyledScanLink>
+          </Flex>
+        )}
+      </FlexGap>
+      {/* {vaultKey && ( */}
+      {/*  <Flex mb="2px" justifyContent={alignLinksToRight ? 'flex-end' : 'flex-start'}> */}
+      {/*    <LinkExternal href="https://docs.pancakeswap.finance/products/syrup-pool/new-cake-pool" bold={false} small> */}
+      {/*      {t('View Tutorial')} */}
+      {/*    </LinkExternal> */}
+      {/*  </Flex> */}
+      {/* )} */}
       {account && tokenAddress && (
         <Flex justifyContent={alignLinksToRight ? 'flex-end' : 'flex-start'}>
           <AddToWalletButton

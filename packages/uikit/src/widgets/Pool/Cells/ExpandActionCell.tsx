@@ -13,13 +13,12 @@ const StyledCell = styled(BaseCell)`
   justify-content: center;
   align-items: center;
   flex: 1;
-  padding-right: 12px;
-  padding-left: 0;
 
   ${({ theme }) => theme.mediaQueries.md} {
     flex: 0 0 50px;
     margin-right: 30px;
     padding-right: 0;
+    padding-left: 0;
   }
 
   width: 40px;

@@ -10,6 +10,7 @@ import { useIntersectionObserver } from '@pancakeswap/hooks'
 import { useTranslation } from '@pancakeswap/localization'
 import { ChainId } from '@pancakeswap/sdk'
 import {
+  ArrowDropDownIcon,
   ArrowForwardIcon,
   Box,
   Button,
@@ -27,10 +28,11 @@ import {
   Select,
   Text,
   Toggle,
+  ToggleProps,
   ToggleView,
 } from '@pancakeswap/uikit'
 import BigNumber from 'bignumber.js'
-import Page from 'components/Layout/Page'
+import Page, { StyledPage } from 'components/Layout/Page'
 import { useActiveChainId } from 'hooks/useActiveChainId'
 import orderBy from 'lodash/orderBy'
 import { useRouter } from 'next/router'
@@ -47,6 +49,8 @@ import { V3SubgraphHealthIndicator } from 'components/SubgraphHealthIndicator'
 import { isV3MigrationSupported } from 'utils/isV3MigrationSupported'
 import FarmV3MigrationBanner from 'views/Home/components/Banners/FarmV3MigrationBanner'
 import { useAccount } from 'wagmi'
+import { DropDownHeader } from '@pancakeswap/uikit/src/components/Select/Select'
+import StyledToggle, { Handle } from '@pancakeswap/uikit/src/components/Toggle/StyledToggle'
 import Table from './components/FarmTable/FarmTable'
 import { FarmTypesFilter } from './components/FarmTypesFilter'
 import { BCakeBoosterCard } from './components/YieldBooster/components/bCakeV3/BCakeBoosterCard'
@@ -68,31 +72,34 @@ const ControlContainer = styled.div`
   ${({ theme }) => theme.mediaQueries.sm} {
     flex-direction: row;
     flex-wrap: wrap;
-    padding: 16px 32px;
+    padding: 16px 0;
     margin-bottom: 0;
   }
 `
 
 const FarmFlexWrapper = styled(Flex)`
   flex-wrap: wrap;
+  background: rgba(78, 9, 248, 0.08);
+  padding: 20px 30px;
+  border-radius: 12px;
   ${({ theme }) => theme.mediaQueries.md} {
     flex-wrap: nowrap;
   }
 `
 const FarmH1 = styled(Heading)`
-  font-size: 32px;
+  font-size: 24px;
   margin-bottom: 8px;
+  color: #ffffff;
   ${({ theme }) => theme.mediaQueries.sm} {
-    font-size: 64px;
+    font-size: 24px;
     margin-bottom: 24px;
   }
 `
 const FarmH2 = styled(Heading)`
-  font-size: 16px;
-  margin-bottom: 8px;
+  font-size: 15px;
+  color: #a0a3c4;
   ${({ theme }) => theme.mediaQueries.sm} {
-    font-size: 24px;
-    margin-bottom: 18px;
+    font-size: 15px;
   }
 `
 
@@ -103,6 +110,15 @@ const ToggleWrapper = styled.div`
 
   ${Text} {
     margin-left: 8px;
+  }
+
+  ${StyledToggle} {
+    border-radius: 16px;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  ${Handle} {
+    background-color: #4e09f8;
   }
 `
 
@@ -132,7 +148,7 @@ const ViewControls = styled.div`
   width: 100%;
 
   > div {
-    padding: 8px 0px;
+    padding: 8px 0;
   }
 
   ${({ theme }) => theme.mediaQueries.sm} {
@@ -163,6 +179,27 @@ const FinishedTextLink = styled(Link)`
   font-weight: 400;
   white-space: nowrap;
   text-decoration: underline;
+`
+
+const FarmSelect = styled(Select)`
+  ${DropDownHeader} {
+    background: #1b1c30;
+    border-radius: 6px;
+    height: 40px;
+  }
+  height: 40px;
+`
+
+const StyledPageHeader = styled(PageHeader)`
+  background: none;
+  padding-bottom: 0;
+`
+
+const Background = styled.div`
+  background-color: #101124;
+  ${StyledPage} {
+    padding-top: 0;
+  }
 `
 
 const NUMBER_OF_FARMS_VISIBLE = 12
@@ -460,146 +497,149 @@ const Farms: React.FC<React.PropsWithChildren> = ({ children }) => {
 
   return (
     <FarmsV3Context.Provider value={providerValue}>
-      <PageHeader>
-        <Flex flexDirection="column">
-          {isMigrationSupported && (
-            <Box m="24px 0">
-              <FarmV3MigrationBanner />
-            </Box>
-          )}
-          <FarmFlexWrapper justifyContent="space-between">
-            <Box style={{ flex: '1 1 100%' }}>
-              <FarmH1 as="h1" scale="xxl" color="secondary" mb="24px">
-                {t('Farms')}
-              </FarmH1>
-              <FarmH2 scale="lg" color="text">
-                {t('Stake LP tokens to earn.')}
-              </FarmH2>
-              <NextLinkFromReactRouter to="/farms/auction" prefetch={false}>
-                <Button p="0" variant="text">
-                  <Text color="primary" bold fontSize="16px" mr="4px">
-                    {t('Community Auctions')}
-                  </Text>
-                  <ArrowForwardIcon color="primary" />
-                </Button>
-              </NextLinkFromReactRouter>
-            </Box>
-
-            {(chainId === ChainId.BSC || chainId === ChainId.BSC_TESTNET) && (
-              <Box>
-                <BCakeBoosterCard />
+      <Background>
+        <StyledPageHeader>
+          <Flex flexDirection="column">
+            {/* {isMigrationSupported && ( */}
+            {/*   <Box m="24px 0"> */}
+            {/*     <FarmV3MigrationBanner /> */}
+            {/*   </Box> */}
+            {/* )} */}
+            <FarmFlexWrapper justifyContent="space-between">
+              <Box style={{ flex: '1 1 100%' }}>
+                <FarmH1 as="h1" scale="xxl" color="secondary" mb="24px">
+                  {t('Farms')}
+                </FarmH1>
+                <FarmH2 scale="lg" color="text">
+                  {t('Stake LP tokens to earn.')}
+                </FarmH2>
+                {/* <NextLinkFromReactRouter to="/farms/auction" prefetch={false}> */}
+                {/*   <Button p="0" variant="text"> */}
+                {/*     <Text color="primary" bold fontSize="16px" mr="4px"> */}
+                {/*       {t('Community Auctions')} */}
+                {/*     </Text> */}
+                {/*     <ArrowForwardIcon color="primary" /> */}
+                {/*   </Button> */}
+                {/* </NextLinkFromReactRouter> */}
               </Box>
-            )}
-          </FarmFlexWrapper>
-        </Flex>
-      </PageHeader>
-      <Page>
-        <ControlContainer>
-          <ViewControls>
-            <Flex mt="20px">
-              <ToggleView idPrefix="clickFarm" viewMode={viewMode} onToggle={setViewMode} />
-            </Flex>
-            <FarmUI.FarmTabButtons hasStakeInFinishedFarms={stakedInactiveFarms.length > 0} />
-            <Flex mt="20px" ml="16px">
-              <FarmTypesFilter
-                v3FarmOnly={v3FarmOnly}
-                handleSetV3FarmOnly={setV3FarmOnly}
-                v2FarmOnly={v2FarmOnly}
-                handleSetV2FarmOnly={setV2FarmOnly}
-                boostedOnly={boostedOnly}
-                handleSetBoostedOnly={setBoostedOnly}
-                stableSwapOnly={stableSwapOnly}
-                handleSetStableSwapOnly={setStableSwapOnly}
-                farmTypesEnableCount={farmTypesEnableCount}
-                handleSetFarmTypesEnableCount={setFarmTypesEnableCount}
-              />
-              <ToggleWrapper>
-                <Toggle
-                  id="staked-only-farms"
-                  checked={stakedOnly}
-                  onChange={() => setStakedOnly(!stakedOnly)}
-                  scale="sm"
-                />
-                <Text> {t('Staked only')}</Text>
-              </ToggleWrapper>
-            </Flex>
-          </ViewControls>
-          <FilterContainer>
-            <LabelWrapper>
-              <Text textTransform="uppercase" color="textSubtle" fontSize="12px" bold>
-                {t('Sort by')}
-              </Text>
-              <Select
-                options={[
-                  {
-                    label: t('Hot'),
-                    value: 'hot',
-                  },
-                  {
-                    label: t('APR'),
-                    value: 'apr',
-                  },
-                  {
-                    label: t('Multiplier'),
-                    value: 'multiplier',
-                  },
-                  {
-                    label: t('Earned'),
-                    value: 'earned',
-                  },
-                  {
-                    label: t('Liquidity'),
-                    value: 'liquidity',
-                  },
-                  {
-                    label: t('Latest'),
-                    value: 'latest',
-                  },
-                ]}
-                onOptionChange={handleSortOptionChange}
-              />
-            </LabelWrapper>
-            <LabelWrapper style={{ marginLeft: 16 }}>
-              <Text textTransform="uppercase" color="textSubtle" fontSize="12px" bold>
-                {t('Search')}
-              </Text>
-              <SearchInput initialValue={normalizedUrlSearch} onChange={handleChangeQuery} placeholder="Search Farms" />
-            </LabelWrapper>
-          </FilterContainer>
-        </ControlContainer>
-        {isInactive && (
-          <FinishedTextContainer>
-            <Text fontSize={['16px', null, '20px']} color="failure" pr="4px">
-              {t("Don't see the farm you are staking?")}
-            </Text>
-            <Flex>
-              <FinishedTextLink
-                external
-                color="failure"
-                fontSize={['16px', null, '20px']}
-                href="https://v1-farms.pancakeswap.finance/farms/history"
-              >
-                {t('check out v1 farms')}.
-              </FinishedTextLink>
-            </Flex>
-          </FinishedTextContainer>
-        )}
-
-        {!isLoading && // FarmV3 initial data will be slower, wait for it loads for now to prevent showing the v2 farm from config and then v3 pop up later
-          (viewMode === ViewMode.TABLE ? (
-            <Table farms={chosenFarmsMemoized} cakePrice={cakePrice} userDataReady={userDataReady} />
-          ) : (
-            <FlexLayout>{children}</FlexLayout>
-          ))}
-        {account && !v2UserDataLoaded && !v3UserDataLoaded && stakedOnly && (
-          <Flex justifyContent="center">
-            <Loading />
+              {/* {(chainId === ChainId.BSC || chainId === ChainId.BSC_TESTNET) && ( */}
+              {/*   <Box> */}
+              {/*     <BCakeBoosterCard /> */}
+              {/*   </Box> */}
+              {/* )} */}
+            </FarmFlexWrapper>
           </Flex>
-        )}
-        {chosenFarms.length > 0 && <div ref={observerRef} />}
-        <StyledImage src="/images/decorations/3dpan.png" alt="Pancake illustration" width={120} height={103} />
-        <V3SubgraphHealthIndicator />
-      </Page>
+        </StyledPageHeader>
+        <Page>
+          <ControlContainer>
+            <ViewControls>
+              {/* <Flex mt="20px"> */}
+              {/*   <ToggleView idPrefix="clickFarm" viewMode={viewMode} onToggle={setViewMode} /> */}
+              {/* </Flex> */}
+              <Flex mt="16px">
+                <FarmUI.FarmTabButtons hasStakeInFinishedFarms={stakedInactiveFarms.length > 0} />
+              </Flex>
+              <Flex mt="20px" ml="16px">
+                <ToggleWrapper>
+                  <Toggle
+                    id="staked-only-farms"
+                    checked={stakedOnly}
+                    onChange={() => setStakedOnly(!stakedOnly)}
+                    scale="sm"
+                  />
+                  <Text> {t('Staked only')}</Text>
+                </ToggleWrapper>
+                <FarmTypesFilter
+                  v3FarmOnly={v3FarmOnly}
+                  handleSetV3FarmOnly={setV3FarmOnly}
+                  v2FarmOnly={v2FarmOnly}
+                  handleSetV2FarmOnly={setV2FarmOnly}
+                  boostedOnly={boostedOnly}
+                  handleSetBoostedOnly={setBoostedOnly}
+                  stableSwapOnly={stableSwapOnly}
+                  handleSetStableSwapOnly={setStableSwapOnly}
+                  farmTypesEnableCount={farmTypesEnableCount}
+                  handleSetFarmTypesEnableCount={setFarmTypesEnableCount}
+                />
+              </Flex>
+            </ViewControls>
+            <FilterContainer>
+              <LabelWrapper>
+                <Text textTransform="uppercase" color="white" fontSize="10px" bold>
+                  {t('Sort by')}
+                </Text>
+                <FarmSelect
+                  options={[
+                    {
+                      label: t('Hot'),
+                      value: 'hot',
+                    },
+                    {
+                      label: t('APR'),
+                      value: 'apr',
+                    },
+                    {
+                      label: t('Multiplier'),
+                      value: 'multiplier',
+                    },
+                    {
+                      label: t('Earned'),
+                      value: 'earned',
+                    },
+                    {
+                      label: t('Liquidity'),
+                      value: 'liquidity',
+                    },
+                    {
+                      label: t('Latest'),
+                      value: 'latest',
+                    },
+                  ]}
+                  onOptionChange={handleSortOptionChange}
+                />
+              </LabelWrapper>
+              {/* <LabelWrapper style={{ marginLeft: 16 }}> */}
+              {/*   <Text textTransform="uppercase" color="textSubtle" fontSize="12px" bold> */}
+              {/*     {t('Search')} */}
+              {/*   </Text> */}
+              {/*   <SearchInput initialValue={normalizedUrlSearch} onChange={handleChangeQuery} placeholder="Search Farms" /> */}
+              {/* </LabelWrapper> */}
+            </FilterContainer>
+          </ControlContainer>
+          {isInactive && (
+            <FinishedTextContainer>
+              <Text fontSize={['16px', null, '20px']} color="failure" pr="4px">
+                {t("Don't see the farm you are staking?")}
+              </Text>
+              <Flex>
+                <FinishedTextLink
+                  external
+                  color="failure"
+                  fontSize={['16px', null, '20px']}
+                  href="https://v1-farms.pancakeswap.finance/farms/history"
+                >
+                  {t('check out v1 farms')}.
+                </FinishedTextLink>
+              </Flex>
+            </FinishedTextContainer>
+          )}
+
+          {!isLoading && // FarmV3 initial data will be slower, wait for it loads for now to prevent showing the v2 farm from config and then v3 pop up later
+            (viewMode === ViewMode.TABLE ? (
+              <Table farms={chosenFarmsMemoized} cakePrice={cakePrice} userDataReady={userDataReady} />
+            ) : (
+              <FlexLayout>{children}</FlexLayout>
+            ))}
+          {account && !v2UserDataLoaded && !v3UserDataLoaded && stakedOnly && (
+            <Flex justifyContent="center">
+              <Loading />
+            </Flex>
+          )}
+          {chosenFarms.length > 0 && <div ref={observerRef} />}
+          <StyledImage src="/images/decorations/3dpan.png" alt="Pancake illustration" width={120} height={103} />
+          <V3SubgraphHealthIndicator />
+        </Page>
+      </Background>
     </FarmsV3Context.Provider>
   )
 }

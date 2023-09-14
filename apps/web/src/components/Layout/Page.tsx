@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { DEFAULT_META, getCustomMeta } from 'config/constants/meta'
 import Container from './Container'
 
-const StyledPage = styled(Container)`
+export const StyledPage = styled(Container)`
   width: 100%;
   min-height: calc(100vh - 64px);
   padding-top: 16px;

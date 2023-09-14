@@ -51,6 +51,9 @@ import FarmV3MigrationBanner from 'views/Home/components/Banners/FarmV3Migration
 import { useAccount } from 'wagmi'
 import { DropDownHeader } from '@pancakeswap/uikit/src/components/Select/Select'
 import StyledToggle, { Handle } from '@pancakeswap/uikit/src/components/Toggle/StyledToggle'
+import { pageVariants } from '@pancakeswap/uikit/src/widgets/Swap/SwapWidget.css'
+import { AtomBox } from '@pancakeswap/ui/components/AtomBox'
+import { Header } from '@pancakeswap/uikit/src/widgets/Menu/Header'
 import Table from './components/FarmTable/FarmTable'
 import { FarmTypesFilter } from './components/FarmTypesFilter'
 import { BCakeBoosterCard } from './components/YieldBooster/components/bCakeV3/BCakeBoosterCard'
@@ -193,13 +196,7 @@ const FarmSelect = styled(Select)`
 const StyledPageHeader = styled(PageHeader)`
   background: none;
   padding-bottom: 0;
-`
-
-const Background = styled.div`
-  background-color: #101124;
-  ${StyledPage} {
-    padding-top: 0;
-  }
+  width: 100%;
 `
 
 const NUMBER_OF_FARMS_VISIBLE = 12
@@ -497,7 +494,8 @@ const Farms: React.FC<React.PropsWithChildren> = ({ children }) => {
 
   return (
     <FarmsV3Context.Provider value={providerValue}>
-      <Background>
+      <AtomBox className={pageVariants()}>
+        <Header />
         <StyledPageHeader>
           <Flex flexDirection="column">
             {/* {isMigrationSupported && ( */}
@@ -639,7 +637,7 @@ const Farms: React.FC<React.PropsWithChildren> = ({ children }) => {
           <StyledImage src="/images/decorations/3dpan.png" alt="Pancake illustration" width={120} height={103} />
           <V3SubgraphHealthIndicator />
         </Page>
-      </Background>
+      </AtomBox>
     </FarmsV3Context.Provider>
   )
 }

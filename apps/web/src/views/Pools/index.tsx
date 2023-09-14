@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 import { useAccount } from 'wagmi'
-import { Heading, Flex, Image, Text, Link, FlexLayout, Loading, Pool, ViewMode, PageHeader } from '@pancakeswap/uikit'
+import { Heading, Flex, Text, Link, FlexLayout, Loading, Pool, ViewMode, PageHeader } from '@pancakeswap/uikit'
 import { Header } from '@pancakeswap/uikit/src/widgets/Menu/Header'
 import { useTranslation } from '@pancakeswap/localization'
 import { usePoolsPageFetch, usePoolsWithVault } from 'state/pools/hooks'
@@ -13,6 +13,8 @@ import { useActiveChainId } from 'hooks/useActiveChainId'
 import { V3SubgraphHealthIndicator } from 'components/SubgraphHealthIndicator'
 import VCakeModal from 'views/Pools/components/RevenueSharing/JoinRevenueModal/VCakeModal'
 
+import { pageVariants } from '@pancakeswap/uikit/src/widgets/Swap/SwapWidget.css'
+import { AtomBox } from '@pancakeswap/ui/components/AtomBox'
 import CardActions from './components/PoolCard/CardActions'
 import AprRow from './components/PoolCard/AprRow'
 import CardFooter from './components/PoolCard/CardFooter'
@@ -50,14 +52,7 @@ const StyledHeadingText = styled(Heading)`
 const StyledPageHeader = styled(PageHeader)`
   background: none;
   padding-bottom: 0;
-`
-
-const Background = styled.div`
-  background-color: #101124;
-
-  ${StyledPage} {
-    padding-top: 0;
-  }
+  width: 100%;
 `
 
 const FlexHeaderWrapper = styled(Flex)`
@@ -75,11 +70,8 @@ const Pools: React.FC<React.PropsWithChildren> = () => {
   usePoolsPageFetch()
 
   return (
-    <Background>
-      {/* <div style={{ height: '110px' }}> */}
-      {/*  <Header /> */}
-      {/* </div> */}
-
+    <AtomBox className={pageVariants()}>
+      <Header />
       <VCakeModal />
       <StyledPageHeader>
         <Flex justifyContent="space-between" flexDirection={['column', null, null, 'row']}>
@@ -186,7 +178,7 @@ const Pools: React.FC<React.PropsWithChildren> = () => {
         </PoolControls>
         <V3SubgraphHealthIndicator />
       </Page>
-    </Background>
+    </AtomBox>
   )
 }
 

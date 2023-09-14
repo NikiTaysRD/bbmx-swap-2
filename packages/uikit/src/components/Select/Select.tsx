@@ -4,7 +4,7 @@ import { Box, BoxProps } from "../Box";
 import { ArrowDropDownIcon } from "../Svg";
 import { Text } from "../Text";
 
-const DropDownHeader = styled.div`
+export const DropDownHeader = styled.div`
   width: 100%;
   height: 40px;
   display: flex;

@@ -76,9 +76,9 @@ const Pools: React.FC<React.PropsWithChildren> = () => {
 
   return (
     <Background>
-      <div style={{ height: '110px' }}>
-        <Header />
-      </div>
+      {/* <div style={{ height: '110px' }}> */}
+      {/*  <Header /> */}
+      {/* </div> */}
 
       <VCakeModal />
       <StyledPageHeader>

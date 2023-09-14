@@ -126,7 +126,7 @@ export const Header: React.FC = () => {
                   <Link href="/liquidity">Liquidity</Link>
                 </Item>
                 <Item>
-                  <Link href="/farming">Farming</Link>
+                  <Link href="/farms">Farming</Link>
                 </Item>
                 <Item>
                   <Link href="/governance">Governance</Link>
@@ -153,7 +153,7 @@ export const Header: React.FC = () => {
                 {showHiddenDesktopItems && (
                   <DesktopHiddenItems>
                     <Item>
-                      <Link href="/farming">Farming</Link>
+                      <Link href="/farms">Farming</Link>
                     </Item>
                     <Item>
                       <Link href="/governance">Governance</Link>
@@ -273,7 +273,7 @@ export const Header: React.FC = () => {
               <Link href="/liquidity">Liquidity</Link>
             </BurgerItem>
             <BurgerItem>
-              <Link href="/farming">Farming</Link>
+              <Link href="/farms">Farming</Link>
             </BurgerItem>
             <BurgerItem>
               <Link href="/governance">Governance</Link>

@@ -10,9 +10,11 @@ import {
   Toggle,
   FarmIcon,
   TradeIcon,
+  ArrowDropDownIcon,
 } from '@pancakeswap/uikit'
 import styled from 'styled-components'
 import { useTranslation } from '@pancakeswap/localization'
+import StyledToggle, { Handle } from '@pancakeswap/uikit/src/components/Toggle/StyledToggle'
 
 interface FarmTypesFilterProps {
   boostedOnly: boolean
@@ -45,6 +47,22 @@ const ToggleWrapper = styled.div`
   ${Text} {
     margin-left: 8px;
   }
+
+  ${StyledToggle} {
+    border-radius: 16px;
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  ${Handle} {
+    background-color: #4e09f8;
+  }
+`
+
+const FarmButton = styled(Button)`
+  background-color: #1b1c30;
+  color: #ffffff;
+  border-radius: 6px;
+  height: 40px;
 `
 
 export const FarmTypesFilter: React.FC<FarmTypesFilterProps> = ({
@@ -87,14 +105,17 @@ export const FarmTypesFilter: React.FC<FarmTypesFilterProps> = ({
 
   return (
     <>
-      <Flex alignItems="center" mr="4px" mb="4px">
+      <Flex alignItems="center" mr="4px" mb="4px" ml="20px">
         <Box ref={wrapperRef}>
           <InlineMenu
             component={
-              <Button onClick={handleMenuClick} variant="light" scale="sm">
+              <FarmButton onClick={handleMenuClick} variant="light" scale="sm">
                 {t('Farm Types')}
                 {farmTypesEnableCount > 0 && `(${farmTypesEnableCount})`}
-              </Button>
+                <Box style={{ right: '-10px', position: 'relative' }}>
+                  <ArrowDropDownIcon color="text" />
+                </Box>
+              </FarmButton>
             }
             isOpen={isOpen}
             options={{ placement: 'top' }}

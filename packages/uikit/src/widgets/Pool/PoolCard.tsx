@@ -27,6 +27,7 @@ export function PoolCard<T>({ pool, cardContent, aprRow, isStaked, cardFooter, t
       isActive={isCakePool}
       isFinished={isFinished && sousId !== 0}
       ribbon={isFinished && <CardRibbon variantColor="textDisabled" text={t("Finished")} />}
+      style={{ borderRadius: "6px", background: "#1B1C30", border: "1px solid rgba(255,255,255,0.1)" }}
     >
       <PoolCardHeader isStaking={isStaked} isFinished={isFinished && sousId !== 0}>
         {totalStaked && totalStaked.gte(0) ? (

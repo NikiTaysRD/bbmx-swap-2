@@ -42,10 +42,10 @@ const HarvestAction: React.FunctionComponent<React.PropsWithChildren<Pool.Deseri
 
   const actionTitle = (
     <>
-      <Text fontSize="12px" bold color="secondary" as="span">
+      <Text fontSize="14px" bold color="#4E09F8" as="span">
         {earningToken.symbol}{' '}
       </Text>
-      <Text fontSize="12px" bold color="textSubtle" as="span" textTransform="uppercase">
+      <Text fontSize="14px" bold color="textSubtle" as="span" textTransform="uppercase">
         {t('Earned')}
       </Text>
     </>
@@ -56,8 +56,23 @@ const HarvestAction: React.FunctionComponent<React.PropsWithChildren<Pool.Deseri
       <ActionContainer>
         <ActionTitles>{actionTitle}</ActionTitles>
         <ActionContent>
-          <Heading>0</Heading>
-          <Button disabled>{t('Harvest')}</Button>
+          <Heading>
+            <span style={{ fontSize: '18px' }}>0</span>
+          </Heading>
+          <Button
+            disabled
+            style={{
+              borderRadius: '6px',
+              background: 'white',
+              color: '#090909',
+              opacity: '.65',
+              textTransform: 'uppercase',
+              fontSize: '14px',
+              lineHeight: '44px',
+            }}
+          >
+            {t('Harvest')}
+          </Button>
         </ActionContent>
       </ActionContainer>
     )

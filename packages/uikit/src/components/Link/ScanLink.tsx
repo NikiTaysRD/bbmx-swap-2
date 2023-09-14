@@ -8,6 +8,7 @@ import { LinkProps } from "./types";
 interface ScanLinkProps extends Omit<LinkProps, "external" | "showExternalIcon"> {
   icon?: ReactElement;
   chainId?: ChainId;
+  showIcons?: boolean;
 }
 
 const icons: { [key in ChainId]?: ReactElement } = {
@@ -15,7 +16,13 @@ const icons: { [key in ChainId]?: ReactElement } = {
   [ChainId.BSC_TESTNET]: <BscScanIcon />,
 };
 
-const ScanLink: React.FC<React.PropsWithChildren<ScanLinkProps>> = ({ children, icon, chainId, ...props }) => {
+const ScanLink: React.FC<React.PropsWithChildren<ScanLinkProps>> = ({
+  children,
+  icon,
+  chainId,
+  showIcons = true,
+  ...props
+}) => {
   const iconToShow = useMemo(() => {
     if (icon) return icon;
     if (chainId && icons[chainId]) return icons[chainId];
@@ -33,7 +40,7 @@ const ScanLink: React.FC<React.PropsWithChildren<ScanLinkProps>> = ({ children, 
   return (
     <Link external {...props}>
       {children}
-      {iconElement}
+      {showIcons && <>{iconElement}</>}
     </Link>
   );
 };

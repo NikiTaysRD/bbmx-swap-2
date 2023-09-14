@@ -65,6 +65,7 @@ export function UnsupportedNetworkModal({ pageSupportedChains }: { pageSupported
                 switchNetworkAsync(ChainId.BSC)
               }
             }}
+            style={{ background: '#4E09F8' }}
           >
             {isLoading ? <Dots>{t('Switch network in wallet')}</Dots> : t('Switch network in wallet')}
           </Button>
@@ -81,6 +82,7 @@ export function UnsupportedNetworkModal({ pageSupportedChains }: { pageSupported
                 switchNetworkLocal(ChainId.BSC)
               })
             }
+            style={{ background: '#4E09F8' }}
           >
             {t('Disconnect Wallet')}
           </Button>

@@ -4,7 +4,7 @@ import { useRouter } from "next/router";
 import { useTranslation } from "@pancakeswap/localization";
 import { NextLinkFromReactRouter } from "../../../components/NextLink";
 import { NotificationDot } from "../../../components/NotificationDot";
-import { ButtonMenu, ButtonMenuItem } from "../../../components/ButtonMenu";
+import { ButtonMenu, ButtonMenuItem, ButtonMenuItemProps } from "../../../components/ButtonMenu";
 import { Text } from "../../../components/Text";
 import { Flex } from "../../../components/Box";
 
@@ -13,14 +13,37 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
 
-  ${({ theme }) => theme.mediaQueries.sm} {
-    margin-left: 16px;
-  }
+  // ${({ theme }) => theme.mediaQueries.sm} {
+  //   margin-left: 16px;
+  // }
 `;
 
 interface FarmTabButtonsProps {
   hasStakeInFinishedFarms: boolean;
 }
+
+const FarmButtonMenu = styled(ButtonMenu)`
+  background-color: #1b1c30;
+  border-radius: 6px;
+`;
+
+const FarmButtonMenuItem = styled(ButtonMenuItem)`
+  ${(e) => {
+    if (e.isActive) {
+      return ` 
+      border-radius: 6px;
+      background-color: #4E09F8;
+      color: #FFFFFF;
+      &:hover:not(:disabled):not(:active) {
+        opacity: 1 !important; 
+        background-color: #4E09F8;
+      } 
+      `;
+    }
+
+    return ``;
+  }}
+`;
 
 export const FarmTabButtons: React.FC<React.PropsWithChildren<FarmTabButtonsProps>> = ({ hasStakeInFinishedFarms }) => {
   const router = useRouter();
@@ -47,20 +70,15 @@ export const FarmTabButtons: React.FC<React.PropsWithChildren<FarmTabButtonsProp
 
   return (
     <Wrapper>
-      <Flex width="max-content" flexDirection="column">
-        <Text textTransform="uppercase" color="textSubtle" fontSize="12px" bold>
-          {t("Filter by")}
-        </Text>
-        <ButtonMenu activeIndex={activeIndex} scale="sm" variant="subtle">
-          <ButtonMenuItem as={NextLinkFromReactRouter} to="/farms">
+      <Flex width="max-content" flexDirection="row">
+        <FarmButtonMenu activeIndex={activeIndex} scale="sm" variant="subtle">
+          <FarmButtonMenuItem forwardedAs={NextLinkFromReactRouter} to="/farms">
             {t("Live")}
-          </ButtonMenuItem>
-          <NotificationDot show={hasStakeInFinishedFarms}>
-            <ButtonMenuItem as={NextLinkFromReactRouter} to="/farms/history" id="finished-farms-button">
-              {t("Finished")}
-            </ButtonMenuItem>
-          </NotificationDot>
-        </ButtonMenu>
+          </FarmButtonMenuItem>
+          <FarmButtonMenuItem forwardedAs={NextLinkFromReactRouter} to="/farms/history" id="finished-farms-button">
+            {t("Finished")}
+          </FarmButtonMenuItem>
+        </FarmButtonMenu>
       </Flex>
     </Wrapper>
   );

@@ -10,7 +10,6 @@ import AprCell from './Cells/AprCell'
 import TotalStakedCell from './Cells/TotalStakedCell'
 import ActionPanel from './ActionPanel/ActionPanel'
 import AutoEarningsCell from './Cells/AutoEarningsCell'
-import AutoAprCell from './Cells/AutoAprCell'
 import StakedCell from './Cells/StakedCell'
 
 export const VaultPoolRow: React.FC<
@@ -33,7 +32,7 @@ export const VaultPoolRow: React.FC<
       <NameCell pool={pool} />
       {isXLargerScreen && <AutoEarningsCell pool={pool} account={account} />}
       {isXLargerScreen ? <StakedCell pool={pool} account={account} /> : null}
-      <AutoAprCell pool={pool} />
+      {/* <AutoAprCell pool={pool} /> */}
       {isLargerScreen && (
         <TotalStakedCell
           stakingToken={stakingToken}

@@ -17,7 +17,7 @@ interface EarningsCellProps<T> {
 const StyledCell = styled(BaseCell)`
   flex: 4.5;
   ${({ theme }) => theme.mediaQueries.sm} {
-    flex: 1 0 120px;
+    flex: 1 0 40px;
   }
 `;
 

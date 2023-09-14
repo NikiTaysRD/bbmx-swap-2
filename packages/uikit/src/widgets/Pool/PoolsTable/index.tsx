@@ -2,23 +2,27 @@ import { useRef } from "react";
 import styled from "styled-components";
 
 const StyledTable = styled.div`
-  border-radius: ${({ theme }) => theme.radii.card};
+  border-radius: 6px;
   scroll-margin-top: 64px;
 
-  background-color: ${({ theme }) => theme.card.background};
-  > div:not(:last-child) {
-    border-bottom: 2px solid ${({ theme }) => theme.colors.disabled};
-  }
+  // background-color: ${({ theme }) => theme.card.background};
+  // > div:not(:last-child) {
+  //   border-bottom: 2px solid ${({ theme }) => theme.colors.disabled};
+  // }
+  //
+  // > div:last-child {
+  //   border-bottom-left-radius: ${({ theme }) => theme.radii.card};
+  //   border-bottom-right-radius: ${({ theme }) => theme.radii.card};
+  // }
 
-  > div:last-child {
-    border-bottom-left-radius: ${({ theme }) => theme.radii.card};
-    border-bottom-right-radius: ${({ theme }) => theme.radii.card};
-  }
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 `;
 
 const StyledTableBorder = styled.div`
-  border-radius: ${({ theme }) => theme.radii.card};
-  background-color: ${({ theme }) => theme.colors.cardBorder};
+  border-radius: 6px;
+
   padding: 1px 1px 3px 1px;
   background-size: 400% 400%;
 `;

@@ -13,6 +13,7 @@ import { Flex, Text, SearchInput, Select, OptionProps } from "../../components";
 
 import { DeserializedPool, DeserializedPoolVault } from "./types";
 import { sortPools } from "./helpers";
+import { DropDownHeader } from "../../components/Select/Select";
 
 const PoolControlsView = styled.div`
   display: flex;
@@ -27,7 +28,7 @@ const PoolControlsView = styled.div`
   ${({ theme }) => theme.mediaQueries.sm} {
     flex-direction: row;
     flex-wrap: wrap;
-    padding: 16px 32px;
+    padding: 16px 0 32px 0;
     margin-bottom: 0;
   }
 `;
@@ -54,6 +55,15 @@ const ControlStretch = styled(Flex)`
   > div {
     flex: 1;
   }
+`;
+
+const PoolSelect = styled(Select)`
+  ${DropDownHeader} {
+    background: #1b1c30;
+    border-radius: 6px;
+    height: 40px;
+  }
+  height: 40px;
 `;
 
 const NUMBER_OF_POOLS_VISIBLE = 12;
@@ -195,7 +205,7 @@ export function PoolControls<T>({
               {t("Sort by")}
             </Text>
             <ControlStretch>
-              <Select
+              <PoolSelect
                 options={[
                   {
                     label: t("Hot"),
@@ -222,12 +232,12 @@ export function PoolControls<T>({
               />
             </ControlStretch>
           </LabelWrapper>
-          <LabelWrapper style={{ marginLeft: 16 }}>
-            <Text fontSize="12px" bold color="textSubtle" textTransform="uppercase">
-              {t("Search")}
-            </Text>
-            <SearchInput initialValue={searchQuery} onChange={handleChangeSearchQuery} placeholder="Search Pools" />
-          </LabelWrapper>
+          {/* <LabelWrapper style={{ marginLeft: 16 }}> */}
+          {/*   <Text fontSize="12px" bold color="textSubtle" textTransform="uppercase"> */}
+          {/*     {t("Search")} */}
+          {/*   </Text> */}
+          {/*   <SearchInput initialValue={searchQuery} onChange={handleChangeSearchQuery} placeholder="Search Pools" /> */}
+          {/* </LabelWrapper> */}
         </FilterContainer>
       </PoolControlsView>
       {children(childrenReturn)}

@@ -1,10 +1,11 @@
 import styled from 'styled-components'
 
 import { useAccount } from 'wagmi'
-import { Heading, Flex, Image, Text, Link, FlexLayout, PageHeader, Loading, Pool, ViewMode } from '@pancakeswap/uikit'
+import { Heading, Flex, Image, Text, Link, FlexLayout, Loading, Pool, ViewMode, PageHeader } from '@pancakeswap/uikit'
+import { Header } from '@pancakeswap/uikit/src/widgets/Menu/Header'
 import { useTranslation } from '@pancakeswap/localization'
 import { usePoolsPageFetch, usePoolsWithVault } from 'state/pools/hooks'
-import Page from 'components/Layout/Page'
+import Page, { StyledPage } from 'components/Layout/Page'
 import ConnectWalletButton from 'components/ConnectWalletButton'
 import { ChainId, Token } from '@pancakeswap/sdk'
 import { TokenPairImage } from 'components/TokenImage'
@@ -37,6 +38,34 @@ const FinishedTextLink = styled(Link)`
   text-decoration: underline;
 `
 
+const StyledHeadingH3 = styled(Heading)`
+  font-size: 24px;
+  color: #ffffff;
+`
+const StyledHeadingText = styled(Heading)`
+  font-size: 15px;
+  color: #a0a3c4;
+`
+
+const StyledPageHeader = styled(PageHeader)`
+  background: none;
+  padding-bottom: 0;
+`
+
+const Background = styled.div`
+  background-color: #101124;
+
+  ${StyledPage} {
+    padding-top: 0;
+  }
+`
+
+const FlexHeaderWrapper = styled(Flex)`
+  background: rgba(78, 9, 248, 0.08);
+  padding: 20px 30px;
+  border-radius: 12px;
+`
+
 const Pools: React.FC<React.PropsWithChildren> = () => {
   const { t } = useTranslation()
   const { address: account } = useAccount()
@@ -46,23 +75,27 @@ const Pools: React.FC<React.PropsWithChildren> = () => {
   usePoolsPageFetch()
 
   return (
-    <>
+    <Background>
+      <div style={{ height: '110px' }}>
+        <Header />
+      </div>
+
       <VCakeModal />
-      <PageHeader>
+      <StyledPageHeader>
         <Flex justifyContent="space-between" flexDirection={['column', null, null, 'row']}>
-          <Flex flex="1" flexDirection="column" mr={['8px', 0]}>
-            <Heading as="h1" scale="xxl" color="secondary" mb="24px">
+          <FlexHeaderWrapper flex="1" flexDirection="column" mr={['8px', 0]}>
+            <StyledHeadingH3 as="h3" scale="xxl" color="secondary" mb="24px">
               {t('Syrup Pools')}
-            </Heading>
-            <Heading scale="md" color="text">
+            </StyledHeadingH3>
+            <StyledHeadingText scale="md" color="text">
               {t('Just stake some tokens to earn.')}
-            </Heading>
-            <Heading scale="md" color="text">
+            </StyledHeadingText>
+            <StyledHeadingText scale="md" color="text">
               {t('High APR, low risk.')}
-            </Heading>
-          </Flex>
+            </StyledHeadingText>
+          </FlexHeaderWrapper>
         </Flex>
-      </PageHeader>
+      </StyledPageHeader>
       <Page>
         <PoolControls pools={pools}>
           {({ chosenPools, viewMode, stakedOnly, normalizedUrlSearch, showFinishedPools }) => (
@@ -143,20 +176,20 @@ const Pools: React.FC<React.PropsWithChildren> = () => {
                   )}
                 </Pool.PoolsTable>
               )}
-              <Image
-                mx="auto"
-                mt="12px"
-                src="/images/decorations/3d-syrup-bunnies.png"
-                alt="Pancake illustration"
-                width={192}
-                height={184.5}
-              />
+              {/* <Image */}
+              {/*  mx="auto" */}
+              {/*  mt="12px" */}
+              {/*  src="/images/decorations/3d-syrup-bunnies.png" */}
+              {/*  alt="Pancake illustration" */}
+              {/*  width={192} */}
+              {/*  height={184.5} */}
+              {/* /> */}
             </>
           )}
         </PoolControls>
         <V3SubgraphHealthIndicator />
       </Page>
-    </>
+    </Background>
   )
 }
 

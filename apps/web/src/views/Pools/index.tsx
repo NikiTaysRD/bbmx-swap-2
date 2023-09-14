@@ -85,13 +85,10 @@ const Pools: React.FC<React.PropsWithChildren> = () => {
         <Flex justifyContent="space-between" flexDirection={['column', null, null, 'row']}>
           <FlexHeaderWrapper flex="1" flexDirection="column" mr={['8px', 0]}>
             <StyledHeadingH3 as="h3" scale="xxl" color="secondary" mb="24px">
-              {t('Syrup Pools')}
+              Pools
             </StyledHeadingH3>
             <StyledHeadingText scale="md" color="text">
               {t('Just stake some tokens to earn.')}
-            </StyledHeadingText>
-            <StyledHeadingText scale="md" color="text">
-              {t('High APR, low risk.')}
             </StyledHeadingText>
           </FlexHeaderWrapper>
         </Flex>

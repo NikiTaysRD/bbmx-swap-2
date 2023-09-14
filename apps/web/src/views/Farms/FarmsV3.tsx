@@ -199,13 +199,6 @@ const StyledPageHeader = styled(PageHeader)`
   width: 100%;
 `
 
-const Background = styled.div`
-  background-color: #101124;
-  ${StyledPage} {
-    padding-top: 0;
-  }
-`
-
 const NUMBER_OF_FARMS_VISIBLE = 12
 
 export interface V3FarmWithoutStakedValue extends FarmV3DataWithPriceAndUserInfo {

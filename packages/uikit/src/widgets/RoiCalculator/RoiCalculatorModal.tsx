@@ -2,15 +2,20 @@ import { useTranslation } from "@pancakeswap/localization";
 import styled from "styled-components";
 
 import { RoiCalculatorProps, RoiCalculator } from "./RoiCalculator";
-import { Modal, ModalV2, ModalV2Props } from "../Modal";
+import { mobileFooterHeight, Modal, ModalBody, ModalV2, ModalV2Props } from "../Modal";
 
 export const StyledModal = styled(Modal)`
+  font-family: "Base Display", sans-serif;
+
   & > :nth-child(2) {
     padding: 0;
   }
 
-  ${({ theme }) => theme.mediaQueries.md} {
-    width: 860px;
+  ${ModalBody} {
+    max-height: calc(80vh - ${mobileFooterHeight}px);
+    ${({ theme }) => theme.mediaQueries.md} {
+      max-height: 80vh;
+    }
   }
 `;
 

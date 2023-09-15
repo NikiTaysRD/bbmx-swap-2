@@ -28,7 +28,7 @@ const NotificationDot: React.FC<React.PropsWithChildren<NotificationDotProps>> =
   ...props
 }) => (
   <NotificationDotRoot>
-    {Children.map(children, (child: ReactElement) => cloneElement(child, props))}
+    {/* {Children.map(children, (child: ReactElement) => cloneElement(child, props))} */}
     <Dot show={show} color={color} />
   </NotificationDotRoot>
 );

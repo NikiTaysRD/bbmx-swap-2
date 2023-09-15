@@ -8,19 +8,11 @@ import { MMLiquidityWarning } from 'views/Swap/MMLinkPools/components/MMLiquidit
 
 import { useDerivedBestTradeWithMM } from '../MMLinkPools/hooks/useDerivedSwapInfoWithMM'
 import { useCheckInsufficientError } from './hooks/useCheckSufficient'
-import {
-  FormHeader,
-  FormMain,
-  MMTradeDetail,
-  PricingAndSlippage,
-  SwapCommitButton,
-  TradeDetails,
-  BuyCryptoLink,
-} from './containers'
+import { FormHeader, FormMain, PricingAndSlippage, SwapCommitButton } from './containers'
 import { MMCommitButton } from './containers/MMCommitButton'
 import { useSwapBestTrade } from './hooks'
 
-export function V3SwapForm() {
+export function V3SwapForm({ setIsLimitOpened, setIsSettingsOpened, isSwap }) {
   const [isShowMarket, setIsShowMarket] = useState(true)
 
   const { isLoading, trade, refresh, syncing, isStale, error } = useSwapBestTrade()
@@ -39,7 +31,7 @@ export function V3SwapForm() {
   const price = useMemo(() => trade && SmartRouter.getExecutionPrice(trade), [trade])
 
   const insufficientFundCurrency = useCheckInsufficientError(trade)
-
+      console.log('price',price)
   return (
     <>
       <FormHeader
@@ -47,6 +39,9 @@ export function V3SwapForm() {
         refreshDisabled={!tradeLoaded || syncing || !isStale}
         setIsShowMarket={setIsShowMarket}
         isShowMarket={isShowMarket}
+        setIsLimitOpened={setIsLimitOpened}
+        setIsSettingsOpened={setIsSettingsOpened}
+        isSwap={isSwap}
       />
       <FormMain
         tradeLoading={mm.isMMBetter ? false : !tradeLoaded}

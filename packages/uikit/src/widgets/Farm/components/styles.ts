@@ -1,7 +1,10 @@
 import styled from "styled-components";
 
 export const Amount = styled.span<{ amount: number }>`
-  color: ${({ amount, theme }) => (amount ? theme.colors.text : theme.colors.textDisabled)};
+  color: white;
   display: flex;
   align-items: center;
+  font-size: 16px;
+  line-height: 160%;
+  font-weight: 600;
 `;

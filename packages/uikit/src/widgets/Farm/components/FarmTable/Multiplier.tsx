@@ -4,6 +4,7 @@ import { Skeleton } from "../../../../components/Skeleton";
 import { useTooltip } from "../../../../hooks/useTooltip";
 import { FarmTableMultiplierProps } from "../../types";
 import { FarmMultiplierInfo } from "../FarmMultiplierInfo";
+import { baseDisplay } from "../../../../../../../apps/web/src/pages/_app";
 
 const ReferenceElement = styled.div`
   display: inline-block;
@@ -19,6 +20,10 @@ const MultiplierWrapper = styled.div`
     text-align: left;
     margin-right: 0;
   }
+
+  font-size: 16px;
+  line-height: 160%;
+  font-weight: 600;
 `;
 
 const Container = styled.div`
@@ -44,11 +49,11 @@ const Multiplier: React.FunctionComponent<React.PropsWithChildren<FarmTableMulti
 
   return (
     <Container>
-      <MultiplierWrapper>{displayMultiplier}</MultiplierWrapper>
-      <ReferenceElement ref={targetRef}>
-        <HelpIcon color="textSubtle" />
-      </ReferenceElement>
-      {tooltipVisible && tooltip}
+      <MultiplierWrapper className={baseDisplay.className}>{displayMultiplier}</MultiplierWrapper>
+      {/* <ReferenceElement ref={targetRef}> */}
+      {/*  <HelpIcon color="textSubtle" /> */}
+      {/* </ReferenceElement> */}
+      {/* {tooltipVisible && tooltip} */}
     </Container>
   );
 };

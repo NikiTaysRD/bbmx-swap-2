@@ -6,6 +6,7 @@ import { BIG_ZERO } from '@pancakeswap/utils/bigNumber'
 import { formatNumber, getBalanceNumber, getFullDisplayBalance } from '@pancakeswap/utils/formatBalance'
 import { useTranslation } from '@pancakeswap/localization'
 import { Token } from '@pancakeswap/sdk'
+import { baseDisplay } from 'pages/_app'
 import CollectModal from '../../Modals/CollectModal'
 
 interface EarningsCellProps {
@@ -16,7 +17,7 @@ interface EarningsCellProps {
 const StyledCell = styled(Pool.BaseCell)`
   flex: 4.5;
   ${({ theme }) => theme.mediaQueries.sm} {
-    flex: 1 0 120px;
+    flex: 1 0 40px;
   }
 `
 
@@ -54,7 +55,14 @@ const EarningsCell: React.FC<React.PropsWithChildren<EarningsCellProps>> = ({ po
   return (
     <StyledCell role="cell">
       <Pool.CellContent>
-        <Text fontSize="12px" color="textSubtle" textAlign="left">
+        <Text
+          color="#a0a3c4"
+          textAlign="left"
+          fontSize="13px"
+          lineHeight="160%"
+          letterSpacing="0.75px"
+          className={baseDisplay.className}
+        >
           {labelText}
         </Text>
         {!pool.userDataLoaded && account ? (
@@ -67,8 +75,8 @@ const EarningsCell: React.FC<React.PropsWithChildren<EarningsCellProps>> = ({ po
                   mt="4px"
                   bold={!isMobile}
                   fontSize={isMobile ? '14px' : '16px'}
-                  color={hasEarnings ? 'primary' : 'textDisabled'}
-                  decimals={hasEarnings ? 5 : 1}
+                  color="white"
+                  decimals={0}
                   value={hasEarnings ? earningTokenBalance : 0}
                 />
                 {hasEarnings ? (
@@ -82,13 +90,12 @@ const EarningsCell: React.FC<React.PropsWithChildren<EarningsCellProps>> = ({ po
                         prefix="~"
                         value={earningTokenDollarBalance}
                         unit=" USD"
+                        fontWeight={600}
                       />
                     )}
                   </>
                 ) : (
-                  <Text mt="4px" fontSize="12px" color="textDisabled">
-                    0 USD
-                  </Text>
+                  <></>
                 )}
               </Box>
             </Flex>

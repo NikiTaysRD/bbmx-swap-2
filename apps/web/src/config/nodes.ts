@@ -1,5 +1,5 @@
 import { ChainId } from '@pancakeswap/sdk'
-import { arbitrum, polygonZkEvm, zkSync, zkSyncTestnet, polygonZkEvmTestnet, arbitrumGoerli } from 'wagmi/chains'
+import { arbitrum, polygonZkEvm, zkSync, zkSyncTestnet, polygonZkEvmTestnet, arbitrumGoerli ,baseGoerli,} from 'wagmi/chains'
 import { getNodeRealUrlV2 } from 'utils/nodeReal'
 
 const POLYGON_ZKEVM_NODES = [
@@ -37,6 +37,7 @@ export const SERVER_NODES = {
     'https://linea-testnet.rpc.thirdweb.com',
     'https://consensys-zkevm-goerli-prealpha.infura.io/v3/93e8a17747e34ec0ac9a554c1b403965',
   ],
+  [ChainId.BASE_TESTNET]: baseGoerli.rpcUrls.public.http,
 } satisfies Record<ChainId, readonly string[]>
 
 export const PUBLIC_NODES = {
@@ -73,4 +74,5 @@ export const PUBLIC_NODES = {
     'https://linea-testnet.rpc.thirdweb.com',
     'https://consensys-zkevm-goerli-prealpha.infura.io/v3/93e8a17747e34ec0ac9a554c1b403965',
   ],
+  [ChainId.BASE_TESTNET]: baseGoerli.rpcUrls.public.http,
 } satisfies Record<ChainId, readonly string[]>

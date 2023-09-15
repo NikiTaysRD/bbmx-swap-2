@@ -1,5 +1,5 @@
 import styled, { keyframes, css } from 'styled-components'
-import { Box, Flex, HelpIcon, Text, useMatchBreakpoints, Pool, BalanceWithLoading } from '@pancakeswap/uikit'
+import { Box, Flex, Text, useMatchBreakpoints, Pool, BalanceWithLoading, FlexGap } from '@pancakeswap/uikit'
 import { useTranslation } from '@pancakeswap/localization'
 import { useVaultPoolByKey } from 'state/pools/hooks'
 import { getVaultPosition, VaultPosition } from 'utils/cakePool'
@@ -17,7 +17,6 @@ import LockDurationRow from '../../LockedPool/Common/LockDurationRow'
 import useUserDataInVaultPresenter from '../../LockedPool/hooks/useUserDataInVaultPresenter'
 import CakeVaultApr from './CakeVaultApr'
 import PoolStatsInfo from '../../PoolStatsInfo'
-import PoolTypeTag from '../../PoolTypeTag'
 
 const expandAnimation = keyframes`
   from {
@@ -47,7 +46,7 @@ const StyledActionPanel = styled.div<{ expanded: boolean }>`
           ${collapseAnimation} 300ms linear forwards
         `};
   overflow: hidden;
-  background: ${({ theme }) => theme.colors.dropdown};
+  background: #111227;
   display: flex;
   flex-direction: column-reverse;
   justify-content: center;
@@ -57,6 +56,8 @@ const StyledActionPanel = styled.div<{ expanded: boolean }>`
     flex-direction: row;
     padding: 16px 32px;
   }
+
+  border-radius: 0 0 12px 12px;
 `
 
 const ActionContainer = styled.div<{ isAutoVault?: boolean; hasBalance?: boolean }>`
@@ -137,7 +138,7 @@ const ActionPanel: React.FC<React.PropsWithChildren<ActionPanelProps>> = ({ acco
 
   return (
     <StyledActionPanel expanded={expanded}>
-      <InfoSection>
+      <InfoSection style={{ flexBasis: 'unset', width: '100%' }}>
         {isMobile && vaultKey === VaultKey.CakeVault && isLocked && (
           <Box mb="16px">
             <YieldBoostDurationRow
@@ -152,37 +153,41 @@ const ActionPanel: React.FC<React.PropsWithChildren<ActionPanelProps>> = ({ acco
             </Flex>
           </Box>
         )}
-        <Flex flexDirection="column" mb="8px">
-          <PoolStatsInfo pool={pool} account={account} showTotalStaked={isMobile} alignLinksToRight={isMobile} />
-        </Flex>
-        <Flex alignItems="center">
-          <PoolTypeTag vaultKey={vaultKey} isLocked={isLocked} account={account}>
-            {(tagTargetRef) => (
-              <Flex ref={tagTargetRef}>
-                <HelpIcon ml="4px" width="20px" height="20px" color="textSubtle" />
-              </Flex>
+        <FlexGap gap="20px" flexDirection="column" alignItems="center" width="100%">
+          <ActionContainer style={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+            {isMobile && vaultKey === VaultKey.CakeVault && vaultPosition === VaultPosition.None && (
+              <CakeVaultApr pool={pool} userData={vaultData.userData} vaultPosition={vaultPosition} />
             )}
-          </PoolTypeTag>
-        </Flex>
-      </InfoSection>
-      <ActionContainer>
-        {isMobile && vaultKey === VaultKey.CakeVault && vaultPosition === VaultPosition.None && (
-          <CakeVaultApr pool={pool} userData={vaultData.userData} vaultPosition={vaultPosition} />
-        )}
-        <Box width="100%">
-          {pool.vaultKey === VaultKey.CakeVault && (
-            <VaultPositionTagWithLabel
-              userData={vaultData.userData as DeserializedLockedVaultUser}
-              width={['auto', , 'fit-content']}
-              ml={['12px', , , , , '32px']}
-            />
-          )}
-          <ActionContainer isAutoVault={!!pool.vaultKey} hasBalance={poolStakingTokenBalance.gt(0)}>
-            {pool.vaultKey ? <AutoHarvest pool={pool} /> : <Harvest {...pool} />}
-            <Stake pool={pool} />
+            <Box width={isMobile ? '100%' : '70%'}>
+              {pool.vaultKey === VaultKey.CakeVault && (
+                <VaultPositionTagWithLabel
+                  userData={vaultData.userData as DeserializedLockedVaultUser}
+                  width={['auto', , 'fit-content']}
+                  ml={['12px', , , , , '32px']}
+                />
+              )}
+              <ActionContainer isAutoVault={!!pool.vaultKey} hasBalance={poolStakingTokenBalance.gt(0)}>
+                {pool.vaultKey ? <AutoHarvest pool={pool} /> : <Harvest {...pool} />}
+                <Stake pool={pool} />
+              </ActionContainer>
+            </Box>
           </ActionContainer>
-        </Box>
-      </ActionContainer>
+
+          <Flex flexDirection="column" mb="8px" mt="15px" width="100%" alignItems="center">
+            <PoolStatsInfo pool={pool} account={account} showTotalStaked={isMobile} alignLinksToRight={isMobile} />
+          </Flex>
+        </FlexGap>
+
+        {/* <Flex alignItems="center"> */}
+        {/*  <PoolTypeTag vaultKey={vaultKey} isLocked={isLocked} account={account}> */}
+        {/*    {(tagTargetRef) => ( */}
+        {/*      <Flex ref={tagTargetRef}> */}
+        {/*        <HelpIcon ml="4px" width="20px" height="20px" color="textSubtle" /> */}
+        {/*      </Flex> */}
+        {/*    )} */}
+        {/*  </PoolTypeTag> */}
+        {/* </Flex> */}
+      </InfoSection>
     </StyledActionPanel>
   )
 }

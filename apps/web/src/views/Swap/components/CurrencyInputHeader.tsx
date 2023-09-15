@@ -2,20 +2,15 @@ import { useTranslation } from '@pancakeswap/localization'
 import {
   ChartDisableIcon,
   ChartIcon,
+  CogIcon,
   Flex,
-  HistoryIcon,
-  HotDisableIcon,
-  HotIcon,
   IconButton,
   NotificationDot,
   Swap,
   Text,
-  TooltipText,
   useModal,
   useTooltip,
 } from '@pancakeswap/uikit'
-import RefreshIcon from 'components/Svg/RefreshIcon'
-import { CHAIN_REFRESH_TIME } from 'config/constants/exchange'
 import { useExpertMode } from '@pancakeswap/utils/user'
 import TransactionsModal from 'components/App/Transactions/TransactionsModal'
 import GlobalSettings from 'components/Menu/GlobalSettings'
@@ -27,11 +22,8 @@ import { ReactElement, useCallback, useContext, useEffect, useState, memo } from
 import { isMobile } from 'react-device-detect'
 import styled from 'styled-components'
 import atomWithStorageWithErrorCatch from 'utils/atomWithStorageWithErrorCatch'
-import InternalLink from 'components/Links'
-import Image from 'next/image'
 import { SettingsMode } from '../../../components/Menu/GlobalSettings/types'
 import { SwapFeaturesContext } from '../SwapFeaturesContext'
-import BuyCryptoIcon from '../../../../public/images/moneyBangs.svg'
 
 const AppMenuList = styled.ul`
   margin: 0;
@@ -62,6 +54,9 @@ interface Props {
   onRefreshPrice: () => void
   setIsShowMarket?: (isShwo: boolean) => void
   isShowMarket?: boolean
+  setIsLimitOpened?: () => void
+  setIsSettingsOpened?: () => void
+  isSwap?: boolean
 }
 
 const SUPPORTED_BUY_CRYPTO_CHAINS = [1, 56]
@@ -75,7 +70,17 @@ const ColoredIconButton = styled(IconButton)`
 const mobileShowOnceTokenHighlightAtom = atomWithStorageWithErrorCatch('pcs::mobileShowOnceTokenHighlightV2', true)
 
 const CurrencyInputHeader: React.FC<React.PropsWithChildren<Props>> = memo(
-  ({ subtitle, title, hasAmount, onRefreshPrice, setIsShowMarket, isShowMarket }) => {
+  ({
+    subtitle,
+    title,
+    hasAmount,
+    onRefreshPrice,
+    setIsShowMarket,
+    isShowMarket,
+    setIsLimitOpened,
+    setIsSettingsOpened,
+    isSwap = false,
+  }) => {
     const { t } = useTranslation()
     const { chainId } = useActiveChainId()
     const [mobileTooltipShowOnce, setMobileTooltipShowOnce] = useAtom(mobileShowOnceTokenHighlightAtom)
@@ -96,9 +101,8 @@ const CurrencyInputHeader: React.FC<React.PropsWithChildren<Props>> = memo(
       ...(isMobile && { manualVisible: mobileTooltipShow }),
     })
 
-    const { isChartSupported, isChartDisplayed, setIsChartDisplayed, isHotTokenSupported } = useContext(
-      SwapFeaturesContext,
-    )
+    const { isChartSupported, isChartDisplayed, setIsChartDisplayed, isHotTokenSupported } =
+      useContext(SwapFeaturesContext)
     const [expertMode] = useExpertMode()
     const [isRoutingSettingChange] = useRoutingSettingChanged()
     const toggleChartDisplayed = () => {
@@ -131,17 +135,49 @@ const CurrencyInputHeader: React.FC<React.PropsWithChildren<Props>> = memo(
           {setIsShowMarket ? (
             <AppMenuList>
               <AppMenuItem onClick={() => setIsShowMarket(true)}>
-                <Text style={{ fontWeight: '600', fontSize: '14px', color: !isShowMarket ? '#a0a3c4' : '' }}>
+                <Text
+                  style={{ fontWeight: '600', fontSize: '14px', color: !isShowMarket ? '#a0a3c4' : '' }}
+                  onClick={setIsLimitOpened}
+                >
                   Market
                 </Text>
               </AppMenuItem>
               <AppMenuItem onClick={() => setIsShowMarket(false)}>
-                <Text style={{ fontWeight: '600', fontSize: '14px', color: isShowMarket ? '#a0a3c4' : '' }}>Limit</Text>
+                <Text
+                  style={{ fontWeight: '600', fontSize: '14px', color: isShowMarket ? '#a0a3c4' : '' }}
+                  onClick={setIsLimitOpened}
+                >
+                  Limit
+                </Text>
               </AppMenuItem>
             </AppMenuList>
           ) : null}
           <NotificationDot show={expertMode || isRoutingSettingChange}>
-            <GlobalSettings color="textSubtle" mr="0" mode={SettingsMode.SWAP_LIQUIDITY} />
+            {isChartSupported && setIsChartDisplayed && (
+              <ColoredIconButton
+                onClick={() => {
+                  if (!isChartDisplayed && isSwapHotTokenDisplay) {
+                    setIsSwapHotTokenDisplay(false)
+                  }
+                  toggleChartDisplayed()
+                }}
+                variant="text"
+                scale="sm"
+              >
+                {isChartDisplayed ? (
+                  <ChartDisableIcon color="textSubtle" />
+                ) : (
+                  <ChartIcon width="24px" color="textSubtle" />
+                )}
+              </ColoredIconButton>
+            )}
+            {isSwap ? (
+              <IconButton variant="text" scale="sm" onClick={setIsSettingsOpened}>
+                <CogIcon height={24} width={24} />
+              </IconButton>
+            ) : (
+              <GlobalSettings color="textSubtle" mr="0" mode={SettingsMode.SWAP_LIQUIDITY} isSwap={isSwap} />
+            )}
           </NotificationDot>
         </Flex>
       </Flex>

@@ -1,8 +1,8 @@
 import { Flex, Skeleton, Text, Balance, Pool } from '@pancakeswap/uikit'
 import styled from 'styled-components'
-import { useTranslation } from '@pancakeswap/localization'
 import { Token } from '@pancakeswap/sdk'
 import BigNumber from 'bignumber.js'
+import { baseDisplay } from 'pages/_app'
 
 interface TotalStakedCellProps {
   totalStakedBalance: number
@@ -11,7 +11,7 @@ interface TotalStakedCellProps {
 }
 
 const StyledCell = styled(Pool.BaseCell)`
-  flex: 2 0 100px;
+  flex: 1 0 40px;
 `
 
 const TotalStakedCell: React.FC<React.PropsWithChildren<TotalStakedCellProps>> = ({
@@ -19,17 +19,22 @@ const TotalStakedCell: React.FC<React.PropsWithChildren<TotalStakedCellProps>> =
   totalStaked,
   totalStakedBalance,
 }) => {
-  const { t } = useTranslation()
-
   return (
     <StyledCell role="cell">
       <Pool.CellContent>
-        <Text fontSize="12px" color="textSubtle" textAlign="left">
-          {t('Total staked')}
+        <Text
+          color="#a0a3c4"
+          textAlign="left"
+          fontSize="13px"
+          lineHeight="160%"
+          letterSpacing="0.75px"
+          className={baseDisplay.className}
+        >
+          Staked {stakingToken.symbol}
         </Text>
         {totalStaked && totalStaked.gte(0) ? (
           <Flex height="20px" alignItems="center">
-            <Balance fontSize="16px" value={totalStakedBalance} decimals={0} unit={` ${stakingToken.symbol}`} />
+            <Balance fontSize="16px" bold value={totalStakedBalance} decimals={0} unit="" />
           </Flex>
         ) : (
           <Skeleton width="80px" height="16px" />

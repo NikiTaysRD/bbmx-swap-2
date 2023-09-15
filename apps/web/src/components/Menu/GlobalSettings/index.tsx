@@ -1,19 +1,52 @@
-import { Flex, IconButton, CogIcon, useModal } from '@pancakeswap/uikit'
-import styled from 'styled-components'
-import { useState } from 'react'
-import SettingsModal from './SettingsModal'
+import {
+  Flex,
+  IconButton,
+  CogIcon,
+  Toggle,
+  QuestionHelper,
+  Text,
+  ExpertModal,
+  useModal,
+  FlexGap,
+} from '@pancakeswap/uikit'
+import styled, { css } from 'styled-components'
+import { useContext, useState } from 'react'
+import { useExpertMode, useUserExpertModeAcknowledgement } from '@pancakeswap/utils/user/expertMode'
+import useTranslation from '@pancakeswap/localization/src/useTranslation'
+import { useSwapActionHandlers } from 'state/swap/useSwapActionHandlers'
+import GasSettings from 'components/Menu/GlobalSettings/GasSettings'
+import { useUserTransactionTTL } from 'state/user/hooks'
+import { useUserSlippage } from '@pancakeswap/utils/user/slippage'
+import { escapeRegExp } from 'utils'
+import { SwapFeaturesContext } from 'views/Swap/SwapFeaturesContext'
+import { RoutingSettingsButton } from './SettingsModal'
 
 type Props = {
   color?: string
   mr?: string
   mode?: string
   onClick?: () => void
+  isSwap?: boolean
+  reducedTop?: boolean
 }
 
-const SlippageContainer = styled.div`
+const SlippageContainer = styled.div<{ isSwap?: boolean; reducedTop?: boolean; isChartOpen?: boolean }>`
   width: 300px;
   position: absolute;
-  top: 100%;
+  top: ${({ isSwap, reducedTop }) => (isSwap ? (reducedTop ? '7%' : '15%') : '100%')};
+  left: ${({ isSwap }) => (isSwap ? `15%` : '')};
+
+  ${({ theme }) => theme.mediaQueries.sm} {
+    left: ${({ isSwap }) => (isSwap ? `50%` : '')};
+  }
+
+  ${(props) =>
+    props.isChartOpen &&
+    css`
+      left: 75% !important;
+      top: 10% !important;
+    `}
+
   right: -20px;
   background: #101124;
   border-radius: 6px;
@@ -100,7 +133,6 @@ const FieldMin = styled.div`
 `
 
 const FieldMinInput = styled.input`
-  padding-right: 80px;
   line-height: 44px;
   padding: 0 40px 0 15px;
   color: #fff;
@@ -124,44 +156,198 @@ const FieldMinSpan = styled.span`
   -moz-transform: translateY(-50%);
 `
 
-const GlobalSettings = ({ color, mr = '8px', mode, onClick }: Props) => {
-  const [isShow, setIsShow] = useState(false)
+enum SlippageError {
+  InvalidInput = 'InvalidInput',
+  RiskyLow = 'RiskyLow',
+  RiskyHigh = 'RiskyHigh',
+}
+
+enum DeadlineError {
+  InvalidInput = 'InvalidInput',
+}
+
+const inputRegex = RegExp(`^\\d*(?:\\\\[.])?\\d*$`) // match escaped "." characters via in a non-capturing group
+const THREE_DAYS_IN_SECONDS = 60 * 60 * 24 * 3
+
+const GlobalSettings = ({ color, mr = '8px', mode, onClick, isSwap, reducedTop }: Props) => {
+  const [isShow, setIsShow] = useState(isSwap)
+  const [showConfirmExpertModal, setShowConfirmExpertModal] = useState(false)
+  const [expertMode, setExpertMode] = useExpertMode()
+  const [showExpertModeAcknowledgement, setShowExpertModeAcknowledgement] = useUserExpertModeAcknowledgement()
+  const { onChangeRecipient } = useSwapActionHandlers()
+
+  const [userSlippageTolerance, setUserSlippageTolerance] = useUserSlippage()
+  const [ttl, setTtl] = useUserTransactionTTL()
+  const [slippageInput, setSlippageInput] = useState('')
+  const [deadlineInput, setDeadlineInput] = useState('')
+
+  const slippageInputIsValid =
+    slippageInput === '' || (userSlippageTolerance / 100).toFixed(2) === Number.parseFloat(slippageInput).toFixed(2)
+  const deadlineInputIsValid = deadlineInput === '' || (ttl / 60).toString() === deadlineInput
+
+  let slippageError: SlippageError | undefined
+  if (slippageInput !== '' && !slippageInputIsValid) {
+    slippageError = SlippageError.InvalidInput
+  } else if (slippageInputIsValid && userSlippageTolerance < 50) {
+    slippageError = SlippageError.RiskyLow
+  } else if (slippageInputIsValid && userSlippageTolerance > 500) {
+    slippageError = SlippageError.RiskyHigh
+  } else {
+    slippageError = undefined
+  }
+
+  let deadlineError: DeadlineError | undefined
+  if (deadlineInput !== '' && !deadlineInputIsValid) {
+    deadlineError = DeadlineError.InvalidInput
+  } else {
+    deadlineError = undefined
+  }
+
+  const parseCustomSlippage = (value: string) => {
+    if (value === '' || inputRegex.test(escapeRegExp(value))) {
+      setSlippageInput(value)
+
+      try {
+        const valueAsIntFromRoundedFloat = Number.parseInt((Number.parseFloat(value) * 100).toString())
+        if (!Number.isNaN(valueAsIntFromRoundedFloat) && valueAsIntFromRoundedFloat < 5000) {
+          setUserSlippageTolerance(valueAsIntFromRoundedFloat)
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    }
+  }
+
+  const parseCustomDeadline = (value: string) => {
+    setDeadlineInput(value)
+
+    try {
+      const valueAsInt: number = Number.parseInt(value) * 60
+      if (!Number.isNaN(valueAsInt) && valueAsInt > 60 && valueAsInt < THREE_DAYS_IN_SECONDS) {
+        setTtl(valueAsInt)
+      } else {
+        deadlineError = DeadlineError.InvalidInput
+      }
+    } catch (error) {
+      console.error(error)
+    }
+  }
+
+  const { t } = useTranslation()
+  const [ExportModalWindow] = useModal(
+    <ExpertModal
+      setShowConfirmExpertModal={setShowConfirmExpertModal}
+      toggleExpertMode={() => setExpertMode((s) => !s)}
+      setShowExpertModeAcknowledgement={setShowExpertModeAcknowledgement}
+    />,
+  )
+
+  const handleExpertModeToggle = () => {
+    if (expertMode || !showExpertModeAcknowledgement) {
+      onChangeRecipient(null)
+      setExpertMode((s) => !s)
+    } else {
+      setShowConfirmExpertModal(true)
+      ExportModalWindow()
+    }
+  }
+
+  const { isChartDisplayed } = useContext(SwapFeaturesContext)
 
   return (
     <Flex>
-      <IconButton
-        onClick={() => setIsShow(!isShow)}
-        variant="text"
-        scale="sm"
-        mr={mr}
-        id={`open-settings-dialog-button-${mode}`}
+      {!isSwap && (
+        <IconButton
+          onClick={() => setIsShow(!isShow)}
+          variant="text"
+          scale="sm"
+          mr={mr}
+          id={`open-settings-dialog-button-${mode}`}
+        >
+          <CogIcon height={24} width={24} color={color || 'textSubtle'} />
+        </IconButton>
+      )}
+
+      <SlippageContainer
+        style={{ display: isShow ? '' : 'none' }}
+        isSwap={isSwap}
+        reducedTop={reducedTop}
+        isChartOpen={isChartDisplayed}
       >
-        <CogIcon height={24} width={24} color={color || 'textSubtle'} />
-      </IconButton>
-      <SlippageContainer style={{ display: isShow ? '' : 'none' }}>
         <Heading3>Transaction Settings</Heading3>
+        <GasSettings />
         <SlippageSet>
           <SlippageTitle>Slippage tolerance</SlippageTitle>
           <SlippageField>
-            <SField>
-              <SFieldInput value={5} type="text" />
-              <SFieldSpan>%</SFieldSpan>
-            </SField>
-            <AutoBtn>
-              <AutoBtnInput type="checkbox" id="auto" />
-              <AutoBtnLabel htmlFor="auto">Auto</AutoBtnLabel>
-            </AutoBtn>
+            <FlexGap gap="5px" flexDirection="column">
+              <FlexGap gap="5px" flexDirection="row" width="100%">
+                <SField>
+                  <SFieldInput
+                    value={slippageInput}
+                    type="number"
+                    min={0}
+                    onBlur={() => {
+                      parseCustomSlippage((userSlippageTolerance / 100).toFixed(2))
+                    }}
+                    onChange={(event) => {
+                      if (event.currentTarget.validity.valid) {
+                        parseCustomSlippage(event.target.value.replace(/,/g, '.'))
+                      }
+                    }}
+                  />
+                  <SFieldSpan>%</SFieldSpan>
+                </SField>
+                <AutoBtn onClick={() => parseCustomSlippage('0.5')}>
+                  <AutoBtnInput type="checkbox" id="auto" />
+                  <AutoBtnLabel htmlFor="auto">Auto</AutoBtnLabel>
+                </AutoBtn>
+              </FlexGap>
+              {!!slippageError && (
+                <Text fontSize="12px" color={slippageError === SlippageError.InvalidInput ? 'red' : '#F3841E'} mt="8px">
+                  {slippageError === SlippageError.InvalidInput
+                    ? t('Enter a valid slippage percentage')
+                    : slippageError === SlippageError.RiskyLow
+                    ? t('Your transaction may fail')
+                    : t('Your transaction may be frontrun')}
+                </Text>
+              )}
+            </FlexGap>
           </SlippageField>
         </SlippageSet>
         <SlippageSet>
           <SlippageTitle>Transaction deadline</SlippageTitle>
           <SlippageField>
             <FieldMin>
-              <FieldMinInput type="text" value="30" />
+              <FieldMinInput
+                type="number"
+                onBlur={() => {
+                  parseCustomDeadline((ttl / 60).toString())
+                }}
+                placeholder={(ttl / 60).toString()}
+                value={deadlineInput}
+                onChange={(event) => {
+                  if (event.currentTarget.validity.valid) {
+                    parseCustomDeadline(event.target.value)
+                  }
+                }}
+                min="0"
+              />
               <FieldMinSpan>Minutes</FieldMinSpan>
             </FieldMin>
           </SlippageField>
         </SlippageSet>
+        <Flex justifyContent="space-between" alignItems="center" mb="24px">
+          <Flex alignItems="center">
+            <Text>{t('Expert Mode')}</Text>
+            <QuestionHelper
+              text={t('Bypasses confirmation modals and allows high slippage trades. Use at your own risk.')}
+              placement="top"
+              ml="4px"
+            />
+          </Flex>
+          <Toggle id="toggle-expert-mode-button" scale="md" checked={expertMode} onChange={handleExpertModeToggle} />
+        </Flex>
+        <RoutingSettingsButton />
       </SlippageContainer>
     </Flex>
   )

@@ -10,6 +10,7 @@ import styled from 'styled-components'
 import { BIG_ZERO } from '@pancakeswap/utils/bigNumber'
 import { getVaultPosition, VaultPosition, VaultPositionParams } from 'utils/cakePool'
 import { Token } from '@pancakeswap/sdk'
+import { baseDisplay } from 'pages/_app'
 
 interface NameCellProps {
   pool: Pool.DeserializedPool<Token>
@@ -20,7 +21,7 @@ const StyledCell = styled(Pool.BaseCell)`
   flex-direction: row;
   padding-left: 12px;
   ${({ theme }) => theme.mediaQueries.sm} {
-    flex: 1 0 150px;
+    flex: 1 0 100px;
     padding-left: 32px;
   }
 `
@@ -95,11 +96,24 @@ const NameCell: React.FC<React.PropsWithChildren<NameCellProps>> = ({ pool }) =>
                   {t('Staked')}
                 </Text>
               ))}
-            <Text bold={!isMobile} small={isMobile}>
+            <Text
+              bold={!isMobile}
+              small={isMobile}
+              fontSize="18px"
+              lineHeight="160%"
+              className={baseDisplay.className}
+              letterSpacing="1px"
+            >
               {title}
             </Text>
             {showSubtitle && (
-              <Text fontSize="12px" color="textSubtle">
+              <Text
+                fontSize="13px"
+                lineHeight="160%"
+                className={baseDisplay.className}
+                letterSpacing="0.75px"
+                color="#a0a3c4"
+              >
                 {subtitle}
               </Text>
             )}

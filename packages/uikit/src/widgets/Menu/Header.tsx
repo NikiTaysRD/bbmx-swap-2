@@ -4,7 +4,11 @@ import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faEllipsis, faEnvelope, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import axios from "axios";
+import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
+import { NetworkSwitcher } from "components/NetworkSwitcher";
 import Flex from "../../components/Box/Flex";
+// @ts-ignore
 import favicon from "../../../../../apps/web/public/images/favicon.png";
 import Logo from "./components/Logo";
 import FlexGap from "../../components/Layouts/FlexGap";
@@ -16,6 +20,8 @@ import {
   BurgerItem,
   BurgerMenu,
   BurgerNavList,
+  DesktopHiddenItems,
+  DotItem,
   Dropdown,
   DropdownLink,
   Item,
@@ -23,17 +29,45 @@ import {
   StyledNav,
   Text,
 } from "./styles";
+// @ts-ignore
 import bOnly from "../../../../../apps/web/public/favicon.ico";
+// @ts-ignore
 import base from "../../../../../apps/web/public/images/base.png";
 import AngleDown from "../../../../../apps/web/public/images/home/angle-down.svg";
 import { useMatchBreakpoints } from "../../contexts";
 import UserMenu from "../../../../../apps/web/src/components/Menu/UserMenu";
 
-export const Header: React.FC = () => {
-  const { isMobile } = useMatchBreakpoints();
-  const { isDesktop } = useMatchBreakpoints();
+const HeaderComponent: React.FC = () => {
+  const { isDesktop, isMobile } = useMatchBreakpoints();
   const [openDropdown, setOpenDropdown] = useState<string>("");
   const [openBurger, setOpenBurger] = useState<boolean>(false);
+  const [showDropdownItemsDesktop, setDropdownItemsDesktop] = useState<boolean>(false);
+  const [showHiddenDesktopItems, setShowHiddenDesktopItems] = useState<boolean>(false);
+
+  useEffect(() => {
+    function handleResize() {
+      const windowWidth = window.innerWidth;
+      setDropdownItemsDesktop(windowWidth > 967 && windowWidth < 1025);
+    }
+
+    window.addEventListener("resize", handleResize);
+    handleResize();
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const { data } = useQuery({
+    queryKey: ["tokenPrice"],
+    queryFn: async () => {
+      const res = await axios.get(
+        "https://api.dexscreener.com/latest/dex/search/?q=0xff0b183c467049cfe744ee9d4898f264d277874d"
+      );
+      return res.data;
+    },
+    refetchInterval: 60000,
+  });
 
   useEffect(() => {
     if (openBurger) {
@@ -79,25 +113,59 @@ export const Header: React.FC = () => {
         <Flex>
           <Flex width="106px">{isMobile ? <Image alt="" src={favicon} width={24} /> : <Logo href="/" />}</Flex>
 
-          {isDesktop && (
-            <FlexGap gap="16px" className={baseDisplay.className} alignItems="center" ml="25px">
-              <Item>
-                <Link href="/">Home</Link>
-              </Item>
-              <Item>
-                <Link href="/swap">Trade</Link>
-              </Item>
-              <Item>
-                <Link href="/liquidity">Liquidity</Link>
-              </Item>
-              <Item>
-                <Link href="/farming">Farming</Link>
-              </Item>
-              <Item>
-                <Link href="/governance">Governance</Link>
-              </Item>
-            </FlexGap>
-          )}
+          {isDesktop ? (
+            !showDropdownItemsDesktop ? (
+              <FlexGap gap="16px" className={baseDisplay.className} alignItems="center" ml="25px">
+                <Item>
+                  <Link href="/">Home</Link>
+                </Item>
+                <Item>
+                  <Link href="/swap">Trade</Link>
+                </Item>
+                <Item>
+                  <Link href="/liquidity">Liquidity</Link>
+                </Item>
+                <Item>
+                  <Link href="/farms">Farming</Link>
+                </Item>
+                <Item>
+                  <Link href="/governance">Governance</Link>
+                </Item>
+                <Item>
+                  <Link href="/pools">Pools</Link>
+                </Item>
+              </FlexGap>
+            ) : (
+              <FlexGap gap="16px" className={baseDisplay.className} alignItems="center" ml="25px">
+                <Item>
+                  <Link href="/">Home</Link>
+                </Item>
+                <Item>
+                  <Link href="/swap">Trade</Link>
+                </Item>
+                <Item>
+                  <Link href="/liquidity">Liquidity</Link>
+                </Item>
+                <DotItem onClick={() => setShowHiddenDesktopItems(!showHiddenDesktopItems)}>
+                  <p>...</p>
+                </DotItem>
+
+                {showHiddenDesktopItems && (
+                  <DesktopHiddenItems>
+                    <Item>
+                      <Link href="/farms">Farming</Link>
+                    </Item>
+                    <Item>
+                      <Link href="/governance">Governance</Link>
+                    </Item>
+                    <Item>
+                      <Link href="/pools">Pools</Link>
+                    </Item>
+                  </DesktopHiddenItems>
+                )}
+              </FlexGap>
+            )
+          ) : null}
         </Flex>
 
         <FlexGap
@@ -111,11 +179,11 @@ export const Header: React.FC = () => {
           {!isMobile && (
             <Flex alignItems="center">
               <Image src={bOnly.src} alt="" width={35} height={35} />
-              <Price>$0.0046</Price>
+              <Price>${data?.pairs[0]?.priceUsd}</Price>
             </Flex>
           )}
 
-          <BaseWrap>
+          {/* <BaseWrap>
             <Base onClick={() => toggleDropdown("baseDropdown")} ref={baseButtonRef}>
               <Image src={base.src} alt="" width={18} height={18} />
               {!isMobile && <Base>Base</Base>}
@@ -133,9 +201,9 @@ export const Header: React.FC = () => {
                 </DropdownLink>
               </Dropdown>
             )}
-          </BaseWrap>
+          </BaseWrap> */}
 
-          {/* <NetworkSwitcher /> */}
+          <NetworkSwitcher />
 
           <UserMenu />
 
@@ -205,7 +273,7 @@ export const Header: React.FC = () => {
               <Link href="/liquidity">Liquidity</Link>
             </BurgerItem>
             <BurgerItem>
-              <Link href="/farming">Farming</Link>
+              <Link href="/farms">Farming</Link>
             </BurgerItem>
             <BurgerItem>
               <Link href="/governance">Governance</Link>
@@ -214,5 +282,15 @@ export const Header: React.FC = () => {
         </BurgerNavList>
       )}
     </>
+  );
+};
+
+const queryClient = new QueryClient();
+
+export const Header: React.FC = () => {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <HeaderComponent />
+    </QueryClientProvider>
   );
 };

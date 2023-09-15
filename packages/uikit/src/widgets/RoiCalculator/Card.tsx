@@ -16,6 +16,8 @@ export const Card = styled(Box)<{
 `;
 
 export const LightGreyCard = styled(Card)`
-  border: 1px solid ${({ theme }) => theme.colors.cardBorder};
-  background-color: ${({ theme }) => theme.colors.background};
+  padding: 3px 7px;
+  border-radius: 6px;
+  background: #101124;
+  border: 1px solid rgba(255, 255, 255, 0.15);
 `;

@@ -21,7 +21,7 @@ const TokenWrapper = styled.div`
   width: 32px;
 
   ${({ theme }) => theme.mediaQueries.sm} {
-    width: 40px;
+    width: 100%;
   }
 `;
 

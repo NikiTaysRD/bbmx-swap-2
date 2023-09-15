@@ -38,6 +38,9 @@ export const StyledSecondaryImage = styled(TokenImage)<StyledImageProps>`
   //position: absolute;
   //width: 50%;
 
+  max-width: unset;
+  max-height: unset;
+
   ${StyledSystemVariant({
     variants: {
       [variants.DEFAULT]: {

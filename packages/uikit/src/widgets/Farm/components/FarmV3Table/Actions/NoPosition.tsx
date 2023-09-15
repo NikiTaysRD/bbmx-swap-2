@@ -5,14 +5,20 @@ import { Text } from "../../../../../components/Text";
 import { Button } from "../../../../../components/Button";
 import { ActionTitles, ActionContent } from "./styles";
 import Flex from "../../../../../components/Box/Flex";
+import { baseDisplay } from "../../../../../../../../apps/web/src/pages/_app";
 
 const ActionContainer = styled.div`
   padding: 16px;
-  border: 2px solid ${({ theme }) => theme.colors.input};
-  border-radius: 16px;
+  // border: 2px solid ${({ theme }) => theme.colors.input};
+  //border-radius: 16px;
   flex-grow: 1;
   flex-basis: 0;
   margin-bottom: 16px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
   ${({ theme }) => theme.mediaQueries.sm} {
     margin-left: 12px;
@@ -51,7 +57,11 @@ const NoPosition: React.FunctionComponent<React.PropsWithChildren<WalletNotConne
       {account && hasNoPosition ? (
         <ActionContainer>
           <ActionTitles>
-            <Text bold textTransform="uppercase" color="textSubtle" fontSize="12px">
+            <Text
+              textTransform="uppercase"
+              style={{ color: "#fff", fontSize: "15px", lineHeight: "160%" }}
+              className={baseDisplay.className}
+            >
               {t("no position found")}
             </Text>
           </ActionTitles>
@@ -66,7 +76,11 @@ const NoPosition: React.FunctionComponent<React.PropsWithChildren<WalletNotConne
       ) : (
         <ActionContainer>
           <ActionTitles>
-            <Text bold textTransform="uppercase" color="textSubtle" fontSize="12px">
+            <Text
+              textTransform="uppercase"
+              style={{ color: "#fff", fontSize: "15px", lineHeight: "160%" }}
+              className={baseDisplay.className}
+            >
               {t("Start Farming")}
             </Text>
           </ActionTitles>

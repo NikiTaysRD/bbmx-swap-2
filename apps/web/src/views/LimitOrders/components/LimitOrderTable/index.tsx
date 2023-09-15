@@ -1,6 +1,7 @@
 import { useState, useCallback, memo, useMemo } from 'react'
 import { Flex, Card, ButtonTabMenu } from '@pancakeswap/uikit'
 import { useTranslation } from '@pancakeswap/localization'
+import styled from 'styled-components'
 import useGelatoLimitOrdersHistory from '../../hooks/useGelatoLimitOrdersHistory'
 
 import { ORDER_CATEGORY } from '../../types'
@@ -27,6 +28,13 @@ const OrderTable: React.FC<React.PropsWithChildren<{ isCompact: boolean; orderCa
   },
 )
 
+const TableWrapper = styled.div`
+  border-radius: 24px;
+  width: 100%;
+  height: max-content;
+  background: rgb(27, 28, 48);
+`
+
 const LimitOrderTable: React.FC<React.PropsWithChildren<{ isCompact: boolean }>> = ({ isCompact }) => {
   const { t } = useTranslation()
   const [activeTab, setIndex] = useState<ORDER_CATEGORY>(ORDER_CATEGORY.Open)
@@ -37,10 +45,10 @@ const LimitOrderTable: React.FC<React.PropsWithChildren<{ isCompact: boolean }>>
 
   return (
     <Flex flex="1" justifyContent="center" mb="24px">
-      <Card style={{ width: '100%', height: 'max-content' }}>
+      <TableWrapper>
         <ButtonTabMenu itemList={tabMenuItems} onItemClick={handleClick} activeIndex={activeTab} />
         <OrderTable orderCategory={activeTab} isCompact={isCompact} />
-      </Card>
+      </TableWrapper>
     </Flex>
   )
 }

@@ -257,12 +257,12 @@ const FarmTable: React.FC<React.PropsWithChildren<ITableProps>> = ({ farms, cake
   }, [farms, generateRow])
 
   return (
-    <Container id="farms-table">
+    <Container id="farms-table" style={{ border: 'none', borderRadius: '12px', background: 'none' }}>
       {header}
       <TableContainer id="table-container">
         <TableWrapper ref={tableWrapperEl}>
           <StyledTable>
-            <TableBody>
+            <TableBody style={{ display: 'flex', flexDirection: 'column', gap: '15px' }}>
               {sortedRows.map((row) => {
                 return row.type === 'v2' && row?.details?.boosted ? (
                   <ProxyFarmContainer key={`table-row-${row.farm.pid}-${row.type}`} farm={row.details}>

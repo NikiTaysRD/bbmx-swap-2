@@ -67,7 +67,17 @@ const NoPosition: React.FunctionComponent<React.PropsWithChildren<WalletNotConne
           </ActionTitles>
           {!inactive && (
             <ActionContent>
-              <Button width="100%" onClick={onAddLiquidity}>
+              <Button
+                width="100%"
+                onClick={onAddLiquidity}
+                style={{
+                  background: "#4E09F8",
+                  opacity: "0.85",
+                  color: "white",
+                  borderRadius: "6px",
+                  fontWeight: "400",
+                }}
+              >
                 {t("Add Liquidity")}
               </Button>
             </ActionContent>

@@ -15,6 +15,7 @@ import { useAccount, useBalance } from 'wagmi'
 import { useState, useCallback } from 'react'
 import { useTranslation } from '@pancakeswap/localization'
 import styled from 'styled-components'
+import { baseDisplay } from 'pages/_app'
 import WalletInfo from './WalletInfo'
 import WalletTransactions from './WalletTransactions'
 import WalletWrongNetwork from './WalletWrongNetwork'
@@ -74,24 +75,26 @@ const WalletModal: React.FC<React.PropsWithChildren<WalletModalProps>> = ({
   }, [])
 
   return (
-    <ModalWrapper minWidth="360px">
-      <ModalHeader>
-        <ModalTitle>
-          <Heading>{t('Your Wallet')}</Heading>
-        </ModalTitle>
-        <IconButton variant="text" onClick={onDismiss}>
-          <CloseIcon width="24px" color="text" />
-        </IconButton>
-      </ModalHeader>
-      {view !== WalletView.WRONG_NETWORK && <TabsComponent view={view} handleClick={handleClick} />}
-      <ModalBody p="24px" width="100%">
-        {view === WalletView.WALLET_INFO && (
-          <WalletInfo hasLowNativeBalance={hasLowNativeBalance} switchView={handleClick} onDismiss={onDismiss} />
-        )}
-        {view === WalletView.TRANSACTIONS && <WalletTransactions onDismiss={onDismiss} />}
-        {view === WalletView.WRONG_NETWORK && <WalletWrongNetwork onDismiss={onDismiss} />}
-      </ModalBody>
-    </ModalWrapper>
+    <div className={baseDisplay.className}>
+      <ModalWrapper minWidth="360px">
+        <ModalHeader>
+          <ModalTitle>
+            <Heading>{t('Your Wallet')}</Heading>
+          </ModalTitle>
+          <IconButton variant="text" onClick={onDismiss}>
+            <CloseIcon width="24px" color="text" />
+          </IconButton>
+        </ModalHeader>
+        {view !== WalletView.WRONG_NETWORK && <TabsComponent view={view} handleClick={handleClick} />}
+        <ModalBody p="24px" width="100%">
+          {view === WalletView.WALLET_INFO && (
+            <WalletInfo hasLowNativeBalance={hasLowNativeBalance} switchView={handleClick} onDismiss={onDismiss} />
+          )}
+          {view === WalletView.TRANSACTIONS && <WalletTransactions onDismiss={onDismiss} />}
+          {view === WalletView.WRONG_NETWORK && <WalletWrongNetwork onDismiss={onDismiss} />}
+        </ModalBody>
+      </ModalWrapper>
+    </div>
   )
 }
 

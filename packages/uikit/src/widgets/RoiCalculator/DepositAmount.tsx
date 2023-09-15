@@ -39,12 +39,17 @@ export const DepositAmountInput = memo(function DepositAmountInput({
 });
 
 const StyledBalanceInput = styled(BalanceInput)`
-  padding: 0 16px;
+  border-radius: 10px;
+  background: #101124;
+  padding: 10px 20px 10px 15px;
 `;
 
 const StyledButton = styled(Button)`
   width: 100%;
   text-transform: uppercase;
+  height: 30px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.1);
 `;
 
 interface UsdAmountInputProps {
@@ -71,7 +76,7 @@ export const DepositUsdAmountInput = memo(function DepositUsdAmountInput({
       <Box mb="0.5em" width="100%">
         <StyledBalanceInput value={value} onUserInput={onChange} unit={<Text color="textSubtle">{t("USD")}</Text>} />
       </Box>
-      <Flex>
+      <Flex style={{ gap: "5px" }}>
         <Flex flex="3" mr="0.25em">
           <StyledButton variant={value === "100" ? "primary" : "tertiary"} scale="xs" onClick={() => onChange("100")}>
             $100
@@ -86,6 +91,8 @@ export const DepositUsdAmountInput = memo(function DepositUsdAmountInput({
           <StyledButton variant={value === max ? "primary" : "tertiary"} scale="xs" mr="0.25em" onClick={onMax}>
             {maxLabel || t("Max")}
           </StyledButton>
+        </Flex>
+        <Flex>
           <QuestionHelper
             text={t("Automatically fill in the maximum token amount according to your balance and position settings.")}
             placement="top"
@@ -127,6 +134,13 @@ const TokenDisplayRow = memo(function TokenDisplayRow({
   );
 });
 
+const TokensDisplay = styled.div`
+  padding: 20px 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  margin-bottom: 25px;
+`;
+
 export const TokenAmountsDisplay = memo(function TokenAmountsDisplay({
   amountA,
   amountB,
@@ -138,13 +152,11 @@ export const TokenAmountsDisplay = memo(function TokenAmountsDisplay({
   }
 
   return (
-    <Card>
-      <CardBody>
-        <Box mb="0.5em">
-          <TokenDisplayRow amount={amountA} currency={currencyA} />
-        </Box>
-        <TokenDisplayRow amount={amountB} currency={currencyB} />
-      </CardBody>
-    </Card>
+    <TokensDisplay>
+      <Box mb="0.5em">
+        <TokenDisplayRow amount={amountA} currency={currencyA} />
+      </Box>
+      <TokenDisplayRow amount={amountB} currency={currencyB} />
+    </TokensDisplay>
   );
 });

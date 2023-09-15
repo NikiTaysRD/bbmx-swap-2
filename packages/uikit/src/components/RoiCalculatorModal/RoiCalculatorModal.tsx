@@ -20,8 +20,12 @@ import { Modal } from "../../widgets/Modal";
 import { BalanceInput } from "../BalanceInput";
 import { useTooltip } from "../../hooks/useTooltip";
 import { ButtonMenu, ButtonMenuItem } from "../ButtonMenu";
+import { FullWidthButtonMenu } from "../../widgets/RoiCalculator/FullWidthButtonMenu";
+import { StyledTimeButtonMenuItem } from "../../widgets/RoiCalculator/StyledTimeButtonMenuItem";
 
 const StyledModal = styled(Modal)`
+  font-family: "Base Display", sans-serif;
+
   & > :nth-child(2) {
     padding: 0;
   }
@@ -39,16 +43,6 @@ export const ScrollableContainer = styled.div`
   ${({ theme }) => theme.mediaQueries.sm} {
     max-height: none;
   }
-`;
-
-const FullWidthButtonMenu = styled(ButtonMenu)<{ disabled?: boolean }>`
-  width: 100%;
-
-  & > button {
-    width: 100%;
-  }
-
-  opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
 `;
 
 export interface RoiCalculatorModalProps {
@@ -83,6 +77,20 @@ export interface RoiCalculatorModalProps {
   farmCakePerSecond?: string;
   totalMultipliers?: string;
 }
+
+const StyledBalanceInput = styled(BalanceInput)`
+  border-radius: 10px;
+  background: #101124;
+  padding: 10px 20px 10px 15px;
+`;
+
+const StyledButton = styled(Button)`
+  width: 100%;
+  text-transform: uppercase;
+  height: 30px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.1);
+`;
 
 const RoiCalculatorModal: React.FC<React.PropsWithChildren<RoiCalculatorModalProps>> = ({
   account,
@@ -198,10 +206,10 @@ const RoiCalculatorModal: React.FC<React.PropsWithChildren<RoiCalculatorModalPro
         )}
         {header}
         <Flex flexDirection="column" mb="8px">
-          <Text color="secondary" bold fontSize="12px" textTransform="uppercase">
+          <Text color="#4e09f8" bold fontSize="12px" textTransform="uppercase">
             {t("%asset% staked", { asset: stakingTokenSymbol })}
           </Text>
-          <BalanceInput
+          <StyledBalanceInput
             inputProps={{ scale: "sm" }}
             currencyValue={`${conversionValue} ${conversionUnit}`}
             innerRef={balanceInputRef}
@@ -213,8 +221,8 @@ const RoiCalculatorModal: React.FC<React.PropsWithChildren<RoiCalculatorModalPro
             switchEditingUnits={toggleEditingCurrency}
             onFocus={onBalanceFocus}
           />
-          <Flex justifyContent="space-between" mt="8px">
-            <Button
+          <Flex justifyContent="space-between" mt="8px" style={{ gap: "10px" }}>
+            <StyledButton
               scale="xs"
               p="4px 16px"
               width="68px"
@@ -222,8 +230,8 @@ const RoiCalculatorModal: React.FC<React.PropsWithChildren<RoiCalculatorModalPro
               onClick={() => setPrincipalFromUSDValue("100")}
             >
               $100
-            </Button>
-            <Button
+            </StyledButton>
+            <StyledButton
               scale="xs"
               p="4px 16px"
               width="68px"
@@ -231,8 +239,8 @@ const RoiCalculatorModal: React.FC<React.PropsWithChildren<RoiCalculatorModalPro
               onClick={() => setPrincipalFromUSDValue("1000")}
             >
               $1000
-            </Button>
-            <Button
+            </StyledButton>
+            <StyledButton
               scale="xs"
               p="4px 16px"
               width="128px"
@@ -246,7 +254,7 @@ const RoiCalculatorModal: React.FC<React.PropsWithChildren<RoiCalculatorModalPro
               }
             >
               {t("My Balance")}
-            </Button>
+            </StyledButton>
             <span ref={targetRef}>
               <HelpIcon width="16px" height="16px" color="textSubtle" />
             </span>
@@ -254,14 +262,14 @@ const RoiCalculatorModal: React.FC<React.PropsWithChildren<RoiCalculatorModalPro
           </Flex>
           {children || (
             <>
-              <Text mt="24px" color="secondary" bold fontSize="12px" textTransform="uppercase">
+              <Text mt="24px" color="#4e09f8" bold fontSize="12px" textTransform="uppercase">
                 {t("Staked for")}
               </Text>
               <FullWidthButtonMenu activeIndex={stakingDuration} onItemClick={setStakingDuration} scale="sm">
                 {DURATION.map((duration) => (
-                  <ButtonMenuItem key={duration} variant="tertiary">
+                  <StyledTimeButtonMenuItem key={duration} variant="tertiary">
                     {duration}
-                  </ButtonMenuItem>
+                  </StyledTimeButtonMenuItem>
                 ))}
               </FullWidthButtonMenu>
             </>
@@ -269,7 +277,7 @@ const RoiCalculatorModal: React.FC<React.PropsWithChildren<RoiCalculatorModalPro
           {bCakeCalculatorSlot && bCakeCalculatorSlot(principalAsToken)}
           {autoCompoundFrequency === 0 && (
             <>
-              <Text mt="24px" color="secondary" bold fontSize="12px" textTransform="uppercase">
+              <Text mt="24px" color="#4e09f8" bold fontSize="12px" textTransform="uppercase">
                 {t("Compounding every")}
               </Text>
               <Flex alignItems="center">
@@ -283,10 +291,10 @@ const RoiCalculatorModal: React.FC<React.PropsWithChildren<RoiCalculatorModalPro
                     activeIndex={activeCompoundingIndex}
                     onItemClick={setCompoundingFrequency}
                   >
-                    <ButtonMenuItem>{t("1D")}</ButtonMenuItem>
-                    <ButtonMenuItem>{t("7D")}</ButtonMenuItem>
-                    <ButtonMenuItem>{t("14D")}</ButtonMenuItem>
-                    <ButtonMenuItem>{t("30D")}</ButtonMenuItem>
+                    <StyledTimeButtonMenuItem>{t("1D")}</StyledTimeButtonMenuItem>
+                    <StyledTimeButtonMenuItem>{t("7D")}</StyledTimeButtonMenuItem>
+                    <StyledTimeButtonMenuItem>{t("14D")}</StyledTimeButtonMenuItem>
+                    <StyledTimeButtonMenuItem>{t("30D")}</StyledTimeButtonMenuItem>
                   </FullWidthButtonMenu>
                 </Flex>
               </Flex>

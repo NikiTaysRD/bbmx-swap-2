@@ -12,17 +12,17 @@ export const MILLION = 1000000;
 export const TRILLION = 1000000000000;
 
 export const RoiCardWrapper = styled(Box)`
-  background: linear-gradient(180deg, #53dee9, #7645d9);
+  border-radius: 10px;
+  background: rgba(78, 9, 248, 0.08);
   padding: 1px;
   width: 100%;
-  border-radius: ${({ theme }) => theme.radii.default};
 `;
 
 export const RoiCardInner = styled(Box)`
   min-height: 120px;
   padding: 24px;
-  border-radius: ${({ theme }) => theme.radii.default};
-  background: ${({ theme }) => theme.colors.gradientBubblegum};
+  border-radius: 10px;
+  background: rgba(78, 9, 248, 0.08);
 `;
 
 export const RoiInputContainer = styled(Box)`
@@ -121,7 +121,7 @@ const RoiCard: React.FC<React.PropsWithChildren<RoiCardProps>> = ({
   return (
     <RoiCardWrapper>
       <RoiCardInner>
-        <Text fontSize="12px" color="secondary" bold textTransform="uppercase">
+        <Text fontSize="12px" color="#4E09F8" bold textTransform="uppercase">
           {t("ROI at current rates")}
         </Text>
         <Flex justifyContent="space-between" mt="4px" height="36px">

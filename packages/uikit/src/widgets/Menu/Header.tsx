@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faEllipsis, faEnvelope, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import axios from "axios";
-import { useQuery } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider, useQuery } from "@tanstack/react-query";
 import { NetworkSwitcher } from "components/NetworkSwitcher";
 import Flex from "../../components/Box/Flex";
 // @ts-ignore
@@ -37,7 +37,7 @@ import AngleDown from "../../../../../apps/web/public/images/home/angle-down.svg
 import { useMatchBreakpoints } from "../../contexts";
 import UserMenu from "../../../../../apps/web/src/components/Menu/UserMenu";
 
-export const Header: React.FC = () => {
+const HeaderComponent: React.FC = () => {
   const { isDesktop, isMobile } = useMatchBreakpoints();
   const [openDropdown, setOpenDropdown] = useState<string>("");
   const [openBurger, setOpenBurger] = useState<boolean>(false);
@@ -282,5 +282,15 @@ export const Header: React.FC = () => {
         </BurgerNavList>
       )}
     </>
+  );
+};
+
+const queryClient = new QueryClient();
+
+export const Header: React.FC = () => {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <HeaderComponent />
+    </QueryClientProvider>
   );
 };

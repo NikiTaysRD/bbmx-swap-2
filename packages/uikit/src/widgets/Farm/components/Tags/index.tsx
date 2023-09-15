@@ -21,6 +21,7 @@ import {
   ZkEVMIcon,
   ZkSyncIcon,
 } from "../../../../components/Svg";
+import { baseDisplay } from "../../../../../../../apps/web/src/pages/_app";
 
 const CoreTag: React.FC<React.PropsWithChildren<TagProps>> = (props) => {
   const { t } = useTranslation();
@@ -197,9 +198,11 @@ const V3Tag: React.FC<TagProps> = (props) => (
   </Tag>
 );
 
-const V3FeeTag: React.FC<TagProps & { feeAmount: FeeAmount }> = ({ feeAmount, ...props }) => (
-  <Tag variant="secondary" outline {...props}>
-    {feeAmount / 10_000}%
+const V3FeeTag: React.FC<TagProps & { feeAmount: FeeAmount; label?: string }> = ({ feeAmount, label, ...props }) => (
+  <Tag variant="secondary" {...props} style={{ borderRadius: "6px", background: "#4E09F8" }}>
+    <Text fontSize="12px" lineHeight="160%" color="white" className={baseDisplay.className}>
+      {feeAmount / 10_000}%
+    </Text>
   </Tag>
 );
 

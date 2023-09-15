@@ -14,11 +14,12 @@ import {
 } from "../../components";
 import { PriceData } from "./types";
 import { FullWidthButtonMenu } from "./FullWidthButtonMenu";
+import { StyledTimeButtonMenuItem } from "./StyledTimeButtonMenuItem";
 
 const PriceDisplayContainer = styled(Flex)`
   padding: 0.25em 0.5em;
-  border-radius: 16px;
-  background: ${({ theme }) => theme.colors.background};
+  border-radius: 6px;
+  background: #101124;
 `;
 
 interface Props {
@@ -152,9 +153,9 @@ function TimeSpans({
   return (
     <FullWidthButtonMenu activeIndex={spanIndex} onItemClick={onSpanChange} scale="sm">
       {SPAN.map((span) => (
-        <ButtonMenuItem key={span.key} variant="tertiary">
+        <StyledTimeButtonMenuItem key={span.key} variant="tertiary">
           {span.text}
-        </ButtonMenuItem>
+        </StyledTimeButtonMenuItem>
       ))}
     </FullWidthButtonMenu>
   );

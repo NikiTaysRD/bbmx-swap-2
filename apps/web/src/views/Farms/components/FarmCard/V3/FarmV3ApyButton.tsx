@@ -33,6 +33,7 @@ import { Field } from 'state/mint/actions'
 import LiquidityFormProvider from 'views/AddLiquidityV3/formViews/V3FormView/form/LiquidityFormProvider'
 import { useV3FormState } from 'views/AddLiquidityV3/formViews/V3FormView/form/reducer'
 import { V3Farm } from 'views/Farms/FarmsV3'
+import { baseDisplay } from 'pages/_app'
 import { USER_ESTIMATED_MULTIPLIER, useUserPositionInfo } from '../../YieldBooster/hooks/bCakeV3/useBCakeV3Info'
 import { BoostStatus, useBoostStatus } from '../../YieldBooster/hooks/bCakeV3/useBoostStatus'
 import { getDisplayApr } from '../../getDisplayApr'
@@ -277,20 +278,20 @@ function FarmV3ApyButton_({ farm, existingPosition, isPositionStaked, tokenId }:
               <>
                 <TooltipText ref={existingPositionAprTooltip.targetRef} decorationColor="secondary">
                   <Flex style={{ gap: 3 }}>
-                    {isBoosted && (
-                      <>
-                        {isDesktop && <RocketIcon color="success" />}
-                        <Text fontSize="14px" color="success">
-                          {boostedAPR}%
-                        </Text>
-                      </>
-                    )}
-                    <Text fontSize="14px" style={{ textDecoration: isBoosted ? 'line-through' : 'none' }}>
+                    {/* {isBoosted && ( */}
+                    {/*  <> */}
+                    {/*    {isDesktop && <RocketIcon color="success" />} */}
+                    {/*    <Text fontSize="14px" color="success"> */}
+                    {/*      {boostedAPR}% */}
+                    {/*    </Text> */}
+                    {/*  </> */}
+                    {/* )} */}
+                    <Text bold fontSize="16px" className={baseDisplay.className} lineHeight="160%">
                       {positionDisplayApr}%
                     </Text>
                   </Flex>
                 </TooltipText>
-                {existingPositionAprTooltip.tooltipVisible && existingPositionAprTooltip.tooltip}
+                {/* {existingPositionAprTooltip.tooltipVisible && existingPositionAprTooltip.tooltip} */}
               </>
             )}
             <IconButton variant="text" style={{ height: 18, width: 18 }} scale="sm">
@@ -308,26 +309,28 @@ function FarmV3ApyButton_({ farm, existingPosition, isPositionStaked, tokenId }:
               roiModal.onOpen()
             }}
           >
-            <TooltipText ref={aprTooltip.targetRef} decorationColor="secondary">
-              <Flex ml="4px" mr="5px" style={{ gap: 5 }}>
-                {canBoosted && (
-                  <>
-                    {isDesktop && <RocketIcon color="success" />}
-                    <Text bold color="success" fontSize={16}>
-                      <>
-                        <Text bold color="success" fontSize={14} display="inline-block" mr="3px">
-                          {t('Up to')}
-                        </Text>
-                        {`${estimatedAPR}%`}
-                      </>
-                    </Text>
-                  </>
-                )}
-                <Text style={{ textDecoration: canBoosted ? 'line-through' : 'none' }}>{displayApr}%</Text>
+            <TooltipText ref={aprTooltip.targetRef} decorationColor="secondary" style={{ textDecoration: 'none' }}>
+              <Flex mr="5px" style={{ gap: 5 }}>
+                {/* {canBoosted && ( */}
+                {/*    <> */}
+                {/*      {isDesktop && <RocketIcon color="success" />} */}
+                {/*      <Text bold color="success" fontSize={16}> */}
+                {/*        <> */}
+                {/*          <Text bold color="success" fontSize={14} display="inline-block" mr="3px"> */}
+                {/*            {t('Up to')} */}
+                {/*          </Text> */}
+                {/*          {`${estimatedAPR}%`} */}
+                {/*        </> */}
+                {/*      </Text> */}
+                {/*    </> */}
+                {/* )} */}
+                <Text bold fontSize="16px" className={baseDisplay.className} lineHeight="160%">
+                  {displayApr}%
+                </Text>
               </Flex>
             </TooltipText>
           </FarmUI.FarmApyButton>
-          {aprTooltip.tooltipVisible && aprTooltip.tooltip}
+          {/* {aprTooltip.tooltipVisible && aprTooltip.tooltip} */}
         </>
       )}
       {cakePrice && cakeAprFactor && (

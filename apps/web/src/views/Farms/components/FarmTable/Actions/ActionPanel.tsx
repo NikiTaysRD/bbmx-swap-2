@@ -102,9 +102,14 @@ const Container = styled.div<{ expanded }>`
 
 const StyledLinkExternal = styled(LinkExternal)`
   font-weight: 400;
-  font-size: 14px;
   line-height: 160%;
   color: #a0a3c4;
+
+  ${({ theme }) => theme.mediaQueries.md} {
+    font-size: 14px;
+  }
+
+  font-size: 12px;
 
   &:hover {
     color: #4e09f8;
@@ -118,7 +123,11 @@ const StyledLinkExternal = styled(LinkExternal)`
 const StyledScanLink = styled(ScanLink)`
   font-weight: 400;
 
-  font-size: 14px;
+  ${({ theme }) => theme.mediaQueries.md} {
+    font-size: 14px;
+  }
+
+  font-size: 12px;
   line-height: 160%;
   color: #a0a3c4;
 
@@ -173,7 +182,11 @@ const StyledText = styled(Text)`
     cursor: pointer;
   }
 
-  font-size: 14px;
+  ${({ theme }) => theme.mediaQueries.md} {
+    font-size: 14px;
+  }
+
+  font-size: 12px;
   line-height: 160%;
   color: #a0a3c4;
 
@@ -184,7 +197,10 @@ const StyledText = styled(Text)`
 
 const ActionPanelContainer = ({ expanded, values, infos, children }) => {
   return (
-    <Container expanded={expanded} style={{ flexDirection: 'column', background: '#111227' }}>
+    <Container
+      expanded={expanded}
+      style={{ flexDirection: 'column', background: '#111227', borderRadius: '0 0 12px 12px' }}
+    >
       <ActionContainer style={{ maxHeight: 700 }}>{children}</ActionContainer>
 
       {/* <ValueContainer>{values}</ValueContainer> */}

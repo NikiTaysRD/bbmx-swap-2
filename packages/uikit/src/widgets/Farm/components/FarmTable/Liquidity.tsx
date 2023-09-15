@@ -6,6 +6,7 @@ import { HelpIcon } from "../../../../components/Svg";
 import { Text } from "../../../../components/Text";
 import { TooltipRefs, useTooltip } from "../../../../hooks/useTooltip";
 import { FarmTableLiquidityProps } from "../../types";
+import { baseDisplay } from "../../../../../../../apps/web/src/pages/_app";
 
 const distanceToNow = (timeInMilliSeconds: number) => {
   const time = new Date(timeInMilliSeconds);
@@ -75,12 +76,14 @@ const LiquidityComp = ({
   return (
     <Container>
       <LiquidityWrapper>
-        <Text>{displayLiquidity}</Text>
+        <Text bold fontSize="16px" className={baseDisplay.className} lineHeight="160%">
+          {displayLiquidity}
+        </Text>
       </LiquidityWrapper>
-      <ReferenceElement ref={targetRef}>
-        <HelpIcon color="textSubtle" />
-      </ReferenceElement>
-      {tooltipVisible && tooltip}
+      {/* <ReferenceElement ref={targetRef}> */}
+      {/*  <HelpIcon color="textSubtle" /> */}
+      {/* </ReferenceElement> */}
+      {/* {tooltipVisible && tooltip} */}
     </Container>
   );
 };

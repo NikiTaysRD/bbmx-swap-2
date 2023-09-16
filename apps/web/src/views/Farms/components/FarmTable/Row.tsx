@@ -141,6 +141,8 @@ const Row: React.FunctionComponent<React.PropsWithChildren<RowPropsWithLoading>>
   }, [isSmallerScreen, props.type])
   const columnNames = useMemo(() => tableSchema.map((column) => column.name), [tableSchema])
 
+  console.log(props)
+
   return (
     <>
       {!isMobile ? (
@@ -167,7 +169,9 @@ const Row: React.FunctionComponent<React.PropsWithChildren<RowPropsWithLoading>>
                 case 'type':
                   return (
                     <td key={key}>
-                      <CellInner style={{ minWidth: '140px', gap: '4px' }}>
+                      <CellInner
+                        style={{ minWidth: '140px', gap: '4px', flexDirection: 'column', alignItems: 'flex-start' }}
+                      >
                         {(props[key] === 'community' || props?.farm?.isCommunity) && <FarmAuctionTag scale="sm" />}
                         {props.type === 'v2' ? (
                           props?.details?.isStable ? (
@@ -176,6 +180,7 @@ const Row: React.FunctionComponent<React.PropsWithChildren<RowPropsWithLoading>>
                             <V2Tag scale="sm" />
                           )
                         ) : null}
+                        <span>{props.farm.label}</span>
                         {props.type === 'v3' && <V3FeeTag feeAmount={props.details.feeAmount} scale="sm" />}
                       </CellInner>
                     </td>

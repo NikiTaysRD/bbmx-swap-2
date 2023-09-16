@@ -59,10 +59,10 @@ const Farm: React.FunctionComponent<React.PropsWithChildren<FarmTableFarmTokenIn
   const pairContainer = (
     <Container>
       <TokenWrapper>{children}</TokenWrapper>
-      <div>
-        {handleRenderFarming}
-        <Text bold>{label}</Text>
-      </div>
+      {/* <div> */}
+      {/*  {handleRenderFarming} */}
+      {/*  <Text bold>{label}</Text> */}
+      {/* </div> */}
     </Container>
   );
 

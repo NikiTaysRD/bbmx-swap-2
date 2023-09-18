@@ -13,7 +13,7 @@ import {
   zkSyncTestnetTokens,
   lineaTestnetTokens,
   arbitrumGoerliTokens,
-  baseTestnetTokens
+  baseTestnetTokens,
 } from '@pancakeswap/tokens'
 import { ChainTokenList } from './types'
 
@@ -71,7 +71,7 @@ export const BASES_TO_TRACK_LIQUIDITY_FOR: ChainTokenList = {
   [ChainId.BASE_TESTNET]: [baseTestnetTokens.usdc, baseTestnetTokens.weth, baseTestnetTokens.bbmx],
 }
 
-export const PINNED_PAIRS: { readonly [chainId in ChainId]?: [Token, Token][] } = {
+export const PINNED_PAIRS: { readonly [chainId in ChainId]?: [Token, Token][] | [Token, Token, Token][] } = {
   [ChainId.ETHEREUM]: [
     [WNATIVE[ChainId.ETHEREUM], USDC[ChainId.ETHEREUM]],
     [WBTC_ETH, WNATIVE[ChainId.ETHEREUM]],

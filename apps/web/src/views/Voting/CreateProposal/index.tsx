@@ -3,12 +3,9 @@ import {
   Box,
   Breadcrumbs,
   Button,
-  Card,
-  CardBody,
-  CardHeader,
   Flex,
   Heading,
-  Input,
+  Input as StyledInput,
   Text,
   useModal,
   useToast,
@@ -22,6 +19,8 @@ import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from 'react'
 import { useInitialBlock } from 'state/block/hooks'
 
 import { useTranslation } from '@pancakeswap/localization'
+import { AtomBox } from '@pancakeswap/ui/components/AtomBox'
+import { Header } from '@pancakeswap/uikit/src/widgets/Menu/Header'
 import truncateHash from '@pancakeswap/utils/truncateHash'
 import ConnectWalletButton from 'components/ConnectWalletButton'
 import Container from 'components/Layout/Container'
@@ -32,12 +31,16 @@ import { getBlockExploreLink } from 'utils'
 import { DatePicker, DatePickerPortal, TimePicker } from 'views/Voting/components/DatePicker'
 import { useAccount, useWalletClient } from 'wagmi'
 import { ChainId } from '@pancakeswap/sdk'
+import { baseDisplay } from 'pages/_app'
+import styled from 'styled-components'
+import { pageVariants } from '@pancakeswap/uikit/src/widgets/Swap/SwapWidget.css'
+import Page from 'components/Layout/Page'
 import Layout from '../components/Layout'
 import VoteDetailsModal from '../components/VoteDetailsModal'
 import { ADMINS, PANCAKE_SPACE, VOTE_THRESHOLD } from '../config'
 import Choices, { ChoiceIdValue, makeChoice, MINIMUM_CHOICES } from './Choices'
 import { combineDateAndTime, getFormErrors } from './helpers'
-import { FormErrors, Label, SecondaryLabel } from './styles'
+import { FormErrors, Label as StyledLabel, SecondaryLabel } from './styles'
 import { FormState } from './types'
 
 const hub = 'https://hub.snapshot.org'
@@ -46,6 +49,38 @@ const client = new snapshot.Client712(hub)
 const EasyMde = dynamic(() => import('components/EasyMde'), {
   ssr: false,
 })
+
+const Label = styled(StyledLabel)`
+  font-size: 18px;
+  color: #fff;
+`
+
+const Input = styled(StyledInput)`
+  padding: 0 15px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 44px;
+  color: #fff;
+  background-color: transparent;
+  background-clip: padding-box;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 6px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+`
+
+const Card = styled.div`
+  padding: 30px;
+  border-radius: 10px;
+  background: #1b1c30;
+  position: relative;
+
+  h3 {
+    font-size: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 20px;
+  }
+`
 
 const CreateProposal = () => {
   const [state, setState] = useState<FormState>(() => ({
@@ -170,62 +205,58 @@ const CreateProposal = () => {
   }, [initialBlock, setState])
 
   return (
-    <Container py="40px">
-      <Box mb="48px">
-        <Breadcrumbs>
-          <Link href="/">{t('Home')}</Link>
-          <Link href="/voting">{t('Voting')}</Link>
-          <Text>{t('Make a Proposal')}</Text>
-        </Breadcrumbs>
-      </Box>
-      <form onSubmit={handleSubmit}>
-        <Layout>
-          <Box>
-            <Box mb="24px">
-              <Label htmlFor="name">{t('Title')}</Label>
-              <Input id="name" name="name" value={name} scale="lg" onChange={handleChange} required />
-              {formErrors.name && fieldsState.name && <FormErrors errors={formErrors.name} />}
-            </Box>
-            <Box mb="24px">
-              <Label htmlFor="body">{t('Content')}</Label>
-              <Text color="textSubtle" mb="8px">
-                {t('Tip: write in Markdown!')}
-              </Text>
-              <EasyMde
-                id="body"
-                name="body"
-                onTextChange={handleEasyMdeChange}
-                value={body}
-                options={options}
-                required
-              />
-              {formErrors.body && fieldsState.body && <FormErrors errors={formErrors.body} />}
-            </Box>
-            {body && (
+    <AtomBox className={[pageVariants(), baseDisplay.className].join(' ')}>
+      <Header />
+      <Page>
+        <Box mb="48px">
+          <Breadcrumbs>
+            <Link href="/">{t('Home')}</Link>
+            <Link href="/voting">{t('Voting')}</Link>
+            <Text>{t('Make a Proposal')}</Text>
+          </Breadcrumbs>
+        </Box>
+        <form onSubmit={handleSubmit}>
+          <Layout>
+            <Box>
               <Box mb="24px">
-                <Card>
-                  <CardHeader>
+                <Label htmlFor="name">{t('Title')}</Label>
+                <Input id="name" name="name" value={name} scale="lg" onChange={handleChange} required />
+                {formErrors.name && fieldsState.name && <FormErrors errors={formErrors.name} />}
+              </Box>
+              <Box mb="24px">
+                <Label htmlFor="body">{t('Content')}</Label>
+                <Text color="textSubtle" mb="8px">
+                  {t('Tip: write in Markdown!')}
+                </Text>
+                <EasyMde
+                  id="body"
+                  name="body"
+                  onTextChange={handleEasyMdeChange}
+                  value={body}
+                  options={options}
+                  required
+                />
+                {formErrors.body && fieldsState.body && <FormErrors errors={formErrors.body} />}
+              </Box>
+              {body && (
+                <Box mb="24px">
+                  <Card>
                     <Heading as="h3" scale="md">
                       {t('Preview')}
                     </Heading>
-                  </CardHeader>
-                  <CardBody p="0" px="24px">
                     <ReactMarkdown>{body}</ReactMarkdown>
-                  </CardBody>
-                </Card>
-              </Box>
-            )}
-            <Choices choices={choices} onChange={handleChoiceChange} />
-            {formErrors.choices && fieldsState.choices && <FormErrors errors={formErrors.choices} />}
-          </Box>
-          <Box>
-            <Card>
-              <CardHeader>
+                  </Card>
+                </Box>
+              )}
+              <Choices choices={choices} onChange={handleChoiceChange} />
+              {formErrors.choices && fieldsState.choices && <FormErrors errors={formErrors.choices} />}
+            </Box>
+            <Box>
+              <Card>
                 <Heading as="h3" scale="md">
                   {t('Actions')}
                 </Heading>
-              </CardHeader>
-              <CardBody>
+
                 <Box mb="24px">
                   <SecondaryLabel>{t('Start Date')}</SecondaryLabel>
                   <DatePicker
@@ -306,13 +337,13 @@ const CreateProposal = () => {
                 ) : (
                   <ConnectWalletButton width="100%" type="button" />
                 )}
-              </CardBody>
-            </Card>
-          </Box>
-        </Layout>
-      </form>
-      <DatePickerPortal />
-    </Container>
+              </Card>
+            </Box>
+          </Layout>
+        </form>
+        <DatePickerPortal />
+      </Page>
+    </AtomBox>
   )
 }
 

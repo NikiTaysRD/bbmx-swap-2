@@ -77,7 +77,8 @@ export const darkColors = {
   textDisabled: '#666171',
   textSubtle: '#B8ADD2',
   disabled: '#524B63',
-  gradientBubblegum: 'linear-gradient(156deg, rgba(78,9,248,0.3) 0%, rgba(16,17,36,1) 50%, rgba(78,9,248,0.3) 100%)',
+  gradientBubblegum:
+    'linear-gradient(156deg, rgba(78,9,248,0.3) 0%, rgba(16,17,36,1) 15%, rgba(16,17,36,1) 85%, rgba(78,9,248,0.3) 100%)',
   gradientInverseBubblegum: 'linear-gradient(139.73deg, #3D2A54 0%, #313D5C 100%)',
   gradientCardHeader: 'linear-gradient(166.77deg, #3B4155 0%, #3A3045 100%)',
   gradientBlue: 'linear-gradient(180deg, #00707F 0%, #19778C 100%)',

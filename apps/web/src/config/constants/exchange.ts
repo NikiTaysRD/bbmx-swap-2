@@ -77,6 +77,7 @@ export const PINNED_PAIRS: { readonly [chainId in ChainId]?: [Token, Token][] | 
     [WBTC_ETH, WNATIVE[ChainId.ETHEREUM]],
     [WNATIVE[ChainId.ETHEREUM], USDT[ChainId.ETHEREUM]],
   ],
+
   [ChainId.BSC]: [
     [bscTokens.cake, bscTokens.wbnb],
     [bscTokens.busd, bscTokens.usdt],

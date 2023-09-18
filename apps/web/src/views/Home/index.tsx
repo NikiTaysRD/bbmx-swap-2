@@ -307,7 +307,7 @@ const NextButton = styled.div`
 const Home: React.FC<React.PropsWithChildren> = () => {
   const { isDesktop } = useMatchBreakpoints()
   const [swiperRef, setSwiperRef] = useState<SwiperCore>(null)
-  console.log('====== swiperRef ', swiperRef)
+
   const prevSlide = useCallback(() => swiperRef.slidePrev(), [swiperRef])
 
   const nextSlide = useCallback(() => swiperRef.slideNext(), [swiperRef])

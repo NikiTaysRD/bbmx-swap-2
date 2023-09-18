@@ -64,14 +64,12 @@ router.get('/v0/quote', async (req, event: FetchEvent) => {
   const currencyAAmount = parseCurrencyAmount(chainId, amount)
   const currencyA = currencyAAmount.currency
   const currencyB = parseCurrency(chainId, currency)
-
   const cacheKey = PoolCache.getKey(currencyA, currencyB, chainId)
 
   let pools = await PoolCache.get(cacheKey)
 
   if (!pools) {
     const pairs = SmartRouter.getPairCombinations(currencyA, currencyB)
-
     const [v3Pools, v2Pools, stablePools] = await Promise.all([
       SmartRouter.getV3PoolSubgraph({ provider: v3SubgraphProvider, pairs }).then((res) =>
         SmartRouter.v3PoolSubgraphSelection(currencyA, currencyB, res),

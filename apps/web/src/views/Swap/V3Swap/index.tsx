@@ -31,7 +31,7 @@ export function V3SwapForm({ setIsLimitOpened, setIsSettingsOpened, isSwap }) {
   const price = useMemo(() => trade && SmartRouter.getExecutionPrice(trade), [trade])
 
   const insufficientFundCurrency = useCheckInsufficientError(trade)
-      console.log('price',price)
+
   return (
     <>
       <FormHeader

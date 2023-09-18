@@ -106,6 +106,14 @@ export const BUSD_GOERLI = new ERC20Token(
   'https://www.paxos.com/busd/',
 )
 
+export const BBMX_BASE_GOERLI = new ERC20Token(
+  ChainId.GOERLI,
+  '0xefAbfBef1140A4e676b740BF19263Fe3Fb9aa92B',
+  18,
+  'BBMX',
+  'BBMX'
+)
+
 export const BUSD = {
   [ChainId.ETHEREUM]: BUSD_ETH,
   [ChainId.GOERLI]: BUSD_GOERLI,
@@ -118,6 +126,10 @@ export const BUSD = {
     'BUSD',
     'Binance USD',
   ),
+}
+
+export const BBMX = {
+  [ChainId.BASE_TESTNET]: BBMX_BASE_GOERLI
 }
 
 export const CAKE = {

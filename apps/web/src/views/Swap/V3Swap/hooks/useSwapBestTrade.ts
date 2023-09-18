@@ -51,7 +51,7 @@ export function useSwapBestTrade({ maxHops }: Options = {}) {
     stableSwap,
     type: 'auto',
   })
-
+  // console.log('====== trade type ', typedValue, trade)
   return {
     refresh,
     syncing,

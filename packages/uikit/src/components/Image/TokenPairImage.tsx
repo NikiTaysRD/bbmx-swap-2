@@ -21,7 +21,7 @@ const TokenPairImage: React.FC<React.PropsWithChildren<TokenPairImageProps>> = (
       width={width}
       height={height}
       {...props}
-      style={{ display: "flex", flexDirection: "row", alignItems: "center" }}
+      style={{ display: "flex", flexDirection: "row", alignItems: "center", maxWidth: "75px", maxHeight: "36px" }}
     >
       <StyledPrimaryImage variant={variant} src={primarySrc} width={width} height={height} {...primaryImageProps} />
       <StyledSecondaryImage

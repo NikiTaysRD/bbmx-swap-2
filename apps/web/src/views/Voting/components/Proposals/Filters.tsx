@@ -3,6 +3,7 @@ import { Flex, Radio, Text } from '@pancakeswap/uikit'
 import styled from 'styled-components'
 import { useTranslation } from '@pancakeswap/localization'
 import { ProposalState } from 'state/types'
+import { baseDisplay } from 'pages/_app'
 
 interface FiltersProps {
   filterState: ProposalState
@@ -11,8 +12,8 @@ interface FiltersProps {
 }
 
 const StyledFilters = styled(Flex).attrs({ alignItems: 'center' })`
-  border-bottom: 1px solid ${({ theme }) => theme.colors.cardBorder};
-  padding: 14px 0 14px 24px;
+  // border-bottom: 1px solid ${({ theme }) => theme.colors.cardBorder};
+  padding: 14px 0 14px 28px;
 `
 
 const FilterLabel = styled.label`
@@ -20,6 +21,26 @@ const FilterLabel = styled.label`
   cursor: pointer;
   display: flex;
   margin-right: 16px;
+`
+
+const StyledRadio = styled(Radio)`
+  &:checked {
+    background-color: #4e09f8;
+
+    &:after {
+      background-color: #4e09f8;
+      top: 4px;
+      left: 8px;
+
+      width: 7px;
+      height: 14px;
+      border-bottom: 2px solid white;
+      border-right: 2px solid white;
+      border-radius: 0;
+
+      transform: rotate(45deg);
+    }
+  }
 `
 
 const options = [
@@ -41,14 +62,16 @@ const Filters: React.FC<React.PropsWithChildren<FiltersProps>> = ({ filterState,
 
         return (
           <FilterLabel key={label}>
-            <Radio
+            <StyledRadio
               scale="sm"
               value={value}
               checked={filterState === value}
               onChange={handleChange}
               disabled={isLoading}
             />
-            <Text ml="8px">{t(label)}</Text>
+            <Text ml="8px" fontSize="15px" letterSpacing="0.5px" lineHeight="24px" className={baseDisplay.className}>
+              {t(label)}
+            </Text>
           </FilterLabel>
         )
       })}

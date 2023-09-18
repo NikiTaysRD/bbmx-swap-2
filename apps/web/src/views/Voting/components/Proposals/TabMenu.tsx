@@ -1,7 +1,8 @@
 import styled from 'styled-components'
-import { TabMenu as UIKitTabMenu, Tab, Flex, VerifiedIcon, CommunityIcon } from '@pancakeswap/uikit'
+import { TabMenu as UIKitTabMenu, Tab, Flex } from '@pancakeswap/uikit'
 import { useTranslation } from '@pancakeswap/localization'
 import { ProposalType } from 'state/types'
+import { baseDisplay } from 'pages/_app'
 
 interface TabMenuProps {
   proposalType: ProposalType
@@ -9,8 +10,8 @@ interface TabMenuProps {
 }
 
 const StyledTabMenu = styled.div`
-  background-color: ${({ theme }) => theme.colors.input};
-  padding-top: 16px;
+  // background-color: ${({ theme }) => theme.colors.input};
+  //padding-top: 16px;
 `
 
 const getIndexFromType = (proposalType: ProposalType) => {
@@ -45,20 +46,20 @@ const TabMenu: React.FC<React.PropsWithChildren<TabMenuProps>> = ({ proposalType
   return (
     <StyledTabMenu>
       <UIKitTabMenu activeIndex={getIndexFromType(proposalType)} onItemClick={handleItemClick}>
-        <Tab>
+        <Tab className={baseDisplay.className}>
           <Flex alignItems="center">
-            <VerifiedIcon color="currentColor" mr="4px" />
+            {/* <VerifiedIcon color="currentColor" mr="4px" /> */}
             {t('Core')}
           </Flex>
         </Tab>
-        <Tab>
+        <Tab className={baseDisplay.className}>
           {' '}
           <Flex alignItems="center">
-            <CommunityIcon color="currentColor" mr="4px" />
+            {/* <CommunityIcon color="currentColor" mr="4px" /> */}
             {t('Community')}
           </Flex>
         </Tab>
-        <Tab>All</Tab>
+        <Tab className={baseDisplay.className}>All</Tab>
       </UIKitTabMenu>
     </StyledTabMenu>
   )

@@ -21,7 +21,7 @@ const TokenWrapper = styled.div`
   width: 32px;
 
   ${({ theme }) => theme.mediaQueries.sm} {
-    width: 40px;
+    width: 75px;
   }
 `;
 
@@ -59,10 +59,10 @@ const Farm: React.FunctionComponent<React.PropsWithChildren<FarmTableFarmTokenIn
   const pairContainer = (
     <Container>
       <TokenWrapper>{children}</TokenWrapper>
-      <div>
-        {handleRenderFarming}
-        <Text bold>{label}</Text>
-      </div>
+      {/* <div> */}
+      {/*  {handleRenderFarming} */}
+      {/*  <Text bold>{label}</Text> */}
+      {/* </div> */}
     </Container>
   );
 

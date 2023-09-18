@@ -24,6 +24,7 @@ import { AddLiquidityV3Modal } from 'views/AddLiquidityV3/Modal'
 import { SELECTOR_TYPE } from 'views/AddLiquidityV3/types'
 import { V2Farm, V3Farm } from 'views/Farms/FarmsV3'
 import { useAccount } from 'wagmi'
+import { baseDisplay } from 'pages/_app'
 import { FarmV3ApyButton } from '../../FarmCard/V3/FarmV3ApyButton'
 import FarmV3CardList from '../../FarmCard/V3/FarmV3CardList'
 import { YieldBoosterStateContext } from '../../YieldBooster/components/ProxyFarmContainer'
@@ -101,10 +102,42 @@ const Container = styled.div<{ expanded }>`
 
 const StyledLinkExternal = styled(LinkExternal)`
   font-weight: 400;
+  line-height: 160%;
+  color: #a0a3c4;
+
+  ${({ theme }) => theme.mediaQueries.md} {
+    font-size: 14px;
+  }
+
+  font-size: 12px;
+
+  &:hover {
+    color: #4e09f8;
+  }
+
+  svg {
+    display: none;
+  }
 `
 
 const StyledScanLink = styled(ScanLink)`
   font-weight: 400;
+
+  ${({ theme }) => theme.mediaQueries.md} {
+    font-size: 14px;
+  }
+
+  font-size: 12px;
+  line-height: 160%;
+  color: #a0a3c4;
+
+  &:hover {
+    color: #4e09f8;
+  }
+
+  svg {
+    display: none;
+  }
 `
 
 const ActionContainer = styled.div`
@@ -126,6 +159,12 @@ const InfoContainer = styled.div`
   min-width: 200px;
   padding-left: 24px;
   padding-right: 24px;
+
+  width: 100%;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  justify-items: center;
 `
 
 const ValueContainer = styled.div``
@@ -142,16 +181,31 @@ const StyledText = styled(Text)`
     text-decoration: underline;
     cursor: pointer;
   }
+
+  ${({ theme }) => theme.mediaQueries.md} {
+    font-size: 14px;
+  }
+
+  font-size: 12px;
+  line-height: 160%;
+  color: #a0a3c4;
+
+  &:hover {
+    color: #4e09f8;
+  }
 `
 
 const ActionPanelContainer = ({ expanded, values, infos, children }) => {
   return (
-    <Container expanded={expanded}>
-      <InfoContainer>
-        <ValueContainer>{values}</ValueContainer>
-        {infos}
-      </InfoContainer>
+    <Container
+      expanded={expanded}
+      style={{ flexDirection: 'column', background: '#111227', borderRadius: '0 0 12px 12px' }}
+    >
       <ActionContainer style={{ maxHeight: 700 }}>{children}</ActionContainer>
+
+      {/* <ValueContainer>{values}</ValueContainer> */}
+
+      <InfoContainer>{infos}</InfoContainer>
     </Container>
   )
 }
@@ -222,17 +276,27 @@ export const ActionPanelV3: FC<ActionPanelV3Props> = ({
         infos={
           <>
             {isActive && (
-              <Flex mb="2px" justifyContent={alignLinksToRight ? 'flex-end' : 'flex-start'}>
-                <StyledText color="primary" onClick={addLiquidityModal.onOpen}>
+              <Flex
+                mb="2px"
+                justifyContent="center"
+                style={{ borderRight: '1px solid rgba(255,255,255,0.15)', width: '100%' }}
+              >
+                <StyledText color="primary" onClick={addLiquidityModal.onOpen} className={baseDisplay.className}>
                   {t('Add %symbol%', { symbol: lpLabel })}
                 </StyledText>
               </Flex>
             )}
-            <Flex mb="2px" justifyContent={alignLinksToRight ? 'flex-end' : 'flex-start'}>
-              <StyledLinkExternal href={infoUrl}>{t('See Pair Info')}</StyledLinkExternal>
+            <Flex
+              mb="2px"
+              justifyContent="center"
+              style={{ borderRight: '1px solid rgba(255,255,255,0.15)', width: '100%' }}
+            >
+              <StyledLinkExternal href={infoUrl} className={baseDisplay.className}>
+                {t('See Pair Info')}
+              </StyledLinkExternal>
             </Flex>
-            <Flex mb="2px" justifyContent={alignLinksToRight ? 'flex-end' : 'flex-start'}>
-              <StyledScanLink chainId={chainId} href={bsc}>
+            <Flex mb="2px" justifyContent="center" style={{ width: '100%' }}>
+              <StyledScanLink chainId={chainId} href={bsc} className={baseDisplay.className}>
                 {t('View Contract')}
               </StyledScanLink>
             </Flex>

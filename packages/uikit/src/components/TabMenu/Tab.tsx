@@ -13,10 +13,13 @@ const Tab = styled.button<TabProps>`
   border: 0;
   outline: 0;
   flex-grow: 1;
-  padding: ${getPadding};
-  border-radius: ${getBorderRadius};
+  // padding: ${getPadding};
+  // border-radius: ${getBorderRadius};
   font-size: 16px;
-  font-weight: 600;
+  font-weight: 400;
+  padding: 0 20px;
+  line-height: 40px;
+  border-radius: 6px;
 
   ${({ theme }) => theme.mediaQueries.md} {
     flex-grow: 0;

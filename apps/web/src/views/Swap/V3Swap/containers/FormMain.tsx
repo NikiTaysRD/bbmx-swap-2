@@ -180,6 +180,7 @@ export function FormMain({
   const isWrapping = useIsWrapping()
   const inputCurrency = useCurrency(inputCurrencyId)
   const outputCurrency = useCurrency(outputCurrencyId)
+
   const { onCurrencySelection, onUserInput } = useSwapActionHandlers()
   const [inputBalance] = useCurrencyBalances(account, [inputCurrency, outputCurrency])
   const maxAmountInput = useMemo(() => maxAmountSpend(inputBalance), [inputBalance])
@@ -230,10 +231,11 @@ export function FormMain({
   )
 
   const isTypingInput = independentField === Field.INPUT
-  const inputValue = useMemo(
-    () => typedValue && (isTypingInput ? typedValue : formatAmount(inputAmount) || ''),
-    [typedValue, isTypingInput, inputAmount],
-  )
+  const inputValue = useMemo(() => typedValue && (isTypingInput ? typedValue : formatAmount(inputAmount) || ''), [
+    typedValue,
+    isTypingInput,
+    inputAmount,
+  ])
 
   const value = isWrapping ? typedValue : inputValue
 
@@ -242,10 +244,11 @@ export function FormMain({
     enabled: Number.isFinite(+value),
   })
 
-  const outputValue = useMemo(
-    () => typedValue && (isTypingInput ? formatAmount(outputAmount) || '' : typedValue),
-    [typedValue, isTypingInput, outputAmount],
-  )
+  const outputValue = useMemo(() => typedValue && (isTypingInput ? formatAmount(outputAmount) || '' : typedValue), [
+    typedValue,
+    isTypingInput,
+    outputAmount,
+  ])
   const inputLoading = typedValue ? !isTypingInput && tradeLoading : false
   const outputLoading = typedValue ? isTypingInput && tradeLoading : false
 
@@ -320,7 +323,10 @@ export function FormMain({
                 <SwapSpan>{inputCurrency.symbol}</SwapSpan>
               </SwapItem>
               <EnterField>
-                <MarketField type="text" value={outputValue && inputValue ? (Number(outputValue) / Number(inputValue)).toFixed(3): 0} />
+                <MarketField
+                  type="text"
+                  value={outputValue && inputValue ? (Number(outputValue) / Number(inputValue)).toFixed(3) : 0}
+                />
               </EnterField>
             </SwapField>
             <Highlights>

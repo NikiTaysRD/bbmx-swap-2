@@ -49,12 +49,12 @@ export const useActiveChainId = () => {
 
   const { chain } = useNetwork()
   const chainId = localChainId ?? chain?.id ?? (queryChainId >= 0 ? ChainId.BASE_TESTNET : undefined)
-
+  // console.log('===== ', chainId, localChainId, chain?.id, queryChainId)
   const isNotMatched = useDeferredValue(chain && localChainId && chain.id !== localChainId)
 
   return {
     chainId,
-    isWrongNetwork: (chain?.unsupported ?? false) || isNotMatched,
+    isWrongNetwork: chain?.id !== 84531,
     isNotMatched,
   }
 }

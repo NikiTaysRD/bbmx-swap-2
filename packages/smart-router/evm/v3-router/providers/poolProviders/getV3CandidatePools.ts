@@ -114,7 +114,7 @@ export async function getV3CandidatePools(params: Params) {
     fallbackTimeout: timeout = 3000,
   } = params
   const pairs = providedPairs || getPairCombinations(currencyA, currencyB)
-
+  console.log('===== pairs ', pairs)
   const calls: AsyncCall<() => Promise<V3PoolWithTvl[]>>[] = [
     // Try get pools from on chain and ref tvl by subgraph
     {

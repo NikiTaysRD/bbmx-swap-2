@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import {
   AutoRenewIcon,
-  CardHeader,
   ChevronDownIcon,
   Flex,
   Heading,
@@ -14,9 +13,9 @@ import orderBy from 'lodash/orderBy'
 import { useTranslation } from '@pancakeswap/localization'
 import { Vote } from 'state/types'
 import { FetchStatus, TFetchStatus } from 'config/constants/types'
+import styled from 'styled-components'
 import VotesLoading from '../components/Proposal/VotesLoading'
 import VoteRow from '../components/Proposal/VoteRow'
-import styled from 'styled-components'
 
 interface VotesProps {
   votes: Vote[]

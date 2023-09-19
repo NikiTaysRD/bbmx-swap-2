@@ -1,4 +1,4 @@
-import { Box, Text, Flex, CardBody, CardHeader, Heading, Progress, Skeleton, Farm as FarmUI } from '@pancakeswap/uikit'
+import { Box, Text, Flex, Heading, Progress, Skeleton, Farm as FarmUI } from '@pancakeswap/uikit'
 import { useAccount } from 'wagmi'
 import { Vote } from 'state/types'
 import { formatNumber } from '@pancakeswap/utils/formatBalance'

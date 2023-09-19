@@ -1,4 +1,4 @@
-import { Box, CardBody, CardHeader, Flex, Heading, LinkExternal, ScanLink, Text } from '@pancakeswap/uikit'
+import { Box, Flex, Heading, LinkExternal, ScanLink, Text } from '@pancakeswap/uikit'
 import styled from 'styled-components'
 import { format } from 'date-fns'
 import { Proposal } from 'state/types'

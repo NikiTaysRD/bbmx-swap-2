@@ -1,17 +1,6 @@
 import { useState } from 'react'
 import styled from 'styled-components'
-import {
-  Button as StyledButton,
-  Card as StyledCard,
-  CardBody,
-  CardHeader,
-  CardProps,
-  Heading,
-  Radio,
-  Text,
-  useModal,
-  useToast,
-} from '@pancakeswap/uikit'
+import { Button as StyledButton, CardProps, Heading, Radio, Text, useModal, useToast } from '@pancakeswap/uikit'
 import { useAccount } from 'wagmi'
 import { Proposal } from 'state/types'
 import { useTranslation } from '@pancakeswap/localization'

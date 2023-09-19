@@ -1,12 +1,12 @@
 import { Card, Flex, Heading } from '@pancakeswap/uikit'
 import { useTranslation } from '@pancakeswap/localization'
-import Container from 'components/Layout/Container'
 import useSWR from 'swr'
 import { ProposalState, ProposalType } from 'state/types'
 import { getProposals } from 'state/voting/helpers'
 import { FetchStatus } from 'config/constants/types'
 import { useSessionStorage } from 'hooks/useSessionStorage'
 import { baseDisplay } from 'pages/_app'
+import styled from 'styled-components'
 import { filterProposalsByState, filterProposalsByType } from '../../helpers'
 import ProposalsLoading from './ProposalsLoading'
 import TabMenu from './TabMenu'
@@ -17,6 +17,12 @@ interface State {
   proposalType: ProposalType
   filterState: ProposalState
 }
+
+const Container = styled.div`
+  flex: 1;
+  height: 100%;
+  padding-bottom: 15px;
+`
 
 const Proposals = () => {
   const { t } = useTranslation()
@@ -47,20 +53,20 @@ const Proposals = () => {
 
   return (
     <>
-      <Container pt="40px">
+      <Container>
         {/* <Box mb="48px"> */}
         {/*  <Breadcrumbs> */}
         {/*    <Link href="/">{t('Home')}</Link> */}
         {/*    <Text>{t('Voting')}</Text> */}
         {/*  </Breadcrumbs> */}
         {/* </Box> */}
-        <Heading as="h2" scale="xl" mb="30px" id="voting-proposals" style={{ fontSize: '30px', fontWeight: '700' }}>
+        <Heading as="h2" scale="xl" mb="9px" id="voting-proposals" style={{ fontSize: '30px', fontWeight: '700' }}>
           {t('Proposals')}
         </Heading>
         <TabMenu proposalType={proposalType} onTypeChange={handleProposalTypeChange} />
       </Container>
 
-      <Container py="20px">
+      <Container>
         <Card style={{ borderRadius: '10px', background: '#1B1C30' }} background="none">
           <Filters
             filterState={filterState}

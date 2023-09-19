@@ -45,7 +45,7 @@ const TabMenu: React.FC<React.PropsWithChildren<TabMenuProps>> = ({ proposalType
 
   return (
     <StyledTabMenu>
-      <UIKitTabMenu activeIndex={getIndexFromType(proposalType)} onItemClick={handleItemClick}>
+      <UIKitTabMenu activeIndex={getIndexFromType(proposalType)} onItemClick={handleItemClick} gap="10px">
         <Tab className={baseDisplay.className}>
           <Flex alignItems="center">
             {/* <VerifiedIcon color="currentColor" mr="4px" /> */}
@@ -53,7 +53,6 @@ const TabMenu: React.FC<React.PropsWithChildren<TabMenuProps>> = ({ proposalType
           </Flex>
         </Tab>
         <Tab className={baseDisplay.className}>
-          {' '}
           <Flex alignItems="center">
             {/* <CommunityIcon color="currentColor" mr="4px" /> */}
             {t('Community')}

@@ -5,7 +5,7 @@ import { Heading, Flex, Text, Link, FlexLayout, Loading, Pool, ViewMode, PageHea
 import { Header } from '@pancakeswap/uikit/src/widgets/Menu/Header'
 import { useTranslation } from '@pancakeswap/localization'
 import { usePoolsPageFetch, usePoolsWithVault } from 'state/pools/hooks'
-import Page, { StyledPage } from 'components/Layout/Page'
+import Page from 'components/Layout/Page'
 import ConnectWalletButton from 'components/ConnectWalletButton'
 import { ChainId, Token } from '@pancakeswap/sdk'
 import { TokenPairImage } from 'components/TokenImage'
@@ -21,6 +21,7 @@ import CardFooter from './components/PoolCard/CardFooter'
 import CakeVaultCard from './components/CakeVaultCard'
 import PoolControls from './components/PoolControls'
 import PoolRow, { VaultPoolRow } from './components/PoolsTable/PoolRow'
+import { baseDisplay } from 'pages/_app'
 
 const CardLayout = styled(FlexLayout)`
   justify-content: center;
@@ -70,7 +71,7 @@ const Pools: React.FC<React.PropsWithChildren> = () => {
   usePoolsPageFetch()
 
   return (
-    <AtomBox className={pageVariants()}>
+    <AtomBox className={[pageVariants(), baseDisplay.className].join(' ')}>
       <Header />
       <VCakeModal />
       <StyledPageHeader>

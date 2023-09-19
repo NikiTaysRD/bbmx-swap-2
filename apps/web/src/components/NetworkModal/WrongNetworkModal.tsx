@@ -59,6 +59,7 @@ export function WrongNetworkModal({ currentChain, onDismiss }: { currentChain: C
               })
             }
             variant="secondary"
+            style={{ color: 'white' }}
           >
             {t('Disconnect Wallet')}
           </Button>

@@ -219,6 +219,7 @@ export default function CurrencySearchModal({
               variant="text"
               onClick={() => setModalView(CurrencyModalView.manage)}
               className="list-token-manage-button"
+              style={{ color: 'white' }}
             >
               {t('Manage Tokens')}
             </Button>

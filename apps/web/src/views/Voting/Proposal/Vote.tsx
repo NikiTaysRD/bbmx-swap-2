@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import styled from 'styled-components'
 import {
-  Button,
-  Card,
+  Button as StyledButton,
+  Card as StyledCard,
   CardBody,
   CardHeader,
   CardProps,
@@ -28,10 +28,15 @@ interface State {
   value: number
 }
 
+const Button = styled(StyledButton)`
+  background-color: #4e09f8;
+  border-radius: 6px;
+`
+
 const Choice = styled.label<{ isChecked: boolean; isDisabled: boolean }>`
   align-items: center;
   border: 1px solid ${({ theme, isChecked }) => theme.colors[isChecked ? 'success' : 'cardBorder']};
-  border-radius: 16px;
+  border-radius: 6px;
   cursor: ${({ isDisabled }) => (isDisabled ? 'not-allowed' : 'pointer')};
   display: flex;
   margin-bottom: 16px;
@@ -45,6 +50,21 @@ const ChoiceText = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
   width: 0;
+`
+
+const Card = styled.div`
+  padding: 30px;
+  border-radius: 10px;
+  background: #1b1c30;
+  position: relative;
+  margin-bottom: 15px !important;
+
+  h3 {
+    font-size: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 20px;
+  }
 `
 
 const Vote: React.FC<React.PropsWithChildren<VoteProps>> = ({ proposal, onSuccess, ...props }) => {
@@ -64,43 +84,40 @@ const Vote: React.FC<React.PropsWithChildren<VoteProps>> = ({ proposal, onSucces
 
   return (
     <Card {...props}>
-      <CardHeader>
-        <Heading as="h3" scale="md">
-          {t('Cast your vote')}
-        </Heading>
-      </CardHeader>
-      <CardBody>
-        {proposal.choices.map((choice, index) => {
-          const isChecked = index + 1 === vote?.value
+      <Heading as="h3" scale="md">
+        {t('Cast your vote')}
+      </Heading>
 
-          const handleChange = () => {
-            setVote({
-              label: choice,
-              value: index + 1,
-            })
-          }
+      {proposal.choices.map((choice, index) => {
+        const isChecked = index + 1 === vote?.value
 
-          return (
-            <Choice key={choice} isChecked={isChecked} isDisabled={!account}>
-              <div style={{ flexShrink: 0 }}>
-                <Radio scale="sm" value={choice} checked={isChecked} onChange={handleChange} disabled={!account} />
-              </div>
-              <ChoiceText>
-                <Text as="span" title={choice}>
-                  {choice}
-                </Text>
-              </ChoiceText>
-            </Choice>
-          )
-        })}
-        {account ? (
-          <Button onClick={presentCastVoteModal} disabled={vote === null}>
-            {t('Cast Vote')}
-          </Button>
-        ) : (
-          <ConnectWalletButton />
-        )}
-      </CardBody>
+        const handleChange = () => {
+          setVote({
+            label: choice,
+            value: index + 1,
+          })
+        }
+
+        return (
+          <Choice key={choice} isChecked={isChecked} isDisabled={!account}>
+            <div style={{ flexShrink: 0 }}>
+              <Radio scale="sm" value={choice} checked={isChecked} onChange={handleChange} disabled={!account} />
+            </div>
+            <ChoiceText>
+              <Text as="span" title={choice}>
+                {choice}
+              </Text>
+            </ChoiceText>
+          </Choice>
+        )
+      })}
+      {account ? (
+        <Button onClick={presentCastVoteModal} disabled={vote === null}>
+          {t('Cast Vote')}
+        </Button>
+      ) : (
+        <ConnectWalletButton />
+      )}
     </Card>
   )
 }

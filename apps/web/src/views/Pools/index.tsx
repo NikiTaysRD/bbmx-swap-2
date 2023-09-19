@@ -15,13 +15,13 @@ import VCakeModal from 'views/Pools/components/RevenueSharing/JoinRevenueModal/V
 
 import { pageVariants } from '@pancakeswap/uikit/src/widgets/Swap/SwapWidget.css'
 import { AtomBox } from '@pancakeswap/ui/components/AtomBox'
+import { baseDisplay } from 'pages/_app'
 import CardActions from './components/PoolCard/CardActions'
 import AprRow from './components/PoolCard/AprRow'
 import CardFooter from './components/PoolCard/CardFooter'
 import CakeVaultCard from './components/CakeVaultCard'
 import PoolControls from './components/PoolControls'
 import PoolRow, { VaultPoolRow } from './components/PoolsTable/PoolRow'
-import { baseDisplay } from 'pages/_app'
 
 const CardLayout = styled(FlexLayout)`
   justify-content: center;

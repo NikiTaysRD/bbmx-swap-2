@@ -41,7 +41,7 @@ function subgraphPoolProviderFactory<M extends PoolMeta, P extends WithTvl>({
     if (!chainId) {
       return []
     }
-
+    console.log('===== provider ', provider, chainId)
     const client = provider({ chainId })
 
     if (!client) {
@@ -59,7 +59,7 @@ function subgraphPoolProviderFactory<M extends PoolMeta, P extends WithTvl>({
       }
     }
     const addresses = Array.from(metaMap.keys())
-    console.log('===== addresses 2 ', addresses)
+    // console.log('===== addresses 2 ', addresses)
     const pools = await getPoolsFromSubgraph({
       addresses,
       getPoolMetaByAddress: (address) => metaMap.get(address.toLocaleLowerCase() as Address) ?? null,
@@ -132,10 +132,10 @@ export const getV3PoolSubgraph = subgraphPoolProviderFactory<V3PoolMeta, V3PoolW
   id: 'V3',
   getPoolMetas: getV3PoolMetas,
   getPoolsFromSubgraph: async ({ addresses, getPoolMetaByAddress, client }) => {
-    console.log('===== addresses pool', addresses)
+    // console.log('===== addresses pool', addresses)
     const { pools: poolsFromSubgraph } = await client.request<{ pools: V3PoolSubgraphResult[] }>(queryV3Pools, {
       pageSize: 1000,
-      poolAddrs: ['0xdffd7b3ed9ed0506ac5ddd7c2517255d86d3ecf7'],
+      poolAddrs: addresses,
     })
 
     return poolsFromSubgraph.map(({ id, liquidity, sqrtPrice, tick, totalValueLockedUSD, feeProtocol }) => {

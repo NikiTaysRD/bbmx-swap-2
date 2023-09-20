@@ -63,7 +63,7 @@ function commonTokenPriceProvider<T>(getTokenPrices: GetTokenPrices<T>) {
 
 export const getCommonTokenPricesBySubgraph = commonTokenPriceProvider<BySubgraphEssentials>(
   async ({ addresses, chainId, provider }) => {
-    console.log('===== addresses ', addresses)
+    // console.log('===== addresses ', addresses)
     const client = provider?.({ chainId })
     if (!client) {
       throw new Error('No valid subgraph data provider')

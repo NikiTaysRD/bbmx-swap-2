@@ -129,7 +129,7 @@ const HeaderComponent: React.FC = () => {
                   <Link href="/farms">Farming</Link>
                 </Item>
                 <Item>
-                  <Link href="/governance">Governance</Link>
+                  <Link href="/voting">Governance</Link>
                 </Item>
                 <Item>
                   <Link href="/pools">Pools</Link>
@@ -156,7 +156,7 @@ const HeaderComponent: React.FC = () => {
                       <Link href="/farms">Farming</Link>
                     </Item>
                     <Item>
-                      <Link href="/governance">Governance</Link>
+                      <Link href="/voting">Governance</Link>
                     </Item>
                     <Item>
                       <Link href="/pools">Pools</Link>
@@ -276,7 +276,7 @@ const HeaderComponent: React.FC = () => {
               <Link href="/farms">Farming</Link>
             </BurgerItem>
             <BurgerItem>
-              <Link href="/governance">Governance</Link>
+              <Link href="/voting">Governance</Link>
             </BurgerItem>
           </FlexGap>
         </BurgerNavList>

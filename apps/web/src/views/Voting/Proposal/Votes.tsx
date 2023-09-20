@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import {
   AutoRenewIcon,
-  Card,
-  CardHeader,
   ChevronDownIcon,
   Flex,
   Heading,
@@ -15,6 +13,7 @@ import orderBy from 'lodash/orderBy'
 import { useTranslation } from '@pancakeswap/localization'
 import { Vote } from 'state/types'
 import { FetchStatus, TFetchStatus } from 'config/constants/types'
+import styled from 'styled-components'
 import VotesLoading from '../components/Proposal/VotesLoading'
 import VoteRow from '../components/Proposal/VoteRow'
 
@@ -29,6 +28,21 @@ const parseVotePower = (incomingVote: Vote) => {
   if (!votingPower) votingPower = 0
   return votingPower
 }
+
+const Card = styled.div`
+  padding: 30px;
+  border-radius: 10px;
+  background: #1b1c30;
+  position: relative;
+  margin-bottom: 15px !important;
+
+  h3 {
+    font-size: 20px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    margin-bottom: 20px;
+  }
+`
 
 const Votes: React.FC<React.PropsWithChildren<VotesProps>> = ({ votes, votesLoadingStatus, totalVotes }) => {
   const [showAll, setShowAll] = useState(false)
@@ -47,14 +61,11 @@ const Votes: React.FC<React.PropsWithChildren<VotesProps>> = ({ votes, votesLoad
 
   return (
     <Card>
-      <CardHeader>
-        <Flex alignItems="center" justifyContent="space-between">
-          <Heading as="h3" scale="md">
-            {t('Votes (%count%)', { count: totalVotes || '-' })}
-          </Heading>
-          {!isFetched && <AutoRenewIcon spin width="22px" />}
-        </Flex>
-      </CardHeader>
+      <Heading as="h3" scale="md">
+        {t('Votes (%count%)', { count: totalVotes || '-' })}
+      </Heading>
+      {!isFetched && <AutoRenewIcon spin width="22px" />}
+
       {!isFetched && <VotesLoading />}
 
       {isFetched && displayVotes.length > 0 && (

@@ -12,7 +12,6 @@ import { Field } from 'state/swap/actions'
 import { useDefaultsFromURLSearch, useSingleTokenSwapInfo, useSwapState } from 'state/swap/hooks'
 import PriceChartContainer from 'views/Swap/components/Chart/PriceChartContainer'
 import { useCurrency } from 'hooks/Tokens'
-import LimitOrderTable from 'views/LimitOrders/components/LimitOrderTable'
 import { SettingsMode } from 'components/Menu/GlobalSettings/types'
 import GlobalSettings from 'components/Menu/GlobalSettings'
 import Page from '../Page'
@@ -190,11 +189,11 @@ export default function Swap() {
             </StyledInputCurrencyWrapper>
           </StyledSwapContainer>
 
-          {isLimitOpened && (
-            <Flex mt="24px" width="100%">
-              <LimitOrderTable isCompact={!isDesktop} />
-            </Flex>
-          )}
+          {/* {isLimitOpened && ( */}
+          {/*  <Flex mt="24px" width="100%"> */}
+          {/*    <LimitOrderTable isCompact={!isDesktop} /> */}
+          {/*  </Flex> */}
+          {/* )} */}
         </Flex>
       </Flex>
     </Page>

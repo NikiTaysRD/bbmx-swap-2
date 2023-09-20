@@ -12,10 +12,10 @@ interface SimpleMdeProps extends Omit<TextareaHTMLAttributes<HTMLTextAreaElement
 
 const Wrapper = styled.div`
   .EasyMDEContainer .CodeMirror {
-    background: ${({ theme }) => theme.colors.input};
+    background-color: transparent;
     border-color: ${({ theme }) => theme.colors.cardBorder};
-    border-bottom-left-radius: 16px;
-    border-bottom-right-radius: 16px;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
     box-shadow: ${({ theme }) => theme.shadows.inset};
     padding: 16px;
   }
@@ -29,10 +29,10 @@ const Wrapper = styled.div`
   }
 
   .editor-toolbar {
-    background: ${({ theme }) => theme.card.background};
+    background: #1b1c30;
     border-color: ${({ theme }) => theme.colors.cardBorder};
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
     color: ${({ theme }) => theme.colors.text};
 
     a,

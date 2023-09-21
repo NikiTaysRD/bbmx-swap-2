@@ -8,6 +8,7 @@ import styled from 'styled-components'
 import { subgraphTokenSymbol } from 'state/info/constant'
 import { DoubleCurrencyLogo } from 'views/Info/components/CurrencyLogo'
 import { Arrow, Break, ClickableColumnHeader, PageButtons, TableWrapper } from 'views/Info/components/InfoTables/shared'
+import { baseDisplay } from 'pages/_app'
 import { POOL_HIDE, v3InfoPath } from '../../constants'
 import { PoolData } from '../../types'
 import { feeTierPercent } from '../../utils'
@@ -150,8 +151,10 @@ export default function PoolTable({ poolDatas, maxItems = MAX_ITEMS }: { poolDat
       {sortedPools.length > 0 ? (
         <>
           <ResponsiveGrid>
-            <Text color="secondary">#</Text>
-            <ClickableColumnHeader color="secondary">
+            <Text color="#4E09F8" fontSize="16px" lineHeight="160%" className={baseDisplay.className}>
+              #
+            </Text>
+            <ClickableColumnHeader color="#4E09F8" fontSize="16px" lineHeight="160%" className={baseDisplay.className}>
               {t('Pair')}
               <SortButton
                 scale="sm"
@@ -162,7 +165,7 @@ export default function PoolTable({ poolDatas, maxItems = MAX_ITEMS }: { poolDat
                 <SortArrowIcon />
               </SortButton>
             </ClickableColumnHeader>
-            <ClickableColumnHeader color="secondary">
+            <ClickableColumnHeader color="#4E09F8" fontSize="16px" lineHeight="160%" className={baseDisplay.className}>
               {t('TVL')}
               <SortButton
                 scale="sm"
@@ -173,7 +176,7 @@ export default function PoolTable({ poolDatas, maxItems = MAX_ITEMS }: { poolDat
                 <SortArrowIcon />
               </SortButton>
             </ClickableColumnHeader>
-            <ClickableColumnHeader color="secondary">
+            <ClickableColumnHeader color="#4E09F8" fontSize="16px" lineHeight="160%" className={baseDisplay.className}>
               {t('Volume 24H')}
               <SortButton
                 scale="sm"
@@ -184,7 +187,7 @@ export default function PoolTable({ poolDatas, maxItems = MAX_ITEMS }: { poolDat
                 <SortArrowIcon />
               </SortButton>
             </ClickableColumnHeader>
-            <ClickableColumnHeader color="secondary">
+            <ClickableColumnHeader color="#4E09F8" fontSize="16px" lineHeight="160%" className={baseDisplay.className}>
               {t('Volume 7D')}
               <SortButton
                 scale="sm"

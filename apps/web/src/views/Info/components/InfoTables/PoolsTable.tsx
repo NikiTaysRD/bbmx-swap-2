@@ -7,6 +7,7 @@ import { PoolData } from 'state/info/types'
 import styled from 'styled-components'
 import { formatAmount } from 'utils/formatInfoNumbers'
 import { DoubleCurrencyLogo } from 'views/Info/components/CurrencyLogo'
+import { baseDisplay } from 'pages/_app'
 import { Arrow, Break, ClickableColumnHeader, PageButtons, TableWrapper } from './shared'
 
 /**
@@ -164,17 +165,26 @@ const PoolTable: React.FC<React.PropsWithChildren<PoolTableProps>> = ({ poolData
   )
 
   return (
-    <TableWrapper>
+    <TableWrapper style={{ borderRadius: '6px', border: 'none', padding: '25px 15px' }}>
       <ResponsiveGrid>
-        <Text color="secondary" fontSize="12px" bold>
+        <Text color="#4E09F8" fontSize="16px" lineHeight="160%" className={baseDisplay.className} bold>
           #
         </Text>
-        <Text color="secondary" fontSize="12px" bold textTransform="uppercase">
+        <Text
+          color="#4E09F8"
+          fontSize="16px"
+          lineHeight="160%"
+          className={baseDisplay.className}
+          bold
+          textTransform="uppercase"
+        >
           {t('Pair')}
         </Text>
         <ClickableColumnHeader
-          color="secondary"
-          fontSize="12px"
+          color="#4E09F8"
+          fontSize="16px"
+          lineHeight="160%"
+          className={baseDisplay.className}
           bold
           onClick={() => handleSort(SORT_FIELD.volumeUSD)}
           textTransform="uppercase"
@@ -182,8 +192,10 @@ const PoolTable: React.FC<React.PropsWithChildren<PoolTableProps>> = ({ poolData
           {t('Volume 24H')} {arrow(SORT_FIELD.volumeUSD)}
         </ClickableColumnHeader>
         <ClickableColumnHeader
-          color="secondary"
-          fontSize="12px"
+          color="#4E09F8"
+          fontSize="16px"
+          lineHeight="160%"
+          className={baseDisplay.className}
           bold
           onClick={() => handleSort(SORT_FIELD.volumeUSDWeek)}
           textTransform="uppercase"
@@ -191,8 +203,10 @@ const PoolTable: React.FC<React.PropsWithChildren<PoolTableProps>> = ({ poolData
           {t('Volume 7D')} {arrow(SORT_FIELD.volumeUSDWeek)}
         </ClickableColumnHeader>
         <ClickableColumnHeader
-          color="secondary"
-          fontSize="12px"
+          color="#4E09F8"
+          fontSize="16px"
+          lineHeight="160%"
+          className={baseDisplay.className}
           bold
           onClick={() => handleSort(SORT_FIELD.lpFees24h)}
           textTransform="uppercase"
@@ -200,8 +214,10 @@ const PoolTable: React.FC<React.PropsWithChildren<PoolTableProps>> = ({ poolData
           {t('LP reward fees 24H')} {arrow(SORT_FIELD.lpFees24h)}
         </ClickableColumnHeader>
         <ClickableColumnHeader
-          color="secondary"
-          fontSize="12px"
+          color="#4E09F8"
+          fontSize="16px"
+          lineHeight="160%"
+          className={baseDisplay.className}
           bold
           onClick={() => handleSort(SORT_FIELD.lpApr7d)}
           textTransform="uppercase"
@@ -209,8 +225,10 @@ const PoolTable: React.FC<React.PropsWithChildren<PoolTableProps>> = ({ poolData
           {t('LP reward APR')} {arrow(SORT_FIELD.lpApr7d)}
         </ClickableColumnHeader>
         <ClickableColumnHeader
-          color="secondary"
-          fontSize="12px"
+          color="#4E09F8"
+          fontSize="16px"
+          lineHeight="160%"
+          className={baseDisplay.className}
           bold
           onClick={() => handleSort(SORT_FIELD.liquidityUSD)}
           textTransform="uppercase"
@@ -239,17 +257,19 @@ const PoolTable: React.FC<React.PropsWithChildren<PoolTableProps>> = ({ poolData
                 setPage(page === 1 ? page : page - 1)
               }}
             >
-              <ArrowBackIcon color={page === 1 ? 'textDisabled' : 'primary'} />
+              <ArrowBackIcon color="primary" />
             </Arrow>
 
-            <Text>{t('Page %page% of %maxPage%', { page, maxPage })}</Text>
+            <Text color="white" fontSize="16px" lineHeight="160%" className={baseDisplay.className}>
+              {t('Page %page% of %maxPage%', { page, maxPage })}
+            </Text>
 
             <Arrow
               onClick={() => {
                 setPage(page === maxPage ? page : page + 1)
               }}
             >
-              <ArrowForwardIcon color={page === maxPage ? 'textDisabled' : 'primary'} />
+              <ArrowForwardIcon color="primary" />
             </Arrow>
           </PageButtons>
         </>

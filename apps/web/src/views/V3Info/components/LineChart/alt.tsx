@@ -96,6 +96,7 @@ const Chart = ({
               dataKey="time"
               axisLine={false}
               tickLine={false}
+              tick={false}
               tickFormatter={(time) => dayjs(time).format('DD')}
               minTickGap={10}
             />

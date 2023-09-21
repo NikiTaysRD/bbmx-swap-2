@@ -1,14 +1,5 @@
 import { useTranslation } from '@pancakeswap/localization'
-import {
-  ArrowBackIcon,
-  ArrowForwardIcon,
-  AutoColumn,
-  Box,
-  SortArrowIcon,
-  Text,
-  Flex,
-  ScanLink,
-} from '@pancakeswap/uikit'
+import { ArrowBackIcon, ArrowForwardIcon, AutoColumn, Box, Text, Flex, ScanLink } from '@pancakeswap/uikit'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { useChainNameByQuery } from 'state/info/hooks'
 import { multiChainId, subgraphTokenSymbol } from 'state/info/constant'
@@ -16,6 +7,7 @@ import styled from 'styled-components'
 import { formatAmount } from 'utils/formatInfoNumbers'
 import { getBlockExploreLink } from 'utils'
 import { Arrow, Break, ClickableColumnHeader, PageButtons, TableWrapper } from 'views/Info/components/InfoTables/shared'
+import { baseDisplay } from 'pages/_app'
 import { Transaction, TransactionType } from '../../types'
 import { shortenAddress } from '../../utils'
 import { formatTime } from '../../utils/date'
@@ -23,7 +15,7 @@ import { formatDollarAmount } from '../../utils/numbers'
 import HoverInlineText from '../HoverInlineText'
 import Loader from '../Loader'
 import { RowFixed } from '../Row'
-import { SortButton, useSortFieldClassName } from '../SortButton'
+import { useSortFieldClassName } from '../SortButton'
 
 const ResponsiveGrid = styled.div`
   display: grid;
@@ -217,6 +209,8 @@ export default function TransactionTable({
                 setTxFilter(undefined)
               }}
               active={txFilter === undefined}
+              style={{ fontSize: '13px', fontWeight: '600', lineHeight: '160%' }}
+              className={baseDisplay.className}
             >
               {t('All')}
             </SortText>
@@ -225,6 +219,8 @@ export default function TransactionTable({
                 setTxFilter(TransactionType.SWAP)
               }}
               active={txFilter === TransactionType.SWAP}
+              style={{ fontSize: '13px', fontWeight: '600', lineHeight: '160%' }}
+              className={baseDisplay.className}
             >
               {t('Swaps')}
             </SortText>
@@ -233,6 +229,8 @@ export default function TransactionTable({
                 setTxFilter(TransactionType.MINT)
               }}
               active={txFilter === TransactionType.MINT}
+              style={{ fontSize: '13px', fontWeight: '600', lineHeight: '160%' }}
+              className={baseDisplay.className}
             >
               {t('Adds')}
             </SortText>
@@ -241,64 +239,95 @@ export default function TransactionTable({
                 setTxFilter(TransactionType.BURN)
               }}
               active={txFilter === TransactionType.BURN}
+              style={{ fontSize: '13px', fontWeight: '600', lineHeight: '160%' }}
+              className={baseDisplay.className}
             >
               {t('Removes')}
             </SortText>
           </RowFixed>
-          <ClickableColumnHeader color="secondary">
+          <ClickableColumnHeader
+            bold
+            color="#4E09F8"
+            fontSize="16px"
+            lineHeight="160%"
+            className={baseDisplay.className}
+          >
             {t('Total Value')}
-            <SortButton
-              scale="sm"
-              variant="subtle"
-              onClick={() => handleSort(SORT_FIELD.amountUSD)}
-              className={getSortFieldClassName(SORT_FIELD.amountUSD)}
-            >
-              <SortArrowIcon />
-            </SortButton>
+            {/* <SortButton */}
+            {/*  scale="sm" */}
+            {/*  variant="subtle" */}
+            {/*  onClick={() => handleSort(SORT_FIELD.amountUSD)} */}
+            {/*  className={getSortFieldClassName(SORT_FIELD.amountUSD)} */}
+            {/* > */}
+            {/*  <SortArrowIcon /> */}
+            {/* </SortButton> */}
           </ClickableColumnHeader>
-          <ClickableColumnHeader color="secondary">
+          <ClickableColumnHeader
+            bold
+            color="#4E09F8"
+            fontSize="16px"
+            lineHeight="160%"
+            className={baseDisplay.className}
+          >
             {t('Token%index% Amount', { index: '0' })}
-            <SortButton
-              scale="sm"
-              variant="subtle"
-              onClick={() => handleSort(SORT_FIELD.amountToken0)}
-              className={getSortFieldClassName(SORT_FIELD.amountToken0)}
-            >
-              <SortArrowIcon />
-            </SortButton>
+            {/* <SortButton */}
+            {/*  scale="sm" */}
+            {/*  variant="subtle" */}
+            {/*  onClick={() => handleSort(SORT_FIELD.amountToken0)} */}
+            {/*  className={getSortFieldClassName(SORT_FIELD.amountToken0)} */}
+            {/* > */}
+            {/*  <SortArrowIcon /> */}
+            {/* </SortButton> */}
           </ClickableColumnHeader>
-          <ClickableColumnHeader color="secondary">
+          <ClickableColumnHeader
+            bold
+            color="#4E09F8"
+            fontSize="16px"
+            lineHeight="160%"
+            className={baseDisplay.className}
+          >
             {t('Token%index% Amount', { index: '1' })}
-            <SortButton
-              scale="sm"
-              variant="subtle"
-              onClick={() => handleSort(SORT_FIELD.amountToken1)}
-              className={getSortFieldClassName(SORT_FIELD.amountToken1)}
-            >
-              <SortArrowIcon />
-            </SortButton>
+            {/* <SortButton */}
+            {/*  scale="sm" */}
+            {/*  variant="subtle" */}
+            {/*  onClick={() => handleSort(SORT_FIELD.amountToken1)} */}
+            {/*  className={getSortFieldClassName(SORT_FIELD.amountToken1)} */}
+            {/* > */}
+            {/*  <SortArrowIcon /> */}
+            {/* </SortButton> */}
           </ClickableColumnHeader>
-          <ClickableColumnHeader color="secondary">
+          <ClickableColumnHeader
+            bold
+            color="#4E09F8"
+            fontSize="16px"
+            lineHeight="160%"
+            className={baseDisplay.className}
+          >
             {t('Account')}
-            <SortButton
-              scale="sm"
-              variant="subtle"
-              onClick={() => handleSort(SORT_FIELD.sender)}
-              className={getSortFieldClassName(SORT_FIELD.sender)}
-            >
-              <SortArrowIcon />
-            </SortButton>
+            {/* <SortButton */}
+            {/*  scale="sm" */}
+            {/*  variant="subtle" */}
+            {/*  onClick={() => handleSort(SORT_FIELD.sender)} */}
+            {/*  className={getSortFieldClassName(SORT_FIELD.sender)} */}
+            {/* > */}
+            {/*  <SortArrowIcon /> */}
+            {/* </SortButton> */}
           </ClickableColumnHeader>
-          <ClickableColumnHeader color="secondary">
+          <ClickableColumnHeader
+            bold
+            color="#4E09F8"
+            fontSize="16px"
+            lineHeight="160%"
+            className={baseDisplay.className}
+          >
             {`${t('Time')} `}
-            <SortButton
-              scale="sm"
-              variant="subtle"
-              onClick={() => handleSort(SORT_FIELD.timestamp)}
-              className={getSortFieldClassName(SORT_FIELD.timestamp)}
-            >
-              <SortArrowIcon />
-            </SortButton>
+            {/* <SortButton */}
+            {/*  scale="sm" */}
+            {/*  variant="subtle" */}
+            {/*  onClick={() => handleSort(SORT_FIELD.timestamp)} */}
+            {/*  className={getSortFieldClassName(SORT_FIELD.timestamp)} */}
+            {/* > */}
+            {/* </SortButton> */}
           </ClickableColumnHeader>
         </ResponsiveGrid>
         <Break />
@@ -317,7 +346,9 @@ export default function TransactionTable({
         })}
         {sortedTransactions.length === 0 && (
           <Flex justifyContent="center">
-            <Text>{t('No Transactions')}</Text>
+            <Text color="white" fontSize="16px" lineHeight="160%" className={baseDisplay.className}>
+              {t('No Transactions')}
+            </Text>
           </Flex>
         )}
         <PageButtons>
@@ -327,17 +358,22 @@ export default function TransactionTable({
             }}
           >
             <Arrow>
-              <ArrowBackIcon color={page <= 1 ? 'textDisabled' : 'primary'} />
+              <ArrowBackIcon color="primary" />
             </Arrow>
           </Box>
-          <Text>{`Page ${page} of ${maxPage}`}</Text>
+          <Text
+            color="white"
+            fontSize="16px"
+            lineHeight="160%"
+            className={baseDisplay.className}
+          >{`Page ${page} of ${maxPage}`}</Text>
           <Box
             onClick={() => {
               if (page !== maxPage) setPage(page + 1)
             }}
           >
             <Arrow>
-              <ArrowForwardIcon color={page === maxPage ? 'textDisabled' : 'primary'} />
+              <ArrowForwardIcon color="primary" />
             </Arrow>
           </Box>
         </PageButtons>

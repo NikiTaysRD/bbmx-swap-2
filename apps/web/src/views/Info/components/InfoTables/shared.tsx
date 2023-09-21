@@ -10,15 +10,12 @@ export const ClickableColumnHeader = styled(Text)`
 
 export const TableWrapper = styled(Flex)`
   width: 100%;
-  padding-top: 16px;
   flex-direction: column;
   gap: 16px;
-  background-color: ${({ theme }) => theme.card.background};
-  border: 1px solid ${({ theme }) => theme.colors.cardBorder};
-  border-radius: ${({ theme }) => theme.radii.card};
-  ${({ theme }) => theme.mediaQueries.md} {
-    border-radius: ${({ theme }) => theme.radii.card};
-  }
+  background-color: #1b1c30;
+  border-radius: 6px;
+  padding: 25px 15px;
+
   overflow: hidden;
 `
 

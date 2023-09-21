@@ -104,14 +104,8 @@ const Chart = ({ data, setHoverValue, setHoverDate }: LineChartProps) => {
         const timestamp = param.time as number
         if (!timestamp) return
         const now = new Date(timestamp)
-        const time = `${now.toLocaleString(locale, {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric',
-          hour: 'numeric',
-          minute: '2-digit',
-          timeZone: 'UTC',
-        })} (UTC)`
+        const time = `${now.toLocaleDateString(locale, { year: 'numeric', month: 'short', day: '2-digit' })}`
+
         // @ts-ignore
         const parsed = (param.seriesData.get(newSeries)?.value ?? 0) as number | undefined
         if (setHoverValue) setHoverValue(parsed)

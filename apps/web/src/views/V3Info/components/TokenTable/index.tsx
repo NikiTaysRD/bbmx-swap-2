@@ -17,6 +17,7 @@ import { useChainNameByQuery, useMultiChainPath } from 'state/info/hooks'
 import styled from 'styled-components'
 import { CurrencyLogo } from 'views/Info/components/CurrencyLogo'
 import { Arrow, Break, ClickableColumnHeader, PageButtons, TableWrapper } from 'views/Info/components/InfoTables/shared'
+import { baseDisplay } from 'pages/_app'
 import { TOKEN_HIDE, v3InfoPath } from '../../constants'
 import { TokenData } from '../../types'
 import { formatDollarAmount } from '../../utils/numbers'
@@ -182,8 +183,10 @@ export default function TokenTable({
       {sortedTokens.length > 0 ? (
         <AutoColumn gap="16px">
           <ResponsiveGrid>
-            <Text color="secondary">#</Text>
-            <ClickableColumnHeader color="secondary">
+            <Text color="#4E09F8" fontSize="16px" lineHeight="160%" className={baseDisplay.className}>
+              #
+            </Text>
+            <ClickableColumnHeader color="#4E09F8" fontSize="16px" lineHeight="160%" className={baseDisplay.className}>
               {t('Name')}
               <SortButton
                 scale="sm"
@@ -194,7 +197,7 @@ export default function TokenTable({
                 <SortArrowIcon />
               </SortButton>
             </ClickableColumnHeader>
-            <ClickableColumnHeader color="secondary">
+            <ClickableColumnHeader color="#4E09F8" fontSize="16px" lineHeight="160%" className={baseDisplay.className}>
               {t('Price')}
               <SortButton
                 scale="sm"
@@ -205,7 +208,7 @@ export default function TokenTable({
                 <SortArrowIcon />
               </SortButton>
             </ClickableColumnHeader>
-            <ClickableColumnHeader color="secondary">
+            <ClickableColumnHeader color="#4E09F8" fontSize="16px" lineHeight="160%" className={baseDisplay.className}>
               {t('Price Change')}
               <SortButton
                 scale="sm"
@@ -219,7 +222,7 @@ export default function TokenTable({
             {/* <ClickableText onClick={() => handleSort(SORT_FIELD.priceUSDChangeWeek)}>
             7d {arrow(SORT_FIELD.priceUSDChangeWeek)}
           </ClickableText> */}
-            <ClickableColumnHeader color="secondary">
+            <ClickableColumnHeader color="#4E09F8" fontSize="16px" lineHeight="160%" className={baseDisplay.className}>
               {t('Volume 24H')}
               <SortButton
                 scale="sm"
@@ -230,7 +233,7 @@ export default function TokenTable({
                 <SortArrowIcon />
               </SortButton>
             </ClickableColumnHeader>
-            <ClickableColumnHeader color="secondary">
+            <ClickableColumnHeader color="#4E09F8" fontSize="16px" lineHeight="160%" className={baseDisplay.className}>
               {t('TVL')}
               <SortButton
                 scale="sm"
@@ -262,7 +265,7 @@ export default function TokenTable({
               }}
             >
               <Arrow>
-                <ArrowBackIcon color={page === 1 ? 'textDisabled' : 'primary'} />
+                <ArrowBackIcon color="primary" />
               </Arrow>
             </Box>
             <Text>{`Page ${page} of ${maxPage}`}</Text>
@@ -272,7 +275,7 @@ export default function TokenTable({
               }}
             >
               <Arrow>
-                <ArrowForwardIcon color={page === maxPage ? 'textDisabled' : 'primary'} />
+                <ArrowForwardIcon color="primary" />
               </Arrow>
             </Box>
           </PageButtons>

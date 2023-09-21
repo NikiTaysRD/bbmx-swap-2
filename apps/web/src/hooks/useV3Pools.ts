@@ -42,14 +42,15 @@ export function useV3CandidatePools(
     error,
   } = useV3CandidatePoolsWithoutTicks(currencyA, currencyB, options)
 
-  const { data, isLoading: ticksLoading, isValidating: ticksValidating } = useV3PoolsWithTicks(
-    candidatePoolsWithoutTicks,
-    {
-      key,
-      blockNumber,
-      enabled: options?.enabled,
-    },
-  )
+  const {
+    data,
+    isLoading: ticksLoading,
+    isValidating: ticksValidating,
+  } = useV3PoolsWithTicks(candidatePoolsWithoutTicks, {
+    key,
+    blockNumber,
+    enabled: options?.enabled,
+  })
 
   const candidatePools = data?.pools ?? null
 
@@ -85,7 +86,13 @@ export function useV3CandidatePoolsWithoutTicks(
     return POOLS_FAST_REVALIDATE[currencyA.chainId] || 0
   }, [currencyA?.chainId])
 
-  const { data, refetch, isLoading, isFetching, error: errorMsg } = useQuery({
+  const {
+    data,
+    refetch,
+    isLoading,
+    isFetching,
+    error: errorMsg,
+  } = useQuery({
     queryKey: ['v3_candidate_pools', key],
     queryFn: async () => {
       console.log('===== pools before ', currencyA)

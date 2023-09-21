@@ -134,7 +134,12 @@ function bestTradeHookFactory({
       allowInconsistentBlock: true,
       enabled,
     })
-    // console.log('===== candidatePools ', candidatePools, blockNumber)
+
+    // console.log('=====  ', baseCurrency, amount?.currency, currency, {
+    //   blockNumber,
+    //   allowInconsistentBlock: true,
+    //   enabled,
+    // })
     const poolProvider = useMemo(() => SmartRouter.createStaticPoolProvider(candidatePools), [candidatePools])
     const deferQuotientRaw = useDeferredValue(amount?.quotient?.toString())
     const deferQuotient = useDebounce(deferQuotientRaw, 500)
@@ -255,6 +260,7 @@ export const useBestAMMTradeFromQuoter = bestTradeHookFactory({
   quoterOptimization: false,
 })
 
+// DEBUGv1: nothing here
 export const useBestAMMTradeFromQuoterApi = bestTradeHookFactory({
   key: 'useBestAMMTradeFromQuoterApi',
   useCommonPools: useCommonPoolsLite,

@@ -26,6 +26,7 @@ export class Route<TInput extends Currency, TOutput extends Currency> {
    * @param output The output token
    */
   public constructor(pools: Pool[], input: TInput, output: TOutput) {
+    console.log('===== pools ', pools)
     invariant(pools.length > 0, 'POOLS')
 
     const { chainId } = pools[0]

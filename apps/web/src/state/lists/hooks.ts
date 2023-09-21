@@ -217,7 +217,7 @@ function combineMaps(map1: TokenAddressMap, map2: TokenAddressMap): TokenAddress
     [ChainId.ZKSYNC]: { ...map1[ChainId.ZKSYNC], ...map2[ChainId.ZKSYNC] },
     [ChainId.ZKSYNC_TESTNET]: { ...map1[ChainId.ZKSYNC_TESTNET], ...map2[ChainId.ZKSYNC_TESTNET] },
     [ChainId.LINEA_TESTNET]: { ...map1[ChainId.LINEA_TESTNET], ...map2[ChainId.LINEA_TESTNET] },
-    [ChainId.BASE_TESTNET]: {...map1[ChainId.BASE_TESTNET], ...map2[ChainId.BASE_TESTNET] },
+    [ChainId.BASE_TESTNET]: { ...map1[ChainId.BASE_TESTNET], ...map2[ChainId.BASE_TESTNET] },
   }
 }
 

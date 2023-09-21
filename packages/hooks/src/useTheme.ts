@@ -22,11 +22,10 @@ const useTheme = () => {
     [setTheme],
   )
 
-  return useMemo(() => ({ isDark: true, theme, setTheme: handleSwitchTheme }), [
-    theme,
-    resolvedTheme,
-    handleSwitchTheme,
-  ])
+  return useMemo(
+    () => ({ isDark: true, theme, setTheme: handleSwitchTheme }),
+    [theme, resolvedTheme, handleSwitchTheme],
+  )
 }
 
 export default useTheme

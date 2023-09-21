@@ -49,10 +49,10 @@ const defaultTokenAndPoolList: TokenAndPoolList = {
     tokens: [],
     pools: [],
   },
-  [ChainId.BASE_TESTNET]:{
-    tokens:[],
+  [ChainId.BASE_TESTNET]: {
+    tokens: [],
     pools: [],
-  }
+  },
 }
 
 const tokensAtom = atomWithStorage('pcs:infoSavedTOkensAndPools', defaultTokenAndPoolList)

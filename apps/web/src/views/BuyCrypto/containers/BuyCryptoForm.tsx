@@ -90,12 +90,14 @@ export function BuyCryptoForm({
     },
     [onCurrencySelection],
   )
-  const handleInputSelect = useCallback((newCurrency: Currency) => handleCurrencySelect(newCurrency, Field.INPUT), [
-    handleCurrencySelect,
-  ])
-  const handleOutputSelect = useCallback((newCurrency: Currency) => handleCurrencySelect(newCurrency, Field.OUTPUT), [
-    handleCurrencySelect,
-  ])
+  const handleInputSelect = useCallback(
+    (newCurrency: Currency) => handleCurrencySelect(newCurrency, Field.INPUT),
+    [handleCurrencySelect],
+  )
+  const handleOutputSelect = useCallback(
+    (newCurrency: Currency) => handleCurrencySelect(newCurrency, Field.OUTPUT),
+    [handleCurrencySelect],
+  )
 
   return (
     <Box p="4px">

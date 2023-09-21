@@ -14,7 +14,7 @@ import {
   zksyncTokens,
   zkSyncTestnetTokens,
   lineaTestnetTokens,
-  baseTestnetTokens
+  baseTestnetTokens,
 } from '@pancakeswap/tokens'
 
 import { ChainMap, ChainTokenList } from '../types'

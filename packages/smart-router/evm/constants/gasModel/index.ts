@@ -11,7 +11,7 @@ import {
   lineaTestnetTokens,
   arbitrumGoerliTokens,
   arbitrumTokens,
-  baseTestnetTokens
+  baseTestnetTokens,
 } from '@pancakeswap/tokens'
 
 export const usdGasTokensByChain = {

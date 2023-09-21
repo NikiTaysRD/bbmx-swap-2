@@ -12,7 +12,7 @@ export const SUPPORTED_CHAINS = [
   ChainId.ARBITRUM_ONE,
 ] as const
 
-export type SupportedChainId = typeof SUPPORTED_CHAINS[number]
+export type SupportedChainId = (typeof SUPPORTED_CHAINS)[number]
 
 export const V3_SUBGRAPH_URLS: Record<SupportedChainId, string> = {
   [ChainId.ETHEREUM]: 'https://api.thegraph.com/subgraphs/name/pancakeswap/exchange-v3-eth',

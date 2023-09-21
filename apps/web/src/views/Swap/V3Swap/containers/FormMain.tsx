@@ -231,11 +231,10 @@ export function FormMain({
   )
 
   const isTypingInput = independentField === Field.INPUT
-  const inputValue = useMemo(() => typedValue && (isTypingInput ? typedValue : formatAmount(inputAmount) || ''), [
-    typedValue,
-    isTypingInput,
-    inputAmount,
-  ])
+  const inputValue = useMemo(
+    () => typedValue && (isTypingInput ? typedValue : formatAmount(inputAmount) || ''),
+    [typedValue, isTypingInput, inputAmount],
+  )
 
   const value = isWrapping ? typedValue : inputValue
 
@@ -244,11 +243,10 @@ export function FormMain({
     enabled: Number.isFinite(+value),
   })
 
-  const outputValue = useMemo(() => typedValue && (isTypingInput ? formatAmount(outputAmount) || '' : typedValue), [
-    typedValue,
-    isTypingInput,
-    outputAmount,
-  ])
+  const outputValue = useMemo(
+    () => typedValue && (isTypingInput ? formatAmount(outputAmount) || '' : typedValue),
+    [typedValue, isTypingInput, outputAmount],
+  )
   const inputLoading = typedValue ? !isTypingInput && tradeLoading : false
   const outputLoading = typedValue ? isTypingInput && tradeLoading : false
 

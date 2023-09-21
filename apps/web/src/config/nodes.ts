@@ -1,5 +1,13 @@
 import { ChainId } from '@pancakeswap/sdk'
-import { arbitrum, polygonZkEvm, zkSync, zkSyncTestnet, polygonZkEvmTestnet, arbitrumGoerli ,baseGoerli,} from 'wagmi/chains'
+import {
+  arbitrum,
+  polygonZkEvm,
+  zkSync,
+  zkSyncTestnet,
+  polygonZkEvmTestnet,
+  arbitrumGoerli,
+  baseGoerli,
+} from 'wagmi/chains'
 import { getNodeRealUrlV2 } from 'utils/nodeReal'
 
 const POLYGON_ZKEVM_NODES = [

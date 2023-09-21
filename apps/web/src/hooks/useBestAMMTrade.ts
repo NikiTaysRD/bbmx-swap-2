@@ -59,10 +59,10 @@ export function useBestAMMTrade({ type = 'quoter', ...params }: useBestAMMTradeO
   const { amount, baseCurrency, currency, autoRevalidate, enabled = true } = params
   const isWrapping = useIsWrapping(baseCurrency, currency, amount?.toExact())
 
-  const isQuoterEnabled = useMemo(() => Boolean(!isWrapping && (type === 'quoter' || type === 'auto')), [
-    type,
-    isWrapping,
-  ])
+  const isQuoterEnabled = useMemo(
+    () => Boolean(!isWrapping && (type === 'quoter' || type === 'auto')),
+    [type, isWrapping],
+  )
 
   const isQuoterAPIEnabled = useMemo(() => Boolean(!isWrapping && type === 'api'), [isWrapping, type])
 
@@ -88,11 +88,10 @@ export function useBestAMMTrade({ type = 'quoter', ...params }: useBestAMMTradeO
     autoRevalidate: quoterAutoRevalidate,
   })
   // console.log('===== quater ', bestTradeFromQuoterWorker, bestTradeFromQuoterApi)
-  return useMemo(() => (isQuoterAPIEnabled ? bestTradeFromQuoterApi : bestTradeFromQuoterWorker), [
-    bestTradeFromQuoterApi,
-    bestTradeFromQuoterWorker,
-    isQuoterAPIEnabled,
-  ])
+  return useMemo(
+    () => (isQuoterAPIEnabled ? bestTradeFromQuoterApi : bestTradeFromQuoterWorker),
+    [bestTradeFromQuoterApi, bestTradeFromQuoterWorker, isQuoterAPIEnabled],
+  )
 }
 
 function bestTradeHookFactory({
@@ -125,15 +124,16 @@ function bestTradeHookFactory({
     }
 
     const blockNumber = useCurrentBlock()
-    const { refresh, pools: candidatePools, loading, syncing } = useCommonPools(
-      baseCurrency || amount?.currency,
-      currency,
-      {
-        blockNumber,
-        allowInconsistentBlock: true,
-        enabled,
-      },
-    )
+    const {
+      refresh,
+      pools: candidatePools,
+      loading,
+      syncing,
+    } = useCommonPools(baseCurrency || amount?.currency, currency, {
+      blockNumber,
+      allowInconsistentBlock: true,
+      enabled,
+    })
     // console.log('===== candidatePools ', candidatePools, blockNumber)
     const poolProvider = useMemo(() => SmartRouter.createStaticPoolProvider(candidatePools), [candidatePools])
     const deferQuotientRaw = useDeferredValue(amount?.quotient?.toString())
@@ -153,7 +153,13 @@ function bestTradeHookFactory({
       return types
     }, [v2Swap, v3Swap, stableSwap])
 
-    const { data: trade, status, fetchStatus, isPreviousData, error } = useQuery<SmartRouterTrade<TradeType>, Error>({
+    const {
+      data: trade,
+      status,
+      fetchStatus,
+      isPreviousData,
+      error,
+    } = useQuery<SmartRouterTrade<TradeType>, Error>({
       queryKey: [
         key,
         currency?.chainId,

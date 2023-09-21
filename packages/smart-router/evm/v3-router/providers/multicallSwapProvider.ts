@@ -25,7 +25,6 @@ const PANCAKE_MULTICALL_ADDRESSES = {
   [ChainId.ZKSYNC_TESTNET]: '0xA47DDFb5D068bFaa8ceb7476A60d5C3Fb87E58D9',
   [ChainId.LINEA_TESTNET]: '0x32226588378236Fd0c7c4053999F88aC0e5cAc77',
   [ChainId.BASE_TESTNET]: '0xfe6037B5999DF4AE2083CF5a727a087A1A8CE886',
-  
 } as const satisfies Record<ChainId, Address>
 
 export type PancakeMulticallConfig = {

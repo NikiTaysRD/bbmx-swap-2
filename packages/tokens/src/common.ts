@@ -111,7 +111,7 @@ export const BBMX_BASE_GOERLI = new ERC20Token(
   '0xefAbfBef1140A4e676b740BF19263Fe3Fb9aa92B',
   18,
   'BBMX',
-  'BBMX'
+  'BBMX',
 )
 
 export const BUSD = {
@@ -129,7 +129,7 @@ export const BUSD = {
 }
 
 export const BBMX = {
-  [ChainId.BASE_TESTNET]: BBMX_BASE_GOERLI
+  [ChainId.BASE_TESTNET]: BBMX_BASE_GOERLI,
 }
 
 export const CAKE = {

@@ -13,7 +13,7 @@ import {
   arbitrum,
   arbitrumGoerli,
   Chain,
-  baseGoerli
+  baseGoerli,
 } from 'wagmi/chains'
 
 export const CHAIN_QUERY_NAME = {
@@ -119,5 +119,5 @@ export const CHAINS = [
   lineaTestnet,
   arbitrumGoerli,
   arbitrum,
-  baseGoerli
+  baseGoerli,
 ]

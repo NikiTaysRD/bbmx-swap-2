@@ -2,12 +2,13 @@ import memoize from 'lodash/memoize'
 import { ContextApi } from '@pancakeswap/localization'
 import { PageMeta } from './types'
 import { ASSET_CDN } from './endpoints'
+import BBMXBanner from '../../../public/images/seo-banner.jpg'
 
 export const DEFAULT_META: PageMeta = {
-  title: 'PancakeSwap',
+  title: 'BBMXSwap',
   description:
-    'The most popular AMM on BSC by user count! Earn CAKE through yield farming or win it in the Lottery, then stake it in Syrup Pools to earn more tokens! Initial Farm Offerings (new token launch model pioneered by PancakeSwap), NFTs, and more, on a platform you can trust.',
-  image: `${ASSET_CDN}/web/og/hero.jpg`,
+    'BBMX is a robust DeFi ecosystem on BaseChain, featuring a decentralized exchange, futures trading, universal staking, smart contract locking, project launch support, and a community-driven DAO. Our mission is to provide professional, user-friendly financial solutions on the Base blockchain. Join us in shaping the future of DeFi.',
+  image: BBMXBanner.src,
 }
 
 interface PathList {

@@ -1,7 +1,6 @@
 import memoize from 'lodash/memoize'
 import { ContextApi } from '@pancakeswap/localization'
 import { PageMeta } from './types'
-import { ASSET_CDN } from './endpoints'
 import BBMXBanner from '../../../public/images/seo-banner.jpg'
 
 export const DEFAULT_META: PageMeta = {
@@ -19,14 +18,14 @@ interface PathList {
 const getPathList = (t: ContextApi['t']): PathList => {
   return {
     paths: {
-      '/': { title: t('Home') },
+      '/': { title: t('Home'), image: BBMXBanner.src },
       '/swap': { basePath: true, title: t('Exchange'), image: BBMXBanner.src },
       '/limit-orders': { basePath: true, title: t('Limit Orders'), image: BBMXBanner.src },
       '/add': { basePath: true, title: t('Add Liquidity'), image: BBMXBanner.src },
       '/remove': { basePath: true, title: t('Remove Liquidity'), image: BBMXBanner.src },
       '/liquidity': { title: t('Liquidity'), image: BBMXBanner.src },
-      '/find': { title: t('Import Pool') },
-      '/competition': { title: t('Trading Battle') },
+      '/find': { title: t('Import Pool'), image: BBMXBanner.src },
+      '/competition': { title: t('Trading Battle'), image: BBMXBanner.src },
       '/prediction': { title: t('Prediction'), image: BBMXBanner.src },
       '/prediction/leaderboard': { title: t('Leaderboard'), image: BBMXBanner.src },
       '/farms': { title: t('Farms'), image: BBMXBanner.src },
@@ -40,24 +39,24 @@ const getPathList = (t: ContextApi['t']): PathList => {
       '/voting/proposal/create': { title: t('Make a Proposal'), image: BBMXBanner.src },
       '/info': {
         title: `${t('Overview')} - ${t('Info')}`,
-        description: 'View statistics for Pancakeswap exchanges.',
+        description: 'View statistics for BBMX exchanges.',
         image: BBMXBanner.src,
       },
       '/info/pairs': {
         title: `${t('Pairs')} - ${t('Info')}`,
-        description: 'View statistics for Pancakeswap exchanges.',
+        description: 'View statistics for BBMX exchanges.',
         image: BBMXBanner.src,
       },
       '/info/tokens': {
         title: `${t('Tokens')} - ${t('Info')}`,
-        description: 'View statistics for Pancakeswap exchanges.',
+        description: 'View statistics for BBMX exchanges.',
         image: BBMXBanner.src,
       },
       '/nfts': { title: t('NFT Marketplace'), image: BBMXBanner.src },
       '/nfts/collections': { basePath: true, title: t('Collections'), image: BBMXBanner.src },
       '/nfts/activity': { title: t('Activity'), image: BBMXBanner.src },
-      '/profile': { basePath: true, title: t('Profile') },
-      '/pancake-squad': { basePath: true, title: t('Pancake Squad') },
+      '/profile': { basePath: true, title: t('Profile'), image: BBMXBanner.src },
+      '/pancake-squad': { basePath: true, title: t('Pancake Squad'), image: BBMXBanner.src },
       '/pottery': { basePath: true, title: t('Pottery'), image: BBMXBanner.src },
     },
     defaultTitleSuffix: 'BBMXSwap',

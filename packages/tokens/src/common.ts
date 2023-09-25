@@ -205,7 +205,7 @@ export const CAKE = {
   ),
   [ChainId.BASE_TESTNET]: new ERC20Token(
     ChainId.BASE_TESTNET,
-    '0x052a99849Ef2e13a5CB28275862991671D4b6fF5',
+    '0xd35b05c29201adcb81d86285b4cb86f3338fe4b0',
     18,
     'CAKE',
     'PancakeSwap Token',

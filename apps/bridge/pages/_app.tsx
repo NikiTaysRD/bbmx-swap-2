@@ -16,7 +16,7 @@ declare module 'styled-components' {
 const StyledThemeProvider: React.FC<React.PropsWithChildren> = (props) => {
   const { resolvedTheme } = useNextTheme()
   return (
-    <UIKitProvider theme={resolvedTheme === 'dark' ? dark : light} {...props}>
+    <UIKitProvider theme={resolvedTheme === 'dark' ? dark : dark} {...props}>
       {props.children}
     </UIKitProvider>
   )
@@ -76,7 +76,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="twitter:title" content="🥞 PancakeSwap - A next evolution DeFi exchange on BNB Smart Chain (BSC)" />
         <title>Bridge | PancakeSwap</title>
       </Head>
-      <NextThemeProvider>
+      <NextThemeProvider forcedTheme="dark">
         <StyledThemeProvider>
           <ModalProvider>
             <ResetCSS />

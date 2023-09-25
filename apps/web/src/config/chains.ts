@@ -13,6 +13,7 @@ import {
   arbitrum,
   arbitrumGoerli,
   Chain,
+  baseGoerli,
 } from 'wagmi/chains'
 
 export const CHAIN_QUERY_NAME = {
@@ -27,6 +28,7 @@ export const CHAIN_QUERY_NAME = {
   [ChainId.ZKSYNC]: 'zkSync',
   [ChainId.ZKSYNC_TESTNET]: 'zkSyncTestnet',
   [ChainId.LINEA_TESTNET]: 'lineaTestnet',
+  [ChainId.BASE_TESTNET]: 'baseTestnet',
 } as const satisfies Record<ChainId, string>
 
 const CHAIN_QUERY_NAME_TO_ID = Object.entries(CHAIN_QUERY_NAME).reduce((acc, [chainId, chainName]) => {
@@ -102,6 +104,7 @@ export const L2_CHAIN_IDS: ChainId[] = [
   ChainId.ZKSYNC,
   ChainId.ZKSYNC_TESTNET,
   ChainId.LINEA_TESTNET,
+  ChainId.BASE_TESTNET,
 ]
 
 export const CHAINS = [
@@ -116,4 +119,5 @@ export const CHAINS = [
   lineaTestnet,
   arbitrumGoerli,
   arbitrum,
+  baseGoerli,
 ]

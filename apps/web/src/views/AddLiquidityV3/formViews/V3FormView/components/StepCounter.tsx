@@ -3,6 +3,8 @@ import { AddCircleIcon, AutoColumn, AutoRow, IconButton, NumericalInput, RemoveI
 import { FeeAmount } from '@pancakeswap/v3-sdk'
 import { LightGreyCard } from 'components/Card'
 import { ReactNode, useCallback, useEffect, useState } from 'react'
+import styled from 'styled-components'
+import { baseDisplay } from 'pages/_app'
 
 interface StepCounterProps {
   value: string
@@ -19,6 +21,12 @@ interface StepCounterProps {
   tokenA: string | undefined
   tokenB: string | undefined
 }
+
+const StyledCard = styled(LightGreyCard)`
+  border-radius: 6px;
+  background: #101124;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+`
 
 const StepCounter = ({
   value,
@@ -83,19 +91,28 @@ const StepCounter = ({
   }, [localValue, useLocalValue, value])
 
   return (
-    <LightGreyCard padding="0">
-      <AutoColumn py="16px" textAlign="center" gap="8px" width="100%" onFocus={handleOnFocus} onBlur={handleOnBlur}>
+    <StyledCard padding="0">
+      <AutoColumn
+        py="16px"
+        textAlign="center"
+        gap="8px"
+        width="100%"
+        onFocus={handleOnFocus}
+        onBlur={handleOnBlur}
+        style={{ fontSize: '12px', color: '#a0a3c4' }}
+        className={baseDisplay.className}
+      >
         {title}
-        <AutoRow>
+        <AutoRow style={{ padding: '0 10px' }}>
           {!locked && (
             <IconButton
               onClick={handleDecrement}
               disabled={decrementDisabled}
               scale="xs"
               variant="text"
-              style={{ width: 20, padding: 16 }}
+              style={{ width: 20, padding: 16, background: '#1B1C30', borderRadius: '6px' }}
             >
-              <RemoveIcon color="primary" width={20} height={20} />
+              <RemoveIcon color="primary" width={20} height={20} style={{ fill: 'white' }} />
             </IconButton>
           )}
 
@@ -116,15 +133,15 @@ const StepCounter = ({
               disabled={incrementDisabled}
               scale="xs"
               variant="text"
-              style={{ width: 20, padding: 16 }}
+              style={{ width: 20, padding: 16, background: '#1B1C30', borderRadius: '6px' }}
             >
-              <AddCircleIcon color="primary" width={20} height={20} />
+              <AddCircleIcon color="primary" width={20} height={20} style={{ fill: 'white' }} />
             </IconButton>
           )}
         </AutoRow>
         {t('%assetA% per %assetB%', { assetA: tokenB, assetB: tokenA })}
       </AutoColumn>
-    </LightGreyCard>
+    </StyledCard>
   )
 }
 

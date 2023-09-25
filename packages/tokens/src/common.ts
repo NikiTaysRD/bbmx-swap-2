@@ -106,6 +106,14 @@ export const BUSD_GOERLI = new ERC20Token(
   'https://www.paxos.com/busd/',
 )
 
+export const BBMX_BASE_GOERLI = new ERC20Token(
+  ChainId.GOERLI,
+  '0xefAbfBef1140A4e676b740BF19263Fe3Fb9aa92B',
+  18,
+  'BBMX',
+  'BBMX',
+)
+
 export const BUSD = {
   [ChainId.ETHEREUM]: BUSD_ETH,
   [ChainId.GOERLI]: BUSD_GOERLI,
@@ -118,6 +126,10 @@ export const BUSD = {
     'BUSD',
     'Binance USD',
   ),
+}
+
+export const BBMX = {
+  [ChainId.BASE_TESTNET]: BBMX_BASE_GOERLI,
 }
 
 export const CAKE = {
@@ -179,6 +191,14 @@ export const CAKE = {
     'PancakeSwap Token',
     'https://pancakeswap.finance/',
   ),
+  [ChainId.BASE_TESTNET]: new ERC20Token(
+    ChainId.BASE_TESTNET,
+    '0xd35b05c29201adcb81d86285b4cb86f3338fe4b0',
+    18,
+    'CAKE',
+    'PancakeSwap Token',
+    'https://pancakeswap.finance/',
+  ),
 }
 
 export const USDC = {
@@ -218,6 +238,13 @@ export const USDC = {
   [ChainId.LINEA_TESTNET]: new ERC20Token(
     ChainId.LINEA_TESTNET,
     '0xf56dc6695cF1f5c364eDEbC7Dc7077ac9B586068',
+    6,
+    'USDC',
+    'USD Coin',
+  ),
+  [ChainId.BASE_TESTNET]: new ERC20Token(
+    ChainId.BASE_TESTNET,
+    '0x853154e2A5604E5C74a2546E2871Ad44932eB92C',
     6,
     'USDC',
     'USD Coin',
@@ -277,4 +304,5 @@ export const STABLE_COIN = {
   [ChainId.POLYGON_ZKEVM]: USDT[ChainId.POLYGON_ZKEVM],
   [ChainId.POLYGON_ZKEVM_TESTNET]: USDT[ChainId.POLYGON_ZKEVM_TESTNET],
   [ChainId.LINEA_TESTNET]: USDC[ChainId.LINEA_TESTNET],
+  [ChainId.BASE_TESTNET]: USDC[ChainId.BASE_TESTNET],
 } satisfies Record<ChainId, ERC20Token>

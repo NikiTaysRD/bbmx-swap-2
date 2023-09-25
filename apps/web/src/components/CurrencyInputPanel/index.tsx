@@ -11,6 +11,7 @@ import {
   Skeleton,
   Swap as SwapUI,
   ArrowDropDownIcon,
+  FlexGap,
 } from '@pancakeswap/uikit'
 import styled, { css } from 'styled-components'
 import { isAddress } from 'utils'
@@ -24,6 +25,7 @@ import { StablePair } from 'views/AddLiquidity/AddStableLiquidity/hooks/useStabl
 
 import { FiatLogo } from 'components/Logo/CurrencyLogo'
 import { useAccount } from 'wagmi'
+import { baseDisplay } from 'pages/_app'
 import { useCurrencyBalance } from '../../state/wallet/hooks'
 import CurrencySearchModal from '../SearchModal/CurrencySearchModal'
 import { CurrencyLogo, DoubleCurrencyLogo } from '../Logo'
@@ -38,7 +40,7 @@ const InputRow = styled.div<{ selected: boolean }>`
   padding: ${({ selected }) => (selected ? '0.75rem 0.5rem 0.75rem 1rem' : '0.75rem 0.75rem 0.75rem 1rem')};
 `
 const CurrencySelectButton = styled(Button).attrs({ variant: 'text', scale: 'sm' })<{ zapStyle?: ZapStyle }>`
-  padding: 0px;
+  padding: 0;
 
   ${({ zapStyle, theme }) =>
     zapStyle &&
@@ -84,6 +86,8 @@ interface CurrencyInputPanelProps {
   inputLoading?: boolean
   title?: React.ReactNode
   hideBalanceComp?: boolean
+  backgroundColor?: string
+  height?: number
 }
 const CurrencyInputPanel = memo(function CurrencyInputPanel({
   value,
@@ -116,6 +120,8 @@ const CurrencyInputPanel = memo(function CurrencyInputPanel({
   inputLoading,
   title,
   hideBalanceComp,
+  backgroundColor,
+  height,
 }: CurrencyInputPanelProps) {
   const { address: account } = useAccount()
 
@@ -186,83 +192,91 @@ const CurrencyInputPanel = memo(function CurrencyInputPanel({
       onInputBlur={onInputBlur}
       onUserInput={handleUserInput}
       loading={inputLoading}
+      backgroundColor={backgroundColor}
+      height={height}
       top={
         <>
           {title}
-          <Flex alignItems="center">
-            {beforeButton}
-            <CurrencySelectButton
-              zapStyle={zapStyle}
-              className="open-currency-select-button"
-              selected={!!currency}
-              onClick={onCurrencySelectClick}
-            >
-              <Flex alignItems="center" justifyContent="space-between">
-                {pair ? (
-                  <DoubleCurrencyLogo currency0={pair.token0} currency1={pair.token1} size={16} margin />
-                ) : currency ? (
-                  id === 'onramp-input' ? (
-                    <FiatLogo currency={currency} size="24px" style={{ marginRight: '8px' }} />
+          <FlexGap flexDirection="column" alignItems="left" gap="4px">
+            <Flex alignItems="center">
+              {beforeButton}
+              <CurrencySelectButton
+                zapStyle={zapStyle}
+                className="open-currency-select-button"
+                selected={!!currency}
+                onClick={onCurrencySelectClick}
+              >
+                <Flex alignItems="center" justifyContent="space-between">
+                  {pair ? (
+                    <DoubleCurrencyLogo currency0={pair.token0} currency1={pair.token1} size={16} margin />
+                  ) : currency ? (
+                    id === 'onramp-input' ? (
+                      <FiatLogo currency={currency} size="24px" style={{ marginRight: '8px' }} />
+                    ) : (
+                      <CurrencyLogo currency={currency} size="24px" style={{ marginRight: '8px' }} />
+                    )
+                  ) : currencyLoading ? (
+                    <Skeleton width="24px" height="24px" variant="circle" />
+                  ) : null}
+                  {currencyLoading ? null : pair ? (
+                    <Text id="pair" bold>
+                      {pair?.token0.symbol}:{pair?.token1.symbol}
+                    </Text>
                   ) : (
-                    <CurrencyLogo currency={currency} size="24px" style={{ marginRight: '8px' }} />
-                  )
-                ) : currencyLoading ? (
-                  <Skeleton width="24px" height="24px" variant="circle" />
-                ) : null}
-                {currencyLoading ? null : pair ? (
-                  <Text id="pair" bold>
-                    {pair?.token0.symbol}:{pair?.token1.symbol}
-                  </Text>
-                ) : (
-                  <Text id="pair" bold>
-                    {(currency && currency.symbol && currency.symbol.length > 10
-                      ? `${currency.symbol.slice(0, 4)}...${currency.symbol.slice(
-                          currency.symbol.length - 5,
-                          currency.symbol.length,
-                        )}`
-                      : currency?.symbol) || t('Select a currency')}
-                  </Text>
-                )}
-                {!currencyLoading && !disableCurrencySelect && <ArrowDropDownIcon />}
-              </Flex>
-            </CurrencySelectButton>
-            {token && tokenAddress ? (
-              <Flex style={{ gap: '4px' }} ml="4px" alignItems="center">
-                <CopyButton
-                  width="16px"
-                  buttonColor="textSubtle"
-                  text={tokenAddress}
-                  tooltipMessage={t('Token address copied')}
-                />
-                <AddToWalletButton
-                  variant="text"
-                  p="0"
-                  height="auto"
-                  width="fit-content"
-                  tokenAddress={tokenAddress}
-                  tokenSymbol={token.symbol}
-                  tokenDecimals={token.decimals}
-                  tokenLogo={token instanceof WrappedTokenInfo ? token.logoURI : undefined}
-                />
-              </Flex>
-            ) : null}
-          </Flex>
-          {account && !hideBalanceComp && (
-            <Text
-              onClick={!disabled && onMax}
-              color="textSubtle"
-              fontSize="12px"
-              ellipsis
-              title={!hideBalance && !!currency ? t('Balance: %balance%', { balance: balance ?? t('Loading') }) : ' -'}
-              style={{ display: 'inline', cursor: 'pointer' }}
-            >
-              {!hideBalance && !!currency
-                ? balance?.replace('.', '')?.length > 12
-                  ? balance
-                  : t('Balance: %balance%', { balance: balance ?? t('Loading') })
-                : ' -'}
-            </Text>
-          )}
+                    <Text id="pair" bold>
+                      {(currency && currency.symbol && currency.symbol.length > 10
+                        ? `${currency.symbol.slice(0, 4)}...${currency.symbol.slice(
+                            currency.symbol.length - 5,
+                            currency.symbol.length,
+                          )}`
+                        : currency?.symbol) || t('Select a currency')}
+                    </Text>
+                  )}
+                  {!currencyLoading && !disableCurrencySelect && <ArrowDropDownIcon />}
+                  {token && tokenAddress ? (
+                    <Flex style={{ gap: '4px' }} ml="4px" alignItems="center">
+                      <CopyButton
+                        width="16px"
+                        buttonColor="textSubtle"
+                        text={tokenAddress}
+                        tooltipMessage={t('Token address copied')}
+                      />
+
+                      <AddToWalletButton
+                        variant="text"
+                        p="0"
+                        height="auto"
+                        width="fit-content"
+                        tokenAddress={tokenAddress}
+                        tokenSymbol={token.symbol}
+                        tokenDecimals={token.decimals}
+                        tokenLogo={token instanceof WrappedTokenInfo ? token.logoURI : undefined}
+                      />
+                    </Flex>
+                  ) : null}
+                </Flex>
+              </CurrencySelectButton>
+            </Flex>
+            {account && !hideBalanceComp && (
+              <Text
+                onClick={!disabled && onMax}
+                color="textSubtle"
+                fontSize="11px"
+                ellipsis
+                title={
+                  !hideBalance && !!currency ? t('Balance: %balance%', { balance: balance ?? t('Loading') }) : ' -'
+                }
+                style={{ display: 'inline', cursor: 'pointer' }}
+                className={baseDisplay.className}
+              >
+                {!hideBalance && !!currency
+                  ? balance?.replace('.', '')?.length > 12
+                    ? balance
+                    : t('Balance: %balance%', { balance: balance ?? t('Loading') })
+                  : ' -'}
+              </Text>
+            )}
+          </FlexGap>
         </>
       }
       bottom={
@@ -282,7 +296,7 @@ const CurrencyInputPanel = memo(function CurrencyInputPanel({
               </Flex>
             </Flex>
           )}
-          <InputRow selected={disableCurrencySelect}>
+          {/* <InputRow selected={disableCurrencySelect}>
             {account && currency && selectedCurrencyBalance?.greaterThan(0) && !disabled && label !== 'To' && (
               <Flex alignItems="right" justifyContent="right">
                 {maxAmount?.greaterThan(0) &&
@@ -327,7 +341,7 @@ const CurrencyInputPanel = memo(function CurrencyInputPanel({
                 )}
               </Flex>
             )}
-          </InputRow>
+          </InputRow> */}
         </>
       }
     />

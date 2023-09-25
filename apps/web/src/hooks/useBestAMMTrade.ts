@@ -87,7 +87,7 @@ export function useBestAMMTrade({ type = 'quoter', ...params }: useBestAMMTradeO
     enabled: Boolean(enabled && isQuoterEnabled && !isQuoterAPIEnabled),
     autoRevalidate: quoterAutoRevalidate,
   })
-
+  // console.log('===== quater ', bestTradeFromQuoterWorker, bestTradeFromQuoterApi)
   return useMemo(
     () => (isQuoterAPIEnabled ? bestTradeFromQuoterApi : bestTradeFromQuoterWorker),
     [bestTradeFromQuoterApi, bestTradeFromQuoterWorker, isQuoterAPIEnabled],
@@ -134,6 +134,12 @@ function bestTradeHookFactory({
       allowInconsistentBlock: true,
       enabled,
     })
+
+    // console.log('=====  ', baseCurrency, amount?.currency, currency, {
+    //   blockNumber,
+    //   allowInconsistentBlock: true,
+    //   enabled,
+    // })
     const poolProvider = useMemo(() => SmartRouter.createStaticPoolProvider(candidatePools), [candidatePools])
     const deferQuotientRaw = useDeferredValue(amount?.quotient?.toString())
     const deferQuotient = useDebounce(deferQuotientRaw, 500)
@@ -254,6 +260,7 @@ export const useBestAMMTradeFromQuoter = bestTradeHookFactory({
   quoterOptimization: false,
 })
 
+// DEBUGv1: nothing here
 export const useBestAMMTradeFromQuoterApi = bestTradeHookFactory({
   key: 'useBestAMMTradeFromQuoterApi',
   useCommonPools: useCommonPoolsLite,

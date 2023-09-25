@@ -1,10 +1,15 @@
 import { useTranslation } from '@pancakeswap/localization'
-import { AutoColumn, Box, Button, Card, Heading, Text } from '@pancakeswap/uikit'
+import { AutoColumn, Box, Button, Card, Flex, Heading, Text } from '@pancakeswap/uikit'
 import Page from 'components/Layout/Page'
 import dayjs from 'dayjs'
 import { useActiveChainId } from 'hooks/useActiveChainId'
 import useTheme from 'hooks/useTheme'
 import { useEffect, useMemo, useState } from 'react'
+import styled from 'styled-components'
+import { useMultiChainPath } from 'state/info/hooks'
+import { baseDisplay } from 'pages/_app'
+import { useRouter } from 'next/router'
+import { v3InfoPath } from 'views/V3Info/constants'
 import BarChart from './components/BarChart/alt'
 import { DarkGreyCard } from './components/Card'
 import LineChart from './components/LineChart/alt'
@@ -27,6 +32,44 @@ import { notEmpty } from './utils'
 import { getPercentChange } from './utils/data'
 import { unixToDate } from './utils/date'
 import { formatDollarAmount } from './utils/numbers'
+
+const StyledButton = styled(Button)<{ borderRadius?: 'string' }>`
+  border-radius: ${({ borderRadius }) => borderRadius ?? 'unset'};
+`
+
+const VersionSelectContainer = styled.div`
+  height: 35px;
+  width: 100px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.05);
+`
+
+const VersionSelectWrapper = styled.div<{ isV3?: boolean }>`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  a {
+    border-radius: ${({ isV3 }) => (isV3 ? '6px 0 0 6px' : '0 6px 6px 0')};
+  }
+`
+
+const VersionSelectLink = styled.a<{ isActive?: boolean }>`
+  background: ${({ isActive }) => isActive && '#4e09f8'};
+
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`
 
 export default function Home() {
   useEffect(() => {
@@ -88,6 +131,10 @@ export default function Home() {
   const monthlyVolumeData = useTransformedVolumeData(chartData, 'month')
   const [volumeWindow, setVolumeWindow] = useState(VolumeWindow.daily)
 
+  const router = useRouter()
+  const chainPath = useMultiChainPath()
+  const isV3 = router?.pathname?.includes(v3InfoPath)
+
   const formattedTokens = useMemo(() => {
     if (topTokensData)
       return Object.values(topTokensData)
@@ -111,11 +158,26 @@ export default function Home() {
 
   return (
     <Page>
-      <Heading scale="lg" mb="16px">
-        {t('PancakeSwap Info & Analytics')}
-      </Heading>
+      <Flex width="100%" justifyContent="space-between" alignItems="center">
+        <Heading scale="lg" mb="16px" id="info-overview-title">
+          BBMX Info & Analytics
+        </Heading>
+
+        <VersionSelectContainer>
+          <VersionSelectWrapper isV3={isV3}>
+            <VersionSelectLink href={`/info/v3${chainPath}`} isActive={isV3}>
+              V3
+            </VersionSelectLink>
+          </VersionSelectWrapper>
+          <VersionSelectWrapper isV3={isV3}>
+            <VersionSelectLink href={`/info${chainPath}`} isActive={!isV3}>
+              V2
+            </VersionSelectLink>
+          </VersionSelectWrapper>
+        </VersionSelectContainer>
+      </Flex>
       <ChartCardsContainer>
-        <Card>
+        <Card borderBackground="none">
           <LineChart
             data={formattedTvlData}
             height={220}
@@ -127,18 +189,20 @@ export default function Home() {
             setLabel={setLeftLabel}
             topLeft={
               <AutoColumn gap="4px">
-                <Text fontSize="16px">{t('TVL')}</Text>
-                <Text fontSize="32px">
+                <Text fontSize="14px" bold className={baseDisplay.className} lineHeight="1.2">
+                  {t('TVL')}
+                </Text>
+                <Text fontSize="1.75em" bold>
                   <MonoSpace>{tvlValue}</MonoSpace>
                 </Text>
-                <Text fontSize="12px" height="14px">
+                <Text fontSize="11px" color="#a0a3c4" lineHeight="160%" className={baseDisplay.className}>
                   <MonoSpace>{leftLabel ?? now.format('MMM D, YYYY')} (UTC)</MonoSpace>
                 </Text>
               </AutoColumn>
             }
           />
         </Card>
-        <Card>
+        <Card borderBackground="none">
           <BarChart
             height={200}
             minHeight={332}
@@ -156,43 +220,52 @@ export default function Home() {
             label={rightLabel}
             activeWindow={volumeWindow}
             topRight={
-              <RowFixed style={{ marginLeft: '-40px', marginTop: '8px' }}>
-                <Button
+              <RowFixed
+                style={{
+                  marginLeft: '-40px',
+                  marginTop: '8px',
+                  borderRadius: 'none',
+                }}
+              >
+                <StyledButton
                   scale="sm"
-                  variant={volumeWindow === VolumeWindow.daily ? 'primary' : 'bubblegum'}
+                  variant={volumeWindow === VolumeWindow.daily ? 'primary' : 'infochart'}
                   onClick={() => setVolumeWindow(VolumeWindow.daily)}
+                  borderRadius="6px 0 0 6px !important"
                 >
                   D
-                </Button>
-                <Button
+                </StyledButton>
+                <StyledButton
                   scale="sm"
-                  variant={volumeWindow === VolumeWindow.weekly ? 'primary' : 'bubblegum'}
-                  style={{ marginLeft: '8px' }}
+                  variant={volumeWindow === VolumeWindow.weekly ? 'primary' : 'infochart'}
+                  borderRadius="unset"
                   onClick={() => setVolumeWindow(VolumeWindow.weekly)}
                 >
                   W
-                </Button>
-                <Button
-                  variant={volumeWindow === VolumeWindow.monthly ? 'primary' : 'bubblegum'}
+                </StyledButton>
+                <StyledButton
+                  variant={volumeWindow === VolumeWindow.monthly ? 'primary' : 'infochart'}
                   scale="sm"
-                  style={{ marginLeft: '8px' }}
+                  borderRadius="0 6px 6px 0 !important"
                   onClick={() => setVolumeWindow(VolumeWindow.monthly)}
                 >
                   M
-                </Button>
+                </StyledButton>
               </RowFixed>
             }
             topLeft={
               <AutoColumn gap="4px">
-                <Text fontSize="16px">{t('Volume')}</Text>
-                <Text fontSize="32px">
+                <Text fontSize="14px" bold className={baseDisplay.className} lineHeight="1.2">
+                  Volume
+                </Text>
+                <Text fontSize="1.75em" bold>
                   <MonoSpace>
                     {volumeHover
                       ? formatDollarAmount(volumeHover)
                       : formatDollarAmount(formattedVolumeData[formattedVolumeData.length - 1]?.value, 2)}
                   </MonoSpace>
                 </Text>
-                <Text fontSize="12px" height="14px">
+                <Text fontSize="11px" color="#a0a3c4" lineHeight="160%" className={baseDisplay.className}>
                   <MonoSpace>{rightLabel ?? now.format('MMM D, YYYY')} (UTC)</MonoSpace>
                 </Text>
               </AutoColumn>
@@ -201,12 +274,16 @@ export default function Home() {
         </Card>
       </ChartCardsContainer>
       <ProtocolWrapper>
-        <DarkGreyCard>
+        <DarkGreyCard paddingLeft="0 !important" style={{ background: 'none' }}>
           <RowBetween>
             <RowFixed>
-              <RowFixed mr="20px">
-                <Text mr="4px">{t('Volume 24H')}: </Text>
-                <Text mr="4px">{formatDollarAmount(formattedVolumeData[formattedVolumeData.length - 1]?.value)}</Text>
+              <RowFixed mr="15px">
+                <Text mr="4px" fontSize="16px" lineHeight="160%" className={baseDisplay.className}>
+                  {t('Volume 24H')}:{' '}
+                </Text>
+                <Text mr="4px" fontSize="16px" lineHeight="160%" className={baseDisplay.className}>
+                  {formatDollarAmount(formattedVolumeData[formattedVolumeData.length - 1]?.value)}
+                </Text>
                 <Percent
                   value={getPercentChange(
                     formattedVolumeData[formattedVolumeData.length - 1]?.value.toString(),
@@ -215,15 +292,23 @@ export default function Home() {
                   wrap
                 />
               </RowFixed>
-              <RowFixed mr="20px">
-                <Text mr="4px">{t('Fees 24H')}: </Text>
-                <Text mr="4px">{formatDollarAmount(protocolData?.feesUSD)}</Text>
+              <RowFixed mr="15px">
+                <Text mr="4px" fontSize="16px" lineHeight="160%" className={baseDisplay.className}>
+                  {t('Fees 24H')}:{' '}
+                </Text>
+                <Text mr="4px" fontSize="16px" lineHeight="160%" className={baseDisplay.className}>
+                  {formatDollarAmount(protocolData?.feesUSD)}
+                </Text>
                 <Percent value={protocolData?.feeChange} wrap />
               </RowFixed>
               <Box>
-                <RowFixed mr="20px">
-                  <Text mr="4px">{t('TVL')}: </Text>
-                  <Text mr="4px">{formatDollarAmount(protocolData?.tvlUSD)}</Text>
+                <RowFixed mr="15px">
+                  <Text mr="4px" fontSize="16px" lineHeight="160%" className={baseDisplay.className}>
+                    {t('TVL')}:{' '}
+                  </Text>
+                  <Text mr="4px" fontSize="16px" lineHeight="160%" className={baseDisplay.className}>
+                    {formatDollarAmount(protocolData?.tvlUSD)}
+                  </Text>
                   <Percent value={protocolData?.tvlUSDChange} wrap />
                 </RowFixed>
               </Box>

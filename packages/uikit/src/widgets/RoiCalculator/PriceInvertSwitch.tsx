@@ -6,7 +6,9 @@ import styled from "styled-components";
 import { Flex, Text, Button, SyncAltIcon } from "../../components";
 
 const StyledButton = styled(Button)`
-  border-radius: 8px;
+  border-radius: 6px;
+  border: 2px solid #4e09f8;
+  color: #4e09f8;
   padding: 0 0.5em;
   font-size: 12px;
 `;
@@ -32,7 +34,7 @@ export const PriceInvertSwitch = memo(function PriceInvertSwitch({ baseCurrency,
         variant="secondary"
         scale="sm"
         onClick={onSwitch}
-        startIcon={<SyncAltIcon color="primary" width="14px" />}
+        startIcon={<SyncAltIcon color="#4e09f8" width="14px" />}
       >
         {baseCurrency.symbol}
       </StyledButton>

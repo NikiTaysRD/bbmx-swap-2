@@ -33,7 +33,6 @@ import { ApprovalState, useApproveCallback } from 'hooks/useApproveCallback'
 
 import { useTransactionAdder } from 'state/transactions/hooks'
 import { useV3NFTPositionManagerContract } from 'hooks/useContract'
-import { useRouter } from 'next/router'
 import { useIsTransactionUnsupported, useIsTransactionWarning } from 'hooks/Trades'
 import useActiveWeb3React from 'hooks/useActiveWeb3React'
 import { useTranslation } from '@pancakeswap/localization'
@@ -51,9 +50,9 @@ import { getViemClients } from 'utils/viem'
 import { calculateGasMargin } from 'utils'
 
 import { ZoomLevels, ZOOM_LEVELS } from 'components/LiquidityChartRangeInput/types'
+import { baseDisplay, baseMono } from 'pages/_app'
 import RangeSelector from './components/RangeSelector'
 import { PositionPreview } from './components/PositionPreview'
-import RateToggle from './components/RateToggle'
 import LockedDeposit from './components/LockedDeposit'
 import { useRangeHopCallbacks } from './form/hooks/useRangeHopCallbacks'
 import { useV3MintActionHandlers } from './form/hooks/useV3MintActionHandlers'
@@ -80,6 +79,7 @@ export const MediumOnly = styled.div`
   ${({ theme }) => theme.mediaQueries.md} {
     display: initial;
   }
+  font-size: 14px;
 `
 
 export const RightContainer = styled(AutoColumn)`
@@ -102,14 +102,16 @@ interface V3FormViewPropsType {
   feeAmount: number
 }
 
-export default function V3FormView({
-  feeAmount,
-  baseCurrency,
-  quoteCurrency,
-  currencyIdA,
-  currencyIdB,
-}: V3FormViewPropsType) {
-  const router = useRouter()
+const StyledMediumOnly = styled(MediumOnly)`
+  button {
+    background: #4e09f8;
+    border-radius: 6px;
+    opacity: 0.85;
+    color: white;
+  }
+`
+
+export default function V3FormView({ feeAmount, baseCurrency, quoteCurrency }: V3FormViewPropsType) {
   const { data: signer } = useWalletClient()
   const { sendTransactionAsync } = useSendTransaction()
   const [attemptingTxn, setAttemptingTxn] = useState<boolean>(false) // clicked confirm
@@ -429,7 +431,9 @@ export default function V3FormView({
         }}
         disabled={!feeAmount || invalidPool || (noLiquidity && !startPriceTypedValue) || (!priceLower && !priceUpper)}
       >
-        <PreTitle mb="8px">{t('Deposit Amount')}</PreTitle>
+        <PreTitle mb="8px" color="white" fontSize="14px" textTransform="capitalize" lineHeight="20px">
+          {t('Deposit Amount')}
+        </PreTitle>
 
         <LockedDeposit locked={depositADisabled} mb="8px">
           <Box mb="8px">
@@ -449,6 +453,7 @@ export default function V3FormView({
               id="add-liquidity-input-tokena"
               showCommonBases
               commonBasesType={CommonBasesType.LIQUIDITY}
+              backgroundColor="#101124"
             />
           </Box>
         </LockedDeposit>
@@ -470,6 +475,7 @@ export default function V3FormView({
             id="add-liquidity-input-tokenb"
             showCommonBases
             commonBasesType={CommonBasesType.LIQUIDITY}
+            backgroundColor="#101124"
           />
         </LockedDeposit>
       </DynamicSection>
@@ -503,53 +509,55 @@ export default function V3FormView({
           )}
           <DynamicSection disabled={!feeAmount || invalidPool}>
             <RowBetween mb="8px">
-              <PreTitle>{t('Set Price Range')}</PreTitle>
-              <RateToggle
-                currencyA={baseCurrency}
-                handleRateToggle={() => {
-                  if (!ticksAtLimit[Bound.LOWER] && !ticksAtLimit[Bound.UPPER]) {
-                    onLeftRangeInput((invertPrice ? priceLower : priceUpper?.invert())?.toSignificant(6) ?? '')
-                    onRightRangeInput((invertPrice ? priceUpper : priceLower?.invert())?.toSignificant(6) ?? '')
-                    onFieldAInput(formattedAmounts[Field.CURRENCY_B] ?? '')
-                  }
+              <PreTitle color="white" letterSpacing="1px" lineHeight="20px" textTransform="capitalize" fontSize="14px">
+                {t('Set Price Range')}
+              </PreTitle>
+              {/* <RateToggle */}
+              {/*  currencyA={baseCurrency} */}
+              {/*  handleRateToggle={() => { */}
+              {/*    if (!ticksAtLimit[Bound.LOWER] && !ticksAtLimit[Bound.UPPER]) { */}
+              {/*      onLeftRangeInput((invertPrice ? priceLower : priceUpper?.invert())?.toSignificant(6) ?? '') */}
+              {/*      onRightRangeInput((invertPrice ? priceUpper : priceLower?.invert())?.toSignificant(6) ?? '') */}
+              {/*      onFieldAInput(formattedAmounts[Field.CURRENCY_B] ?? '') */}
+              {/*    } */}
 
-                  router.replace(
-                    {
-                      pathname: router.pathname,
-                      query: {
-                        ...router.query,
-                        currency: [currencyIdB, currencyIdA, feeAmount ? feeAmount.toString() : ''],
-                      },
-                    },
-                    undefined,
-                    {
-                      shallow: true,
-                    },
-                  )
-                }}
-              />
+              {/*    router.replace( */}
+              {/*      { */}
+              {/*        pathname: router.pathname, */}
+              {/*        query: { */}
+              {/*          ...router.query, */}
+              {/*          currency: [currencyIdB, currencyIdA, feeAmount ? feeAmount.toString() : ''], */}
+              {/*        }, */}
+              {/*      }, */}
+              {/*      undefined, */}
+              {/*      { */}
+              {/*        shallow: true, */}
+              {/*      }, */}
+              {/*    ) */}
+              {/*  }} */}
+              {/* /> */}
             </RowBetween>
 
             {!noLiquidity && (
               <>
-                {price && baseCurrency && quoteCurrency && !noLiquidity && (
-                  <AutoRow
-                    gap="4px"
-                    marginBottom={['24px', '0px']}
-                    justifyContent="center"
-                    style={{ marginTop: '0.5rem' }}
-                  >
-                    <Text fontWeight={500} textAlign="center" fontSize={12} color="text1">
-                      {t('Current Price')}:
-                    </Text>
-                    <Text fontWeight={500} textAlign="center" fontSize={12} color="text1">
-                      {invertPrice ? price.invert().toSignificant(6) : price.toSignificant(6)}
-                    </Text>
-                    <Text color="text2" fontSize={12}>
-                      {quoteCurrency?.symbol} per {baseCurrency.symbol}
-                    </Text>
-                  </AutoRow>
-                )}
+                {/* {price && baseCurrency && quoteCurrency && !noLiquidity && ( */}
+                {/*  <AutoRow */}
+                {/*    gap="4px" */}
+                {/*    marginBottom={['24px', '0px']} */}
+                {/*    justifyContent="center" */}
+                {/*    style={{ marginTop: '0.5rem' }} */}
+                {/*  > */}
+                {/*    <Text fontWeight={500} textAlign="center" fontSize={12} color="text1"> */}
+                {/*      {t('Current Price')}: */}
+                {/*    </Text> */}
+                {/*    <Text fontWeight={500} textAlign="center" fontSize={12} color="text1"> */}
+                {/*      {invertPrice ? price.invert().toSignificant(6) : price.toSignificant(6)} */}
+                {/*    </Text> */}
+                {/*    <Text color="text2" fontSize={12}> */}
+                {/*      {quoteCurrency?.symbol} per {baseCurrency.symbol} */}
+                {/*    </Text> */}
+                {/*  </AutoRow> */}
+                {/* )} */}
                 <LiquidityChartRangeInput
                   zoomLevel={QUICK_ACTION_CONFIGS?.[feeAmount]?.[activeQuickAction]}
                   key={baseCurrency?.wrapped?.address}
@@ -599,6 +607,7 @@ export default function V3FormView({
                     }}
                     scale="md"
                     variant="danger"
+                    style={{ color: 'white', backgroundColor: '#4E09F8' }}
                   >
                     {t('I understand')}
                   </Button>
@@ -606,31 +615,31 @@ export default function V3FormView({
               </Message>
             ) : (
               <Flex justifyContent="space-between" width="100%" style={{ gap: '8px' }}>
-                {QUICK_ACTION_CONFIGS[feeAmount] &&
-                  Object.entries<ZoomLevels>(QUICK_ACTION_CONFIGS[feeAmount])
-                    ?.sort(([a], [b]) => +a - +b)
-                    .map(([quickAction, zoomLevel]) => {
-                      return (
-                        <Button
-                          width="100%"
-                          key={`quickActions${quickAction}`}
-                          onClick={() => {
-                            if (+quickAction === activeQuickAction) {
-                              handleRefresh(ZOOM_LEVELS[feeAmount])
-                              return
-                            }
-                            handleRefresh(zoomLevel)
+                {/* {QUICK_ACTION_CONFIGS[feeAmount] && */}
+                {/*  Object.entries<ZoomLevels>(QUICK_ACTION_CONFIGS[feeAmount]) */}
+                {/*    ?.sort(([a], [b]) => +a - +b) */}
+                {/*    .map(([quickAction, zoomLevel]) => { */}
+                {/*      return ( */}
+                {/*        <Button */}
+                {/*          width="100%" */}
+                {/*          key={`quickActions${quickAction}`} */}
+                {/*          onClick={() => { */}
+                {/*            if (+quickAction === activeQuickAction) { */}
+                {/*              handleRefresh(ZOOM_LEVELS[feeAmount]) */}
+                {/*              return */}
+                {/*            } */}
+                {/*            handleRefresh(zoomLevel) */}
 
-                            setActiveQuickAction(+quickAction)
-                            isQuickButtonUsed.current = true
-                          }}
-                          variant={+quickAction === activeQuickAction ? 'primary' : 'secondary'}
-                          scale="sm"
-                        >
-                          {quickAction}%
-                        </Button>
-                      )
-                    })}
+                {/*            setActiveQuickAction(+quickAction) */}
+                {/*            isQuickButtonUsed.current = true */}
+                {/*          }} */}
+                {/*          variant={+quickAction === activeQuickAction ? 'primary' : 'secondary'} */}
+                {/*          scale="sm" */}
+                {/*        > */}
+                {/*          {quickAction}% */}
+                {/*        </Button> */}
+                {/*      ) */}
+                {/*    })} */}
                 <Button
                   width="200%"
                   onClick={() => {
@@ -644,6 +653,14 @@ export default function V3FormView({
                   }}
                   variant={activeQuickAction === 100 ? 'primary' : 'secondary'}
                   scale="sm"
+                  className={baseDisplay.className}
+                  style={{
+                    borderRadius: '6px',
+                    border: '1px solid #4E09F8',
+                    lineHeight: '30px',
+                    fontSize: '12px',
+                    color: '#4E09F8',
+                  }}
                 >
                   {t('Full Range')}
                 </Button>
@@ -669,7 +686,7 @@ export default function V3FormView({
               </Message>
             ) : null}
           </DynamicSection>
-          <MediumOnly>{buttons}</MediumOnly>
+          <StyledMediumOnly className={baseMono.className}>{buttons}</StyledMediumOnly>
         </AutoColumn>
       </RightContainer>
     </>

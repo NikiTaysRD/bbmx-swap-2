@@ -141,74 +141,90 @@ const Row: React.FunctionComponent<React.PropsWithChildren<RowPropsWithLoading>>
   }, [isSmallerScreen, props.type])
   const columnNames = useMemo(() => tableSchema.map((column) => column.name), [tableSchema])
 
+  console.log(props)
+
   return (
     <>
       {!isMobile ? (
-        <StyledTr onClick={toggleActionPanel}>
-          {Object.keys(props).map((key) => {
-            const columnIndex = columnNames.indexOf(key)
-            if (columnIndex === -1) {
-              return null
-            }
+        <StyledTr
+          onClick={toggleActionPanel}
+          style={{
+            background: '#1B1C30',
+            borderRadius: '12px',
+            border: '1px solid rgba(255,255,255,0.1)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-evenly',
+            flexDirection: 'column',
+          }}
+        >
+          <Flex flexDirection="row" alignItems="center" width="100%" justifyContent="space-evenly">
+            {Object.keys(props).map((key) => {
+              const columnIndex = columnNames.indexOf(key)
+              if (columnIndex === -1) {
+                return null
+              }
 
-            switch (key) {
-              case 'type':
-                return (
-                  <td key={key}>
-                    <CellInner style={{ minWidth: '140px', gap: '4px' }}>
-                      {(props[key] === 'community' || props?.farm?.isCommunity) && <FarmAuctionTag scale="sm" />}
-                      {props.type === 'v2' ? (
-                        props?.details?.isStable ? (
-                          <StableFarmTag scale="sm" />
-                        ) : (
-                          <V2Tag scale="sm" />
-                        )
-                      ) : null}
-                      {props.type === 'v3' && <V3FeeTag feeAmount={props.details.feeAmount} scale="sm" />}
-                      {props?.details?.boosted && props.type === 'v3' ? <BoostedTag scale="sm" /> : null}
-                    </CellInner>
-                  </td>
-                )
-              case 'details':
-                return (
-                  <td key={key} colSpan={props.type === 'v3' ? 1 : 3}>
-                    <CellInner
-                      style={{
-                        justifyContent: props.type !== 'v3' ? 'flex-end' : 'center',
-                      }}
-                    >
-                      <CellLayout>
-                        <Details actionPanelToggled={actionPanelExpanded} />
-                      </CellLayout>
-                    </CellInner>
-                  </td>
-                )
-              case 'apr':
-                if (props.type === 'v3') {
+              switch (key) {
+                case 'type':
                   return (
                     <td key={key}>
-                      <CellInner onClick={(e) => e.stopPropagation()}>
-                        <CellLayout label={t('APR')}>
-                          <FarmV3ApyButton farm={props.details} />
+                      <CellInner
+                        style={{ minWidth: '140px', gap: '4px', flexDirection: 'column', alignItems: 'flex-start' }}
+                      >
+                        {(props[key] === 'community' || props?.farm?.isCommunity) && <FarmAuctionTag scale="sm" />}
+                        {props.type === 'v2' ? (
+                          props?.details?.isStable ? (
+                            <StableFarmTag scale="sm" />
+                          ) : (
+                            <V2Tag scale="sm" />
+                          )
+                        ) : null}
+                        <span>{props.farm.label}</span>
+                        {props.type === 'v3' && <V3FeeTag feeAmount={props.details.feeAmount} scale="sm" />}
+                      </CellInner>
+                    </td>
+                  )
+                case 'details':
+                  return (
+                    <td key={key} colSpan={props.type === 'v3' ? 1 : 3}>
+                      <CellInner
+                        style={{
+                          justifyContent: props.type !== 'v3' ? 'flex-end' : 'center',
+                        }}
+                      >
+                        <CellLayout>
+                          <Details actionPanelToggled={actionPanelExpanded} />
                         </CellLayout>
                       </CellInner>
                     </td>
                   )
-                }
+                case 'apr':
+                  if (props.type === 'v3') {
+                    return (
+                      <td key={key}>
+                        <CellInner onClick={(e) => e.stopPropagation()}>
+                          <CellLayout label={t('APR')}>
+                            <FarmV3ApyButton farm={props.details} />
+                          </CellLayout>
+                        </CellInner>
+                      </td>
+                    )
+                  }
 
-                return (
-                  <td key={key}>
-                    <CellInner>
-                      <CellLayout label={t('APR')}>
-                        <Apr
-                          {...props.apr}
-                          hideButton={isSmallerScreen}
-                          strikethrough={false}
-                          boosted={false}
-                          farmCakePerSecond={multiplier.farmCakePerSecond}
-                          totalMultipliers={multiplier.totalMultipliers}
-                        />
-                        {/* {props?.details?.boosted && userDataReady ? (
+                  return (
+                    <td key={key}>
+                      <CellInner>
+                        <CellLayout label={t('APR')}>
+                          <Apr
+                            {...props.apr}
+                            hideButton={isSmallerScreen}
+                            strikethrough={false}
+                            boosted={false}
+                            farmCakePerSecond={multiplier.farmCakePerSecond}
+                            totalMultipliers={multiplier.totalMultipliers}
+                          />
+                          {/* {props?.details?.boosted && userDataReady ? (
                           <BoostedApr
                             lpRewardsApr={props?.apr?.lpRewardsApr}
                             apr={props?.apr?.originalValue}
@@ -221,78 +237,103 @@ const Row: React.FunctionComponent<React.PropsWithChildren<RowPropsWithLoading>>
                             }
                           />
                         ) : null} */}
-                      </CellLayout>
-                    </CellInner>
-                  </td>
-                )
-              default:
-                if (cells[key]) {
-                  return (
-                    <td key={key}>
-                      <CellInner>
-                        <CellLayout label={t(tableSchema[columnIndex].label)}>
-                          {createElement(cells[key], { ...props[key], userDataReady })}
                         </CellLayout>
                       </CellInner>
                     </td>
                   )
-                }
-                return null
-            }
-          })}
+                default:
+                  if (cells[key]) {
+                    return (
+                      <td key={key}>
+                        <CellInner>
+                          <CellLayout label={t(tableSchema[columnIndex].label)}>
+                            {createElement(cells[key], { ...props[key], userDataReady })}
+                          </CellLayout>
+                        </CellInner>
+                      </td>
+                    )
+                  }
+                  return null
+              }
+            })}
+          </Flex>
+          <Flex width="100%">
+            {shouldRenderChild && (
+              <tr style={{ width: '100%' }}>
+                <td colSpan={9} style={{ display: 'flex', flexDirection: 'column' }}>
+                  {props.type === 'v3' ? (
+                    <ActionPanelV3 {...props} expanded={actionPanelExpanded} alignLinksToRight={isMobile} />
+                  ) : (
+                    <ActionPanelV2 {...props} expanded={actionPanelExpanded} alignLinksToRight={isMobile} />
+                  )}
+                </td>
+              </tr>
+            )}
+          </Flex>
         </StyledTr>
       ) : (
         <>
-          <tr style={{ cursor: 'pointer' }} onClick={toggleActionPanel}>
-            <FarmMobileCell colSpan={3}>
-              <Flex justifyContent="space-between" alignItems="center">
-                <FarmCell {...props.farm} />
-                <Flex
-                  mr="16px"
-                  alignItems={isMobile ? 'end' : 'center'}
-                  flexDirection={isMobile ? 'column' : 'row'}
-                  style={{ gap: '4px' }}
-                >
-                  {props.type === 'v2' ? (
-                    props?.details?.isStable ? (
-                      <StableFarmTag scale="sm" />
-                    ) : (
-                      <V2Tag scale="sm" />
-                    )
-                  ) : null}
-                  {props.type === 'v3' && <V3FeeTag feeAmount={props.details.feeAmount} scale="sm" />}
-                  {props.type === 'community' || props?.farm?.isCommunity ? <FarmAuctionTag scale="sm" /> : null}
-                  {props?.details?.boosted && props.type === 'v3' ? (
-                    <BoostedTag style={{ background: 'none', verticalAlign: 'bottom' }} scale="sm" />
-                  ) : null}
+          <StyledTr
+            onClick={toggleActionPanel}
+            style={{
+              background: '#1B1C30',
+              borderRadius: '12px',
+              border: '1px solid rgba(255,255,255,0.1)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-evenly',
+              flexDirection: 'column',
+            }}
+          >
+            <Flex>
+              {' '}
+              <FarmMobileCell colSpan={3}>
+                <Flex justifyContent="space-between" alignItems="center">
+                  <FarmCell {...props.farm} />
+                  <Flex
+                    mr="16px"
+                    alignItems={isMobile ? 'end' : 'center'}
+                    flexDirection={isMobile ? 'column' : 'row'}
+                    style={{ gap: '4px' }}
+                  >
+                    {props.type === 'v2' ? (
+                      props?.details?.isStable ? (
+                        <StableFarmTag scale="sm" />
+                      ) : (
+                        <V2Tag scale="sm" />
+                      )
+                    ) : null}
+                    {props.type === 'v3' && <V3FeeTag feeAmount={props.details.feeAmount} scale="sm" />}
+                    {props.type === 'community' || props?.farm?.isCommunity ? <FarmAuctionTag scale="sm" /> : null}
+                    {/* {props?.details?.boosted && props.type === 'v3' ? ( */}
+                    {/*  <BoostedTag style={{ background: 'none', verticalAlign: 'bottom' }} scale="sm" /> */}
+                    {/* ) : null} */}
+                  </Flex>
                 </Flex>
-              </Flex>
-            </FarmMobileCell>
-          </tr>
-          <StyledTr onClick={toggleActionPanel}>
-            <td width="33%">
-              <EarnedMobileCell>
-                <CellLayout label={t('Earned')}>
-                  <Earned {...props.earned} userDataReady={userDataReady} />
-                </CellLayout>
-              </EarnedMobileCell>
-            </td>
-            <td width="33%">
-              <AprMobileCell>
-                <CellLayout label={t('APR')}>
-                  {props.type === 'v3' ? (
-                    <FarmV3ApyButton farm={props.details} />
-                  ) : (
-                    <>
-                      <Apr
-                        {...props.apr}
-                        hideButton
-                        strikethrough={props?.details?.boosted}
-                        boosted={props?.details?.boosted}
-                        farmCakePerSecond={multiplier.farmCakePerSecond}
-                        totalMultipliers={multiplier.totalMultipliers}
-                      />
-                      {/* {props?.details?.boosted && userDataReady ? (
+              </FarmMobileCell>
+              <td width="33%">
+                <EarnedMobileCell>
+                  <CellLayout label={t('Earned')}>
+                    <Earned {...props.earned} userDataReady={userDataReady} />
+                  </CellLayout>
+                </EarnedMobileCell>
+              </td>
+              <td width="33%">
+                <AprMobileCell>
+                  <CellLayout label={t('APR')}>
+                    {props.type === 'v3' ? (
+                      <FarmV3ApyButton farm={props.details} />
+                    ) : (
+                      <>
+                        <Apr
+                          {...props.apr}
+                          hideButton
+                          strikethrough={props?.details?.boosted}
+                          boosted={props?.details?.boosted}
+                          farmCakePerSecond={multiplier.farmCakePerSecond}
+                          totalMultipliers={multiplier.totalMultipliers}
+                        />
+                        {/* {props?.details?.boosted && userDataReady ? (
                         <BoostedApr
                           lpRewardsApr={props?.apr?.lpRewardsApr}
                           apr={props?.apr?.originalValue}
@@ -307,29 +348,33 @@ const Row: React.FunctionComponent<React.PropsWithChildren<RowPropsWithLoading>>
                           }
                         />
                       ) : null} */}
-                    </>
-                  )}
-                </CellLayout>
-              </AprMobileCell>
-            </td>
-            <td width="33%">
-              <CellInner style={{ justifyContent: 'flex-end' }}>
-                <Details actionPanelToggled={actionPanelExpanded} />
-              </CellInner>
-            </td>
+                      </>
+                    )}
+                  </CellLayout>
+                </AprMobileCell>
+              </td>
+              <td width="33%">
+                <CellInner style={{ justifyContent: 'flex-end' }}>
+                  <Details actionPanelToggled={actionPanelExpanded} />
+                </CellInner>
+              </td>
+            </Flex>
+
+            <Flex width="100%">
+              {shouldRenderChild && (
+                <tr style={{ width: '100%' }}>
+                  <td colSpan={9} style={{ display: 'flex', flexDirection: 'column' }}>
+                    {props.type === 'v3' ? (
+                      <ActionPanelV3 {...props} expanded={actionPanelExpanded} alignLinksToRight={isMobile} />
+                    ) : (
+                      <ActionPanelV2 {...props} expanded={actionPanelExpanded} alignLinksToRight={isMobile} />
+                    )}
+                  </td>
+                </tr>
+              )}
+            </Flex>
           </StyledTr>
         </>
-      )}
-      {shouldRenderChild && (
-        <tr>
-          <td colSpan={9}>
-            {props.type === 'v3' ? (
-              <ActionPanelV3 {...props} expanded={actionPanelExpanded} alignLinksToRight={isMobile} />
-            ) : (
-              <ActionPanelV2 {...props} expanded={actionPanelExpanded} alignLinksToRight={isMobile} />
-            )}
-          </td>
-        </tr>
       )}
     </>
   )

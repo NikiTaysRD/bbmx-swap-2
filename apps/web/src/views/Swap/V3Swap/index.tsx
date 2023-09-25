@@ -1,6 +1,6 @@
 import { SmartRouter } from '@pancakeswap/smart-router/evm'
 import throttle from 'lodash/throttle'
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { Box } from '@pancakeswap/uikit'
 
 import { shouldShowMMLiquidityError } from 'views/Swap/MMLinkPools/utils/exchange'
@@ -8,19 +8,13 @@ import { MMLiquidityWarning } from 'views/Swap/MMLinkPools/components/MMLiquidit
 
 import { useDerivedBestTradeWithMM } from '../MMLinkPools/hooks/useDerivedSwapInfoWithMM'
 import { useCheckInsufficientError } from './hooks/useCheckSufficient'
-import {
-  FormHeader,
-  FormMain,
-  MMTradeDetail,
-  PricingAndSlippage,
-  SwapCommitButton,
-  TradeDetails,
-  BuyCryptoLink,
-} from './containers'
+import { FormHeader, FormMain, PricingAndSlippage, SwapCommitButton } from './containers'
 import { MMCommitButton } from './containers/MMCommitButton'
 import { useSwapBestTrade } from './hooks'
 
-export function V3SwapForm() {
+export function V3SwapForm({ setIsLimitOpened, setIsSettingsOpened, isSwap }) {
+  const [isShowMarket, setIsShowMarket] = useState(true)
+
   const { isLoading, trade, refresh, syncing, isStale, error } = useSwapBestTrade()
   const mm = useDerivedBestTradeWithMM(trade)
   const throttledHandleRefresh = useMemo(
@@ -40,12 +34,25 @@ export function V3SwapForm() {
 
   return (
     <>
-      <FormHeader onRefresh={throttledHandleRefresh} refreshDisabled={!tradeLoaded || syncing || !isStale} />
+      <FormHeader
+        onRefresh={throttledHandleRefresh}
+        refreshDisabled={!tradeLoaded || syncing || !isStale}
+        setIsShowMarket={setIsShowMarket}
+        isShowMarket={isShowMarket}
+        setIsLimitOpened={setIsLimitOpened}
+        setIsSettingsOpened={setIsSettingsOpened}
+        isSwap={isSwap}
+      />
       <FormMain
         tradeLoading={mm.isMMBetter ? false : !tradeLoaded}
         pricingAndSlippage={<PricingAndSlippage priceLoading={isLoading} price={price} showSlippage={!mm.isMMBetter} />}
+        isMMBetter={mm.isMMBetter}
         inputAmount={finalTrade?.inputAmount}
+        loaded={!mm.mmOrderBookTrade.isLoading}
+        trade={trade}
+        mmTrade={mm.mmTradeInfo}
         outputAmount={finalTrade?.outputAmount}
+        isShowMarket={isShowMarket}
         swapCommitButton={
           mm?.isMMBetter ? (
             <MMCommitButton {...mm} />
@@ -55,13 +62,8 @@ export function V3SwapForm() {
         }
       />
 
-      <BuyCryptoLink currency={insufficientFundCurrency} />
+      {/* <BuyCryptoLink currency={insufficientFundCurrency} /> */}
 
-      {mm.isMMBetter ? (
-        <MMTradeDetail loaded={!mm.mmOrderBookTrade.isLoading} mmTrade={mm.mmTradeInfo} />
-      ) : (
-        <TradeDetails loaded={tradeLoaded} trade={trade} />
-      )}
       {(shouldShowMMLiquidityError(mm?.mmOrderBookTrade?.inputError) || mm?.mmRFQTrade?.error) && !trade && (
         <Box mt="5px">
           <MMLiquidityWarning />

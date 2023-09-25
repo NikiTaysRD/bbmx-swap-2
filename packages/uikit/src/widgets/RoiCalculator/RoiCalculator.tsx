@@ -7,7 +7,7 @@ import { BIG_ZERO } from "@pancakeswap/utils/bigNumber";
 import { isPositionOutOfRange } from "@pancakeswap/utils/isPositionOutOfRange";
 import { formatPercent, formatFraction, formatPrice } from "@pancakeswap/utils/formatFractions";
 
-import { ScrollableContainer } from "../../components/RoiCalculatorModal/RoiCalculatorModal";
+import styled from "styled-components";
 import { LiquidityChartRangeInput, Button, DynamicSection, Flex, Message, MessageText } from "../../components";
 import { Section } from "./Section";
 import { DepositAmountInput } from "./DepositAmount";
@@ -84,6 +84,12 @@ type RoiCalculatorFarmProps = {
   cakePrice?: string;
   cakeAprFactor?: BigNumber;
 };
+
+const StyledFullRangeButton = styled(Button)`
+  border-radius: 6px;
+  border: 1px solid #4e09f8;
+  color: #4e09f8;
+`;
 
 // Price is always price of token0
 export function RoiCalculator({
@@ -397,14 +403,14 @@ export function RoiCalculator({
           feeAmount={feeAmount}
           ticksAtLimit={priceRange?.ticksAtLimit || {}}
         />
-        <Button
+        <StyledFullRangeButton
           onClick={priceRange?.toggleFullRange}
           variant={priceRange?.fullRange ? "primary" : "secondary"}
           mb="16px"
           scale="sm"
         >
           {t("Full Range")}
-        </Button>
+        </StyledFullRangeButton>
       </DynamicSection>
     </Section>
   );
@@ -466,8 +472,8 @@ export function RoiCalculator({
 
   return (
     <>
-      <ScrollableContainer>
-        {warningMessage}
+      <div style={{ padding: "24px" }}>
+        {/* {warningMessage} */}
         {content}
         <ImpermanentLossCalculator
           lpReward={lpReward}
@@ -490,7 +496,7 @@ export function RoiCalculator({
             {t("Apply Settings")}
           </Button>
         )}
-      </ScrollableContainer>
+      </div>
       <Details
         totalYield={totalReward}
         lpReward={lpReward}

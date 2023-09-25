@@ -3,6 +3,7 @@ import { memo, useCallback, useMemo } from "react";
 
 import { ButtonMenuItem, Flex, Checkbox } from "../../components";
 import { FullWidthButtonMenu } from "./FullWidthButtonMenu";
+import { StyledTimeButtonMenuItem } from "./StyledTimeButtonMenuItem";
 
 export const FREQUENCIES = ["12h", "1d", "7d", "30d"];
 
@@ -56,9 +57,9 @@ export const CompoundFrequency = memo(function CompoundFrequency({
       <Flex flex="6">
         <FullWidthButtonMenu scale="sm" disabled={!on} activeIndex={compoundIndex} onItemClick={onCompoundChange}>
           {frequencies.map((frequency) => (
-            <ButtonMenuItem key={frequency.key} variant="tertiary">
+            <StyledTimeButtonMenuItem key={frequency.key} variant="tertiary">
               {frequency.text}
-            </ButtonMenuItem>
+            </StyledTimeButtonMenuItem>
           ))}
         </FullWidthButtonMenu>
       </Flex>

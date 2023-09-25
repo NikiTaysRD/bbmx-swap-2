@@ -7,13 +7,14 @@ import { useRouter } from 'next/router'
 import { useCallback, useContext, useEffect, useState } from 'react'
 import { useSwapActionHandlers } from 'state/swap/useSwapActionHandlers'
 import { currencyId } from 'utils/currencyId'
-
 import { useSwapHotTokenDisplay } from 'hooks/useSwapHotTokenDisplay'
-import { useCurrency } from 'hooks/Tokens'
 import { Field } from 'state/swap/actions'
 import { useDefaultsFromURLSearch, useSingleTokenSwapInfo, useSwapState } from 'state/swap/hooks'
+import PriceChartContainer from 'views/Swap/components/Chart/PriceChartContainer'
+import { useCurrency } from 'hooks/Tokens'
+import { SettingsMode } from 'components/Menu/GlobalSettings/types'
+import GlobalSettings from 'components/Menu/GlobalSettings'
 import Page from '../Page'
-import PriceChartContainer from './components/Chart/PriceChartContainer'
 import HotTokenList from './components/HotTokenList'
 import useWarningImport from './hooks/useWarningImport'
 import { V3SwapForm } from './V3Swap'
@@ -28,12 +29,15 @@ export default function Swap() {
     isChartDisplayed,
     setIsChartDisplayed,
     setIsChartExpanded,
-    isChartSupported,
     isHotTokenSupported,
+    isChartSupported,
   } = useContext(SwapFeaturesContext)
   const [isSwapHotTokenDisplay, setIsSwapHotTokenDisplay] = useSwapHotTokenDisplay()
   const { t } = useTranslation()
   const [firstTime, setFirstTime] = useState(true)
+  const [isLimitOpened, setIsLimitOpened] = useState(false)
+  const [isSettingsOpened, setIsSettingsOpened] = useState(false)
+  const [isReducedTop, setIsReducedTop] = useState(false)
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   const toggleChartDisplayed = () => {
@@ -46,25 +50,21 @@ export default function Swap() {
       setIsSwapHotTokenDisplay(true)
 
       if (!isSwapHotTokenDisplay && isChartDisplayed) {
-        toggleChartDisplayed()
+        setIsChartDisplayed((currentIsChartDisplayed) => !currentIsChartDisplayed)
       }
     }
-  }, [firstTime, isChartDisplayed, isSwapHotTokenDisplay, query, setIsSwapHotTokenDisplay, toggleChartDisplayed])
+  }, [firstTime, isChartDisplayed, isSwapHotTokenDisplay, query, setIsSwapHotTokenDisplay, setIsChartDisplayed])
 
   // swap state & price data
+
   const {
     [Field.INPUT]: { currencyId: inputCurrencyId },
     [Field.OUTPUT]: { currencyId: outputCurrencyId },
   } = useSwapState()
+
   const inputCurrency = useCurrency(inputCurrencyId)
   const outputCurrency = useCurrency(outputCurrencyId)
 
-  const currencies: { [field in Field]?: Currency } = {
-    [Field.INPUT]: inputCurrency ?? undefined,
-    [Field.OUTPUT]: outputCurrency ?? undefined,
-  }
-
-  const singleTokenPrice = useSingleTokenSwapInfo(inputCurrencyId, inputCurrency, outputCurrencyId, outputCurrency)
   const warningSwapHandler = useWarningImport()
   useDefaultsFromURLSearch()
   const { onCurrencySelection } = useSwapActionHandlers()
@@ -84,9 +84,25 @@ export default function Swap() {
     [inputCurrencyId, outputCurrencyId, onCurrencySelection, warningSwapHandler],
   )
 
+  const singleTokenPrice = useSingleTokenSwapInfo(inputCurrencyId, inputCurrency, outputCurrencyId, outputCurrency)
+
+  // swap state & price data
+
+  const currencies: { [field in Field]?: Currency } = {
+    [Field.INPUT]: inputCurrency ?? undefined,
+    [Field.OUTPUT]: outputCurrency ?? undefined,
+  }
+
   return (
     <Page removePadding={isChartExpanded} hideFooterOnDesktop={isChartExpanded}>
-      <Flex width={['328px', '100%']} height="100%" justifyContent="center" position="relative" alignItems="flex-start">
+      <Flex
+        width={['328px', '100%']}
+        height="100%"
+        justifyContent="center"
+        position="relative"
+        alignItems="flex-start"
+        pb={isChartDisplayed && '50px'}
+      >
         {isDesktop && isChartSupported && (
           <PriceChartContainer
             inputCurrencyId={inputCurrencyId}
@@ -119,9 +135,9 @@ export default function Swap() {
             setIsOpen={setIsChartDisplayed}
           />
         )}
-        {isDesktop && isSwapHotTokenDisplay && isHotTokenSupported && (
-          <HotTokenList handleOutputSelect={handleOutputSelect} />
-        )}
+        {/* {isDesktop && isSwapHotTokenDisplay && isHotTokenSupported && ( */}
+        {/*  <HotTokenList handleOutputSelect={handleOutputSelect} /> */}
+        {/* )} */}
         <ModalV2
           isOpen={!isDesktop && isSwapHotTokenDisplay && isHotTokenSupported}
           onDismiss={() => setIsSwapHotTokenDisplay(false)}
@@ -141,13 +157,43 @@ export default function Swap() {
           </Modal>
         </ModalV2>
         <Flex flexDirection="column">
-          <StyledSwapContainer $isChartExpanded={isChartExpanded}>
+          <StyledSwapContainer $isChartExpanded={isChartExpanded} justifyContent="center">
             <StyledInputCurrencyWrapper mt={isChartExpanded ? '24px' : '0'}>
-              <AppBody>
-                <V3SwapForm />
-              </AppBody>
+              <div style={{ backgroundColor: '#1b1c30', borderRadius: '22px', minWidth: isDesktop ? '' : '95%' }}>
+                <AppBody
+                  style={{
+                    maxWidth: isDesktop ? 'unset' : '',
+                    minWidth: isDesktop ? (isChartDisplayed ? '450px' : '520px') : '100%',
+                    background: 'rgb(27, 28, 48)',
+                  }}
+                >
+                  <V3SwapForm
+                    setIsLimitOpened={() => {
+                      setIsLimitOpened(!isLimitOpened)
+                      setIsReducedTop(!isReducedTop)
+                    }}
+                    setIsSettingsOpened={() => setIsSettingsOpened(!isSettingsOpened)}
+                    isSwap
+                  />
+                </AppBody>
+                {isSettingsOpened && (
+                  <GlobalSettings
+                    color="textSubtle"
+                    mr="0"
+                    mode={SettingsMode.SWAP_LIQUIDITY}
+                    isSwap
+                    reducedTop={isReducedTop}
+                  />
+                )}
+              </div>
             </StyledInputCurrencyWrapper>
           </StyledSwapContainer>
+
+          {/* {isLimitOpened && ( */}
+          {/*  <Flex mt="24px" width="100%"> */}
+          {/*    <LimitOrderTable isCompact={!isDesktop} /> */}
+          {/*  </Flex> */}
+          {/* )} */}
         </Flex>
       </Flex>
     </Page>

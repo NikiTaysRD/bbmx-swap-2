@@ -4,7 +4,7 @@ import { ThemeContext as StyledThemeContext } from 'styled-components'
 import { useTheme as useNextTheme } from 'next-themes'
 
 export const COOKIE_THEME_KEY = 'theme'
-export const THEME_DOMAIN = '.pancakeswap.finance'
+export const THEME_DOMAIN = '.vercel.app'
 
 const useTheme = () => {
   const { resolvedTheme, setTheme } = useNextTheme()
@@ -23,7 +23,7 @@ const useTheme = () => {
   )
 
   return useMemo(
-    () => ({ isDark: resolvedTheme === 'dark', theme, setTheme: handleSwitchTheme }),
+    () => ({ isDark: true, theme, setTheme: handleSwitchTheme }),
     [theme, resolvedTheme, handleSwitchTheme],
   )
 }

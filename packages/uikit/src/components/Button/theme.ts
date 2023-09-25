@@ -64,4 +64,9 @@ export const styleVariants = {
     color: "textSubtle",
     boxShadow: "none",
   },
+  [variants.INFOCHART]: {
+    background: "rgba(255,255,255,0.05)",
+    color: "textSubtle",
+    boxShadow: "none",
+  },
 };

@@ -139,19 +139,20 @@ export const pageVariants = recipe({
       width: "100%",
       height: "100%",
       background: "gradientBubblegum",
-      padding: "16px",
+      padding: "1px",
       paddingBottom: "0px",
     }),
     style({
       backgroundSize: "auto",
+      minHeight: "100vh",
     }),
     responsiveStyle({
       sm: {
-        padding: "24px",
+        padding: "0",
         paddingBottom: "0px",
       },
       lg: {
-        padding: "32px",
+        padding: "0",
         paddingBottom: "0px",
       },
     }),

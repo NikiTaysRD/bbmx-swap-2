@@ -18,7 +18,7 @@ import { useTranslation } from '@pancakeswap/localization'
 import styled from 'styled-components'
 import useCakeBenefits from './hooks/useCakeBenefits'
 
-const CakeBenefitsCardWrapper = styled(Box)`
+const CakeBenefitsCardWrapper = styled((props) => <Box {...props} />)`
   width: 100%;
   margin-bottom: 24px;
   padding: 1px 1px 3px 1px;
@@ -26,7 +26,7 @@ const CakeBenefitsCardWrapper = styled(Box)`
   border-radius: ${({ theme }) => theme.radii.default};
 `
 
-const CakeBenefitsCardInner = styled(Box)`
+const CakeBenefitsCardInner = styled((props) => <Box {...props} />)`
   position: relative;
   z-index: 1;
   padding: 8px 12px;

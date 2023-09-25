@@ -14,6 +14,7 @@ import { multiChainId, subgraphTokenSymbol } from 'state/info/constant'
 
 import { formatAmount } from 'utils/formatInfoNumbers'
 import { useDomainNameForAddress } from 'hooks/useDomain'
+import { baseDisplay } from 'pages/_app'
 import { Arrow, Break, ClickableColumnHeader, PageButtons, TableWrapper } from './shared'
 
 const Wrapper = styled.div`
@@ -254,49 +255,66 @@ const TransactionTable: React.FC<
       </Flex>
       <TableWrapper>
         <ResponsiveGrid>
-          <Text color="secondary" fontSize="12px" bold textTransform="uppercase">
+          <Text
+            color="#4E09F8"
+            fontSize="16px"
+            bold
+            lineHeight="160%"
+            className={baseDisplay.className}
+            textTransform="uppercase"
+          >
             {t('Action')}
           </Text>
           <ClickableColumnHeader
-            color="secondary"
-            fontSize="12px"
+            color="#4E09F8"
+            fontSize="16px"
             bold
+            lineHeight="160%"
+            className={baseDisplay.className}
             onClick={() => handleSort(SORT_FIELD.amountUSD)}
             textTransform="uppercase"
           >
             {t('Total Value')} {arrow(SORT_FIELD.amountUSD)}
           </ClickableColumnHeader>
           <ClickableColumnHeader
-            color="secondary"
-            fontSize="12px"
+            color="#4E09F8"
+            fontSize="16px"
             bold
+            lineHeight="160%"
+            className={baseDisplay.className}
             onClick={() => handleSort(SORT_FIELD.amountToken0)}
             textTransform="uppercase"
           >
             {t('Token Amount')} {arrow(SORT_FIELD.amountToken0)}
           </ClickableColumnHeader>
           <ClickableColumnHeader
-            color="secondary"
-            fontSize="12px"
+            color="#4E09F8"
+            fontSize="16px"
             bold
+            lineHeight="160%"
+            className={baseDisplay.className}
             onClick={() => handleSort(SORT_FIELD.amountToken1)}
             textTransform="uppercase"
           >
             {t('Token Amount')} {arrow(SORT_FIELD.amountToken1)}
           </ClickableColumnHeader>
           <ClickableColumnHeader
-            color="secondary"
-            fontSize="12px"
+            color="#4E09F8"
+            fontSize="16px"
             bold
+            lineHeight="160%"
+            className={baseDisplay.className}
             onClick={() => handleSort(SORT_FIELD.sender)}
             textTransform="uppercase"
           >
             {t('Account')} {arrow(SORT_FIELD.sender)}
           </ClickableColumnHeader>
           <ClickableColumnHeader
-            color="secondary"
-            fontSize="12px"
+            color="#4E09F8"
+            fontSize="16px"
             bold
+            lineHeight="160%"
+            className={baseDisplay.className}
             onClick={() => handleSort(SORT_FIELD.timestamp)}
             textTransform="uppercase"
           >
@@ -321,7 +339,9 @@ const TransactionTable: React.FC<
             })}
             {sortedTransactions.length === 0 ? (
               <Flex justifyContent="center">
-                <Text>{t('No Transactions')}</Text>
+                <Text color="#4E09F8" fontSize="16px" bold lineHeight="160%" className={baseDisplay.className}>
+                  {t('No Transactions')}
+                </Text>
               </Flex>
             ) : undefined}
             <PageButtons>
@@ -330,16 +350,18 @@ const TransactionTable: React.FC<
                   setPage(page === 1 ? page : page - 1)
                 }}
               >
-                <ArrowBackIcon color={page === 1 ? 'textDisabled' : 'primary'} />
+                <ArrowBackIcon color="primary" />
               </Arrow>
 
-              <Text>{t('Page %page% of %maxPage%', { page, maxPage })}</Text>
+              <Text color="white" fontSize="16px" lineHeight="160%" className={baseDisplay.className}>
+                {t('Page %page% of %maxPage%', { page, maxPage })}
+              </Text>
               <Arrow
                 onClick={() => {
                   setPage(page === maxPage ? page : page + 1)
                 }}
               >
-                <ArrowForwardIcon color={page === maxPage ? 'textDisabled' : 'primary'} />
+                <ArrowForwardIcon color="primary" />
               </Arrow>
             </PageButtons>
           </>

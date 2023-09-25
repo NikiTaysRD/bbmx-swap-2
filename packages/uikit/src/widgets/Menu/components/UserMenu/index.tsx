@@ -5,16 +5,15 @@ import { Box, Flex } from "../../../../components/Box";
 import { ChevronDownIcon } from "../../../../components/Svg";
 import { UserMenuProps, variants } from "./types";
 import MenuIcon from "./MenuIcon";
-import { UserMenuItem } from "./styles";
 
 export const StyledUserMenu = styled(Flex)`
   align-items: center;
-  background-color: ${({ theme }) => theme.colors.tertiary};
-  border-radius: 16px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 6px;
   box-shadow: inset 0px -2px 0px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   display: inline-flex;
-  height: 32px;
+  height: 36px;
   padding-left: 32px;
   padding-right: 8px;
   position: relative;
@@ -39,12 +38,13 @@ export const LabelText = styled.div`
 const Menu = styled.div<{ isOpen: boolean }>`
   background-color: ${({ theme }) => theme.card.background};
   border: 1px solid ${({ theme }) => theme.colors.cardBorder};
-  border-radius: 16px;
+  border-radius: 6px;
   padding-bottom: 4px;
   padding-top: 4px;
   pointer-events: auto;
   width: 280px;
   visibility: visible;
+  //transform: translate(-50px, 50px) !important;
   z-index: 1001;
 
   ${({ isOpen }) =>
@@ -53,14 +53,6 @@ const Menu = styled.div<{ isOpen: boolean }>`
     pointer-events: none;
     visibility: hidden;
   `}
-
-  ${UserMenuItem}:first-child {
-    border-radius: 8px 8px 0 0;
-  }
-
-  ${UserMenuItem}:last-child {
-    border-radius: 0 0 8px 8px;
-  }
 `;
 
 const UserMenu: React.FC<UserMenuProps> = ({
@@ -71,7 +63,7 @@ const UserMenu: React.FC<UserMenuProps> = ({
   variant = variants.DEFAULT,
   children,
   disabled,
-  placement = "bottom-end",
+  placement = "bottom",
   recalculatePopover,
   ellipsis = true,
   ...props

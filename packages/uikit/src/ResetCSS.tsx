@@ -62,10 +62,11 @@ const ResetCSS = createGlobalStyle`
   *::after {
     box-sizing: border-box;
   }
+  
   * {
-    font-family: 'Kanit', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-weight: 400;
   }
 
   /* Number */
@@ -79,17 +80,15 @@ const ResetCSS = createGlobalStyle`
   }
 
   /* Scrollbar */
-  ::-webkit-scrollbar {
-    width: 8px;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: ${({ theme }) => theme.colors.textSubtle}; 
-    border-radius: 8px;
-  }
-  ::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px ${({ theme }) => theme.colors.input}; 
-    border-radius: 10px;
-  }
+  //.long-list-ul::-webkit-scrollbar {
+  //  width: 4px;
+  //}
+  //.long-list-ul::-webkit-scrollbar-track {
+  //  background:transparent;
+  //}
+  //.long-list-ul::-webkit-scrollbar-thumb {
+  //  background:rgba(255,255,255,0.1);
+  //}
 
   /* Slider */ 
   input[type=range] {

@@ -1,122 +1,96 @@
-import { vars } from "@pancakeswap/ui/css/vars.css";
-import { useIsMounted } from "@pancakeswap/hooks";
 import React from "react";
-import { Box, Flex } from "../Box";
-import { Link } from "../Link";
-import {
-  StyledFooter,
-  StyledIconMobileContainer,
-  StyledList,
-  StyledListItem,
-  StyledSocialLinks,
-  StyledText,
-  StyledToolsContainer,
-} from "./styles";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPaperPlane, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faTwitter } from "@fortawesome/free-brands-svg-icons";
+import Link from "next/link";
+import { Tooltip } from "react-tooltip";
+import { Flex } from "../Box";
+import { Container, Input, ListItem, StyledFooter, TextH, TextP, Button, SocialIcon } from "./styles";
 
-import { Button } from "../Button";
-import CakePrice from "../CakePrice/CakePrice";
-import LangSelector from "../LangSelector/LangSelector";
-import { ArrowForwardIcon, LogoWithTextIcon } from "../Svg";
-import { ThemeSwitcher } from "../ThemeSwitcher";
 import { FooterProps } from "./types";
-import { SkeletonV2 } from "../Skeleton";
+import Logo from "../../widgets/Menu/components/Logo";
+import { FlexGap } from "../Layouts";
+import { useMatchBreakpoints } from "../../contexts";
+import { baseDisplay, baseMono } from "../../../../../apps/web/src/pages/_app";
 
-const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({
-  items,
-  isDark,
-  toggleTheme,
-  currentLang,
-  langs,
-  setLang,
-  cakePriceUsd,
-  buyCakeLabel,
-  buyCakeLink,
-  chainId,
-  ...props
-}) => {
-  const isMounted = useIsMounted();
+const MenuItem: React.FC<React.PropsWithChildren<FooterProps>> = ({ ...props }) => {
+  const { isMobile } = useMatchBreakpoints();
+  const { isTablet } = useMatchBreakpoints();
+
   return (
-    <StyledFooter
-      data-theme="dark"
-      p={["40px 16px", null, "56px 40px 32px 40px"]}
-      position="relative"
-      {...props}
-      justifyContent="center"
-    >
-      <Flex flexDirection="column" width={["100%", null, "1200px;"]}>
-        <StyledIconMobileContainer display={["block", null, "none"]}>
-          <LogoWithTextIcon width="130px" />
-        </StyledIconMobileContainer>
-        <Flex
-          order={[2, null, 1]}
-          flexDirection={["column", null, "row"]}
+    <StyledFooter data-theme="dark" p={["40px 16px", null, "56px 40px 32px 40px"]} position="relative" {...props}>
+      <Container>
+        <FlexGap
           justifyContent="space-between"
-          alignItems="flex-start"
-          mb={["42px", null, "36px"]}
+          alignItems="center"
+          mb="45px"
+          flexDirection={isMobile ? "column" : "row"}
+          gap="30px"
         >
-          {items?.map((item) => (
-            <StyledList key={item.label}>
-              <StyledListItem>{item.label}</StyledListItem>
-              {item.items?.map(({ label, href, isHighlighted = false }) => (
-                <StyledListItem key={label}>
-                  {href ? (
-                    <Link
-                      data-theme="dark"
-                      href={href}
-                      target="_blank"
-                      rel="noreferrer noopener"
-                      color={isHighlighted ? vars.colors.warning : "text"}
-                      bold={false}
-                    >
-                      {label}
-                    </Link>
-                  ) : (
-                    <StyledText>{label}</StyledText>
-                  )}
-                </StyledListItem>
-              ))}
-            </StyledList>
-          ))}
-          <Box display={["none", null, "block"]}>
-            <LogoWithTextIcon width="160px" />
-          </Box>
+          <Flex width="106px">
+            <Logo href="/" />
+          </Flex>
+
+          <FlexGap alignItems="center" flexDirection={isMobile ? "column" : "row"} gap="30px">
+            <Flex mr={isMobile ? "0" : "30px"} className={baseDisplay.className}>
+              <div data-tooltip-id="BBMXSwap" data-tooltip-content="Coming Soon">
+                <ListItem>BBMXSwap</ListItem>
+                <Tooltip id="BBMXSwap" place="bottom" style={{ backgroundColor: "#000" }} />
+              </div>
+
+              <div data-tooltip-id="Docs" data-tooltip-content="Coming Soon">
+                <ListItem>Docs</ListItem>
+                <Tooltip id="Docs" place="bottom" style={{ backgroundColor: "#000" }} />
+              </div>
+
+              <ListItem>Contact Us</ListItem>
+            </Flex>
+
+            <FlexGap gap="30px">
+              <SocialIcon>
+                <Link href="https://twitter.com/bbmxexchange" target="_blank">
+                  <FontAwesomeIcon icon={faTwitter} />
+                </Link>
+              </SocialIcon>
+
+              <SocialIcon>
+                <Link href="https://t.me/BBMXExchange" target="_blank">
+                  <FontAwesomeIcon icon={faPaperPlane} />
+                </Link>
+              </SocialIcon>
+
+              <SocialIcon>
+                <Link href="mailto:business@bbmx.exchange" target="_blank">
+                  <FontAwesomeIcon icon={faEnvelope} />
+                </Link>
+              </SocialIcon>
+            </FlexGap>
+          </FlexGap>
+        </FlexGap>
+
+        <Flex>
+          <Flex
+            flexDirection="column"
+            width={isTablet || isMobile ? "100%" : "42%"}
+            alignItems={isMobile ? "center" : undefined}
+          >
+            <TextH className={baseMono.className}>KEEP UP WITH THE LATEST FROM BBMX</TextH>
+            <TextP className={baseDisplay.className}>Subscribe to our Mirror blog.</TextP>
+
+            <Flex mb="20px" width="100%">
+              <Flex width="70%">
+                <Input placeholder="Enter your email" className={baseDisplay.className} />
+              </Flex>
+
+              <Flex justifyContent="space-between" alignItems="center" width="30%">
+                <Button className={baseMono.className}>Subscribe</Button>
+              </Flex>
+            </Flex>
+
+            <TextP className={baseDisplay.className}>© 2023 BBMX</TextP>
+          </Flex>
         </Flex>
-        <StyledSocialLinks order={[2]} pb={["42px", null, "32px"]} mb={["0", null, "32px"]} />
-        <StyledToolsContainer
-          data-theme="dark"
-          order={[1, null, 3]}
-          flexDirection={["column", null, "row"]}
-          justifyContent="space-between"
-        >
-          <Flex order={[2, null, 1]} alignItems="center">
-            <SkeletonV2 variant="round" width="56px" height="32px" isDataReady={isMounted}>
-              <ThemeSwitcher isDark={isDark} toggleTheme={toggleTheme} />
-            </SkeletonV2>
-            <LangSelector
-              currentLang={currentLang}
-              langs={langs}
-              setLang={setLang}
-              color="textSubtle"
-              dropdownPosition="top-right"
-            />
-          </Flex>
-          <Flex order={[1, null, 2]} mb={["24px", null, "0"]} justifyContent="space-between" alignItems="center">
-            <Box mr="20px">
-              <CakePrice chainId={chainId} cakePriceUsd={cakePriceUsd} color="textSubtle" />
-            </Box>
-            <Button
-              data-theme={isDark ? "dark" : "light"}
-              as="a"
-              href={buyCakeLink}
-              target="_blank"
-              scale="sm"
-              endIcon={<ArrowForwardIcon color="backgroundAlt" />}
-            >
-              {buyCakeLabel}
-            </Button>
-          </Flex>
-        </StyledToolsContainer>
-      </Flex>
+      </Container>
     </StyledFooter>
   );
 };

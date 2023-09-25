@@ -27,6 +27,7 @@ export function useSwapBestTrade({ maxHops }: Options = {}) {
   } = useSwapState()
   const inputCurrency = useCurrency(inputCurrencyId)
   const outputCurrency = useCurrency(outputCurrencyId)
+  // console.log('====== inputCurrency ', inputCurrency, outputCurrency)
   const isExactIn = independentField === Field.INPUT
   const independentCurrency = isExactIn ? inputCurrency : outputCurrency
   const dependentCurrency = isExactIn ? outputCurrency : inputCurrency
@@ -51,7 +52,7 @@ export function useSwapBestTrade({ maxHops }: Options = {}) {
     stableSwap,
     type: 'auto',
   })
-
+  // console.log('====== trade type ', typedValue, trade)
   return {
     refresh,
     syncing,

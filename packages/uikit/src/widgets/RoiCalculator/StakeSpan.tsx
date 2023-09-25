@@ -3,6 +3,7 @@ import { useMemo, memo } from "react";
 
 import { ButtonMenuItem } from "../../components";
 import { FullWidthButtonMenu } from "./FullWidthButtonMenu";
+import { StyledTimeButtonMenuItem } from "./StyledTimeButtonMenuItem";
 
 export const SPANS = ["1d", "7d", "30d", "1y", "5y"];
 
@@ -47,9 +48,9 @@ export const StakeSpan = memo(function StakeSpan({
   return (
     <FullWidthButtonMenu activeIndex={spanIndex} onItemClick={onSpanChange} scale="sm">
       {SPAN.map((span) => (
-        <ButtonMenuItem key={span.key} variant="tertiary">
+        <StyledTimeButtonMenuItem key={span.key} variant="tertiary">
           {span.text}
-        </ButtonMenuItem>
+        </StyledTimeButtonMenuItem>
       ))}
     </FullWidthButtonMenu>
   );

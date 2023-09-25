@@ -1,7 +1,8 @@
-import { Flex, Button, Text, QuestionHelper } from '@pancakeswap/uikit'
+import { Flex, Button, Text, QuestionHelper, FlexGap } from '@pancakeswap/uikit'
 import { useTranslation } from '@pancakeswap/localization'
 import { useGasPriceManager } from 'state/user/hooks'
 import { GAS_PRICE_GWEI, GAS_PRICE } from 'state/types'
+import { baseDisplay } from 'pages/_app'
 
 const GasSettings = () => {
   const { t } = useTranslation()
@@ -10,7 +11,9 @@ const GasSettings = () => {
   return (
     <Flex flexDirection="column">
       <Flex mb="12px" alignItems="center">
-        <Text>{t('Default Transaction Speed (GWEI)')}</Text>
+        <Text fontSize="16px" className={baseDisplay.className}>
+          Default Transaction Speed (GWEI)
+        </Text>
         <QuestionHelper
           text={
             <Flex flexDirection="column">
@@ -26,7 +29,7 @@ const GasSettings = () => {
           ml="4px"
         />
       </Flex>
-      <Flex flexWrap="wrap">
+      <FlexGap gap="5px" flexWrap="wrap" mb="10px" justifyContent="space-evenly">
         <Button
           mt="4px"
           mr="4px"
@@ -35,8 +38,9 @@ const GasSettings = () => {
             setGasPrice(GAS_PRICE_GWEI.rpcDefault)
           }}
           variant={gasPrice === GAS_PRICE_GWEI.rpcDefault ? 'primary' : 'tertiary'}
+          style={{ width: '45%' }}
         >
-          {t('Default')}
+          <Text fontSize="10px">{t('Default')}</Text>
         </Button>
         <Button
           mt="4px"
@@ -46,8 +50,9 @@ const GasSettings = () => {
             setGasPrice(GAS_PRICE_GWEI.default)
           }}
           variant={gasPrice === GAS_PRICE_GWEI.default ? 'primary' : 'tertiary'}
+          style={{ width: '45%' }}
         >
-          {t('Standard (%gasPrice%)', { gasPrice: GAS_PRICE.default })}
+          <Text fontSize="10px"> {t('Standard (%gasPrice%)', { gasPrice: GAS_PRICE.default })}</Text>
         </Button>
         <Button
           mt="4px"
@@ -57,8 +62,9 @@ const GasSettings = () => {
             setGasPrice(GAS_PRICE_GWEI.fast)
           }}
           variant={gasPrice === GAS_PRICE_GWEI.fast ? 'primary' : 'tertiary'}
+          style={{ width: '45%' }}
         >
-          {t('Fast (%gasPrice%)', { gasPrice: GAS_PRICE.fast })}
+          <Text fontSize="10px"> {t('Fast (%gasPrice%)', { gasPrice: GAS_PRICE.fast })}</Text>
         </Button>
         <Button
           mr="4px"
@@ -68,10 +74,11 @@ const GasSettings = () => {
             setGasPrice(GAS_PRICE_GWEI.instant)
           }}
           variant={gasPrice === GAS_PRICE_GWEI.instant ? 'primary' : 'tertiary'}
+          style={{ width: '45%' }}
         >
-          {t('Instant (%gasPrice%)', { gasPrice: GAS_PRICE.instant })}
+          <Text fontSize="10px"> {t('Instant (%gasPrice%)', { gasPrice: GAS_PRICE.instant })}</Text>
         </Button>
-      </Flex>
+      </FlexGap>
     </Flex>
   )
 }

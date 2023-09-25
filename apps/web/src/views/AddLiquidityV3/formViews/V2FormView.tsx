@@ -1,15 +1,6 @@
 import { CommonBasesType } from 'components/SearchModal/types'
 
-import {
-  AutoColumn,
-  Button,
-  Dots,
-  RowBetween,
-  Text,
-  Box,
-  BunnyKnownPlaceholder,
-  DynamicSection,
-} from '@pancakeswap/uikit'
+import { AutoColumn, Button, Dots, RowBetween, Text, Box, DynamicSection } from '@pancakeswap/uikit'
 import { logGTMClickAddLiquidityEvent } from 'utils/customGTMEventTracking'
 
 import { CommitButton } from 'components/CommitButton'
@@ -29,8 +20,20 @@ import { InfoBox } from 'components/InfoBox'
 import { LP2ChildrenProps } from 'views/AddLiquidity'
 import { Percent } from '@pancakeswap/sdk'
 
-import { HideMedium, MediumOnly, RightContainer } from './V3FormView'
+import { baseDisplay, baseMono } from 'pages/_app'
+import LiquidityBox from '@pancakeswap/uikit/src/components/Svg/Icons/LiquidityBox'
+import styled from 'styled-components'
 import RangeSelector from './V3FormView/components/RangeSelector'
+import { HideMedium, MediumOnly, RightContainer } from './V3FormView'
+
+const StyledMediumOnly = styled(MediumOnly)`
+  button {
+    background: #4e09f8;
+    border-radius: 6px;
+    opacity: 0.85;
+    color: white;
+  }
+`
 
 export default function V2FormView({
   formattedAmounts,
@@ -112,7 +115,14 @@ export default function V2FormView({
   return (
     <>
       <AutoColumn>
-        <Text mb="8px" bold fontSize="12px" textTransform="uppercase" color="secondary">
+        <Text
+          mb="8px"
+          bold
+          fontSize="12px"
+          textTransform="capitalize"
+          className={baseDisplay.className}
+          style={{ color: 'white', fontSize: '14px', lineHeight: '20px', letterSpacing: '1px' }}
+        >
           {t('Deposit Amount')}
         </Text>
 
@@ -137,6 +147,7 @@ export default function V2FormView({
             id="add-liquidity-input-tokena"
             showCommonBases
             commonBasesType={CommonBasesType.LIQUIDITY}
+            backgroundColor="#101124"
           />
         </Box>
 
@@ -160,6 +171,7 @@ export default function V2FormView({
           id="add-liquidity-input-tokenb"
           showCommonBases
           commonBasesType={CommonBasesType.LIQUIDITY}
+          backgroundColor="#101124"
         />
       </AutoColumn>
       <HideMedium>{buttons}</HideMedium>
@@ -167,7 +179,7 @@ export default function V2FormView({
       <RightContainer>
         <AutoColumn pt="12px" gap="24px">
           <DynamicSection disabled gap="12px">
-            <InfoBox message={t('Your position will appear here.')} icon={<BunnyKnownPlaceholder />} />
+            <InfoBox message={t('Your position will appear here.')} icon={<LiquidityBox />} />
             <RangeSelector
               getDecrementLower={mockFn}
               getIncrementLower={mockFn}
@@ -184,7 +196,7 @@ export default function V2FormView({
               }}
             />
           </DynamicSection>
-          <MediumOnly>{buttons}</MediumOnly>
+          <StyledMediumOnly className={baseMono.className}>{buttons}</StyledMediumOnly>
         </AutoColumn>
       </RightContainer>
     </>

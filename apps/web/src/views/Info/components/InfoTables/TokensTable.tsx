@@ -18,6 +18,7 @@ import Percent from 'views/Info/components/Percent'
 import { useTranslation } from '@pancakeswap/localization'
 import orderBy from 'lodash/orderBy'
 import { formatAmount } from 'utils/formatInfoNumbers'
+import { baseDisplay } from 'pages/_app'
 import { Arrow, Break, ClickableColumnHeader, PageButtons, TableWrapper } from './shared'
 
 /**
@@ -107,24 +108,40 @@ const DataRow: React.FC<React.PropsWithChildren<{ tokenData: TokenData; index: n
     <LinkWrapper to={`/info${chianPath}/tokens/${tokenData.address}${stableSwapPath}`}>
       <ResponsiveGrid>
         <Flex>
-          <Text>{index + 1}</Text>
+          <Text color="white" fontSize="16px" lineHeight="160%" className={baseDisplay.className}>
+            {index + 1}
+          </Text>
         </Flex>
         <Flex alignItems="center">
           <ResponsiveLogo size="24px" address={tokenData.address} chainName={chainName} />
-          {(isXs || isSm) && <Text ml="8px">{tokenData.symbol}</Text>}
+          {(isXs || isSm) && (
+            <Text ml="8px" color="white" fontSize="16px" lineHeight="160%" className={baseDisplay.className}>
+              {tokenData.symbol}
+            </Text>
+          )}
           {!isXs && !isSm && (
             <Flex marginLeft="10px">
-              <Text>{subgraphTokenName[tokenData.address] ?? tokenData.name}</Text>
-              <Text ml="8px">({subgraphTokenSymbol[tokenData.address] ?? tokenData.symbol})</Text>
+              <Text color="white" fontSize="16px" lineHeight="160%" className={baseDisplay.className}>
+                {subgraphTokenName[tokenData.address] ?? tokenData.name}
+              </Text>
+              <Text ml="8px" color="white" fontSize="16px" lineHeight="160%" className={baseDisplay.className}>
+                ({subgraphTokenSymbol[tokenData.address] ?? tokenData.symbol})
+              </Text>
             </Flex>
           )}
         </Flex>
-        <Text fontWeight={400}>${formatAmount(tokenData.priceUSD, { notation: 'standard' })}</Text>
-        <Text fontWeight={400}>
+        <Text color="white" fontSize="16px" lineHeight="160%" className={baseDisplay.className} fontWeight={400}>
+          ${formatAmount(tokenData.priceUSD, { notation: 'standard' })}
+        </Text>
+        <Text color="white" fontSize="16px" lineHeight="160%" className={baseDisplay.className} fontWeight={400}>
           <Percent value={tokenData.priceUSDChange} fontWeight={400} />
         </Text>
-        <Text fontWeight={400}>${formatAmount(tokenData.volumeUSD)}</Text>
-        <Text fontWeight={400}>${formatAmount(tokenData.liquidityUSD)}</Text>
+        <Text color="white" fontSize="16px" lineHeight="160%" className={baseDisplay.className} fontWeight={400}>
+          ${formatAmount(tokenData.volumeUSD)}
+        </Text>
+        <Text color="white" fontSize="16px" lineHeight="160%" className={baseDisplay.className} fontWeight={400}>
+          ${formatAmount(tokenData.liquidityUSD)}
+        </Text>
       </ResponsiveGrid>
     </LinkWrapper>
   )
@@ -193,51 +210,61 @@ const TokenTable: React.FC<
     return <Skeleton />
   }
   return (
-    <TableWrapper>
+    <TableWrapper style={{ borderRadius: '6px', border: 'none', padding: '25px 15px' }}>
       <ResponsiveGrid>
-        <Text color="secondary" fontSize="12px" bold>
+        <Text color="#4E09F8" fontSize="16px" bold lineHeight="160%" className={baseDisplay.className}>
           #
         </Text>
         <ClickableColumnHeader
-          color="secondary"
-          fontSize="12px"
+          color="#4E09F8"
+          fontSize="16px"
           bold
+          lineHeight="160%"
+          className={baseDisplay.className}
           onClick={() => handleSort(SORT_FIELD.name)}
           textTransform="uppercase"
         >
           {t('Name')} {arrow(SORT_FIELD.name)}
         </ClickableColumnHeader>
         <ClickableColumnHeader
-          color="secondary"
-          fontSize="12px"
+          color="#4E09F8"
+          fontSize="16px"
           bold
+          lineHeight="160%"
+          className={baseDisplay.className}
           onClick={() => handleSort(SORT_FIELD.priceUSD)}
           textTransform="uppercase"
         >
           {t('Price')} {arrow(SORT_FIELD.priceUSD)}
         </ClickableColumnHeader>
         <ClickableColumnHeader
-          color="secondary"
-          fontSize="12px"
+          color="#4E09F8"
+          fontSize="16px"
           bold
+          lineHeight="160%"
+          className={baseDisplay.className}
           onClick={() => handleSort(SORT_FIELD.priceUSDChange)}
           textTransform="uppercase"
         >
           {t('Price Change')} {arrow(SORT_FIELD.priceUSDChange)}
         </ClickableColumnHeader>
         <ClickableColumnHeader
-          color="secondary"
-          fontSize="12px"
+          color="#4E09F8"
+          fontSize="16px"
           bold
+          lineHeight="160%"
+          className={baseDisplay.className}
           onClick={() => handleSort(SORT_FIELD.volumeUSD)}
           textTransform="uppercase"
         >
           {t('Volume 24H')} {arrow(SORT_FIELD.volumeUSD)}
         </ClickableColumnHeader>
         <ClickableColumnHeader
-          color="secondary"
-          fontSize="12px"
+          color="#4E09F8"
+          fontSize="16px"
           bold
+          lineHeight="160%"
+          className={baseDisplay.className}
           onClick={() => handleSort(SORT_FIELD.liquidityUSD)}
           textTransform="uppercase"
         >
@@ -265,15 +292,17 @@ const TokenTable: React.FC<
                 setPage(page === 1 ? page : page - 1)
               }}
             >
-              <ArrowBackIcon color={page === 1 ? 'textDisabled' : 'primary'} />
+              <ArrowBackIcon color="primary" />
             </Arrow>
-            <Text>{t('Page %page% of %maxPage%', { page, maxPage })}</Text>
+            <Text color="white" fontSize="16px" lineHeight="160%" className={baseDisplay.className}>
+              {t('Page %page% of %maxPage%', { page, maxPage })}
+            </Text>
             <Arrow
               onClick={() => {
                 setPage(page === maxPage ? page : page + 1)
               }}
             >
-              <ArrowForwardIcon color={page === maxPage ? 'textDisabled' : 'primary'} />
+              <ArrowForwardIcon color="primary" />
             </Arrow>
           </PageButtons>
         </>

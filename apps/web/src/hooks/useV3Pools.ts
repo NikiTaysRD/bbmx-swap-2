@@ -95,6 +95,7 @@ export function useV3CandidatePoolsWithoutTicks(
   } = useQuery({
     queryKey: ['v3_candidate_pools', key],
     queryFn: async () => {
+      console.log('===== pools before ', currencyA)
       const pools = await SmartRouter.getV3CandidatePools({
         currencyA,
         currencyB,
@@ -102,6 +103,7 @@ export function useV3CandidatePoolsWithoutTicks(
         onChainProvider: getViemClients,
         blockNumber: options?.blockNumber,
       })
+      console.log('===== pools ', pools)
       return {
         key,
         pools,

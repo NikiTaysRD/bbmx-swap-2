@@ -5,7 +5,6 @@ import {
   InjectedModalProps,
   Modal,
   ExpertModal,
-  PancakeToggle,
   QuestionHelper,
   Text,
   ThemeSwitcher,
@@ -33,7 +32,6 @@ import {
   useUserExpertModeAcknowledgement,
 } from '@pancakeswap/utils/user'
 import { useSubgraphHealthIndicatorManager, useUserUsernameVisibility } from 'state/user/hooks'
-import { useUserTokenRisk } from 'state/user/hooks/useUserTokenRisk'
 import {
   useOnlyOneAMMSourceEnabled,
   useUserSplitRouteEnable,
@@ -45,8 +43,7 @@ import {
 import { AtomBox } from '@pancakeswap/ui'
 import { useMMLinkedPoolByDefault } from 'state/user/mmLinkedPool'
 import styled from 'styled-components'
-import { TOKEN_RISK } from 'components/AccessRisk'
-import AccessRiskTooltips from 'components/AccessRisk/AccessRiskTooltips'
+import { baseDisplay } from 'pages/_app'
 import GasSettings from './GasSettings'
 import TransactionSettings from './TransactionSettings'
 import { SettingsMode } from './types'
@@ -93,7 +90,6 @@ const SettingsModal: React.FC<React.PropsWithChildren<InjectedModalProps>> = ({ 
   const [userUsernameVisibility, setUserUsernameVisibility] = useUserUsernameVisibility()
   const { onChangeRecipient } = useSwapActionHandlers()
   const { chainId } = useActiveChainId()
-  const [tokenRisk, setTokenRisk] = useUserTokenRisk()
 
   const { t } = useTranslation()
   const { isDark, setTheme } = useTheme()
@@ -119,15 +115,22 @@ const SettingsModal: React.FC<React.PropsWithChildren<InjectedModalProps>> = ({ 
   }
 
   return (
-    <Modal title={t('Settings')} headerBackground="gradientCardHeader" onDismiss={onDismiss}>
+    <Modal title="Transaction Settings" headerBackground="gradientCardHeader" onDismiss={onDismiss}>
       <ScrollableContainer>
+        {mode === SettingsMode.SWAP_LIQUIDITY && (
+          <>
+            <Flex pt="3px" flexDirection="column">
+              <TransactionSettings />
+            </Flex>
+          </>
+        )}
         {mode === SettingsMode.GLOBAL && (
           <>
             <Flex pb="24px" flexDirection="column">
               <PreTitle mb="24px">{t('Global')}</PreTitle>
               <Flex justifyContent="space-between" mb="24px">
                 <Text>{t('Dark mode')}</Text>
-                <ThemeSwitcher isDark={isDark} toggleTheme={() => setTheme(isDark ? 'light' : 'dark')} />
+                <ThemeSwitcher isDark={isDark} toggleTheme={() => setTheme(isDark ? 'dark' : 'dark')} />
               </Flex>
               <Flex justifyContent="space-between" alignItems="center" mb="24px">
                 <Flex alignItems="center">
@@ -165,75 +168,10 @@ const SettingsModal: React.FC<React.PropsWithChildren<InjectedModalProps>> = ({ 
               </Flex>
               {chainId === ChainId.BSC && (
                 <>
-                  <Flex justifyContent="space-between" alignItems="center" mb="24px">
-                    <Flex alignItems="center">
-                      <Text>{t('Token Risk Scanning')}</Text>
-                      <QuestionHelper
-                        text={
-                          <AccessRiskTooltips
-                            hasResult
-                            riskLevel={TOKEN_RISK.SOME_RISK}
-                            riskLevelDescription={t(
-                              'Automatic risk scanning for the selected token. This scanning result is for reference only, and should NOT be taken as investment advice.',
-                            )}
-                          />
-                        }
-                        placement="top"
-                        ml="4px"
-                      />
-                    </Flex>
-                    <Toggle
-                      id="toggle-username-visibility"
-                      checked={tokenRisk}
-                      scale="md"
-                      onChange={() => {
-                        setTokenRisk(!tokenRisk)
-                      }}
-                    />
-                  </Flex>
                   <GasSettings />
                 </>
               )}
             </Flex>
-          </>
-        )}
-        {mode === SettingsMode.SWAP_LIQUIDITY && (
-          <>
-            <Flex pt="3px" flexDirection="column">
-              <PreTitle>{t('Swaps & Liquidity')}</PreTitle>
-              <Flex justifyContent="space-between" alignItems="center" mb="24px">
-                {chainId === ChainId.BSC && <GasSettings />}
-              </Flex>
-              <TransactionSettings />
-            </Flex>
-            <Flex justifyContent="space-between" alignItems="center" mb="24px">
-              <Flex alignItems="center">
-                <Text>{t('Expert Mode')}</Text>
-                <QuestionHelper
-                  text={t('Bypasses confirmation modals and allows high slippage trades. Use at your own risk.')}
-                  placement="top"
-                  ml="4px"
-                />
-              </Flex>
-              <Toggle
-                id="toggle-expert-mode-button"
-                scale="md"
-                checked={expertMode}
-                onChange={handleExpertModeToggle}
-              />
-            </Flex>
-            <Flex justifyContent="space-between" alignItems="center" mb="24px">
-              <Flex alignItems="center">
-                <Text>{t('Flippy sounds')}</Text>
-                <QuestionHelper
-                  text={t('Fun sounds to make a truly immersive pancake-flipping trading experience')}
-                  placement="top"
-                  ml="4px"
-                />
-              </Flex>
-              <PancakeToggle checked={audioPlay} onChange={() => setAudioMode((s) => !s)} scale="md" />
-            </Flex>
-            <RoutingSettingsButton />
           </>
         )}
       </ScrollableContainer>
@@ -293,6 +231,7 @@ function RoutingSettings() {
           </Button>
         )
       }
+      className={baseDisplay.className}
     >
       <AutoColumn
         width={{
@@ -302,10 +241,12 @@ function RoutingSettings() {
         gap="16px"
       >
         <AtomBox>
-          <PreTitle mb="24px">{t('Liquidity source')}</PreTitle>
+          <PreTitle mb="24px" color="white" textTransform="capitalize">
+            {t('Liquidity source')}
+          </PreTitle>
           <Flex justifyContent="space-between" alignItems="center" mb="24px">
             <Flex alignItems="center">
-              <Text>PancakeSwap V3</Text>
+              <Text>BBMXSwap V3</Text>
               <QuestionHelper
                 text={
                   <Flex>
@@ -329,7 +270,7 @@ function RoutingSettings() {
           </Flex>
           <Flex justifyContent="space-between" alignItems="center" mb="24px">
             <Flex alignItems="center">
-              <Text>PancakeSwap V2</Text>
+              <Text>BBMXSwap V2</Text>
               <QuestionHelper
                 text={
                   <Flex flexDirection="column">
@@ -354,34 +295,7 @@ function RoutingSettings() {
           </Flex>
           <Flex justifyContent="space-between" alignItems="center" mb="24px">
             <Flex alignItems="center">
-              <Text>PancakeSwap {t('StableSwap')}</Text>
-              <QuestionHelper
-                text={
-                  <Flex flexDirection="column">
-                    <Text mr="5px">
-                      {t(
-                        'StableSwap provides higher efficiency for stable or pegged assets and lower fees for trades.',
-                      )}
-                    </Text>
-                  </Flex>
-                }
-                placement="top"
-                ml="4px"
-              />
-            </Flex>
-            <PancakeToggle
-              disabled={isStableSwapByDefault && onlyOneAMMSourceEnabled}
-              id="stable-swap-toggle"
-              scale="md"
-              checked={isStableSwapByDefault}
-              onChange={() => {
-                setIsStableSwapByDefault((s) => !s)
-              }}
-            />
-          </Flex>
-          <Flex justifyContent="space-between" alignItems="center" mb="24px">
-            <Flex alignItems="center">
-              <Text>{`PancakeSwap ${t('MM Linked Pool')}`}</Text>
+              <Text>{`BBMXSwap ${t('MM Linked Pool')}`}</Text>
               <QuestionHelper
                 text={
                   <Flex flexDirection="column">
@@ -413,7 +327,9 @@ function RoutingSettings() {
           )}
         </AtomBox>
         <AtomBox>
-          <PreTitle mb="24px">{t('Routing preference')}</PreTitle>
+          <PreTitle mb="24px" color="white" textTransform="capitalize">
+            {t('Routing preference')}
+          </PreTitle>
           <AutoRow alignItems="center" mb="24px">
             <RowFixed as="label" gap="16px">
               <Checkbox

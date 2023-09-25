@@ -7,21 +7,23 @@ import { formatAmount } from '@pancakeswap/utils/formatFractions'
 import { useCurrencyBalance } from 'state/wallet/hooks'
 import useBUSDPrice from 'hooks/useBUSDPrice'
 import { useAccount } from 'wagmi'
+import { baseDisplay } from 'pages/_app'
 import { CurrencyLogo } from '../Logo'
 import { RowBetween, AutoRow } from '../Layout/Row'
 
 const DropDownHeader = styled.div`
   width: 100%;
-  height: 40px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0px 16px;
+  padding: 0 16px;
   box-shadow: ${({ theme }) => theme.shadows.inset};
   border: 1px solid ${({ theme }) => theme.colors.inputSecondary};
-  border-radius: 16px;
+  border-radius: 6px;
   background: ${({ theme }) => theme.colors.input};
   transition: border-radius 0.15s;
+  background: #101124;
 `
 
 const DropDownContainer = styled(Button)`
@@ -29,8 +31,8 @@ const DropDownContainer = styled(Button)`
   width: 100%;
   position: relative;
   background: ${({ theme }) => theme.colors.input};
-  border-radius: 16px;
-  height: 40px;
+  border-radius: 6px;
+  height: 44px;
   min-width: 136px;
   user-select: none;
   z-index: 20;
@@ -92,7 +94,7 @@ export const CurrencySelect = ({
             ) : (
               <Flex alignItems="center" justifyContent="space-between">
                 <CurrencyLogo currency={selectedCurrency} size="24px" style={{ marginRight: '8px' }} />
-                <Text id="pair" bold>
+                <Text id="pair" bold className={baseDisplay.className} fontWeight="400">
                   {selectedCurrency && selectedCurrency.symbol && selectedCurrency.symbol.length > 20
                     ? `${selectedCurrency.symbol.slice(0, 4)}...${selectedCurrency.symbol.slice(
                         selectedCurrency.symbol.length - 5,

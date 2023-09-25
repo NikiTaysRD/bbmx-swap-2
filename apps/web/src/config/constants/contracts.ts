@@ -1,3 +1,4 @@
+import { ChainId } from '@pancakeswap/sdk'
 import { masterChefV3Addresses } from '@pancakeswap/farms'
 import { DEPLOYER_ADDRESSES } from '@pancakeswap/v3-sdk'
 import { V3_QUOTER_ADDRESSES } from '@pancakeswap/smart-router/evm'
@@ -31,6 +32,7 @@ export default {
     1101: '0xcA11bde05977b3631167028862bE2a173976CA11',
     42161: '0xcA11bde05977b3631167028862bE2a173976CA11',
     421613: '0xcA11bde05977b3631167028862bE2a173976CA11',
+    [ChainId.BASE_TESTNET]: '0xcA11bde05977b3631167028862bE2a173976CA11',
   },
   pancakeProfile: {
     56: '0xDf4dBf6536201370F95e06A0F8a7a70fE40E388a',
@@ -198,6 +200,7 @@ export default {
     42161: '0x46A15B0b27311cedF172AB29E4f4766fbE7F4364',
     59140: '0xacFa791C833120c769Fd3066c940B7D30Cd8BC73',
     421613: '0xb10120961f7504766976A89E29802Fa00553da5b',
+    [ChainId.BASE_TESTNET]: '0x0F81fD8DaC20A21029B496D8F8E08385201B8ca0',
   },
   v3PoolDeployer: DEPLOYER_ADDRESSES,
   v3Migrator: {
@@ -212,6 +215,7 @@ export default {
     42161: '0xbC203d7f83677c7ed3F7acEc959963E7F4ECC5C2',
     59140: '0x3652Fc6EDcbD76161b8554388867d3dAb65eCA93',
     421613: '0xCcf770BdBD8ccC57a7a7ABff53825fD895a06238',
+    [ChainId.BASE_TESTNET]: '0x8Ae8592a24CD13b7E09D2763E7d6A39E3c0D6bad',
   },
   quoter: V3_QUOTER_ADDRESSES,
   v3Airdrop: {

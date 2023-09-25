@@ -6,6 +6,7 @@ import { useTranslation } from '@pancakeswap/localization'
 import { formatAmount } from '@pancakeswap/utils/formatFractions'
 import { warningSeverity, basisPointsToPercent } from 'utils/exchange'
 import { CurrencyLogo } from 'components/Logo'
+import { baseDisplay } from 'pages/_app'
 import { RowBetween, RowFixed } from 'components/Layout/Row'
 import truncateHash from '@pancakeswap/utils/truncateHash'
 import { TruncatedText, SwapShowAcceptChanges } from './styleds'
@@ -75,12 +76,12 @@ export default function SwapModalHeader({
       <RowBetween align="flex-end">
         <RowFixed gap="4px">
           <CurrencyLogo currency={inputAmount.currency} size="24px" style={{ marginRight: '12px' }} />
-          <TruncatedText fontSize="24px" color={inputTextColor}>
+          <TruncatedText fontSize="24px" color={inputTextColor} className={baseDisplay.className}>
             {formatAmount(inputAmount, 6)}
           </TruncatedText>
         </RowFixed>
         <RowFixed gap="0px">
-          <Text fontSize="24px" ml="10px">
+          <Text fontSize="24px" ml="10px" className={baseDisplay.className}>
             {inputAmount.currency.symbol}
           </Text>
         </RowFixed>
@@ -92,6 +93,7 @@ export default function SwapModalHeader({
         <RowFixed gap="4px">
           <CurrencyLogo currency={outputAmount.currency} size="24px" />
           <TruncatedText
+            className={baseDisplay.className}
             fontSize="24px"
             color={
               priceImpactSeverity > 2
@@ -105,7 +107,7 @@ export default function SwapModalHeader({
           </TruncatedText>
         </RowFixed>
         <RowFixed>
-          <Text fontSize="24px" ml="10px">
+          <Text fontSize="24px" ml="10px" className={baseDisplay.className}>
             {outputAmount.currency.symbol}
           </Text>
         </RowFixed>
@@ -115,7 +117,10 @@ export default function SwapModalHeader({
           <RowBetween>
             <RowFixed>
               <ErrorIcon mr="8px" />
-              <Text bold> {t('Price Updated')}</Text>
+              <Text bold className={baseDisplay.className}>
+                {' '}
+                {t('Price Updated')}
+              </Text>
             </RowFixed>
             <Button onClick={onAcceptChanges}>{t('Accept')}</Button>
           </RowBetween>
@@ -123,27 +128,27 @@ export default function SwapModalHeader({
       ) : null}
       <AutoColumn justify="flex-start" gap="sm" style={{ padding: '24px 0 0 0px' }}>
         <RowFixed style={{ width: '100%' }}>
-          <Text color="secondary" bold textTransform="uppercase">
+          <Text color="white" bold textTransform="uppercase" className={baseDisplay.className}>
             {t('Slippage Tolerance')}
           </Text>
-          <Text bold color="primary" ml="auto" textAlign="end">
+          <Text bold color="primary" ml="auto" textAlign="end" className={baseDisplay.className}>
             {typeof allowedSlippage === 'number'
               ? `${basisPointsToPercent(allowedSlippage).toFixed(2)}%`
               : allowedSlippage}
           </Text>
         </RowFixed>
         {tradeType === TradeType.EXACT_OUTPUT && !isEnoughInputBalance && (
-          <Text small color="failure" textAlign="left" style={{ width: '100%' }}>
+          <Text small color="failure" textAlign="left" style={{ width: '100%' }} className={baseDisplay.className}>
             {t('Insufficient input token balance. Your transaction may fail.')}
           </Text>
         )}
-        <Text small color="textSubtle" textAlign="left" style={{ maxWidth: '320px' }}>
+        <Text small color="textSubtle" textAlign="left" style={{ maxWidth: '320px' }} className={baseDisplay.className}>
           {tradeInfoText}
         </Text>
       </AutoColumn>
       {recipient !== null ? (
         <AutoColumn justify="flex-start" gap="sm" style={{ padding: '12px 0 0 0px' }}>
-          <Text color="textSubtle">
+          <Text color="textSubtle" className={baseDisplay.className}>
             {recipientSentToText}
             <b title={recipient}>{truncatedRecipient}</b>
             {postSentToText}

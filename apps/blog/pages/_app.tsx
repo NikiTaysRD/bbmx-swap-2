@@ -19,7 +19,7 @@ declare module 'styled-components' {
 const StyledThemeProvider: React.FC<React.PropsWithChildren> = (props) => {
   const { resolvedTheme } = useNextTheme()
   return (
-    <UIKitProvider theme={resolvedTheme === 'dark' ? dark : light} {...props}>
+    <UIKitProvider theme={resolvedTheme === 'dark' ? dark : dark} {...props}>
       {props.children}
     </UIKitProvider>
   )
@@ -60,7 +60,7 @@ function MyApp({ Component, pageProps }: AppProps) {
         <meta name="theme-color" content="#1FC7D4" />
       </Head>
       <DefaultSeo {...SEO} />
-      <NextThemeProvider>
+      <NextThemeProvider forcedTheme="dark">
         <StyledThemeProvider>
           <LanguageProvider>
             <ModalProvider>
